@@ -1,0 +1,183 @@
+/* ===== THEME OVERRIDE: light blue dashboard, no red, better contrast ===== */
+body{
+    background:#f4f7fc;
+}
+
+.sidebar{
+    background:#ffffff;
+    box-shadow:2px 0 10px rgba(0,0,0,0.05);
+}
+
+.sidebar .navbar{
+    background:#ffffff;
+}
+
+.sidebar .navbar-brand h5,
+.sidebar .navbar-brand h3{
+    color:#005BAC;
+}
+
+.sidebar .navbar-nav .nav-link{
+    color:#444;
+}
+
+.sidebar .navbar-nav .nav-link.active,
+.sidebar .navbar-nav .nav-link:hover{
+    background:#005BAC;
+    color:#fff;
+}
+
+.sidebar .nav-link i{
+    background:#eef3ff;
+}
+
+.content .navbar{
+    background:#ffffff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.content .navbar .navbar-nav .nav-link{
+    color:#555;
+}
+
+.bg-secondary,
+.bg-primary,
+.bg-dark{
+    background:#ffffff !important;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.bg-secondary h6,
+.bg-primary h6,
+.bg-dark h6{
+    color:#555;
+}
+
+.bg-secondary h4,
+.bg-primary h4,
+.bg-dark h4{
+    color:#005BAC;
+    font-weight:600;
+}
+
+.fa-chart-bar,
+.fa-chart-pie,
+.fa-chart-line{
+    color:#FFB800 !important;
+}
+
+.chart-container,
+.card{
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.text-danger{
+    color:#FFB800 !important;
+}
+
+.back-to-top{
+    background:#005BAC;
+}
+
+/* ===== SIDEBAR ACCORDION: submenu di alur dokumen, tidak tabrakan ===== */
+.main-sidebar .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-sidebar .sidebar-menu > li.nav-item {
+    display: block;
+}
+
+.main-sidebar .sidebar-accordion-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.main-sidebar .sidebar-accordion-trigger span {
+    flex: 1;
+}
+.main-sidebar .sidebar-accordion .sidebar-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+.main-sidebar .sidebar-accordion.open .sidebar-arrow {
+    transform: rotate(180deg);
+}
+
+/* Submenu selalu di dalam flow + animasi (tidak pakai display none/block) */
+.main-sidebar .sidebar-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 220ms ease, opacity 160ms ease;
+    background: rgba(0,0,0,0.03);
+    border-left: 3px solid rgba(0,90,172,0.3);
+}
+.main-sidebar .sidebar-accordion.open .sidebar-submenu {
+    max-height: 520px; /* cukup untuk submenu panjang */
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .main-sidebar .sidebar-submenu,
+    .main-sidebar .sidebar-accordion .sidebar-arrow {
+        transition: none;
+    }
+}
+
+.main-sidebar .sidebar-submenu li {
+    margin: 0;
+    list-style: none;
+}
+.main-sidebar .sidebar-submenu li a.nav-link {
+    padding: 8px 16px 8px 40px;
+    line-height: 1.4;
+    display: block;
+    border-radius: 0;
+    font-size: 0.9rem;
+}
+.main-sidebar .sidebar-submenu li a.nav-link:hover,
+.main-sidebar .sidebar-submenu li.active a.nav-link {
+    background: rgba(0,90,172,0.08);
+    color: #005BAC;
+}
+
+#sidebar-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ===== FORM FIX: pastikan teks input terlihat (Stisla + Bootstrap 5) ===== */
+.form-label,
+.form-check-label,
+label {
+    color: #2c2f33;
+}
+
+input.form-control,
+select.form-control,
+textarea.form-control,
+.form-control {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.form-control::placeholder {
+    color: rgba(17, 24, 39, 0.45) !important;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #f3f4f6 !important;
+    color: rgba(17, 24, 39, 0.8) !important;
+}
