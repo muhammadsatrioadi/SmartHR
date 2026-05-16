@@ -15,6 +15,7 @@ class Cuti extends Model
         'tanggal_mulai',
         'tanggal_berakhir',
         'keterangan',
+        'lampiran',
         'jenis_cuti',
         'status',
         'saldo_awal',

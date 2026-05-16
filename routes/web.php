@@ -109,6 +109,7 @@ Route::post('/karyawans/create-proses', [KaryawanController::class,'store'])->na
 Route::get('/karyawans/edit/{id}', [KaryawanController::class,'edit'])->name('karyawans.edit');
 Route::put('/karyawans/edit-proses/{id}', [KaryawanController::class,'update'])->name('karyawans.update');
 Route::delete('/karyawans/delete/{id}', [KaryawanController::class,'destroy'])->name('karyawans.delete');
+Route::post('/karyawans/{id}/reset-device', [KaryawanController::class, 'resetDevice'])->name('karyawans.resetDevice');
 
 // Setup master: Jabatan, Golongan, Pangkat, Status Pegawai, Departemen, Unit Kerja
 Route::get('/golongans', [GolonganController::class, 'index'])->name('golongan.index');

@@ -35,6 +35,19 @@
                         <br><small class="text-muted">{{ $cuti->tanggal_mulai?->format('d/m/Y') }} s/d {{ $cuti->tanggal_berakhir?->format('d/m/Y') }} ({{ $cuti->hak_diambil }} hari)</small>
                     </div>
                     
+                    <div class="mt-2 p-2 bg-light rounded small border">
+                        <strong>Keterangan:</strong><br>
+                        {{ $cuti->keterangan }}
+                    </div>
+
+                    @if($cuti->lampiran)
+                        <div class="mt-2">
+                            <a href="{{ asset('storage/' . $cuti->lampiran) }}" target="_blank" class="btn btn-sm btn-outline-primary w-100 py-1">
+                                <i class="fas fa-file-alt"></i> Lihat Dokumen Pendukung
+                            </a>
+                        </div>
+                    @endif
+                    
                     @if($cuti->status === 'menunggu_atasan' && in_array(auth()->user()->role, ['atasan', 'manajer']))
                         <div class="mt-2 d-flex gap-2">
                             <form method="POST" action="{{ route('cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
@@ -68,6 +81,19 @@
                         <br><small class="text-muted">{{ $ot->jam_mulai }} - {{ $ot->jam_selesai }}</small>
                         <br><span class="text-info small">Bayar: {{ $ot->pilihan_pembayaran === 'bulan_ini' ? 'Gaji Bulan Ini' : 'Gaji Bulan Depan' }}</span>
                     </div>
+
+                    <div class="mt-2 p-2 bg-light rounded small border">
+                        <strong>Pekerjaan:</strong><br>
+                        {{ $ot->keterangan_pekerjaan }}
+                    </div>
+
+                    @if($ot->bukti_screenshot)
+                        <div class="mt-2">
+                            <a href="{{ asset('storage/' . $ot->bukti_screenshot) }}" target="_blank" class="btn btn-sm btn-outline-primary w-100 py-1">
+                                <i class="fas fa-image"></i> Lihat Bukti Screenshot
+                            </a>
+                        </div>
+                    @endif
                     
                     @if($ot->status === 'menunggu_approval' && in_array(auth()->user()->role, ['atasan', 'manajer']))
                         <div class="mt-2 d-flex gap-2">

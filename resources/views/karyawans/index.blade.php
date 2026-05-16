@@ -17,6 +17,23 @@
     </div>
 
     <div class="section-body">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert"><span>&times;</span></button>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert"><span>&times;</span></button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
         <div class="card mt-3">
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -58,13 +75,22 @@
                                     <td class="text-center">
                                         <div class="btn-group btn-group-sm" role="group">
                                             <a href="{{ route('karyawans.edit', ['id' => $karyawan->id]) }}"
-                                                class="btn btn-warning">Edit</a>
+                                                class="btn btn-warning" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                            
+                                            <form action="{{ route('karyawans.resetDevice', $karyawan->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-info" title="Reset Login HP" 
+                                                    onclick="return confirm('Reset login perangkat untuk {{ $karyawan->name }}? Karyawan harus login ulang di HP baru.')">
+                                                    <i class="fas fa-mobile-alt"></i>
+                                                </button>
+                                            </form>
+
                                             <form action="{{ route('karyawans.delete', ['id' => $karyawan->id]) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                                                <button type="submit" class="btn btn-danger" title="Hapus"
+                                                    onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>

@@ -198,7 +198,13 @@ class PortalController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_berakhir' => 'required|date|after_or_equal:tanggal_mulai',
             'keterangan' => 'required|string|max:255',
+            'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
+
+        $path = null;
+        if ($request->hasFile('lampiran')) {
+            $path = $request->file('lampiran')->store('leaves', 'public');
+        }
 
         $tanggalMulai = Carbon::parse($validated['tanggal_mulai']);
         $tanggalBerakhir = Carbon::parse($validated['tanggal_berakhir']);
@@ -223,6 +229,7 @@ class PortalController extends Controller
             'tanggal_mulai' => $validated['tanggal_mulai'],
             'tanggal_berakhir' => $validated['tanggal_berakhir'],
             'keterangan' => $validated['keterangan'],
+            'lampiran' => $path,
             'jenis_cuti' => $leaveType->nama,
             'status' => 'menunggu_atasan',
             'saldo_awal' => $balance->kuota,

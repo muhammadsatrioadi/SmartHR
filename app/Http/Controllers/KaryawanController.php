@@ -12,6 +12,7 @@ use App\Models\WorkUnit;
 use App\Models\ShiftGroup;
 use App\Models\EmployeeEmploymentHistory;
 use App\Models\User;
+use App\Models\UserDevice;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -286,8 +287,25 @@ class KaryawanController extends Controller
 
     public function destroy($id)
     {
+        Karyawan::where('id', $id)->delete();
+        return redirect()->route('karyawans.index')->with('success', 'Data karyawan berhasil dihapus.');
+    }
+
+    /**
+     * Reset binding perangkat (login) untuk karyawan/manajer
+     */
+    public function resetDevice($id)
+    {
         $karyawan = Karyawan::findOrFail($id);
-        $karyawan->delete();
-        return redirect()->route('karyawans.index')->with('success', 'Data Karyawan berhasil dihapus.');
+        
+        if ($karyawan->email) {
+            $user = User::where('email', $karyawan->email)->first();
+            if ($user) {
+                UserDevice::where('user_id', $user->id)->delete();
+                return back()->with('success', "Login perangkat untuk {$karyawan->name} berhasil di-reset.");
+            }
+        }
+
+        return back()->with('error', "User untuk karyawan ini tidak ditemukan atau email kosong.");
     }
 }

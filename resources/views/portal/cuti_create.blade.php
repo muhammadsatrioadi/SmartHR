@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <form action="{{ route('portal.cuti.simpan') }}" method="POST">
+    <form action="{{ route('portal.cuti.simpan') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label class="form-label small">Jenis Cuti</label>
@@ -47,6 +47,11 @@
         <div class="mb-3">
             <label class="form-label small">Keterangan / Alasan</label>
             <textarea name="keterangan" class="form-control form-control-sm" rows="3" required>{{ old('keterangan') }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small">Dokumen Pendukung (Opsional)</label>
+            <input type="file" name="lampiran" class="form-control form-control-sm" accept="image/*,application/pdf">
+            <div class="form-text small">Unggah surat dokter atau bukti pendukung lainnya.</div>
         </div>
         <button type="submit" class="portal-btn-checkin w-100">
             <i class="fas fa-paper-plane"></i> KIRIM PENGAJUAN
