@@ -100,6 +100,7 @@
                                     <select name="role" class="form-select @error('role') is-invalid @enderror" required>
                                         <option value="karyawan" {{ old('role', $currentRole) == 'karyawan' ? 'selected' : '' }}>Karyawan (Hanya lihat jadwal sendiri)</option>
                                         <option value="atasan" {{ old('role', $currentRole) == 'atasan' ? 'selected' : '' }}>Supervisor / Atasan (Bisa atur jadwal bawahan)</option>
+                                        <option value="manajer" {{ old('role', $currentRole) == 'manajer' ? 'selected' : '' }}>Manajer (Approval & Statistik Tim)</option>
                                         <option value="admin_hr" {{ old('role', $currentRole) == 'admin_hr' ? 'selected' : '' }}>Admin HR (Akses Penuh)</option>
                                     </select>
                                     @error('role')<div class="invalid-feedback">{{ $message }}</div>@enderror

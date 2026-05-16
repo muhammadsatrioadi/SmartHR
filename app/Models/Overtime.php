@@ -24,6 +24,8 @@ class Overtime extends Model
         'keterangan_pekerjaan',
         'pegawai_telah_menyetujui',
         'referensi_persetujuan_pegawai',
+        'pilihan_pembayaran',
+        'bukti_screenshot',
         'status',
         'approved_by_supervisor_id',
         'approved_at_supervisor',

@@ -17,12 +17,17 @@ use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\ShiftGroupController;
 use App\Http\Controllers\WorkShiftController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\LeaveBalanceController;
 use App\Http\Controllers\EmployeeScheduleController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\SalaryStepController;
 use App\Http\Controllers\EmployeeSalaryHistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndonesiaController;
+use App\Http\Controllers\PortalController;
+use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\AttendanceLocationController;
+use App\Http\Controllers\ReimbursementController;
 
 
 
@@ -39,6 +44,43 @@ Route::middleware(['auth'])->group(function () {
 //route Dashboard
 Route::get('/dashboard', [Dashboard::class,'index'] )->name('index');
 Route::get('/profile', [Dashboard::class,'profile'] )->name('profile');
+
+// Portal karyawan & atasan (UI mobile)
+Route::prefix('portal')->name('portal.')->group(function () {
+    Route::get('/', [PortalController::class, 'home'])->name('home');
+    Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi');
+    Route::post('/presensi/checkin', [PresensiController::class, 'checkin'])->name('presensi.checkin');
+    Route::post('/device/register', [PresensiController::class, 'registerDevice'])->name('device.register');
+    Route::get('/absensi', [PortalController::class, 'absensiHistory'])->name('absensi');
+    Route::get('/absensi/subordinate', [PortalController::class, 'subordinateAttendance'])->name('absensi.subordinate');
+    Route::get('/cuti', [PortalController::class, 'cuti'])->name('cuti');
+    Route::get('/cuti/approvals', [PortalController::class, 'approvals'])->name('cuti.approvals');
+    Route::get('/cuti/ajukan', [PortalController::class, 'ajukanCuti'])->name('cuti.ajukan');
+    Route::post('/cuti/ajukan', [PortalController::class, 'simpanCuti'])->name('cuti.simpan');
+    Route::get('/gaji', [PortalController::class, 'gaji'])->name('gaji');
+
+    // Reimburse & Lembur Portal
+    Route::get('/reimburse', [ReimbursementController::class, 'portalIndex'])->name('reimburse.index');
+    Route::get('/reimburse/create', [ReimbursementController::class, 'portalCreate'])->name('reimburse.create');
+        Route::post('/reimburse/create', [ReimbursementController::class, 'portalStore'])->name('reimburse.store');
+        Route::get('/reimburse/overtime', [ReimbursementController::class, 'portalOvertimeCreate'])->name('reimburse.overtime.create');
+        Route::post('/reimburse/overtime', [ReimbursementController::class, 'portalOvertimeStore'])->name('reimburse.overtime.store');
+
+    Route::get('/profil', [PortalController::class, 'profil'])->name('profil');
+    Route::get('/profil/password', [PortalController::class, 'ubahPassword'])->name('profil.password');
+    Route::post('/profil/password', [PortalController::class, 'updatePassword'])->name('profil.password.update');
+    Route::get('/consent', [PortalController::class, 'consent'])->name('consent');
+    Route::post('/consent', [PortalController::class, 'storeConsent'])->name('consent.store');
+});
+
+// Master titik lokasi absensi (admin)
+Route::get('/attendance-locations', [AttendanceLocationController::class, 'index'])->name('attendanceLocation.index');
+Route::get('/attendance-locations/create', [AttendanceLocationController::class, 'create'])->name('attendanceLocation.create');
+Route::post('/attendance-locations', [AttendanceLocationController::class, 'store'])->name('attendanceLocation.store');
+Route::get('/attendance-locations/{id}/edit', [AttendanceLocationController::class, 'edit'])->name('attendanceLocation.edit');
+Route::put('/attendance-locations/{id}', [AttendanceLocationController::class, 'update'])->name('attendanceLocation.update');
+Route::delete('/attendance-locations/{id}', [AttendanceLocationController::class, 'destroy'])->name('attendanceLocation.delete');
+Route::post('/attendance-locations/assign', [AttendanceLocationController::class, 'assign'])->name('attendanceLocation.assign');
 
 //route jabatan
 Route::get('/jabatans', [JabatanController::class,'index'])->name('jabatan.read');
@@ -134,6 +176,12 @@ Route::get('/leave-types/{id}/edit', [LeaveTypeController::class, 'edit'])->name
 Route::put('/leave-types/{id}', [LeaveTypeController::class, 'update'])->name('leaveType.update');
 Route::delete('/leave-types/{id}', [LeaveTypeController::class, 'destroy'])->name('leaveType.delete');
 
+// Kelola Saldo Cuti Pegawai
+Route::get('/leave-balances', [LeaveBalanceController::class, 'index'])->name('leaveBalance.index');
+Route::get('/leave-balances/{id}/edit', [LeaveBalanceController::class, 'edit'])->name('leaveBalance.edit');
+Route::put('/leave-balances/{id}', [LeaveBalanceController::class, 'update'])->name('leaveBalance.update');
+Route::post('/leave-balances/sync', [LeaveBalanceController::class, 'sync'])->name('leaveBalance.sync');
+
 // Jadwal Shift per Pegawai
 Route::get('/employee-schedules', [EmployeeScheduleController::class, 'index'])->name('employeeSchedule.index');
 Route::post('/employee-schedules', [EmployeeScheduleController::class, 'store'])->name('employeeSchedule.store');
@@ -158,6 +206,12 @@ Route::delete('/salary-steps/{id}', [SalaryStepController::class, 'destroy'])->n
 Route::get('/salary-histories', [EmployeeSalaryHistoryController::class, 'index'])->name('salaryHistory.index');
 Route::get('/salary-histories/create', [EmployeeSalaryHistoryController::class, 'create'])->name('salaryHistory.create');
 Route::post('/salary-histories', [EmployeeSalaryHistoryController::class, 'store'])->name('salaryHistory.store');
+
+// Reimbursement Admin
+Route::get('/reimbursements', [ReimbursementController::class, 'adminIndex'])->name('reimbursement.index');
+Route::post('/reimbursements/{id}/approve-supervisor', [ReimbursementController::class, 'approveSupervisor'])->name('reimbursement.approveSupervisor');
+Route::post('/reimbursements/{id}/approve-hr', [ReimbursementController::class, 'approveHr'])->name('reimbursement.approveHr');
+Route::post('/reimbursements/{id}/reject', [ReimbursementController::class, 'reject'])->name('reimbursement.reject');
 
 
 //route absensi

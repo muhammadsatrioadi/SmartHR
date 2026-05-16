@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->route('index');
+            return $this->redirectAfterLogin(Auth::user());
         }else{
             return view('login');
         }
@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (Auth::Attempt(['email'=> $request->email,'password' => $request->password])) {
             $user = Auth::user();
             session(['user' => $user]);
-            return redirect()->route('index');
+            return $this->redirectAfterLogin($user);
         }else{
             Session::flash('error', 'Email atau Password Salah');
             return redirect('/');
@@ -83,6 +83,15 @@ class LoginController extends Controller
     }
 
     return view('profile', compact('data'));
+    }
+
+    protected function redirectAfterLogin($user)
+    {
+        if (in_array($user->role ?? 'karyawan', ['karyawan', 'manajer'], true)) {
+            return redirect()->route('portal.home');
+        }
+
+        return redirect()->route('index');
     }
 
 }

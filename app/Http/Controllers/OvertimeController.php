@@ -100,8 +100,8 @@ class OvertimeController extends Controller
     public function approveSupervisor($id)
     {
         $ot = Overtime::findOrFail($id);
-        if (Auth::user()->role !== 'atasan') {
-            return back()->with('error', 'Hanya atasan yang dapat menyetujui lembur sebagai atasan.');
+        if (!in_array(Auth::user()->role, ['atasan', 'manajer'], true)) {
+            return back()->with('error', 'Hanya atasan atau manajer yang dapat menyetujui lembur.');
         }
         if ($ot->status !== 'menunggu_approval') {
             return back()->with('error', 'Status lembur tidak valid untuk persetujuan atasan.');
@@ -110,7 +110,7 @@ class OvertimeController extends Controller
             return back()->with('error', $this->weeklyQuotaErrorMessage($ot));
         }
         $ot->update([
-            'status' => 'disetujui_atasan',
+            'status' => 'disetujui',
             'approved_by_supervisor_id' => Auth::id(),
             'approved_at_supervisor' => now(),
         ]);
@@ -119,22 +119,7 @@ class OvertimeController extends Controller
 
     public function approveHr($id)
     {
-        $ot = Overtime::findOrFail($id);
-        if (Auth::user()->role !== 'admin_hr') {
-            return back()->with('error', 'Hanya HR yang dapat menyetujui lembur sebagai HR.');
-        }
-        if (!in_array($ot->status, ['menunggu_approval', 'disetujui_atasan'])) {
-            return back()->with('error', 'Status lembur tidak valid untuk persetujuan HR.');
-        }
-        if (!$this->weeklyOvertimeQuotaAllows($ot)) {
-            return back()->with('error', $this->weeklyQuotaErrorMessage($ot));
-        }
-        $ot->update([
-            'status' => 'disetujui',
-            'approved_by_hr_id' => Auth::id(),
-            'approved_at_hr' => now(),
-        ]);
-        return back()->with('success', 'Lembur disetujui HR.');
+        return back()->with('error', 'Admin HR hanya dapat melihat data, persetujuan lembur dilakukan oleh Atasan.');
     }
 
     public function reject(Request $request, $id)

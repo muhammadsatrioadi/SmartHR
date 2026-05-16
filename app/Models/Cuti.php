@@ -38,4 +38,11 @@ class Cuti extends Model
     {
         return $this->belongsTo(LeaveType::class);
     }
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_berakhir' => 'date',
+        'approved_at_supervisor' => 'datetime',
+        'approved_at_hr' => 'datetime',
+    ];
 }

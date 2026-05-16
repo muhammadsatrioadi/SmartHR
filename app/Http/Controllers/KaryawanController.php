@@ -61,15 +61,21 @@ class KaryawanController extends Controller
 
         // Sinkron user login untuk karyawan (dibuat/diupdate oleh Admin HR)
         if (!empty($karyawan->email)) {
+            $userData = [
+                'name' => $karyawan->name,
+                'role' => $request->input('role', 'karyawan'),
+            ];
+
+            $user = User::where('email', $karyawan->email)->first();
+            if (!$user) {
+                // Password awal: NIK atau 'karyawan123' jika NIK kosong
+                $userData['password'] = Hash::make($karyawan->nik ?: 'karyawan123');
+                $userData['imgProfile'] = 'user.jpg';
+            }
+
             User::updateOrCreate(
                 ['email' => $karyawan->email],
-                [
-                    'name' => $karyawan->name,
-                    'role' => $request->input('role', 'karyawan'),
-                    // Password awal: NIK atau 'karyawan123' jika NIK kosong
-                    'password' => Hash::make($karyawan->nik ?: 'karyawan123'),
-                    'imgProfile' => 'user.jpg',
-                ]
+                $userData
             );
         }
 
@@ -89,7 +95,7 @@ class KaryawanController extends Controller
             'name' => 'required|string|max:255',
             'nama_lengkap' => 'nullable|string|max:255',
             'email' => 'required|email|unique:karyawans,email,' . (int) $id,
-            'role' => 'nullable|string|in:admin_hr,atasan,karyawan',
+            'role' => 'nullable|string|in:admin_hr,atasan,manajer,karyawan',
             'jenis_kelamin' => 'required|string|max:50',
             'telephone' => 'required|string|max:30',
             'handphone' => 'nullable|string|max:30',
@@ -242,12 +248,22 @@ class KaryawanController extends Controller
 
         // Update user login jika email/nama karyawan berubah
         if (!empty($karyawan->email)) {
+            $userData = [
+                'name' => $karyawan->name,
+                'role' => $request->input('role', 'karyawan'),
+            ];
+
+            // Jika user baru akan dibuat, tambahkan password default dan profile image
+            // Jika user sudah ada, kita tidak ingin menimpa password mereka setiap kali edit data karyawan
+            $user = User::where('email', $karyawan->email)->first();
+            if (!$user) {
+                $userData['password'] = Hash::make($karyawan->nik ?: 'karyawan123');
+                $userData['imgProfile'] = 'user.jpg';
+            }
+
             User::updateOrCreate(
                 ['email' => $karyawan->email],
-                [
-                    'name' => $karyawan->name,
-                    'role' => $request->input('role', 'karyawan'),
-                ]
+                $userData
             );
         }
 

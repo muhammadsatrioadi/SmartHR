@@ -21,5 +21,17 @@ class LeaveType extends Model
         'satuan_masa_kerja',
         'max_backdate',
         'rekap',
+        'kuota_hari',
     ];
+
+    protected $casts = [
+        'kuota_hari' => 'float',
+        'pakai_periode' => 'boolean',
+        'rekap' => 'boolean',
+    ];
+
+    public function balances()
+    {
+        return $this->hasMany(EmployeeLeaveBalance::class);
+    }
 }

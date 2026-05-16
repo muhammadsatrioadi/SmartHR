@@ -32,9 +32,11 @@ class LeaveTypeController extends Controller
             'satuan_masa_kerja' => 'nullable|in:hari,bulan,tahun',
             'max_backdate' => 'nullable|integer|min:0',
             'rekap' => 'nullable|boolean',
+            'kuota_hari' => 'nullable|numeric|min:0|max:365',
         ]);
         $validated['pakai_periode'] = (bool)($request->input('pakai_periode', false));
         $validated['rekap'] = (bool)($request->input('rekap', true));
+        $validated['kuota_hari'] = $validated['kuota_hari'] ?? 0;
 
         LeaveType::create($validated);
         return redirect()->route('leaveType.index')->with('success', 'Jenis cuti berhasil ditambahkan.');
@@ -61,9 +63,11 @@ class LeaveTypeController extends Controller
             'satuan_masa_kerja' => 'nullable|in:hari,bulan,tahun',
             'max_backdate' => 'nullable|integer|min:0',
             'rekap' => 'nullable|boolean',
+            'kuota_hari' => 'nullable|numeric|min:0|max:365',
         ]);
         $validated['pakai_periode'] = (bool)($request->input('pakai_periode', false));
         $validated['rekap'] = (bool)($request->input('rekap', true));
+        $validated['kuota_hari'] = $validated['kuota_hari'] ?? 0;
 
         $item->update($validated);
         return redirect()->route('leaveType.index')->with('success', 'Jenis cuti berhasil diperbarui.');

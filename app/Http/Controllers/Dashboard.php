@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 class Dashboard extends Controller
 {
     public function index(){
+        $user = Auth::user();
+        if (in_array($user->role ?? 'karyawan', ['karyawan', 'manajer'], true)) {
+            return redirect()->route('portal.home');
+        }
+
         $dataKaryawan = Karyawan::count('id');
         $dataCuti = Cuti::count('id');
         $dataCutis = Cuti::paginate(6);

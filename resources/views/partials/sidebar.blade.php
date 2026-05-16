@@ -41,6 +41,7 @@
                         <li class="{{ request()->routeIs('shiftGroup.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shiftGroup.index') }}">Group Shift</a></li>
                         <li class="{{ request()->routeIs('workShift.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workShift.index') }}">Shift Kerja</a></li>
                         <li class="{{ request()->routeIs('leaveType.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveType.index') }}">Jenis Cuti</a></li>
+                        <li class="{{ request()->routeIs('leaveBalance.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveBalance.index') }}">Saldo Cuti Pegawai</a></li>
                     </ul>
                 </li>
                 <li class="nav-item {{ request()->routeIs('employeeSchedule.*') ? 'active' : '' }}">
@@ -64,13 +65,25 @@
                 </li>
             @endif
 
-            {{-- Lembur & Absensi: bisa diakses admin_hr, atasan, dan karyawan --}}
-            @if (in_array($role, ['admin_hr', 'atasan', 'karyawan']))
-                <li class="nav-item {{ request()->routeIs('overtime.*') ? 'active' : '' }}">
-                    <a href="{{ route('overtime.index') }}" class="nav-link"><i class="fas fa-clock"></i><span>Lembur</span></a>
+            {{-- Lembur & Absensi: bisa diakses admin_hr, atasan, manajer, dan karyawan --}}
+            @if (in_array($role, ['admin_hr', 'atasan', 'manajer', 'karyawan']))
+                <li class="nav-item {{ request()->routeIs('portal.*') ? 'active' : '' }}">
+                    <a href="{{ route('portal.home') }}" class="nav-link"><i class="fas fa-mobile-alt"></i><span>Portal Karyawan</span></a>
                 </li>
+                <li class="nav-item sidebar-accordion {{ request()->routeIs('reimbursement.*','overtime.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i><span>Klaim & Lembur</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                    <ul class="sidebar-submenu">
+                        <li class="{{ request()->routeIs('reimbursement.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('reimbursement.index') }}">Reimbursement Nota</a></li>
+                        <li class="{{ request()->routeIs('overtime.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('overtime.index') }}">Lembur Pegawai</a></li>
+                    </ul>
+                </li>
+                @if ($role === 'admin_hr')
+                <li class="nav-item {{ request()->routeIs('attendanceLocation.*') ? 'active' : '' }}">
+                    <a href="{{ route('attendanceLocation.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i><span>Titik Lokasi Absensi</span></a>
+                </li>
+                @endif
                 <li class="nav-item {{ request()->routeIs('absensi.*') ? 'active' : '' }}">
-                    <a href="{{ route('absensi.read') }}" class="nav-link"><i class="fas fa-fingerprint"></i><span>Absensi</span></a>
+                    <a href="{{ route('absensi.read') }}" class="nav-link"><i class="fas fa-fingerprint"></i><span>Absensi Admin</span></a>
                 </li>
             @endif
         </ul>

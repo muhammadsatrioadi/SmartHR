@@ -119,6 +119,8 @@
                                             (Hanya lihat jadwal sendiri)</option>
                                         <option value="atasan" {{ old('role') == 'atasan' ? 'selected' : '' }}>Supervisor /
                                             Atasan (Bisa atur jadwal bawahan)</option>
+                                        <option value="manajer" {{ old('role') == 'manajer' ? 'selected' : '' }}>Manajer
+                                            (Approval & Statistik Tim)</option>
                                         <option value="admin_hr" {{ old('role') == 'admin_hr' ? 'selected' : '' }}>Admin HR
                                             (Akses Penuh)</option>
                                     </select>

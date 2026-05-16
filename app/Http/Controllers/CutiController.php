@@ -6,12 +6,18 @@ use App\Models\Absensi;
 use App\Models\Cuti;
 use App\Models\Karyawan;
 use App\Models\LeaveType;
+use App\Services\LeaveBalanceService;
+use App\Support\KaryawanResolver;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CutiController extends Controller
 {
+    public function __construct(
+        protected LeaveBalanceService $leaveBalance
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -50,16 +56,33 @@ class CutiController extends Controller
         $tanggalBerakhir = Carbon::parse($validated['tanggal_berakhir']);
 
         $jumlahHari = $tanggalMulai->diffInDays($tanggalBerakhir) + 1;
-
-        // hitung saldo sederhana untuk cuti tahunan
-        $saldoAwal = 12;
         $tahun = $tanggalMulai->year;
+        $leaveType = LeaveType::find($validated['leave_type_id']);
+        $karyawan = Karyawan::findOrFail($validated['karyawan_id']);
+
+        $this->leaveBalance->ensureBalancesForYear($karyawan, $tahun);
+        $saldoAwal = $leaveType?->kuota_hari ?? 0;
+
+        if ($leaveType && $validated['leave_type_id']) {
+            $balance = \App\Models\EmployeeLeaveBalance::where('karyawan_id', $karyawan->id)
+                ->where('leave_type_id', $leaveType->id)
+                ->where('tahun', $tahun)
+                ->first();
+
+            if (!$balance || $balance->sisa < $jumlahHari) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Saldo cuti tidak mencukupi untuk jenis ' . $leaveType->nama . '.');
+            }
+            $saldoAwal = $balance->kuota;
+        }
+
+        $hakDiambil = $jumlahHari;
         $totalDiambilTahunIni = Cuti::where('karyawan_id', $validated['karyawan_id'])
+            ->where('leave_type_id', $validated['leave_type_id'])
             ->whereYear('tanggal_mulai', $tahun)
             ->where('status', 'disetujui')
             ->sum('hak_diambil');
-
-        $hakDiambil = $jumlahHari;
         $saldoSisa = max($saldoAwal - ($totalDiambilTahunIni + $hakDiambil), 0);
 
         $cuti = Cuti::create([
@@ -170,32 +193,30 @@ class CutiController extends Controller
     {
         $cuti = Cuti::findOrFail($id);
         if ($cuti->status !== 'menunggu_atasan') {
-            return back()->with('error', 'Status cuti tidak valid untuk persetujuan atasan.');
-        }
-
-        $cuti->update([
-            'status' => 'menunggu_hr',
-            'approved_by_supervisor_id' => Auth::id(),
-            'approved_at_supervisor' => now(),
-        ]);
-
-        return back()->with('success', 'Cuti disetujui atasan, menunggu HR.');
-    }
-
-    public function approveHr($id)
-    {
-        $cuti = Cuti::findOrFail($id);
-        if ($cuti->status !== 'menunggu_hr') {
-            return back()->with('error', 'Status cuti tidak valid untuk persetujuan HR.');
+            return back()->with('error', 'Status cuti tidak valid untuk persetujuan.');
         }
 
         $cuti->update([
             'status' => 'disetujui',
-            'approved_by_hr_id' => Auth::id(),
-            'approved_at_hr' => now(),
+            'approved_by_supervisor_id' => Auth::id(),
+            'approved_at_supervisor' => now(),
         ]);
 
-        return back()->with('success', 'Cuti disetujui HR.');
+        $cuti->load('karyawan');
+        if ($cuti->leave_type_id && $cuti->karyawan) {
+            $this->leaveBalance->recalculateUsed(
+                $cuti->karyawan,
+                $cuti->leave_type_id,
+                (int) Carbon::parse($cuti->tanggal_mulai)->year
+            );
+        }
+
+        return back()->with('success', 'Cuti berhasil disetujui.');
+    }
+
+    public function approveHr($id)
+    {
+        return back()->with('error', 'Persetujuan cukup dilakukan oleh Atasan/Manajer.');
     }
 
     public function reject(Request $request, $id)

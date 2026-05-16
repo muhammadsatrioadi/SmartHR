@@ -103,6 +103,13 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Kuota Hari (per tahun)</label>
+                    <input type="number" step="0.5" name="kuota_hari"
+                        value="{{ old('kuota_hari', $item->kuota_hari ?? 0) }}"
+                        class="form-control" min="0" max="365">
+                </div>
+
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="rekap" name="rekap"
                         {{ old('rekap', $item->rekap) ? 'checked' : '' }}>

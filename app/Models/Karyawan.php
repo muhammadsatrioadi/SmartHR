@@ -82,6 +82,7 @@ class Karyawan extends Model
         'jaminan_polis',
         'nik_atasan',
         'lokasi_tugas',
+        'attendance_location_id',
         'gelar',
         'jenis_pegawai',
         'grup_kinerja',
@@ -207,5 +208,15 @@ class Karyawan extends Model
     public function salaryHistories()
     {
         return $this->hasMany(EmployeeSalaryHistory::class);
+    }
+
+    public function attendanceLocation()
+    {
+        return $this->belongsTo(AttendanceLocation::class);
+    }
+
+    public function leaveBalances()
+    {
+        return $this->hasMany(EmployeeLeaveBalance::class);
     }
 }
