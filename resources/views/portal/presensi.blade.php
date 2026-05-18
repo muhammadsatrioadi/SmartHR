@@ -71,16 +71,18 @@
                 $locations = $karyawan->attendance_location_id 
                     ? collect([$location]) 
                     : \App\Models\AttendanceLocation::where('is_aktif', true)->get();
-            @endphp
-            <script>
-                window.ATTENDANCE_LOCATIONS = @json($locations->map(function($loc) {
+                
+                $locationData = $locations->map(function($loc) {
                     return [
-                        'lat' => $loc->latitude,
-                        'lng' => $loc->longitude,
-                        'radius' => $loc->radius_meter,
+                        'lat' => (float) $loc->latitude,
+                        'lng' => (float) $loc->longitude,
+                        'radius' => (int) $loc->radius_meter,
                         'nama' => $loc->nama
                     ];
-                }));
+                });
+            @endphp
+            <script>
+                window.ATTENDANCE_LOCATIONS = @json($locationData);
             </script>
         @endif
     </div>
