@@ -68,19 +68,33 @@
         if (lat != null && lng != null) {
             let statusText = 'Lokasi terdeteksi (' + Number(lat).toFixed(6) + ', ' + Number(lng).toFixed(6) + ')';
             
-            if (window.ATTENDANCE_TARGET) {
-                const dist = calculateDistance(lat, lng, window.ATTENDANCE_TARGET.lat, window.ATTENDANCE_TARGET.lng);
-                const isWithin = dist <= window.ATTENDANCE_TARGET.radius;
+            if (window.ATTENDANCE_LOCATIONS && window.ATTENDANCE_LOCATIONS.length > 0) {
+                let nearestDist = null;
+                let nearestLoc = null;
+                let isWithinAny = false;
+
+                window.ATTENDANCE_LOCATIONS.forEach(loc => {
+                    const dist = calculateDistance(lat, lng, loc.lat, loc.lng);
+                    if (nearestDist === null || dist < nearestDist) {
+                        nearestDist = dist;
+                        nearestLoc = loc;
+                    }
+                    if (dist <= loc.radius) {
+                        isWithinAny = true;
+                    }
+                });
+
                 const isDinas = document.getElementById('lokasi_dinas')?.checked || false;
                 
-                if (isWithin || isDinas) {
+                if (isWithinAny || isDinas) {
                     el.classList.add('ok');
                     el.classList.remove('text-danger');
-                    statusText += '<br><small class="text-success"><i class="fas fa-check"></i> Dalam jangkauan (' + Math.round(dist) + 'm)</small>';
+                    const infoText = isDinas ? 'Mode Dinas Luar Aktif' : 'Dalam jangkauan (' + Math.round(nearestDist) + 'm)';
+                    statusText += '<br><small class="text-success"><i class="fas fa-check"></i> ' + infoText + '</small>';
                 } else {
                     el.classList.remove('ok');
                     el.classList.add('text-danger');
-                    statusText += '<br><small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Di luar jangkauan (' + Math.round(dist) + 'm)</small>';
+                    statusText += '<br><small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Di luar jangkauan (' + Math.round(nearestDist) + 'm dari ' + nearestLoc.nama + ')</small>';
                 }
             } else {
                 el.classList.add('ok');
@@ -194,7 +208,7 @@
         await registerDevice();
         
         // Coba ambil lokasi
-        let pos = { latitude: 0, longitude: 0, accuracy: 0 };
+        let pos = null;
         try {
             pos = await getCurrentPosition();
             updateGpsUI(pos.latitude, pos.longitude, pos.accuracy);
@@ -202,23 +216,34 @@
             console.warn('Gagal mendapatkan lokasi:', e.message);
         }
 
+        const isDinas = extras?.lokasi_dinas || false;
+
+        // Jika bukan dinas luar, lokasi wajib didapatkan
+        if (!pos && !isDinas) {
+            throw new Error('Gagal mendapatkan lokasi GPS. Pastikan izin lokasi aktif dan GPS menyala.');
+        }
+
         // Coba verifikasi biometrik
         const bio = await verifyBiometric();
 
         const payload = {
             tipe_absen: tipeAbsen,
-            latitude: pos.latitude,
-            longitude: pos.longitude,
-            accuracy: pos.accuracy,
+            latitude: pos ? pos.latitude : 0,
+            longitude: pos ? pos.longitude : 0,
+            accuracy: pos ? pos.accuracy : 0,
             device_fingerprint: getDeviceFingerprint(),
             biometric_credential_id: bio.credentialId,
             biometric_verified: bio.verified,
-            lokasi_dinas: extras?.lokasi_dinas || false,
+            lokasi_dinas: isDinas,
             catatan: extras?.catatan || null,
             offline_queue_id: 'q-' + Date.now(),
         };
 
-        saveOfflineQueue(payload);
+        // Simpan ke queue hanya jika kita offline
+        if (!navigator.onLine) {
+            saveOfflineQueue(payload);
+            throw new Error('Offline: data tersimpan lokal, akan dikirim saat online.');
+        }
 
         try {
             const res = await fetch(window.PORTAL_ROUTES.checkin, {
@@ -236,13 +261,15 @@
                     window.location.href = data.redirect;
                     return;
                 }
+                // Jika error karena lokasi (422), jangan simpan di queue karena akan gagal terus
                 throw new Error(data.message || 'Gagal absen');
             }
-            clearOfflineQueueItem(payload.offline_queue_id);
             return data;
         } catch (e) {
-            if (!navigator.onLine) {
-                throw new Error('Offline: data tersimpan lokal, akan dikirim saat online.');
+            // Jika error jaringan (bukan 422), simpan ke queue
+            if (e.message.includes('fetch') || e.message.includes('Network')) {
+                saveOfflineQueue(payload);
+                throw new Error('Gangguan jaringan: data tersimpan untuk sinkronisasi otomatis.');
             }
             throw e;
         }

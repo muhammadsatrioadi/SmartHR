@@ -123,14 +123,14 @@ class PresensiController extends Controller
             return response()->json(['success' => false, 'message' => $deviceResult['message']], 403);
         }
 
-        // Ambil lokasi kantor
-        $location = $karyawan->attendanceLocation
-            ?? AttendanceLocation::where('is_aktif', true)->first();
-
-        // Cek Jarak (Verifikasi Lokasi)
+        // Ambil lokasi kantor (Prioritas: Lokasi yang di-assign ke karyawan)
+        $assignedLocation = $karyawan->attendanceLocation;
+        $location = null;
         $jarak = null;
         $locationOk = false;
-        if ($location) {
+
+        if ($assignedLocation) {
+            $location = $assignedLocation;
             $jarak = GeolocationService::distanceMeters(
                 (float) $validated['latitude'],
                 (float) $validated['longitude'],
@@ -140,19 +140,54 @@ class PresensiController extends Controller
             if ($jarak <= $location->radius_meter) {
                 $locationOk = true;
             }
+        } else {
+            // Jika tidak di-assign spesifik, cek semua lokasi aktif
+            $allLocations = AttendanceLocation::where('is_aktif', true)->get();
+            foreach ($allLocations as $loc) {
+                $d = GeolocationService::distanceMeters(
+                    (float) $validated['latitude'],
+                    (float) $validated['longitude'],
+                    (float) $loc->latitude,
+                    (float) $loc->longitude
+                );
+                // Simpan jarak terdekat untuk pesan error jika semua gagal
+                if ($jarak === null || $d < $jarak) {
+                    $jarak = $d;
+                    $location = $loc;
+                }
+                if ($d <= $loc->radius_meter) {
+                    $locationOk = true;
+                    $location = $loc; // Gunakan lokasi ini
+                    $jarak = $d;
+                    break;
+                }
+            }
         }
 
         // Verifikasi Biometrik
         $biometricOk = (bool) ($validated['biometric_verified'] ?? false);
 
+        $isDinas = (bool) ($validated['lokasi_dinas'] ?? false);
+
+        // Validasi Koordinat 0 (Gagal GPS)
+        if (!$isDinas && ($validated['latitude'] == 0 || $validated['longitude'] == 0)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Koordinat GPS tidak valid (0,0). Pastikan GPS Anda aktif dan akurat.',
+            ], 422);
+        }
+
         // Validasi: Lokasi adalah MANDATORY (Kecuali Lokasi Dinas)
         // User di luar jangkauan map tidak bisa absen
-        if (!$locationOk && !($validated['lokasi_dinas'] ?? false)) {
+        if (!$locationOk && !$isDinas) {
             $msg = "Verifikasi lokasi gagal. Anda berada di luar jangkauan";
-            if ($location) $msg .= " (Radius: {$location->radius_meter}m).";
-            
-            if ($jarak !== null) {
-                $msg .= " Jarak Anda saat ini: " . round($jarak) . "m.";
+            if ($location) {
+                $msg .= " (Radius: {$location->radius_meter}m).";
+                if ($jarak !== null) {
+                    $msg .= " Jarak Anda saat ini: " . round($jarak) . "m dari " . $location->nama . ".";
+                }
+            } else {
+                $msg .= ". Titik lokasi kantor belum dikonfigurasi oleh Admin.";
             }
             $msg .= " Anda harus berada di radius lokasi kantor untuk melakukan absensi.";
 
@@ -208,8 +243,8 @@ class PresensiController extends Controller
             'attendance_location_id' => $location?->id,
             'device_fingerprint' => $validated['device_fingerprint'],
             'biometric_credential_id' => $validated['biometric_credential_id'],
-            'biometric_verified' => true,
-            'lokasi_dinas' => (bool) ($validated['lokasi_dinas'] ?? false),
+            'biometric_verified' => (bool) $validated['biometric_verified'],
+            'lokasi_dinas' => $isDinas,
             'catatan' => $validated['catatan'],
             'user_agent' => substr((string) $request->userAgent(), 0, 500),
         ]);

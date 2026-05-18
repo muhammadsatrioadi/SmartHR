@@ -67,12 +67,20 @@
             <div class="portal-verify-item small text-muted mt-2">
                 Titik absensi: {{ $location->nama }} (radius {{ $location->radius_meter }}m)
             </div>
+            @php
+                $locations = $karyawan->attendance_location_id 
+                    ? collect([$location]) 
+                    : \App\Models\AttendanceLocation::where('is_aktif', true)->get();
+            @endphp
             <script>
-                window.ATTENDANCE_TARGET = {
-                    lat: {{ $location->latitude }},
-                    lng: {{ $location->longitude }},
-                    radius: {{ $location->radius_meter }}
-                };
+                window.ATTENDANCE_LOCATIONS = @json($locations->map(function($loc) {
+                    return [
+                        'lat' => $loc->latitude,
+                        'lng' => $loc->longitude,
+                        'radius' => $loc->radius_meter,
+                        'nama' => $loc->nama
+                    ];
+                }));
             </script>
         @endif
     </div>
