@@ -51,15 +51,44 @@
         return data;
     }
 
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371000; // Radius bumi dalam meter
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
     function updateGpsUI(lat, lng, accuracy) {
         const el = document.getElementById('gps-status');
         if (!el) return;
         if (lat != null && lng != null) {
-            el.innerHTML = '<i class="fas fa-map-marker-alt"></i> Lokasi terdeteksi (' +
-                Number(lat).toFixed(6) + ', ' + Number(lng).toFixed(6) + ')';
-            el.classList.add('ok');
+            let statusText = 'Lokasi terdeteksi (' + Number(lat).toFixed(6) + ', ' + Number(lng).toFixed(6) + ')';
+            
+            if (window.ATTENDANCE_TARGET) {
+                const dist = calculateDistance(lat, lng, window.ATTENDANCE_TARGET.lat, window.ATTENDANCE_TARGET.lng);
+                const isWithin = dist <= window.ATTENDANCE_TARGET.radius;
+                const isDinas = document.getElementById('lokasi_dinas')?.checked || false;
+                
+                if (isWithin || isDinas) {
+                    el.classList.add('ok');
+                    el.classList.remove('text-danger');
+                    statusText += '<br><small class="text-success"><i class="fas fa-check"></i> Dalam jangkauan (' + Math.round(dist) + 'm)</small>';
+                } else {
+                    el.classList.remove('ok');
+                    el.classList.add('text-danger');
+                    statusText += '<br><small class="text-danger"><i class="fas fa-exclamation-triangle"></i> Di luar jangkauan (' + Math.round(dist) + 'm)</small>';
+                }
+            } else {
+                el.classList.add('ok');
+            }
+            
+            el.innerHTML = '<i class="fas fa-map-marker-alt"></i> <span>' + statusText + '</span>';
         } else {
-            el.innerHTML = '<i class="fas fa-map-marker-alt"></i> Menunggu GPS...';
+            el.innerHTML = '<i class="fas fa-map-marker-alt"></i> <span>Menunggu GPS...</span>';
             el.classList.remove('ok');
         }
         const dev = document.getElementById('device-status');
@@ -243,6 +272,18 @@
         initClock();
         initGpsWatch();
         syncOfflineQueue();
+
+        const lokasiDinasCb = document.getElementById('lokasi_dinas');
+        if (lokasiDinasCb) {
+            lokasiDinasCb.addEventListener('change', function() {
+                // Trigger UI update using last known position if available
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((pos) => {
+                        updateGpsUI(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
+                    });
+                }
+            });
+        }
         registerDevice().catch(function (e) {
             const dev = document.getElementById('device-verify-status');
             if (dev) {

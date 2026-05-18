@@ -145,26 +145,26 @@ class PresensiController extends Controller
         // Verifikasi Biometrik
         $biometricOk = (bool) ($validated['biometric_verified'] ?? false);
 
-        // Jika lokasi dinas dicentang, kita anggap verifikasi lokasi terpenuhi (dengan catatan)
-        if ($validated['lokasi_dinas'] ?? false) {
-            $locationOk = true;
-        }
-
-        // Validasi: Salah satu harus terpenuhi (Lokasi ATAU Biometrik)
-        if (!$locationOk && !$biometricOk) {
-            $msg = "Verifikasi gagal. Anda harus berada di radius lokasi kantor";
-            if ($location) $msg .= " ({$location->radius_meter}m)";
-            $msg .= " atau menggunakan verifikasi Biometrik (Sidik Jari/Face ID).";
+        // Validasi: Lokasi adalah MANDATORY (Kecuali Lokasi Dinas)
+        // User di luar jangkauan map tidak bisa absen
+        if (!$locationOk && !($validated['lokasi_dinas'] ?? false)) {
+            $msg = "Verifikasi lokasi gagal. Anda berada di luar jangkauan";
+            if ($location) $msg .= " (Radius: {$location->radius_meter}m).";
             
             if ($jarak !== null) {
                 $msg .= " Jarak Anda saat ini: " . round($jarak) . "m.";
             }
+            $msg .= " Anda harus berada di radius lokasi kantor untuk melakukan absensi.";
 
             return response()->json([
                 'success' => false,
                 'message' => $msg,
             ], 422);
         }
+
+        // Jika lokasi OK (atau dinas), kita tetap cek biometrik sebagai opsi verifikasi tambahan jika diinginkan
+        // Namun berdasarkan instruksi terbaru, fokus utama adalah pembatasan lokasi.
+        // Kita biarkan proses berlanjut jika lokasi terpenuhi.
 
         $today = Carbon::today('Asia/Jakarta')->toDateString();
         $now = Carbon::now('Asia/Jakarta');

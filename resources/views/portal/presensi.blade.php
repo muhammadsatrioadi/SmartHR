@@ -67,6 +67,13 @@
             <div class="portal-verify-item small text-muted mt-2">
                 Titik absensi: {{ $location->nama }} (radius {{ $location->radius_meter }}m)
             </div>
+            <script>
+                window.ATTENDANCE_TARGET = {
+                    lat: {{ $location->latitude }},
+                    lng: {{ $location->longitude }},
+                    radius: {{ $location->radius_meter }}
+                };
+            </script>
         @endif
     </div>
 </div>

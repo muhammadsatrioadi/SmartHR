@@ -26,7 +26,7 @@ class AttendanceLocationController extends Controller
             'nama' => 'required|string|max:150',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'radius_meter' => 'required|integer|min:1|max:100',
+            'radius_meter' => 'required|integer|min:1|max:1000',
             'is_aktif' => 'nullable|boolean',
         ]);
         $validated['is_aktif'] = (bool) $request->input('is_aktif', true);
@@ -51,7 +51,7 @@ class AttendanceLocationController extends Controller
             'nama' => 'required|string|max:150',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'radius_meter' => 'required|integer|min:1|max:100',
+            'radius_meter' => 'required|integer|min:1|max:1000',
             'is_aktif' => 'nullable|boolean',
         ]);
         $validated['is_aktif'] = (bool) $request->input('is_aktif', true);
