@@ -6,6 +6,7 @@ use App\Models\Absensi;
 use App\Models\Cuti;
 use App\Models\Karyawan;
 use App\Models\LeaveType;
+use App\Models\Holiday;
 use App\Services\LeaveBalanceService;
 use App\Support\KaryawanResolver;
 use Carbon\Carbon;
@@ -55,7 +56,24 @@ class CutiController extends Controller
         $tanggalMulai = Carbon::parse($validated['tanggal_mulai']);
         $tanggalBerakhir = Carbon::parse($validated['tanggal_berakhir']);
 
-        $jumlahHari = $tanggalMulai->diffInDays($tanggalBerakhir) + 1;
+        // Hitung jumlah hari kerja (melewati akhir pekan dan hari libur nasional)
+        $hakDiambil = 0;
+        for ($date = $tanggalMulai->copy(); $date->lte($tanggalBerakhir); $date->addDay()) {
+            if ($date->isWeekend()) {
+                continue;
+            }
+            if (Holiday::whereDate('tanggal', $date)->exists()) {
+                continue;
+            }
+            $hakDiambil++;
+        }
+
+        if ($hakDiambil <= 0) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Rentang tanggal yang dipilih hanya berisi hari libur atau akhir pekan.');
+        }
+
         $tahun = $tanggalMulai->year;
         $leaveType = LeaveType::find($validated['leave_type_id']);
         $karyawan = Karyawan::findOrFail($validated['karyawan_id']);
@@ -69,15 +87,14 @@ class CutiController extends Controller
                 ->where('tahun', $tahun)
                 ->first();
 
-            if (!$balance || $balance->sisa < $jumlahHari) {
+            if (!$balance || $balance->sisa < $hakDiambil) {
                 return redirect()->back()
                     ->withInput()
-                    ->with('error', 'Saldo cuti tidak mencukupi untuk jenis ' . $leaveType->nama . '.');
+                    ->with('error', 'Saldo cuti tidak mencukupi untuk jenis ' . $leaveType->nama . '. Sisa saldo: ' . ($balance->sisa ?? 0) . ' hari, Pengajuan: ' . $hakDiambil . ' hari kerja.');
             }
             $saldoAwal = $balance->kuota;
         }
 
-        $hakDiambil = $jumlahHari;
         $totalDiambilTahunIni = Cuti::where('karyawan_id', $validated['karyawan_id'])
             ->where('leave_type_id', $validated['leave_type_id'])
             ->whereYear('tanggal_mulai', $tahun)
@@ -152,17 +169,53 @@ class CutiController extends Controller
 
         $tanggalMulai = Carbon::parse($validated['tanggal_mulai']);
         $tanggalBerakhir = Carbon::parse($validated['tanggal_berakhir']);
-        $jumlahHari = $tanggalMulai->diffInDays($tanggalBerakhir) + 1;
 
-        $saldoAwal = 12;
+        // Hitung jumlah hari kerja (melewati akhir pekan dan hari libur nasional)
+        $hakDiambil = 0;
+        for ($date = $tanggalMulai->copy(); $date->lte($tanggalBerakhir); $date->addDay()) {
+            if ($date->isWeekend()) {
+                continue;
+            }
+            if (Holiday::whereDate('tanggal', $date)->exists()) {
+                continue;
+            }
+            $hakDiambil++;
+        }
+
+        if ($hakDiambil <= 0) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Rentang tanggal yang dipilih hanya berisi hari libur atau akhir pekan.');
+        }
+
         $tahun = $tanggalMulai->year;
+        $leaveType = LeaveType::find($validated['leave_type_id']);
+        $karyawan = Karyawan::findOrFail($validated['karyawan_id']);
+
+        $this->leaveBalance->ensureBalancesForYear($karyawan, $tahun);
+        $saldoAwal = $leaveType?->kuota_hari ?? 0;
+
+        if ($leaveType && $validated['leave_type_id']) {
+            $balance = \App\Models\EmployeeLeaveBalance::where('karyawan_id', $karyawan->id)
+                ->where('leave_type_id', $leaveType->id)
+                ->where('tahun', $tahun)
+                ->first();
+
+            if (!$balance || $balance->sisa < $hakDiambil) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Saldo cuti tidak mencukupi untuk jenis ' . $leaveType->nama . '. Sisa saldo: ' . ($balance->sisa ?? 0) . ' hari, Pengajuan: ' . $hakDiambil . ' hari kerja.');
+            }
+            $saldoAwal = $balance->kuota;
+        }
+
         $totalDiambilTahunIni = Cuti::where('karyawan_id', $validated['karyawan_id'])
+            ->where('leave_type_id', $validated['leave_type_id'])
             ->whereYear('tanggal_mulai', $tahun)
             ->where('status', 'disetujui')
             ->where('id', '!=', $cuti->id)
             ->sum('hak_diambil');
 
-        $hakDiambil = $jumlahHari;
         $saldoSisa = max($saldoAwal - ($totalDiambilTahunIni + $hakDiambil), 0);
 
         $cuti->update([

@@ -208,7 +208,23 @@ class PortalController extends Controller
 
         $tanggalMulai = Carbon::parse($validated['tanggal_mulai']);
         $tanggalBerakhir = Carbon::parse($validated['tanggal_berakhir']);
-        $jumlahHari = $tanggalMulai->diffInDays($tanggalBerakhir) + 1;
+
+        // Hitung jumlah hari kerja (melewati akhir pekan dan hari libur nasional)
+        $hakDiambil = 0;
+        for ($date = $tanggalMulai->copy(); $date->lte($tanggalBerakhir); $date->addDay()) {
+            if ($date->isWeekend()) {
+                continue;
+            }
+            if (\App\Models\Holiday::whereDate('tanggal', $date)->exists()) {
+                continue;
+            }
+            $hakDiambil++;
+        }
+
+        if ($hakDiambil <= 0) {
+            return back()->withInput()->with('error', 'Rentang tanggal yang dipilih hanya berisi hari libur atau akhir pekan.');
+        }
+
         $tahun = $tanggalMulai->year;
 
         $leaveType = LeaveType::findOrFail($validated['leave_type_id']);
@@ -219,8 +235,8 @@ class PortalController extends Controller
             ->where('tahun', $tahun)
             ->first();
 
-        if (!$balance || $balance->sisa < $jumlahHari) {
-            return back()->withInput()->with('error', 'Saldo cuti tidak mencukupi.');
+        if (!$balance || $balance->sisa < $hakDiambil) {
+            return back()->withInput()->with('error', 'Saldo cuti tidak mencukupi. Sisa saldo: ' . ($balance->sisa ?? 0) . ' hari, Pengajuan: ' . $hakDiambil . ' hari kerja.');
         }
 
         Cuti::create([
@@ -233,8 +249,8 @@ class PortalController extends Controller
             'jenis_cuti' => $leaveType->nama,
             'status' => 'menunggu_atasan',
             'saldo_awal' => $balance->kuota,
-            'hak_diambil' => $jumlahHari,
-            'saldo_sisa' => $balance->sisa - $jumlahHari,
+            'hak_diambil' => $hakDiambil,
+            'saldo_sisa' => $balance->sisa - $hakDiambil,
         ]);
 
         return redirect()->route('portal.cuti')->with('success', 'Pengajuan cuti berhasil dikirim.');

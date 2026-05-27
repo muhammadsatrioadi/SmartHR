@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah Hari Libur')
+@section('title', 'Tambah Hari Libur Nasional')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Tambah Hari Raya & Libur</h6>
+            <h6 class="mb-4">Tambah Hari Libur Nasional</h6>
 
             <form method="POST" action="{{ route('holiday.store') }}">
                 @csrf

@@ -37,7 +37,7 @@
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('holiday.*','shiftGroup.*','workShift.*','leaveType.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-calendar"></i><span>Setup Jadwal & Cuti</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('holiday.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('holiday.index') }}">Hari Raya & Libur</a></li>
+                        <li class="{{ request()->routeIs('holiday.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('holiday.index') }}">Hari Libur Nasional</a></li>
                         <li class="{{ request()->routeIs('shiftGroup.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shiftGroup.index') }}">Group Shift</a></li>
                         <li class="{{ request()->routeIs('workShift.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workShift.index') }}">Shift Kerja</a></li>
                         <li class="{{ request()->routeIs('leaveType.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveType.index') }}">Jenis Cuti</a></li>

@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
-@section('title', 'Hari Raya & Libur')
+@section('title', 'Hari Libur Nasional')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Hari Raya & Libur</h6>
+                <h6 class="mb-0">Setup Hari Libur Nasional (Red Dates)</h6>
                 <a class="btn btn-primary" href="{{ route('holiday.create') }}">Tambah</a>
             </div>
 
