@@ -80,7 +80,7 @@ active
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger ">Delete</button>
+                                            <button type="submit" class="btn btn-danger delete-confirm" data-message="Yakin ingin menghapus jabatan {{ $items->nama_jabatan }}?">Delete</button>
                                         </form>
                                     </td>
                                 </tr>

@@ -58,25 +58,25 @@ active
                     <form action="{{ route('cuti.delete', ['id' => $items->id]) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm delete-confirm" data-message="Yakin ingin menghapus pengajuan cuti {{ optional($items->karyawan)->name }}?">Delete</button>
                     </form>
                     @if ($items->status === 'menunggu_atasan')
                         <form action="{{ route('cuti.approveSupervisor', $items->id) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-success btn-sm">Approve Atasan</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Setujui pengajuan cuti ini (sebagai Atasan)?">Approve Atasan</button>
                         </form>
                     @endif
                     @if ($items->status === 'menunggu_hr')
                         <form action="{{ route('cuti.approveHr', $items->id) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-success btn-sm">Approve HR</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Setujui pengajuan cuti ini (sebagai HR)?">Approve HR</button>
                         </form>
                     @endif
                     @if (in_array($items->status, ['menunggu_atasan','menunggu_hr']))
                         <form action="{{ route('cuti.reject', $items->id) }}" method="POST" class="d-inline">
                             @csrf
                             <input type="hidden" name="alasan" value="Ditolak melalui daftar cuti">
-                            <button type="submit" class="btn btn-outline-light btn-sm">Tolak</button>
+                            <button type="submit" class="btn btn-outline-light btn-sm confirm-action" data-message="Tolak pengajuan cuti ini?">Tolak</button>
                         </form>
                     @endif
                 </td>

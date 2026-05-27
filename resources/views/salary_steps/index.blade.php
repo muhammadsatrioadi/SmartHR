@@ -10,10 +10,6 @@
                 <a class="btn btn-primary" href="{{ route('salaryStep.create') }}">Tambah Skala</a>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -42,11 +38,10 @@
                                 <td>{{ $s->masa_kerja_min }} - {{ $s->masa_kerja_maks ?? '>' }}</td>
                                 <td>
                                     <a href="{{ route('salaryStep.edit', $s->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('salaryStep.delete', $s->id) }}" method="POST" class="d-inline"
-                                        onsubmit="return confirm('Hapus skala gaji ini?')">
+                                    <form action="{{ route('salaryStep.delete', $s->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                                        <button class="btn btn-danger btn-sm delete-confirm" type="submit" data-message="Hapus skala gaji {{ $s->kode }}?">Hapus</button>
                                     </form>
                                 </td>
                             </tr>

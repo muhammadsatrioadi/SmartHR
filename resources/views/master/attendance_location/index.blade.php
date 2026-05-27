@@ -7,7 +7,6 @@
             <h6 class="mb-0">Titik Lokasi Absensi (GPS)</h6>
             <a href="{{ route('attendanceLocation.create') }}" class="btn btn-primary btn-sm">Tambah Titik</a>
         </div>
-        @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
         <table class="table table-bordered">
             <thead><tr><th>Nama</th><th>Lat</th><th>Lng</th><th>Radius</th><th>Aktif</th><th>Aksi</th></tr></thead>
             <tbody>
@@ -20,9 +19,9 @@
                     <td>{{ $row->is_aktif ? 'Ya' : 'Tidak' }}</td>
                     <td>
                         <a href="{{ route('attendanceLocation.edit', $row->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('attendanceLocation.delete', $row->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus?')">
+                        <form action="{{ route('attendanceLocation.delete', $row->id) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Hapus</button>
+                            <button class="btn btn-sm btn-danger delete-confirm" data-message="Hapus titik lokasi {{ $row->nama }}?">Hapus</button>
                         </form>
                     </td>
                 </tr>

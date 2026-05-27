@@ -10,10 +10,6 @@
                 <a class="btn btn-primary" href="{{ route('golongan.create') }}">Tambah</a>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -32,11 +28,10 @@
                                 <td>{{ $row->is_active ? 'Ya' : 'Tidak' }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="{{ route('golongan.edit', $row->id) }}">Edit</a>
-                                    <form class="d-inline" method="POST" action="{{ route('golongan.delete', $row->id) }}"
-                                        onsubmit="return confirm('Hapus golongan ini?')">
+                                    <form class="d-inline" method="POST" action="{{ route('golongan.delete', $row->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                                        <button class="btn btn-sm btn-danger delete-confirm" type="submit" data-message="Hapus golongan {{ $row->nama }}?">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
