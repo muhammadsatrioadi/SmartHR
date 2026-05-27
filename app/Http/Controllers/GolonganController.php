@@ -54,7 +54,13 @@ class GolonganController extends Controller
 
     public function destroy($id)
     {
-        Golongan::whereKey($id)->delete();
+        $item = Golongan::findOrFail($id);
+
+        if ($item->karyawans()->exists()) {
+            return redirect()->route('golongan.index')->with('error', 'Gagal menghapus! Golongan ini masih digunakan oleh karyawan.');
+        }
+
+        $item->delete();
         return redirect()->route('golongan.index')->with('success', 'Golongan berhasil dihapus.');
     }
 }

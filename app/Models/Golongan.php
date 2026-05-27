@@ -14,4 +14,9 @@ class Golongan extends Model
         'nama',
         'is_active',
     ];
+
+    public function karyawans()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }

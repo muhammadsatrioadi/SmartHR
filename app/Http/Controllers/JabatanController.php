@@ -79,7 +79,14 @@ class JabatanController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Jabatan::destroy($id);
+        $jabatan = Jabatan::findOrFail($id);
+
+        // Cek apakah ada karyawan yang masih menggunakan jabatan ini
+        if ($jabatan->karyawans()->exists()) {
+            return redirect()->route('jabatan.read')->with('error', 'Gagal menghapus! Jabatan ini masih digunakan oleh karyawan.');
+        }
+
+        $jabatan->delete();
         return redirect()->route('jabatan.read')->with('success', 'Jabatan berhasil dihapus');
     }
 

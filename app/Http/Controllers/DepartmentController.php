@@ -53,7 +53,13 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
-        Department::whereKey($id)->delete();
+        $item = Department::findOrFail($id);
+
+        if ($item->workUnits()->exists() || $item->karyawans()->exists()) {
+            return redirect()->route('department.index')->with('error', 'Gagal menghapus! Departemen ini masih memiliki Unit Kerja atau Karyawan.');
+        }
+
+        $item->delete();
         return redirect()->route('department.index')->with('success', 'Departemen berhasil dihapus.');
     }
 }

@@ -53,7 +53,13 @@ class PangkatController extends Controller
 
     public function destroy($id)
     {
-        Pangkat::whereKey($id)->delete();
+        $item = Pangkat::findOrFail($id);
+
+        if ($item->karyawans()->exists()) {
+            return redirect()->route('pangkat.index')->with('error', 'Gagal menghapus! Pangkat ini masih digunakan oleh karyawan.');
+        }
+
+        $item->delete();
         return redirect()->route('pangkat.index')->with('success', 'Pangkat berhasil dihapus.');
     }
 }

@@ -19,4 +19,9 @@ class Department extends Model
     {
         return $this->hasMany(WorkUnit::class);
     }
+
+    public function karyawans()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }
