@@ -179,9 +179,13 @@ Route::delete('/leave-types/{id}', [LeaveTypeController::class, 'destroy'])->nam
 
 // Kelola Saldo Cuti Pegawai
 Route::get('/leave-balances', [LeaveBalanceController::class, 'index'])->name('leaveBalance.index');
-Route::get('/leave-balances/{id}/edit', [LeaveBalanceController::class, 'edit'])->name('leaveBalance.edit');
-Route::put('/leave-balances/{id}', [LeaveBalanceController::class, 'update'])->name('leaveBalance.update');
 Route::post('/leave-balances/sync', [LeaveBalanceController::class, 'sync'])->name('leaveBalance.sync');
+Route::get('/leave-balances/pegawai/{karyawan}', [LeaveBalanceController::class, 'show'])->name('leaveBalance.show');
+Route::get('/leave-balances/pegawai/{karyawan}/create', [LeaveBalanceController::class, 'create'])->name('leaveBalance.create');
+Route::get('/leave-balances/pegawai/{karyawan}/edit', [LeaveBalanceController::class, 'edit'])->name('leaveBalance.edit');
+Route::post('/leave-balances/pegawai/{karyawan}', [LeaveBalanceController::class, 'store'])->name('leaveBalance.store');
+Route::put('/leave-balances/pegawai/{karyawan}', [LeaveBalanceController::class, 'update'])->name('leaveBalance.update');
+Route::delete('/leave-balances/{id}', [LeaveBalanceController::class, 'destroy'])->name('leaveBalance.destroy');
 
 // Jadwal Shift per Pegawai
 Route::get('/employee-schedules', [EmployeeScheduleController::class, 'index'])->name('employeeSchedule.index');

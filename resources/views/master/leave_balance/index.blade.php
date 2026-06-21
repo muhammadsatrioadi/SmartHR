@@ -7,11 +7,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Saldo Cuti Pegawai ({{ request('tahun', date('Y')) }})</h4>
+                <h4>Saldo Cuti Pegawai ({{ $tahun }})</h4>
                 <div class="card-header-action d-flex gap-2">
                     <form action="{{ route('leaveBalance.sync') }}" method="POST" onsubmit="return confirm('Sinkronisasi akan membuat saldo cuti untuk semua karyawan di tahun terpilih. Lanjutkan?')">
                         @csrf
-                        <input type="hidden" name="tahun" value="{{ request('tahun', date('Y')) }}">
+                        <input type="hidden" name="tahun" value="{{ $tahun }}">
                         <button type="submit" class="btn btn-info">
                             <i class="fas fa-sync"></i> Sinkronisasi Saldo
                         </button>
@@ -34,7 +34,7 @@
                             <input type="text" name="search" class="form-control" placeholder="Cari nama atau NIK..." value="{{ request('search') }}">
                             <select name="tahun" class="form-control" style="width: 120px;">
                                 @for($i = date('Y') + 1; $i >= date('Y') - 2; $i--)
-                                    <option value="{{ $i }}" {{ request('tahun', date('Y')) == $i ? 'selected' : '' }}>Thn {{ $i }}</option>
+                                    <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>Thn {{ $i }}</option>
                                 @endfor
                             </select>
                             <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
@@ -43,44 +43,41 @@
                     </div>
                 </div>
 
+                <p class="text-muted mb-3"><i class="fas fa-info-circle"></i> Ketuk baris pegawai untuk melihat dan mengelola semua saldo cuti.</p>
+
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Pegawai</th>
-                                <th>Jenis Cuti</th>
-                                <th>Tahun</th>
-                                <th>Kuota</th>
-                                <th>Terpakai</th>
-                                <th>Sisa</th>
-                                <th>Aksi</th>
+                                <th>NIK</th>
+                                <th>Jumlah Jenis Cuti</th>
+                                <th>Ringkasan Sisa</th>
+                                <th style="width: 60px;"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($data as $row)
-                                <tr>
+                            @forelse($data as $pegawai)
+                                @php
+                                    $balances = $pegawai->leaveBalances;
+                                @endphp
+                                <tr class="leave-balance-row" role="button"
+                                    onclick="window.location='{{ route('leaveBalance.show', ['karyawan' => $pegawai->id, 'tahun' => $tahun]) }}'">
+                                    <td><strong>{{ $pegawai->name }}</strong></td>
+                                    <td>{{ $pegawai->nik }}</td>
+                                    <td>{{ $balances->count() }} jenis</td>
                                     <td>
-                                        <strong>{{ $row->karyawan->name }}</strong><br>
-                                        <small class="text-muted">{{ $row->karyawan->nik }}</small>
+                                        @foreach($balances as $bal)
+                                            <span class="badge badge-{{ $bal->sisa > 0 ? 'success' : 'secondary' }} mr-1 mb-1">
+                                                {{ $bal->leaveType->nama }}: {{ number_format($bal->sisa, 1) }}
+                                            </span>
+                                        @endforeach
                                     </td>
-                                    <td>{{ $row->leaveType->nama }}</td>
-                                    <td>{{ $row->tahun }}</td>
-                                    <td>{{ number_format($row->kuota, 1) }}</td>
-                                    <td>{{ number_format($row->terpakai, 1) }}</td>
-                                    <td>
-                                        <span class="badge badge-{{ $row->sisa > 0 ? 'success' : 'danger' }}">
-                                            {{ number_format($row->sisa, 1) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('leaveBalance.edit', $row->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                    </td>
+                                    <td class="text-muted"><i class="fas fa-chevron-right"></i></td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Data tidak ditemukan. Silakan lakukan sinkronisasi saldo jika data kosong.</td>
+                                    <td colspan="5" class="text-center">Data tidak ditemukan. Silakan lakukan sinkronisasi saldo jika data kosong.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -93,4 +90,13 @@
         </div>
     </div>
 </div>
+
+<style>
+.leave-balance-row {
+    cursor: pointer;
+}
+.leave-balance-row:hover {
+    background-color: rgba(0, 91, 172, 0.06) !important;
+}
+</style>
 @endsection
