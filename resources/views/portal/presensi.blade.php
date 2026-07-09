@@ -55,6 +55,9 @@
             <i class="fas fa-map-marker-alt"></i>
             <span>Menunggu GPS...</span>
         </div>
+        <button type="button" id="gps-refresh-btn" class="btn btn-sm btn-outline-primary mb-2">
+            <i class="fas fa-sync-alt"></i> Refresh Lokasi GPS
+        </button>
         <div class="portal-verify-item ok" id="device-verify-status">
             <i class="fas fa-check-circle"></i>
             <span>Perangkat terverifikasi</span>

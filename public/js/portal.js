@@ -62,9 +62,31 @@
         return R * c;
     }
 
-    function updateGpsUI(lat, lng, accuracy) {
+    function geolocationErrorMessage(err) {
+        if (!err || !err.code) {
+            return 'Gagal mendapatkan lokasi. Coba refresh halaman.';
+        }
+        switch (err.code) {
+            case 1:
+                return 'Izin lokasi ditolak. Aktifkan di Pengaturan > Safari > Lokasi.';
+            case 2:
+                return 'Lokasi tidak tersedia. Matikan mode pesawat dan nyalakan GPS.';
+            case 3:
+                return 'GPS timeout. Pindah ke area terbuka lalu refresh halaman.';
+            default:
+                return 'Gagal mendapatkan lokasi GPS.';
+        }
+    }
+
+    function updateGpsUI(lat, lng, accuracy, errorMessage) {
         const el = document.getElementById('gps-status');
         if (!el) return;
+        if (errorMessage) {
+            el.classList.remove('ok');
+            el.classList.add('text-danger');
+            el.innerHTML = '<i class="fas fa-map-marker-alt"></i> <span>' + errorMessage + '</span>';
+            return;
+        }
         if (lat != null && lng != null) {
             let statusText = 'Lokasi terdeteksi (' + Number(lat).toFixed(6) + ', ' + Number(lng).toFixed(6) + ')';
             
@@ -124,9 +146,27 @@
                     accuracy: pos.coords.accuracy,
                 }),
                 (err) => reject(err),
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
             );
         });
+    }
+
+    function requestGpsUpdate() {
+        if (!navigator.geolocation) {
+            updateGpsUI(null, null, null, 'Browser tidak mendukung GPS.');
+            return;
+        }
+        updateGpsUI(null, null, null, null);
+        const waitingEl = document.getElementById('gps-status');
+        if (waitingEl) {
+            waitingEl.classList.remove('text-danger', 'ok');
+            waitingEl.innerHTML = '<i class="fas fa-map-marker-alt"></i> <span>Mencari lokasi GPS...</span>';
+        }
+        navigator.geolocation.getCurrentPosition(
+            (pos) => updateGpsUI(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
+            (err) => updateGpsUI(null, null, null, geolocationErrorMessage(err)),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
+        );
     }
 
     async function verifyBiometric() {
@@ -287,11 +327,12 @@
     }
 
     function initGpsWatch() {
+        requestGpsUpdate();
         if (!navigator.geolocation) return;
         navigator.geolocation.watchPosition(
             (pos) => updateGpsUI(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
-            () => updateGpsUI(null, null),
-            { enableHighAccuracy: true, maximumAge: 10000 }
+            (err) => updateGpsUI(null, null, null, geolocationErrorMessage(err)),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
         );
     }
 
@@ -303,13 +344,13 @@
         const lokasiDinasCb = document.getElementById('lokasi_dinas');
         if (lokasiDinasCb) {
             lokasiDinasCb.addEventListener('change', function() {
-                // Trigger UI update using last known position if available
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition((pos) => {
-                        updateGpsUI(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
-                    });
-                }
+                requestGpsUpdate();
             });
+        }
+
+        const gpsRefreshBtn = document.getElementById('gps-refresh-btn');
+        if (gpsRefreshBtn) {
+            gpsRefreshBtn.addEventListener('click', requestGpsUpdate);
         }
         registerDevice().catch(function (e) {
             const dev = document.getElementById('device-verify-status');

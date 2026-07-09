@@ -1,0 +1,91 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor Admin
+actor Manager
+actor Karyawan
+
+rectangle "Sistem HR Karyawan" {
+  usecase "Login" as UC_Login
+  usecase "Lihat Dashboard" as UC_Dashboard
+  usecase "Kelola Profil" as UC_Profile
+  usecase "Ubah Password" as UC_Password
+
+  usecase "Setujui Dokumen Consent" as UC_Consent
+  usecase "Presensi Check-in/\nCheck-out" as UC_Presensi
+  usecase "Lihat Riwayat Absensi" as UC_RiwayatAbsensi
+  usecase "Lihat Absensi Bawahan" as UC_AbsensiBawahan
+
+  usecase "Ajukan Cuti" as UC_AjukanCuti
+  usecase "Lihat Status Cuti" as UC_StatusCuti
+  usecase "Approve/Tolak Cuti" as UC_ApproveCuti
+
+  usecase "Ajukan Reimbursement" as UC_Reimburse
+  usecase "Approve/Tolak Reimbursement" as UC_ApproveReimburse
+
+  usecase "Ajukan Lembur" as UC_Lembur
+  usecase "Approve/Tolak Lembur" as UC_ApproveLembur
+
+  usecase "Lihat Gaji" as UC_LihatGaji
+
+  usecase "Kelola Data Pegawai" as UC_Pegawai
+  usecase "Reset Device Karyawan" as UC_ResetDevice
+  usecase "Kelola Master Jabatan,\nGolongan, Pangkat,\nStatus, Departemen,\nUnit Kerja" as UC_MasterPegawai
+  usecase "Kelola Hari Libur,\nShift, Jenis Cuti,\nSaldo Cuti" as UC_MasterJadwal
+  usecase "Kelola Jadwal Shift Pegawai" as UC_JadwalPegawai
+  usecase "Kelola Titik Lokasi Absensi" as UC_Lokasi
+  usecase "Kelola Absensi Manual\n& Laporan Absensi" as UC_AbsensiAdmin
+  usecase "Kelola Payroll,\nSkala Gaji, Riwayat Gaji" as UC_Payroll
+}
+
+Admin --> UC_Login
+Admin --> UC_Dashboard
+Admin --> UC_Profile
+Admin --> UC_Password
+Admin --> UC_AbsensiBawahan
+Admin --> UC_ApproveCuti
+Admin --> UC_ApproveReimburse
+Admin --> UC_ApproveLembur
+Admin --> UC_Pegawai
+Admin --> UC_ResetDevice
+Admin --> UC_MasterPegawai
+Admin --> UC_MasterJadwal
+Admin --> UC_JadwalPegawai
+Admin --> UC_Lokasi
+Admin --> UC_AbsensiAdmin
+Admin --> UC_Payroll
+
+Manager --> UC_Login
+Manager --> UC_Dashboard
+Manager --> UC_Profile
+Manager --> UC_Password
+Manager --> UC_Consent
+Manager --> UC_Presensi
+Manager --> UC_RiwayatAbsensi
+Manager --> UC_AbsensiBawahan
+Manager --> UC_AjukanCuti
+Manager --> UC_StatusCuti
+Manager --> UC_ApproveCuti
+Manager --> UC_Reimburse
+Manager --> UC_ApproveReimburse
+Manager --> UC_Lembur
+Manager --> UC_ApproveLembur
+Manager --> UC_LihatGaji
+
+Karyawan --> UC_Login
+Karyawan --> UC_Profile
+Karyawan --> UC_Password
+Karyawan --> UC_Consent
+Karyawan --> UC_Presensi
+Karyawan --> UC_RiwayatAbsensi
+Karyawan --> UC_AjukanCuti
+Karyawan --> UC_StatusCuti
+Karyawan --> UC_Reimburse
+Karyawan --> UC_Lembur
+Karyawan --> UC_LihatGaji
+
+UC_Presensi ..> UC_Consent : <<include>>
+UC_Pegawai ..> UC_ResetDevice : <<extend>>
+@enduml
