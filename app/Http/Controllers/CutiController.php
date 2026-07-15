@@ -25,8 +25,8 @@ class CutiController extends Controller
      */
     public function index()
     {
-        // Ambil email user dengan role admin_hr dan atasan (manajer)
-        $manajerEmails = User::whereIn('role', ['admin_hr', 'atasan'])
+        // Ambil email user dengan role admin_hr, atasan, dan manajer
+        $manajerEmails = User::whereIn('role', ['admin_hr', 'atasan', 'manajer'])
             ->whereNotNull('email')
             ->pluck('email');
 
