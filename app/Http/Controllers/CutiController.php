@@ -7,6 +7,7 @@ use App\Models\Cuti;
 use App\Models\Karyawan;
 use App\Models\LeaveType;
 use App\Models\Holiday;
+use App\Models\User;
 use App\Services\LeaveBalanceService;
 use App\Support\KaryawanResolver;
 use Carbon\Carbon;
@@ -24,9 +25,27 @@ class CutiController extends Controller
      */
     public function index()
     {
-        $data = Cuti::with(['karyawan', 'leaveType'])->orderByDesc('created_at')->simplePaginate(6);
-        $current = $data->currentPage();
-        return view('cuti/read', compact('data','current'));
+        // Ambil email user dengan role atasan
+        $atasanEmails = User::where('role', 'atasan')
+            ->whereNotNull('email')
+            ->pluck('email');
+
+        $dataKaryawan = Cuti::with(['karyawan', 'leaveType'])
+            ->whereHas('karyawan', function ($query) use ($atasanEmails) {
+                $query->whereNull('email')
+                    ->orWhereNotIn('email', $atasanEmails);
+            })
+            ->orderByDesc('created_at')
+            ->paginate(6, ['*'], 'karyawan_page');
+
+        $dataManajer = Cuti::with(['karyawan', 'leaveType'])
+            ->whereHas('karyawan', function ($query) use ($atasanEmails) {
+                $query->whereIn('email', $atasanEmails);
+            })
+            ->orderByDesc('created_at')
+            ->paginate(6, ['*'], 'manajer_page');
+
+        return view('cuti/read', compact('dataKaryawan', 'dataManajer'));
     } 
 
     /**

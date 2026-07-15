@@ -1,6 +1,6 @@
 # Panduan Keamanan Aplikasi SmartHR
 
-Dokumentasi lengkap tentang implementasi keamanan di aplikasi Sistem Informasi Kepegawaian (SmartHR).
+Dokumentasi ringkas dan mudah dibaca tentang implementasi keamanan di Sistem Informasi Kepegawaian (SmartHR).
 
 ---
 
@@ -32,14 +32,12 @@ flowchart TD
 ```
 
 ### Detail Keamanan Password
-- **Hashing**: Password tidak pernah disimpan dalam bentuk plain text, melainkan di-hash menggunakan Laravel Hash yang mendukung **Bcrypt** atau **Argon2**.
-- **Casting Password**: Implementasi di [User.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Models\User.php#L46) dengan `'password' => 'hashed'`.
-- **Verifikasi**: Menggunakan `Hash::check()` di [LoginController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\LoginController.php#L71) untuk membandingkan password input dengan hash di database.
+- **Hashing**: Password dienkripsi dengan Bcrypt atau Argon2, tidak pernah disimpan dalam bentuk teks biasa.
+- **Verifikasi**: Sistem membandingkan password input dengan hash yang ada di database.
 
 ### Alur Login Berdasarkan Role
-- **Admin**: Diarahkan ke halaman dashboard utama (`/`).
-- **Manajer/Karyawan**: Diarahkan ke portal karyawan (`/portal/home`).
-- Implementasi di [LoginController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\LoginController.php#L88-L96).
+- **Admin**: Masuk ke dashboard utama
+- **Manajer/Karyawan**: Masuk ke portal karyawan
 
 ---
 
@@ -61,49 +59,19 @@ flowchart TD
 ```
 
 ### Komponen Fingerprint
-Fingerprint di-generate dari karakteristik perangkat berikut:
-1. **User Agent**: Informasi browser dan sistem operasi
-2. **Bahasa**: Bahasa yang digunakan di browser
-3. **Resolusi Layar**: Lebar x tinggi dan color depth
-4. **Zona Waktu**: Timezone browser
+Fingerprint dibuat dari:
+1. User Agent (browser & OS)
+2. Bahasa browser
+3. Resolusi layar
+4. Timezone
 
-### Implementasi Frontend
-Di [portal.js](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\public\js\portal.js#L6-L21):
-```javascript
-function getDeviceFingerprint() {
-    let fp = localStorage.getItem(STORAGE_DEVICE);
-    if (!fp) {
-        const raw = [
-            navigator.userAgent,
-            navigator.language,
-            screen.width,
-            screen.height,
-            screen.colorDepth,
-            Intl.DateTimeFormat().resolvedOptions().timeZone,
-        ].join('|');
-        fp = btoa(raw).replace(/[^a-zA-Z0-9]/g, '').slice(0, 64);
-        localStorage.setItem(STORAGE_DEVICE, fp);
-    }
-    return fp;
-}
-```
-
-### Implementasi Backend
-Di [DeviceBindingService.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Services\DeviceBindingService.php#L11-L42):
-- Cek apakah user sudah memiliki perangkat terdaftar
-- Jika belum, daftarkan perangkat baru
-- Jika sudah, verifikasi fingerprint cocok
-- Jika tidak cocok, kembalikan pesan error
-
-### Tabel UserDevice
-Menyimpan informasi perangkat:
-- `user_id`: Relasi ke user
-- `device_fingerprint`: Fingerprint unik perangkat
-- `device_label`: Label perangkat (contoh: Chrome/Windows/1920x1080)
-- `user_agent`: Informasi browser lengkap
-- `platform`: Platform sistem operasi
-- `registered_at`: Waktu pendaftaran perangkat
-- `last_used_at`: Waktu terakhir perangkat digunakan
+### Data yang Disimpan
+- User ID
+- Fingerprint unik
+- Label perangkat
+- User Agent
+- Platform OS
+- Waktu daftar & terakhir dipakai
 
 ---
 
@@ -124,20 +92,10 @@ flowchart TD
 ```
 
 ### Teknologi WebAuthn
-Menggunakan **Web Authentication (WebAuthn) API** - standar W3C untuk autentikasi tanpa password.
-
-#### Parameter Konfigurasi:
-- **Protokol**: WebAuthn
-- **Autentikator**: Platform (Touch ID, Face ID, Windows Hello)
-- **User Verification**: Diwajibkan (`userVerification: 'required'`)
-- **Algoritme**: ES256 (`alg: -7`)
-
-### Implementasi Frontend
-Di [portal.js](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\public\js\portal.js#L172-L212):
-- Generate random 32-byte challenge untuk keamanan
-- Meminta verifikasi biometrik dari pengguna
-- Menyimpan credential ID di localStorage jika berhasil
-- Fallback ke stored credential jika WebAuthn tidak didukung
+- Standar W3C untuk autentikasi tanpa password
+- Mendukung Touch ID, Face ID, Windows Hello
+- Verifikasi pengguna diwajibkan
+- Algoritme ES256
 
 ---
 
@@ -164,7 +122,7 @@ flowchart TD
 ```
 
 ### Rumus Haversine
-Menghitung jarak antara dua titik koordinat dalam meter:
+Menghitung jarak antara 2 titik koordinat:
 ```
 R = radius bumi (6371000 meter)
 dLat = (lat2 - lat1) × π/180
@@ -174,72 +132,60 @@ c = 2 × atan2(√a, √(1-a))
 jarak = R × c
 ```
 
-### Implementasi Frontend
-Di [portal.js](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\public\js\portal.js#L54-L170):
-- Menggunakan `navigator.geolocation` dengan `enableHighAccuracy: true`
-- Menghitung jarak dengan rumus Haversine
-- Memantau perubahan lokasi secara real-time
-
-### Implementasi Backend
-Di [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php#L126-L198):
-- **Double-check**: Verifikasi lokasi dilakukan kembali di backend (tidak hanya frontend)
-- **Prioritas Lokasi**:
-  1. Lokasi yang di-assign khusus ke karyawan
-  2. Semua lokasi aktif jika tidak ada yang di-assign
-- **Mode Dinas Luar**: Pengecualian untuk karyawan yang sedang dinas luar
+### Cara Kerja
+- Lokasi diambil dengan GPS akurasi tinggi
+- Jarak dihitung dengan rumus Haversine
+- Verifikasi dilakukan 2x (frontend & backend)
+- Ada mode dinas luar untuk pengecualian
 
 ---
 
 ## 5. Attendance Consent (Persetujuan)
 
-### Alur Kerja
-Sebelum bisa melakukan absensi, karyawan harus menyetujui:
-1. **Perjanjian Absensi**: Surat perjanjian tentang ketentuan dan kebijakan absensi
-2. **Task List Flowchart**: Persetujuan memahami alur kerja presensi
+Sebelum absensi, karyawan harus menyetujui:
+1. Perjanjian Absensi
+2. Task List Flowchart (memahami alur presensi)
 
-### Implementasi
-Di [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php#L262-L278):
-- Mengecek di tabel `attendance_consents` apakah kedua jenis consent sudah disetujui
-- Jika belum, pengguna diarahkan ke halaman consent
-- Consent menyimpan: user_id, jenis consent, status disetujui, waktu persetujuan, dan IP address
+### Data yang Disimpan
+- User ID
+- Jenis consent
+- Status disetujui
+- Waktu persetujuan
+- Alamat IP
 
 ---
 
 ## 6. Audit Trail dan Data Integrity
 
 ### Metadata Absensi
-Semua data absensi disimpan dengan metadata lengkap untuk keperluan audit:
+Semua data dicatat untuk audit:
 
 | Metadata | Keterangan |
 |----------|------------|
-| `tanggal_absensi` | Tanggal absensi |
-| `time` | Waktu absensi |
-| `latitude` & `longitude` | Koordinat lokasi |
-| `accuracy` | Akurasi GPS dalam meter |
-| `jarak_meter` | Jarak dari lokasi kantor |
-| `device_fingerprint` | Fingerprint perangkat |
-| `biometric_verified` | Status verifikasi biometrik |
-| `lokasi_dinas` | Apakah dalam mode dinas luar |
-| `user_agent` | Informasi browser |
-| `created_at` | Waktu penyimpanan data |
-
-### Implementasi
-Di [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php#L232-L250), semua metadata disimpan ke tabel `absensis`.
+| Tanggal & waktu | Waktu absensi |
+| Koordinat | Latitude & longitude |
+| Akurasi | Akurasi GPS |
+| Jarak | Jarak dari lokasi kantor |
+| Fingerprint | ID perangkat |
+| Biometric | Status verifikasi wajah/sidik jari |
+| Dinas | Apakah mode dinas luar aktif |
+| Browser | User Agent |
+| Timestamp | Waktu penyimpanan |
 
 ---
 
 ## 7. Ringkasan Fitur Keamanan
 
 ### Tabel Ringkasan
-| Fitur | Teknologi | File Implementasi |
-|-------|-----------|-------------------|
-| Autentikasi | Laravel Auth, Session | [LoginController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\LoginController.php) |
-| Password Hashing | Bcrypt/Argon2 | [User.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Models\User.php) |
-| Device Binding | Fingerprint (UserAgent, Resolusi, Timezone) | [DeviceBindingService.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Services\DeviceBindingService.php), [portal.js](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\public\js\portal.js) |
-| Biometrik | WebAuthn API | [portal.js](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\public\js\portal.js) |
-| Geofencing | GPS, Rumus Haversine | [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php), [GeolocationService.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Support\GeolocationService.php) |
-| Attendance Consent | Tabel attendance_consents | [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php) |
-| Audit Trail | Metadata lengkap di tabel absensis | [PresensiController.php](file:///c:\xampp\htdocs\Aplikasi HR Karyawan\app\Http\Controllers\PresensiController.php) |
+| Fitur | Teknologi |
+|-------|-----------|
+| Autentikasi | Laravel Auth + Session |
+| Password Hashing | Bcrypt / Argon2 |
+| Device Binding | Fingerprint perangkat |
+| Biometrik | WebAuthn API |
+| Geofencing | GPS + Rumus Haversine |
+| Attendance Consent | Persetujuan pengguna |
+| Audit Trail | Metadata lengkap |
 
 ### Skema Database
 ```mermaid
@@ -255,9 +201,10 @@ erDiagram
 ---
 
 ## Kesimpulan
-Semua fitur keamanan di SmartHR bekerja bersama untuk memastikan bahwa:
-- Hanya pengguna yang berwenang yang bisa login
-- Satu akun hanya bisa digunakan di satu perangkat
-- Absensi hanya bisa dilakukan di lokasi yang benar
-- Verifikasi biometrik menambah lapisan keamanan tambahan
+Sistem keamanan SmartHR bekerja secara terintegrasi untuk memastikan:
+- Hanya pengguna berwenang yang bisa login
+- Satu akun hanya dipakai di satu perangkat
+- Absensi hanya bisa di lokasi yang ditentukan
+- Verifikasi biometrik menambah keamanan
 - Semua aktivitas tercatat dengan baik untuk audit
+
