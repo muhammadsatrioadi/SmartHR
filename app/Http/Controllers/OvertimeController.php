@@ -13,8 +13,27 @@ class OvertimeController extends Controller
 {
     public function index()
     {
-        $overtimes = Overtime::with('karyawan')->orderByDesc('tanggal')->paginate(10);
-        return view('overtime.index', compact('overtimes'));
+        // Ambil email user dengan role admin_hr, atasan, dan manajer
+        $manajerEmails = \App\Models\User::whereIn('role', ['admin_hr', 'atasan', 'manajer'])
+            ->whereNotNull('email')
+            ->pluck('email');
+
+        $dataKaryawan = Overtime::with('karyawan')
+            ->whereHas('karyawan', function ($query) use ($manajerEmails) {
+                $query->whereNull('email')
+                    ->orWhereNotIn('email', $manajerEmails);
+            })
+            ->orderByDesc('tanggal')
+            ->paginate(10, ['*'], 'karyawan_page');
+
+        $dataManajer = Overtime::with('karyawan')
+            ->whereHas('karyawan', function ($query) use ($manajerEmails) {
+                $query->whereIn('email', $manajerEmails);
+            })
+            ->orderByDesc('tanggal')
+            ->paginate(10, ['*'], 'manajer_page');
+
+        return view('overtime.index', compact('dataKaryawan', 'dataManajer'));
     }
 
     public function create()
@@ -100,21 +119,40 @@ class OvertimeController extends Controller
     public function approveSupervisor($id)
     {
         $ot = Overtime::findOrFail($id);
-        if (!in_array(Auth::user()->role, ['atasan', 'manajer'], true)) {
-            return back()->with('error', 'Hanya atasan atau manajer yang dapat menyetujui lembur.');
+        $user = Auth::user();
+        
+        // Ambil email user dengan role admin_hr, atasan, dan manajer untuk cek apakah yang diapprove adalah manajer
+        $manajerEmails = \App\Models\User::whereIn('role', ['admin_hr', 'atasan', 'manajer'])
+            ->whereNotNull('email')
+            ->pluck('email');
+        
+        $isManajer = $ot->karyawan && in_array($ot->karyawan->email, $manajerEmails->toArray(), true);
+        
+        // Cek izin
+        if ($isManajer) {
+            // Yang diapprove adalah manajer: hanya admin_hr yang boleh approve
+            if ($user->role !== 'admin_hr') {
+                return back()->with('error', 'Hanya Admin HR yang dapat menyetujui lembur manajer.');
+            }
+        } else {
+            // Yang diapprove adalah karyawan: hanya atasan/manajer yang boleh approve
+            if (!in_array($user->role, ['atasan', 'manajer'], true)) {
+                return back()->with('error', 'Hanya Atasan/Manajer yang dapat menyetujui lembur karyawan.');
+            }
         }
+        
         if ($ot->status !== 'menunggu_approval') {
-            return back()->with('error', 'Status lembur tidak valid untuk persetujuan atasan.');
+            return back()->with('error', 'Status lembur tidak valid untuk persetujuan.');
         }
         if (!$this->weeklyOvertimeQuotaAllows($ot)) {
             return back()->with('error', $this->weeklyQuotaErrorMessage($ot));
         }
         $ot->update([
             'status' => 'disetujui',
-            'approved_by_supervisor_id' => Auth::id(),
+            'approved_by_supervisor_id' => $user->id,
             'approved_at_supervisor' => now(),
         ]);
-        return back()->with('success', 'Lembur disetujui atasan.');
+        return back()->with('success', 'Lembur disetujui.');
     }
 
     public function approveHr($id)
@@ -125,12 +163,34 @@ class OvertimeController extends Controller
     public function reject(Request $request, $id)
     {
         $ot = Overtime::findOrFail($id);
+        $user = Auth::user();
+        
+        // Ambil email user dengan role admin_hr, atasan, dan manajer untuk cek apakah yang ditolak adalah manajer
+        $manajerEmails = \App\Models\User::whereIn('role', ['admin_hr', 'atasan', 'manajer'])
+            ->whereNotNull('email')
+            ->pluck('email');
+        
+        $isManajer = $ot->karyawan && in_array($ot->karyawan->email, $manajerEmails->toArray(), true);
+        
+        // Cek izin
+        if ($isManajer) {
+            // Yang ditolak adalah manajer: hanya admin_hr yang boleh menolak
+            if ($user->role !== 'admin_hr') {
+                return back()->with('error', 'Hanya Admin HR yang dapat menolak lembur manajer.');
+            }
+        } else {
+            // Yang ditolak adalah karyawan: hanya atasan/manajer yang boleh menolak
+            if (!in_array($user->role, ['atasan', 'manajer'], true)) {
+                return back()->with('error', 'Hanya Atasan/Manajer yang dapat menolak lembur karyawan.');
+            }
+        }
+        
         $request->validate([
             'alasan' => 'required|string|max:255',
         ]);
         $ot->update([
             'status' => 'ditolak',
-            'rejected_by_id' => Auth::id(),
+            'rejected_by_id' => $user->id,
             'rejected_reason' => $request->input('alasan'),
         ]);
         return back()->with('success', 'Lembur ditolak.');
