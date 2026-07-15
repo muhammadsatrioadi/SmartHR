@@ -25,22 +25,22 @@ class CutiController extends Controller
      */
     public function index()
     {
-        // Ambil email user dengan role atasan
-        $atasanEmails = User::where('role', 'atasan')
+        // Ambil email user dengan role admin_hr dan atasan (manajer)
+        $manajerEmails = User::whereIn('role', ['admin_hr', 'atasan'])
             ->whereNotNull('email')
             ->pluck('email');
 
         $dataKaryawan = Cuti::with(['karyawan', 'leaveType'])
-            ->whereHas('karyawan', function ($query) use ($atasanEmails) {
+            ->whereHas('karyawan', function ($query) use ($manajerEmails) {
                 $query->whereNull('email')
-                    ->orWhereNotIn('email', $atasanEmails);
+                    ->orWhereNotIn('email', $manajerEmails);
             })
             ->orderByDesc('created_at')
             ->paginate(6, ['*'], 'karyawan_page');
 
         $dataManajer = Cuti::with(['karyawan', 'leaveType'])
-            ->whereHas('karyawan', function ($query) use ($atasanEmails) {
-                $query->whereIn('email', $atasanEmails);
+            ->whereHas('karyawan', function ($query) use ($manajerEmails) {
+                $query->whereIn('email', $manajerEmails);
             })
             ->orderByDesc('created_at')
             ->paginate(6, ['*'], 'manajer_page');
