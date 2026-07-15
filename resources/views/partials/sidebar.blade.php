@@ -67,9 +67,6 @@
 
             {{-- Lembur & Absensi: bisa diakses admin_hr, atasan, manajer, dan karyawan --}}
             @if (in_array($role, ['admin_hr', 'atasan', 'manajer', 'karyawan']))
-                <li class="nav-item {{ request()->routeIs('portal.*') ? 'active' : '' }}">
-                    <a href="{{ route('portal.home') }}" class="nav-link"><i class="fas fa-mobile-alt"></i><span>Portal Karyawan</span></a>
-                </li>
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('reimbursement.*','overtime.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i><span>Klaim & Lembur</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
