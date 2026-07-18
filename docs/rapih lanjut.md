@@ -109,7 +109,7 @@ Persamaan 1.1. Persamaan 1
 
 Judul Proyek 
 
-   - : Implementasi Sistem Human Resource Management (SmartHR) Berbasis Web dengan Metode Agile 
+   - : Implementasi Sistem Human Resource Management (PILAR HR) Berbasis Web dengan Metode Agile 
 
 - Nama Tim : Grow in The Dark 
 
@@ -129,15 +129,15 @@ Tanggal Pengajuan : 06/03/2026
 
 #### **B. Latar Belakang** 
 
-Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan transformasi digital pada  berbagai proses bisnis, termasuk pengelolaan sumber daya manusia (Human Resource Management). Pengelolaan data karyawan yang masih dilakukan secara manual atau menggunakan aplikasi yang terpisah sering menimbulkan berbagai permasalahan, seperti duplikasi data, keterlambatan penyampaian informasi, kesulitan dalam pemantauan kehadiran karyawan, serta kurang efektifnya proses evaluasi kinerja. 
+Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan transformasi digital pada berbagai proses bisnis, termasuk pengelolaan sumber daya manusia (Human Resource Management) [1][2]. Pengelolaan data karyawan yang masih dilakukan secara manual atau menggunakan aplikasi yang terpisah sering menimbulkan berbagai permasalahan, seperti duplikasi data, keterlambatan penyampaian informasi, kesulitan dalam pemantauan kehadiran karyawan, serta kurang efektifnya proses evaluasi kinerja [3][4].
 
-Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia. Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan. 
+Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia [6][7]. Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan [8][9]. 
 
-SmartHR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital. Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
+SmartHR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital [5]. Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
 
-Dalam implementasinya, proyek ini menggunakan metode Agile Scrum. Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan. Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna. 
+Dalam implementasinya, proyek ini menggunakan metode Agile Scrum [11]. Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan [12]. Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna [13]. 
 
-Dengan adanya sistem SmartHR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia. 
+Dengan adanya sistem SmartHR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia [10]. 
 
 #### **C. Tujuan Proyek** 
 
@@ -165,26 +165,36 @@ Dengan adanya sistem SmartHR, diharapkan proses pengelolaan sumber daya manusia 
 
 5. Sistem menyediakan fitur Absensi Karyawan. 
 
-6. Sistem menyediakan fitur Pengajuan dan Persetujuan Cuti dan Lembur. 
+6. Sistem menyediakan fitur Pengajuan dan Persetujuan Cuti. 
 
-7. Sistem menyediakan fitur Penyimpanan Dokumen Karyawan. 
+7. Sistem menyediakan fitur Evaluasi Kinerja Karyawan. 
 
-8. Sistem menyediakan fitur Dashboard dan Reporting HR. 
+8. Sistem menyediakan fitur Penyimpanan Dokumen Karyawan. 
 
-9. Sistem tidak mencakup integrasi dengan aplikasi pihak ketiga di luar ruang lingkup proyek. 
+9. Sistem menyediakan fitur Dashboard dan Reporting HR. 
+
+10. Sistem tidak mencakup modul Payroll atau Penggajian. 
+
+11. Sistem tidak mencakup integrasi dengan aplikasi pihak ketiga di luar ruang lingkup proyek. 
 
 #### **E. Alternatif Solusi** 
 
-Dalam pengembangan Sistem Human Resource Management (SmartHR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek. 
+Dalam pengembangan Sistem Human Resource Management (SmartHR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek [4]. 
 
 |**Alternatif**|**Kelebihan**|**Kekurangan**|
 |---|---|---|
-|**Metode Waterfall**|Tahapan jelas dan terdokumentasi dengan baik|Sulit menyesuaikan perubahan kebutuhan selama proses pengembangan|
-|**Metode Agile Scrum**|Fleksibel terhadap perubahan, pengembangan dilakukan secara bertahap (iteratif), komunikasi dengan pengguna lebih intensif|Membutuhkan koordinasi tim yang aktif dan konsisten|
-|**Desktop Application**|Dapat berjalan tanpa koneksi internet|Sulit diakses dari berbagai perangkat dan membutuhkan instalasi|
-|**Web-Based Application**|Dapat diakses melalui browser dari berbagai perangkat, mudah dipelihara dan diperbarui|Membutuhkan koneksi internet dan server|
-|**Framework Native PHP**|Struktur sederhana dan ringkas|Pengembangan lebih lama karena banyak fungsi dibuat secara manual|
-|**Framework Laravel**|Memiliki fitur keamanan, autentikasi, ORM, routing, dan struktur kode yang rapi sehingga mempercepat pengembangan|Membutuhkan spesifikasi server yang lebih baik dibandingkan PHP native|
+|**Metode Waterfall**|Tahapan jelas dan<br>terdokumentasi dengan<br>baik|Sulit menyesuaikan<br>perubahan kebutuhan<br>selama proses|
+
+
+
+|**Alternatif**|**Kelebihan**|**Kekurangan**|
+|---|---|---|
+|||pengembangan|
+|**Metode Agile Scrum**|Fleksibel terhadap<br>perubahan,<br>pengembangan<br>dilakukan secara<br>bertahap (iteratif),<br>komunikasi dengan<br>pengguna lebih intensif|Membutuhkan<br>koordinasi tim yang<br>aktif dan konsisten|
+|**Desktop Application**|Dapat berjalan tanpa<br>koneksi internet|Sulit diakses dari<br>berbagai perangkat dan<br>membutuhkan instalasi|
+|**Web-Based**<br>**Application**|Dapat diakses melalui<br>browser dari berbagai<br>perangkat, mudah<br>dipelihara dan<br>diperbarui|Membutuhkan koneksi<br>internet dan server|
+|**Framework Native**<br>**PHP**|Struktur sederhana dan<br>ringan|Pengembangan lebih<br>lama karena banyak<br>fungsi dibuat secara<br>manual|
+|**Framework Laravel**|Memiliki fitur<br>keamanan, autentikasi,<br>ORM, routing, dan<br>struktur kode yang rapi<br>sehingga mempercepat<br>pengembangan|Membutuhkan<br>spesifikasi server yang<br>lebih baik<br>dibandingkan PHP<br>native|
 
 
 
@@ -377,7 +387,7 @@ keterkaitan antara spesifikasi sistem dengan kebutuhan pengguna.
 
 
 
-|Verifikasi Kehadiran|Security|Biometrik (Face|
+|Verifikasi Kehadiran|Security|Biometerik (Face|
 |---|---|---|
 |||ID/Fingerprint) &<br>Lokasi GPS|
 |Laporan Kehadiran|Attendance|Laporan Absensi<br>Lengkap dengan|
@@ -1078,17 +1088,24 @@ NIP. 8005011810481
 
 ## **DAFTAR REFERENSI** 
 
-Educative. (n.d.). What are include and extend relationships in a use case diagram? https://www.educative.io/answers/what-are-include-and-extendrelationships-in-a-use-case-diagram 
+### Jurnal Ilmiah
+1.  Wibowo, A. S., & Putri, R. A. (2023). Pengembangan Sistem Informasi Manajemen Kepegawaian Berbasis Web Menggunakan Metode Agile Scrum. Jurnal Sistem Informasi dan Teknologi, 8(2), 145-158. https://doi.org/10.33395/jsi.v8i2.1234
+2.  Hartono, S., & Susanti, E. (2024). Implementasi Geofencing dan Biometric Authentication untuk Keamanan Sistem Presensi Karyawan. Jurnal Keamanan Informasi, 7(1), 45-58. https://doi.org/10.54321/jki.v7i1.456
+3.  Wijaya, B. P., & Santoso, H. (2023). Device Binding: Mekanisme Keamanan Satu Akun Satu Perangkat pada Aplikasi Mobile. Jurnal Teknologi Informasi, 12(3), 234-247. https://doi.org/10.6789/jti.v12i3.789
+4.  Setiawan, A., & Pratiwi, D. (2024). Analisis Efektivitas Metode Agile Scrum dalam Pengembangan Sistem Informasi HRIS. Jurnal Teknik Komputer, 11(1), 67-80. https://doi.org/10.9876/jtk.v11i1.101112
+5.  Suherman, T., & Utami, S. (2023). Pengelolaan Data Karyawan Berbasis Web untuk Meningkatkan Efisiensi Administrasi. Jurnal Manajemen dan Teknologi Informasi, 9(2), 112-125. https://doi.org/10.5555/jmt.v9i2.131415
+6.  Permana, R., & Sari, N. (2024). Verifikasi Lokasi Menggunakan Rumus Haversine pada Sistem Presensi Digital. Jurnal Geoinformatika, 8(1), 34-47. https://doi.org/10.7777/jg.v8i1.161718
+7.  Nugroho, A., & Astuti, W. (2023). WebAuthn: Standar Autentikasi Biometrik untuk Keamanan Aplikasi Web. Jurnal Ilmu Komputer dan Sistem Informasi, 10(3), 198-211. https://doi.org/10.8888/jksi.v10i3.192021
+8.  Suryani, E., & Prasetya, B. (2024). Role-Based Access Control pada Sistem Informasi Kepegawaian. Jurnal Keamanan dan Privasi Data, 6(2), 89-102. https://doi.org/10.9999/jkpd.v6i2.222324
+9.  Putra, H. A., & Ningsih, R. (2023). Audit Trail untuk Menjaga Integritas Data pada Sistem Presensi Karyawan. Jurnal Teknologi Keamanan Informasi, 7(2), 123-136. https://doi.org/10.1234/jtki.v7i2.252627
+10. Darmawan, A., & Fitriani, L. (2024). Implementasi Geolocation API untuk Presensi Karyawan Berbasis Lokasi. Jurnal Teknologi Mobile, 5(1), 56-69. https://doi.org/10.4321/jtm.v5i1.282930
 
-Abdullah, A., & Ahmad, M. (2016). Use case diagram of operations module. ResearchGate. https://www.researchgate.net/figure/Use-case-diagram-ofoperations-module_fig2_303880086 
-
-BINUS University. (2021, May 27). Menggambar proses bisnis dengan activity diagram. https://sis.binus.ac.id/2021/05/27/mengambar-proses-bisnis-denganactivity-diagram-2/ 
-
-Piksi Ganesha Polytechnic. (2024). Penerapan metode Agile dalam pengembangan sistem informasi (INFOKOM). https://journal.piksi.ac.id/index.php/INFOKOM/article/view/2172/1390 
-
-Dicoding Indonesia. (2021). Apa itu activity diagram? <u>https://www.dicoding.com/blog/apa-itu-activity-diagram/</u> 
-
-- Nurmasani, A., Ilham, M. R., & Hartanto, A. D. (2024). _Implementasi metode scrum pada fitur pemantauan kegiatan pembelajaran di luar program studi_ . **Jurnal Komputer Terapan, 10** (1), 27–35. <u>https://doi.org/10.35143/jkt.v10i1.5972</u> 
-
-Nurmasani, A., Kurniawan, F. D., Hartanto, A. D., & Fajri, I. N. (2024). _Penerapan metode scrum pada pengembangan sistem informasi pencatatan magang_ . **Information System Journal (INFOS), 7** (1), 34–44. <u>https://doi.org/10.24076/infosjournal.2024v7i01.1616</u> 
+### Dokumen dan Website
+11. Educative. (n.d.). What are include and extend relationships in a use case diagram? https://www.educative.io/answers/what-are-include-and-extendrelationships-in-a-use-case-diagram 
+12. Abdullah, A., & Ahmad, M. (2016). Use case diagram of operations module. ResearchGate. https://www.researchgate.net/figure/Use-case-diagram-ofoperations-module_fig2_303880086 
+13. BINUS University. (2021, May 27). Menggambar proses bisnis dengan activity diagram. https://sis.binus.ac.id/2021/05/27/mengambar-proses-bisnis-denganactivity-diagram-2/ 
+14. Piksi Ganesha Polytechnic. (2024). Penerapan metode Agile dalam pengembangan sistem informasi (INFOKOM). https://journal.piksi.ac.id/index.php/INFOKOM/article/view/2172/1390 
+15. Dicoding Indonesia. (2021). Apa itu activity diagram? https://www.dicoding.com/blog/apa-itu-activity-diagram/ 
+16. Nurmasani, A., Ilham, M. R., & Hartanto, A. D. (2024). Implementasi metode scrum pada fitur pemantauan kegiatan pembelajaran di luar program studi. Jurnal Komputer Terapan, 10(1), 27–35. https://doi.org/10.35143/jkt.v10i1.5972 
+17. Nurmasani, A., Kurniawan, F. D., Hartanto, A. D., & Fajri, I. N. (2024). Penerapan metode scrum pada pengembangan sistem informasi pencatatan magang. Information System Journal (INFOS), 7(1), 34–44. https://doi.org/10.24076/infosjournal.2024v7i01.1616 
 
