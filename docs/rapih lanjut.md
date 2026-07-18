@@ -133,11 +133,11 @@ Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan tran
 
 Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia [6][7]. Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan [8][9]. 
 
-SmartHR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital [5]. Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
+PILAR HR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital [5]. Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
 
 Dalam implementasinya, proyek ini menggunakan metode Agile Scrum [11]. Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan [12]. Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna [13]. 
 
-Dengan adanya sistem SmartHR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia [10]. 
+Dengan adanya sistem PILAR HR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia [10]. 
 
 #### **C. Tujuan Proyek** 
 
@@ -179,7 +179,7 @@ Dengan adanya sistem SmartHR, diharapkan proses pengelolaan sumber daya manusia 
 
 #### **E. Alternatif Solusi** 
 
-Dalam pengembangan Sistem Human Resource Management (SmartHR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek [4]. 
+Dalam pengembangan Sistem Human Resource Management (PILAR HR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek [4]. 
 
 |**Alternatif**|**Kelebihan**|**Kekurangan**|
 |---|---|---|
@@ -631,7 +631,7 @@ flowchart sebelum bisa presensi
 
 #### **Ringkasan Fitur Keamanan** 
 
-Berikut adalah ringkasan fitur keamanan di SmartHR: 
+Berikut adalah ringkasan fitur keamanan di PILAR HR: 
 
 |**Fitur**|**Teknologi**|
 |---|---|
@@ -671,7 +671,7 @@ Berikut adalah ringkasan fitur keamanan di SmartHR:
 
 ##### **Kesimpulan** 
 
-Arsitektur SmartHR dirancang dengan prinsip keamanan dan keterpeliharaan (maintainability) yang tinggi. Setiap lapisan memiliki tanggung jawab yang jelas, dan seluruh sistem dilindungi oleh fitur keamanan yang komprehensif. 
+Arsitektur PILAR HR dirancang dengan prinsip keamanan dan keterpeliharaan (maintainability) yang tinggi. Setiap lapisan memiliki tanggung jawab yang jelas, dan seluruh sistem dilindungi oleh fitur keamanan yang komprehensif. 
 
 
 
