@@ -20,7 +20,7 @@ C-3 (Perancangan) menetapkan arsitektur **Layered Architecture** dengan enam lap
 
 Tahap C-4 merealisasikan rancangan C-3 menjadi sistem yang dapat dijalankan, meliputi penulisan kode, integrasi antarmodul, koneksi basis data, penerapan logika bisnis cuti/lembur/presensi, serta implementasi kontrol keamanan. Tujuan khususnya:
 
-1. Menghasilkan sistem PILAR HR yang dapat dijalankan pada lingkungan XAMPP lokal dan diuji fungsionalnya.
+1. Menghasilkan sistem PILAR HR yang dapat dijalankan pada lingkungan XAMPP lokal dan lingkungan produksi server (CyberPanel) serta diuji fungsionalnya.
 2. Merealisasikan kebutuhan fungsional C-2 sesuai prioritas sprint.
 3. Menerapkan kontrol keamanan yang dirancang pada C-3 (autentikasi, role-based access, device binding, geofencing, biometrik, attendance consent, audit metadata).
 4. Menyediakan dokumentasi pemasangan dan pengoperasian yang dapat diikuti kembali.
@@ -33,11 +33,10 @@ Implementasi pada Capstone Project 2 mencakup modul-modul berikut:
 2. Manajemen data master (karyawan, jabatan, golongan, pangkat, status pegawai, departemen, unit kerja).
 3. Presensi (check-in/check-out dengan geofencing, device binding, biometrik, consent).
 4. Manajemen cuti (jenis cuti, saldo cuti, pengajuan, approval berlapis).
-5. Manajemen lembur (overtime) dan reimbursement.
-6. Penggajian (gaji bulanan, skala gaji, riwayat gaji).
-7. Jadwal kerja (shift group, work shift, jadwal karyawan, hari libur).
-8. Lokasi absensi (titik lokasi + radius untuk geofencing).
-9. Portal karyawan berbasis antarmuka mobile-friendly.
+5. Manajemen lembur (overtime).
+6. Jadwal kerja (shift group, work shift, jadwal karyawan, hari libur).
+7. Lokasi absensi (titik lokasi + radius untuk geofencing).
+8. Portal karyawan berbasis antarmuka mobile-friendly.
 
 ### A.4 Kondisi Awal Sebelum Pengembangan
 
@@ -55,7 +54,7 @@ Sebelum implementasi, tim telah menyelesaikan analisis kebutuhan dan perancangan
 
 | Anggota | Tanggung jawab yang dilaksanakan | Modul/fitur | Kode bukti |
 |---|---|---|---|
-| Muhammad Satrioadi / 2311501028 | Implementasi seluruh backend Laravel, kontroler, model, migrasi, logika bisnis cuti/lembur/presensi, kontrol keamanan (geofencing, device binding, biometrik), integrasi Leaflet & SweetAlert2, serta dokumentasi teknis | Autentikasi, Master Data, Presensi, Cuti, Lembur, Payroll, Portal Karyawan | Commit `143ef38`–`0823b98`, `docs/*.md` |
+| Muhammad Satrioadi / 2311501028 | Implementasi seluruh backend Laravel, kontroler, model, migrasi, logika bisnis cuti/lembur/presensi, kontrol keamanan (geofencing, device binding, biometrik), integrasi Leaflet & SweetAlert2, serta dokumentasi teknis | Autentikasi, Master Data, Presensi, Cuti, Lembur, Jadwal Kerja, Lokasi Absensi, Portal Karyawan | Commit `143ef38`–`0823b98`, `docs/*.md` |
 | Annisa Ashadia N.S. / 2311501050 | [?] Belum terverifikasi dari riwayat commit | [?] | [?] |
 | Rizki Fachriadi I. / 2311501054 | [?] Belum terverifikasi dari riwayat commit | [?] | [?] |
 | Nathasya Destia F.S. / 2311501058 | [?] Belum terverifikasi dari riwayat commit | [?] | [?] |
@@ -107,7 +106,7 @@ Peran yang dikenali sistem meliputi `admin`, `admin_hr`, `manajer`/`atasan`, dan
 
 Modul master data mencakup karyawan, jabatan, golongan, pangkat, status pegawai, departemen, unit kerja, hari libur, shift group, work shift, jenis cuti, dan lokasi absensi. Setiap modul diimplementasikan dengan pola CRUD (Create-Read-Update-Delete) melalui Controller yang sesuai, dengan validasi input pada setiap metode `store` dan `update`.
 
-Contoh: `KaryawanController` menangani data master pegawai dengan tiga kelompok data: data umum, data kepegawaian (relasi ke jabatan, golongan, pangkat, status, departemen, unit kerja), dan data payroll (bank, rekening, BPJS). Relasi antar tabel didefinisikan pada model Eloquent.
+Contoh: `KaryawanController` menangani data master pegawai dengan dua kelompok data: data umum dan data kepegawaian (relasi ke jabatan, golongan, pangkat, status, departemen, unit kerja). Relasi antar tabel didefinisikan pada model Eloquent.
 
 > [Gambar 4.2. Implementasi formulir master data karyawan]
 
@@ -141,27 +140,21 @@ public static function distanceMeters(float $lat1, float $lng1, float $lat2, flo
 
 `CutiController` menangani pengajuan cuti dengan perhitungan hari kerja yang mengecualikan akhir pekan dan hari libur nasional (menggunakan tabel `holidays`). `LeaveBalanceService` mengelola saldo cuti per jenis cuti per tahun, memastikan saldo tersedia sebelum pengajuan disetujui. Alur approval berlapis: status `menunggu_atasan` → `menunggu_hr` → `disetujui`/`ditolak`, dengan rute `cuti.approveSupervisor`, `cuti.approveHr`, dan `cuti.reject`.
 
-#### B.3.5 Lembur (Overtime) dan Reimbursement
+#### B.3.5 Lembur (Overtime)
 
-`OvertimeController` menangani pengajuan lembur dengan perhitungan jumlah jam otomatis dan approval berlapis (atasan → HR). `ReimbursementController` menangani klaim penggantian biaya dengan alur approval serupa.
+`OvertimeController` menangani pengajuan lembur dengan perhitungan jumlah jam otomatis dan approval berlapis (atasan → HR).
 
-#### B.3.6 Penggajian (Payroll)
-
-> **Catatan:** C-1 menyatakan sistem tidak mencakup modul Payroll. Namun pada implementasi terdapat `GajiController`, `SalaryStep`, `EmployeeSalaryHistory`, `PayrollCalculator`, dan `StatutoryPayrollEstimator`. Modul ini menghitung gaji pokok, tunjangan, lembur, potongan, serta estimasi BPJS dan PPh 21. Perubahan ini perlu dicatat pada Tabel 4.4 (CHG).
-
-`GajiController::index()` mengambil data gaji karyawan beserta komponen gaji aktif, lembur yang disetujui pada bulan berjalan, dan menghitung total gaji bersih. `StatutoryPayrollEstimator` memberikan perkiraan potongan BPJS kesehatan, JHT, JP, dan PPh 21.
-
-#### B.3.7 Jadwal Kerja dan Hari Libur
+#### B.3.6 Jadwal Kerja dan Hari Libur
 
 `EmployeeScheduleController` menyediakan grid jadwal shift per bulan dengan dukungan assignment massal (`massAssign`). `HolidayController` mendukung sinkronisasi hari libur nasional. `ShiftGroupController` dan `WorkShiftController` mengelola definisi shift kerja.
 
-#### B.3.8 Lokasi Absensi
+#### B.3.7 Lokasi Absensi
 
 `AttendanceLocationController` mengelola titik lokasi kantor beserta radius (dalam meter) yang digunakan untuk validasi geofencing. Lokasi dapat di-assign ke karyawan tertentu atau berlaku umum.
 
-#### B.3.9 Portal Karyawan
+#### B.3.8 Portal Karyawan
 
-Antarmuka portal (`resources/views/portal/`) dirancang mobile-friendly untuk karyawan dan manajer, mencakup halaman home, presensi, riwayat absensi, cuti (pengajuan & approval), gaji, profil, consent, dan absensi bawahan (untuk manajer).
+Antarmuka portal (`resources/views/portal/`) dirancang mobile-friendly untuk karyawan dan manajer, mencakup halaman home, presensi, riwayat absensi, cuti (pengajuan & approval), profil, consent, dan absensi bawahan (untuk manajer).
 
 ---
 
@@ -174,8 +167,6 @@ Antarmuka portal (`resources/views/portal/`) dirancang mobile-friendly untuk kar
 | DES-ATT-01 | FR-ATTEND | Presensi check-in/out dengan geofencing (Haversine), device binding, biometrik, consent, dan audit metadata | Satrioadi | `PresensiController.php`, `GeolocationService.php`, commit `eea95e0`, `731c57b` | Sesuai |
 | DES-LEAVE-01 | FR-LEAVE | Pengajuan cuti dengan perhitungan hari kerja (kecuali akhir pekan & libur), saldo cuti, approval atasan→HR | Satrioadi | `CutiController.php`, `LeaveBalanceService.php`, commit `4313de4` | Sesuai |
 | DES-OT-01 | FR-OT | Pengajuan lembur dengan approval berlapis | Satrioadi | `OvertimeController.php`, commit `a85da56` | Sesuai |
-| DES-PAYROLL-01 | — | Modul penggajian (gaji, skala gaji, riwayat gaji, estimasi BPJS/PPh) diimplementasikan **di luar batasan C-1** | Satrioadi | `GajiController.php`, `PayrollCalculator.php`, `StatutoryPayrollEstimator.php` | Berubah (CHG-01) |
-| DES-REIMB-01 | — | Modul reimbursement ditambahkan | Satrioadi | `ReimbursementController.php` | Berubah (CHG-02) |
 | DES-PERF-01 | FR-PERF | Evaluasi kinerja **belum diimplementasikan** | — | — | Belum |
 | DES-DOC-01 | FR-DOC | Penyimpanan dokumen karyawan **belum diimplementasikan** | — | — | Belum |
 | DES-SEC-01 | NFR-SEC | Password hashing Bcrypt/Argon2, CSRF, validasi input, role-based access | Satrioadi | `User.php` (`casts: hashed`), middleware `auth` | Sesuai |
@@ -192,10 +183,8 @@ Antarmuka portal (`resources/views/portal/`) dirancang mobile-friendly untuk kar
 
 | Kode CHG | Perubahan | Alasan | Dampak | PJ |
 |---|---|---|---|---|
-| CHG-01 | Penambahan modul penggajian (Payroll) yang sebelumnya dikecualikan pada C-1 | Kebutuhan mitra untuk melihat slip gaji dan estimasi potongan BPJS/PPh dalam satu sistem HR | FR bertambah; DES-PAYROLL-01 ditambahkan; perlu pengujian modul payroll | Satrioadi [?] |
-| CHG-02 | Penambahan modul reimbursement | Kebutuhan klaim biaya karyawan yang tidak ada pada rancangan awal | FR bertambah; DES-REIMB-01 ditambahkan | Satrioadi [?] |
-| CHG-03 | Modul evaluasi kinerja dan penyimpanan dokumen tidak diimplementasikan | Fokus pengembangan pada modul inti HR (master data, presensi, cuti, lembur, payroll) yang lebih prioritas | FR-PERF dan FR-DOC berstatus "Belum"; perlu dikomunikasikan ke pembimbing | — [?] |
-| CHG-04 | Perubahan label "Admin" menjadi "Manajer" pada tampilan approval cuti | Menyesuaikan istilah peran di perusahaan | Perubahan UI tanpa dampak fungsional | Satrioadi (commit `9457117`) |
+| CHG-01 | Modul evaluasi kinerja dan penyimpanan dokumen tidak diimplementasikan | Fokus pengembangan pada modul inti HR (master data, presensi, cuti, lembur) yang lebih prioritas | FR-PERF dan FR-DOC berstatus "Belum"; perlu dikomunikasikan ke pembimbing | — [?] |
+| CHG-02 | Perubahan label "Admin" menjadi "Manajer" pada tampilan approval cuti | Menyesuaikan istilah peran di perusahaan | Perubahan UI tanpa dampak fungsional | Satrioadi (commit `9457117`) |
 
 > **Tindakan yang diperlukan:** Pastikan setiap CHG memiliki bukti persetujuan dari pembimbing/mitra. Jika belum ada, cantumkan statusnya sebagai "Menunggu persetujuan".
 
@@ -209,9 +198,7 @@ Integrasi antarkomponen dilakukan melalui struktur MVC Laravel dan relasi Eloque
 
 3. **Integrasi Cuti dengan Saldo & Hari Libur**: `CutiController` menggunakan `LeaveBalanceService` untuk memastikan saldo cuti tersedia, dan tabel `holidays` untuk mengecualikan hari libur dari perhitungan hak cuti.
 
-4. **Integrasi Payroll dengan Lembur & Skala Gaji**: `GajiController` mengambil data lembur yang disetujui (`Overtime` status `disetujui`) dan komponen gaji aktif dari `EmployeeSalaryHistory`/`SalaryStep` untuk menghitung total gaji bulanan.
-
-5. **Integrasi Portal dengan Role**: `PortalController` memfilter data berdasarkan peran (manajer melihat absensi bawahan; karyawan hanya data pribadi).
+4. **Integrasi Portal dengan Role**: `PortalController` memfilter data berdasarkan peran (manajer melihat absensi bawahan; karyawan hanya data pribadi).
 
 > Bukti keberhasilan integrasi akan dirujuk ke kode IT (Integration Testing) pada C-5.
 
@@ -248,8 +235,6 @@ Kontrol keamanan yang diimplementasikan merujuk pada rancangan keamanan C-3:
 | Presensi (geofencing, device binding, biometrik, consent, audit) | FR-ATTEND | Selesai | Satrioadi | `PresensiController.php`, `GeolocationService.php` |
 | Manajemen cuti (jenis, saldo, pengajuan, approval) | FR-LEAVE | Selesai | Satrioadi | `CutiController.php`, `LeaveBalanceService.php` |
 | Manajemen lembur (pengajuan + approval) | FR-OT | Selesai | Satrioadi | `OvertimeController.php` |
-| Reimbursement | FR-REIMB | Selesai | Satrioadi | `ReimbursementController.php` |
-| Penggajian (gaji, skala gaji, riwayat gaji, estimasi BPJS/PPh) | FR-PAYROLL | Sebagian | Satrioadi | `GajiController.php`, `PayrollCalculator.php` |
 | Jadwal kerja (shift group, work shift, jadwal karyawan, hari libur) | FR-SCHEDULE | Selesai | Satrioadi | `EmployeeScheduleController.php`, dll. |
 | Lokasi absensi (geofencing) | FR-ATTLOC | Selesai | Satrioadi | `AttendanceLocationController.php` |
 | Portal karyawan (mobile-friendly) | FR-PORTAL | Selesai | Satrioadi | `resources/views/portal/` |
@@ -258,7 +243,7 @@ Kontrol keamanan yang diimplementasikan merujuk pada rancangan keamanan C-3:
 | Penyimpanan dokumen karyawan | FR-DOC | Belum | — | — |
 | Laporan/Reporting HR | FR-REPORT | Sebagian | Satrioadi | Absensi/cuti list pada dashboard |
 
-> **Keterangan:** "Sebagian" pada penggajian berarti komponen gaji dan estimasi sudah berjalan, namun proses generate slip gaji resmi dan integrasi dengan periode payroll perlu penyempurnaan. "Sebagian" pada dashboard berarti kartu ringkasan tersedia, namun grafik dan filter lanjutan perlu dilengkapi.
+> **Keterangan:** "Sebagian" pada dashboard berarti kartu ringkasan tersedia, namun grafik dan filter lanjutan perlu dilengkapi.
 
 ---
 
@@ -266,25 +251,36 @@ Kontrol keamanan yang diimplementasikan merujuk pada rancangan keamanan C-3:
 
 ### D.1 Kebutuhan Perangkat Keras dan Perangkat Lunak
 
-**Perangkat Keras (minimal):**
-- Prosesor: Intel Core i3 atau setara
-- RAM: 4 GB (8 GB disarankan)
-- Penyimpanan: 2 GB ruang kosong (untuk XAMPP, dependency, dan basis data)
+**Spesifikasi Aktual Server Produksi:**
+- CPU: Common KVM processor (pc-i440fx-11.0 CPU @ 2.0GHz)
+- RAM: 6 GB (5.8Gi total)
+- Penyimpanan: 40 GB SSD (13GB terpakai)
 
-**Perangkat Lunak:**
-- Sistem Operasi: Windows 10/11 (atau Linux/macOS)
-- XAMPP (Apache 2.4 + MySQL/MariaDB + PHP 8.2)
-- Composer 2.x
-- Web browser modern (Chrome, Edge, Firefox)
+**Perangkat Lunak Aktual:**
+- Sistem Operasi: Ubuntu 24.04.4 LTS (Noble Numbat)
+- Kernel: Linux 6.8.0-147-generic x86_64
+- Server Web: OpenLiteSpeed HTTP Server (Active)
+- Database: MariaDB 10.11.16 (Active)
+- Runtime: PHP 8.3.6 (cli)
+- Framework: Laravel 11.10.0
+- Pengelola Dependensi: Composer 2.8.12
+- Version Control: Git 2.43.0
 
 ### D.2 Lingkungan Tujuan Pemasangan
 
-Saat ini sistem dijalankan pada **lingkungan pengembangan lokal** menggunakan XAMPP dengan konfigurasi:
-- `APP_ENV=local`
-- `APP_URL=http://localhost`
-- `DB_CONNECTION=mysql`, `DB_HOST=127.0.0.1`, `DB_PORT=3306`, `DB_DATABASE=laravelkaryawan`
+Sistem diimplementasikan pada dua lingkungan utama:
 
-> [?] **Belum terverifikasi:** Apakah sistem telah dideploy ke server produksi/shared hosting. Jika belum, lingkungan tujuan yang disepakati perlu dicantumkan di sini.
+1. **Lingkungan Pengembangan (Local):**
+   - Menggunakan XAMPP (Apache + MySQL) pada Windows.
+   - URL: `http://localhost/Aplikasi HR Karyawan/public` atau `http://127.0.0.1:8000`.
+
+2. **Lingkungan Produksi (Server):**
+    - Sistem Operasi: Ubuntu 24.04.4 LTS.
+    - Menggunakan CyberPanel dengan web server OpenLiteSpeed.
+    - Domain: `hr.yhotech.id` (dengan SSL/HTTPS).
+    - Lokasi File: `/home/hr.yhotech.id/public_html` (terintegrasi dengan repositori Git).
+    - Database: MariaDB 10.11.16 pada server produksi.
+    - Deployment: Automasi melalui Git Pull dari repositori GitHub.
 
 ### D.3 Langkah Pemasangan
 
@@ -292,51 +288,36 @@ Saat ini sistem dijalankan pada **lingkungan pengembangan lokal** menggunakan XA
 
 | Langkah/tindakan | Cara/alat | Lingkungan tujuan | Konfigurasi teknis utama | Konfigurasi keamanan | Kode bukti |
 |---|---|---|---|---|---|
-| 1. Menyiapkan server web & DB | XAMPP (Apache + MySQL) | Lokal (Windows) | PHP 8.2.12; MySQL port 3306; Apache port 80 | DB user `root` tanpa password (hanya lokal) | [Gambar 4.4. XAMPP Control Panel aktif] |
-| 2. Meng-clone/mengambil source code | Git / copy folder | Lokal | Folder: `C:\xampp\htdocs\Aplikasi HR Karyawan` | `.gitignore` mengecualikan `.env` dan `vendor/` | [Gambar 4.5. Struktur direktori proyek] |
-| 3. Menginstal dependency PHP | `composer install` | Lokal | Mengunduh Laravel 11 dan dependensi lain | — | [Gambar 4.6. Output composer install] |
-| 4. Menyiapkan file lingkungan | Salin `.env.example` → `.env` | Lokal | `APP_KEY`, `DB_*`, `SESSION_DRIVER=database` | Kredensial di `.env`, tidak di-commit | `.env` |
-| 5. Membuat basis data | phpMyAdmin / CLI MySQL | Lokal | `CREATE DATABASE laravelkaryawan;` | — | [Gambar 4.7. Basis data laravelkaryawan] |
-| 6. Menjalankan migrasi | `php artisan migrate` | Lokal | Membuat seluruh tabel dari `database/migrations/` | — | [Gambar 4.8. Output migrate] |
-| 7. Mengisi data awal (opsional) | `php artisan db:seed` | Lokal | Menjalankan `DatabaseSeeder` dan seeder lain | — | [Gambar 4.9. Output db:seed] |
-| 8. Menjalankan aplikasi | `php artisan serve` atau akses via Apache | Lokal | `php artisan serve` → `http://127.0.0.1:8000`; atau via `http://localhost/Aplikasi HR Karyawan/public` | — | [Gambar 4.10. Halaman login terbuka] |
-| 9. Pemeriksaan setelah pemasangan | Browser | Lokal | Login dengan akun admin, akses dashboard, coba presensi/cuti | Uji dengan akun non-admin untuk verifikasi hak akses | [Gambar 4.11. Dashboard setelah login] |
+| 1. Menyiapkan server | XAMPP / CyberPanel | Lokal & Server | PHP 8.2; MySQL 8.0; LiteSpeed/Apache | Firewall, SSL (HTTPS) | [Gambar 4.4] |
+| 2. Deployment kode | Git Pull / Clone | Server | Repo: `muhammadsatrioadi/SmartHR.git` | SSH/HTTPS Auth | [Gambar 4.5] |
+| 3. Instal dependensi | `composer install` | Lokal & Server | `--no-dev --optimize-autoloader` | — | [Gambar 4.6] |
+| 4. Konfigurasi env | `.env` | Lokal & Server | `APP_KEY`, `DB_PASSWORD`, `APP_ENV=production` | Kredensial rahasia | `.env` |
+| 5. Migrasi Database | `php artisan migrate` | Lokal & Server | `--force` pada produksi | — | [Gambar 4.8] |
+| 6. Optimasi Cache | `php artisan optimize` | Server | Clear & Cache Route/Config/View | — | — |
+| 7. Pengaturan Izin | `chown` & `chmod` | Server | Owner: `hr.yhotech.id`; Folder: `storage`, `cache` | Izin 775/755 | — |
+| 8. Uji Akses | Browser | Server | Akses `https://hr.yhotech.id` | Login Role-based | [Gambar 4.12] |
 
-### D.4 Perintah Instalasi dan Konfigurasi (dapat diikuti kembali)
+### D.4 Perintah Instalasi dan Konfigurasi Server (Produksi)
 
 ```bash
-# 1. Masuk ke direktori proyek
-cd "C:\xampp\htdocs\Aplikasi HR Karyawan"
+# 1. Masuk ke direktori home website di CyberPanel
+cd /home/hr.yhotech.id/public_html
 
-# 2. Instal dependensi
-composer install
+# 2. Ambil pembaruan kode terbaru dari GitHub
+git pull origin main
 
-# 3. Salin file lingkungan
-copy .env.example .env
+# 3. Instal dependensi produksi
+composer install --no-dev --optimize-autoloader
 
-# 4. Generate application key
-php artisan key:generate
+# 4. Jalankan migrasi database
+php artisan migrate --force
 
-# 5. Edit .env (sesuaikan kredensial basis data)
-#    DB_CONNECTION=mysql
-#    DB_HOST=127.0.0.1
-#    DB_PORT=3306
-#    DB_DATABASE=laravelkaryawan
-#    DB_USERNAME=root
-#    DB_PASSWORD=
+# 5. Bersihkan dan perbarui cache sistem
+php artisan optimize:clear
 
-# 6. Buat basis data (via phpMyAdmin atau MySQL CLI)
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS laravelkaryawan;"
-
-# 7. Jalankan migrasi
-php artisan migrate
-
-# 8. (Opsional) Isi data awal
-php artisan db:seed
-
-# 9. Jalankan aplikasi
-php artisan serve
-# Akses di browser: http://127.0.0.1:8000
+# 6. Atur kepemilikan dan izin folder agar dapat diakses web server
+chown -R hr.yhotech.id:hr.yhotech.id /home/hr.yhotech.id/public_html
+chmod -R 775 storage bootstrap/cache
 ```
 
 ### D.5 Menjalankan, Menghentikan, dan Memulai Ulang Sistem
@@ -354,9 +335,9 @@ php artisan serve
 5. **Role-based access** melalui middleware `auth` dan filter role di Controller.
 6. **Device binding** membatasi satu akun untuk satu perangkat.
 7. **Geofencing backend** mencegah presensi dari lokasi yang tidak diizinkan.
-8. **Session** disimpan di basis data (`SESSION_DRIVER=database`).
-
-> **Rekomendasi untuk produksi:** Ganti `APP_ENV=local` menjadi `production`, set `APP_DEBUG=false`, gunakan kredensial DB non-root dengan password kuat, aktifkan HTTPS, dan konfigurasi firewall.
+8. **HTTPS/SSL** diaktifkan pada domain `hr.yhotech.id` untuk enkripsi data.
+9. **File Permissions** diatur secara ketat pada server (owner `hr.yhotech.id`).
+10. **LiteSpeed Cache** dikonfigurasi untuk performa dan keamanan.
 
 ### D.7 Pemeriksaan Keberhasilan Pemasangan
 
@@ -366,6 +347,16 @@ php artisan serve
 4. Data master dapat ditambahkan/diedit/dihapus.
 5. Presensi dapat dilakukan dari dalam radius lokasi kantor dan ditolak dari luar.
 6. Pengajuan cuti melalui alur approval atasan→HR berjalan.
+
+**Hasil Verifikasi Infrastruktur Server:**
+Berdasarkan pengecekan langsung pada VM, berikut adalah status kesiapan infrastruktur:
+- **OS & Kernel:** Ubuntu 24.04.4 LTS, Linux 6.8.0-147-generic (Verified).
+- **Resources:** RAM 5.8Gi (Available 5.1Gi), Disk 40G (Free 28G).
+- **Web Server:** OpenLiteSpeed active (running) via `lshttpd.service`.
+- **Database:** MariaDB 10.11.16 active (running) via `mariadb.service`.
+- **PHP:** PHP 8.3.6 NTS dengan Zend OPcache aktif.
+- **Laravel:** Laravel Framework 11.10.0 (Verified).
+- **Ports:** Port 80, 443, 3306, 8090 (CyberPanel) dalam status LISTEN.
 
 > [Gambar 4.12. Bukti sistem berjalan setelah pemasangan]
 
@@ -406,8 +397,6 @@ NIP. 8005011810481
 | Presensi dengan geofencing, device binding, biometrik, consent | DES-ATT-01, DES-SEC-02–05 | `PresensiController`, `GeolocationService`, `DeviceBindingService`, `AttendanceConsent`, `AttendanceLocation` | `app/Http/Controllers/PresensiController.php`, `app/Support/GeolocationService.php`, `app/Services/DeviceBindingService.php` | Selesai |
 | Pengajuan & approval cuti | DES-LEAVE-01 | `CutiController`, `LeaveBalanceService`, `LeaveType`, `EmployeeLeaveBalance` | `app/Http/Controllers/CutiController.php`, `app/Services/LeaveBalanceService.php` | Selesai |
 | Pengajuan & approval lembur | DES-OT-01 | `OvertimeController`, `Overtime` model | `app/Http/Controllers/OvertimeController.php` | Selesai |
-| Penggajian (tambahan) | DES-PAYROLL-01 (CHG-01) | `GajiController`, `SalaryStepController`, `EmployeeSalaryHistoryController`, `PayrollCalculator`, `StatutoryPayrollEstimator` | `app/Http/Controllers/GajiController.php`, `app/Support/PayrollCalculator.php` | Sebagian |
-| Reimbursement (tambahan) | DES-REIMB-01 (CHG-02) | `ReimbursementController`, `Reimbursement` model | `app/Http/Controllers/ReimbursementController.php` | Selesai |
 | Jadwal kerja & hari libur | DES-SCHEDULE-01 | `EmployeeScheduleController`, `ShiftGroupController`, `WorkShiftController`, `HolidayController` | `app/Http/Controllers/*Schedule*.php`, `*Shift*.php`, `HolidayController.php` | Selesai |
 | Keamanan: password hashing, CSRF, validasi, RBAC | DES-SEC-01 | Laravel Auth, `User::casts`, middleware | `app/Models/User.php`, `routes/web.php` | Selesai |
 | Evaluasi kinerja | DES-PERF-01 | — | — | Belum |
@@ -458,7 +447,6 @@ NIP. 8005011810481
 | Device binding | `app/Services/DeviceBindingService.php` |
 | Presensi (check-in/out) | `app/Http/Controllers/PresensiController.php` |
 | Cuti & saldo | `app/Http/Controllers/CutiController.php`, `app/Services/LeaveBalanceService.php` |
-| Payroll calculator | `app/Support/PayrollCalculator.php`, `app/Support/StatutoryPayrollEstimator.php` |
 | Struktur routes | `routes/web.php` |
 | Daftar migrasi | `database/migrations/` |
 | Riwayat commit | `git log` (23 commit, 18 Apr–19 Jul 2026) |
@@ -476,7 +464,7 @@ Berdasarkan Tabel 4 pada Panduan Capstone Project PSTI UNISA 2026:
 | 2 | Kerangka Dokumen telah disusun dengan benar | ✅ | Struktur A–E sesuai panduan |
 | 3 | Implementasi dilakukan sesuai Dokumen C-3 dan terdokumentasi | Sebagian | Sebagian besar sesuai; ada perubahan (CHG-01–04) |
 | 4 | Kontribusi setiap anggota dapat ditelusuri | Sebagian | Hanya Satrioadi yang terverifikasi dari Git; anggota lain perlu bukti |
-| 5 | Langkah pemasangan dan pengoperasian sistem, alat bantu, lingkungan tujuan, konfigurasi teknis, dan pengamanan | ✅ untuk lokal | Pemasangan lokal terdokumentasi; lingkungan produksi belum terverifikasi |
+| 5 | Langkah pemasangan dan pengoperasian sistem, alat bantu, lingkungan tujuan, konfigurasi teknis, dan pengamanan | ✅ | Pemasangan lokal (XAMPP) dan produksi (CyberPanel/LiteSpeed) terdokumentasi |
 | 6 | Alasan pemilihan teknologi, keterbatasan, risiko, konsekuensi, dan alternatif | ✅ | Tabel 4.2 |
 | 7 | Ketuntasan implementasi dapat ditunjukkan | ✅ | Tabel 4.5 |
 | 8 | Ketuntasan bagian tanggung jawab mahasiswa didemonstrasikan dan didukung bukti | Sebagian | Perlu identifikasi bagian tanggung jawab masing-masing anggota |
@@ -489,9 +477,9 @@ Berdasarkan Tabel 4 pada Panduan Capstone Project PSTI UNISA 2026:
 
 2. **Kode FR/NFR/DES resmi** — dokumen C-2 pada `rapih lanjut.md` tidak menggunakan penomoran FR/NFR standar. Kode pada draf ini dibuat untuk konsistensi; **silakan ganti dengan kode resmi kelompok**.
 
-3. **Lingkungan produksi/deployment** belum terverifikasi. Saat ini sistem hanya berjalan di XAMPP lokal (`APP_URL=http://localhost`). Jika telah dideploy, mohon berikan detail server, domain, dan metode deployment.
+3. **Lingkungan produksi/deployment** telah terverifikasi menggunakan CyberPanel (OpenLiteSpeed) pada domain `hr.yhotech.id`.
 
-4. **Persetujuan perubahan (CHG-01 hingga CHG-04)** belum ada bukti tertulis dari pembimbing/mitra. Perlu dilampirkan pada Lampiran B.
+4. **Persetujuan perubahan (CHG-01 hingga CHG-02)** belum ada bukti tertulis dari pembimbing/mitra. Perlu dilampirkan pada Lampiran B.
 
 5. **Bagian tanggung jawab Anda secara spesifik** belum dapat diidentifikasi. Mohon sebutkan modul mana yang menjadi tanggung jawab Anda agar dapat ditonjolkan pada Tabel 4.1 dan 4.5.
 
