@@ -29,10 +29,9 @@
                 <i class="fas fa-fingerprint"></i>
             </a>
         </div>
-        {{-- Menu "Gaji" disembunyikan tapi tetap memakan ruang agar fingerprint tetap di tengah --}}
-        <div style="flex: 1; visibility: hidden;">
-            <i class="fas fa-wallet"></i> Gaji
-        </div>
+        <a href="{{ route('portal.cuti') }}" class="{{ $navActive === 'cuti' ? 'active' : '' }}">
+            <i class="fas fa-calendar-check"></i> Cuti
+        </a>
         <a href="{{ route('portal.profil') }}" class="{{ $navActive === 'profil' ? 'active' : '' }}">
             <i class="fas fa-user"></i> Profil
         </a>

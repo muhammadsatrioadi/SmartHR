@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 @section('title', 'Ajukan Cuti')
-@php $navActive = 'home'; @endphp
+@php $navActive = 'cuti'; @endphp
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.cuti') }}"><i class="fas fa-arrow-left"></i></a>
