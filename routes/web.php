@@ -51,8 +51,8 @@ Route::prefix('portal')->name('portal.')->group(function () {
     Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi');
     Route::post('/presensi/checkin', [PresensiController::class, 'checkin'])->name('presensi.checkin');
     Route::post('/device/register', [PresensiController::class, 'registerDevice'])->name('device.register');
-    Route::get('/absensi', [PortalController::class, 'absensiHistory'])->name('absensi');
-    Route::get('/absensi/subordinate', [PortalController::class, 'subordinateAttendance'])->name('absensi.subordinate');
+    Route::get('/presensi/riwayat', [PortalController::class, 'absensiHistory'])->name('presensi.riwayat');
+    Route::get('/presensi/subordinate', [PortalController::class, 'subordinateAttendance'])->name('presensi.subordinate');
     Route::get('/cuti', [PortalController::class, 'cuti'])->name('cuti');
     Route::get('/cuti/approvals', [PortalController::class, 'approvals'])->name('cuti.approvals');
     Route::get('/cuti/ajukan', [PortalController::class, 'ajukanCuti'])->name('cuti.ajukan');
@@ -219,11 +219,11 @@ Route::post('/reimbursements/{id}/approve-hr', [ReimbursementController::class, 
 Route::post('/reimbursements/{id}/reject', [ReimbursementController::class, 'reject'])->name('reimbursement.reject');
 
 
-//route absensi
-Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.read');
-Route::post('/absensi/create-proses', [AbsensiController::class, 'store'])->name('absensi.createProses');
-Route::get('/absensi/absensiHadir', [AbsensiController::class, 'getHadir'])->name('absensi.absensiHadir');
-Route::get('/absensi/absensiAlpha', [AbsensiController::class, 'getAlpha'])->name('absensi.absensiAlpha');
+//route presensi
+Route::get('/presensi', [AbsensiController::class, 'index'])->name('presensi.read');
+Route::post('/presensi/create-proses', [AbsensiController::class, 'store'])->name('presensi.createProses');
+Route::get('/presensi/hadir', [AbsensiController::class, 'getHadir'])->name('presensi.hadir');
+Route::get('/presensi/alpha', [AbsensiController::class, 'getAlpha'])->name('presensi.alpha');
 
 // route gaji
 Route::get('/gajis', [GajiController::class, 'index'])->name('gaji.index');

@@ -1,0 +1,27 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 7: Persetujuan Pengajuan Lembur oleh Manager
+
+|Manager|
+start
+:Buka Persetujuan Lembur;
+:Lihat Pengajuan;
+:Setujui/Tolak;
+
+|Database|
+:UPDATE overtimes;
+
+|Manager|
+:Tampilkan Sukses;
+
+stop
+@enduml

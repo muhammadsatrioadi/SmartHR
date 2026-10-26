@@ -1,0 +1,24 @@
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 2: Logout
+
+|Karyawan|
+start
+:Klik Tombol Logout;
+
+|Sistem|
+:Hapus Session Login;
+:Redirect ke Halaman Login;
+|Karyawan|
+:Menampilkan Halaman Login;
+
+stop
+@enduml

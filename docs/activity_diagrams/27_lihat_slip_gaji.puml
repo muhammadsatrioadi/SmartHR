@@ -1,0 +1,32 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 27: Melihat Slip Gaji
+
+|Karyawan|
+start
+:Buka Slip Gaji;
+:Pilih Bulan & Tahun;
+
+|Database|
+:Ambil Data Gaji;
+
+|Sistem|
+:Hitung Gaji Bersih;
+
+|Karyawan|
+:Tampilkan Detail;
+if (Download PDF?) then (Ya)
+  :Download PDF;
+endif
+
+stop
+@enduml

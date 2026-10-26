@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 6: Persetujuan Pengajuan Cuti oleh Manager
+
+|Manager|
+start
+:Buka Persetujuan Cuti;
+:Lihat Pengajuan;
+:Setujui/Tolak;
+
+|Database|
+:UPDATE cutis (approved/rejected);
+if (Disetujui?) then (Ya)
+  :Kurangi Saldo;
+endif
+
+|Manager|
+:Tampilkan Sukses;
+
+stop
+@enduml

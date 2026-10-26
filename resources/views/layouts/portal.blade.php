@@ -21,17 +21,20 @@
         <a href="{{ route('portal.home') }}" class="{{ $navActive === 'home' ? 'active' : '' }}">
             <i class="fas fa-home"></i> Beranda
         </a>
-        <a href="{{ route('portal.absensi') }}" class="{{ $navActive === 'absensi' ? 'active' : '' }}">
-            <i class="fas fa-calendar-alt"></i> Absensi
+        <a href="{{ route('portal.presensi.riwayat') }}" class="{{ $navActive === 'absensi' ? 'active' : '' }}">
+            <i class="fas fa-calendar-alt"></i> Presensi
         </a>
         <div class="nav-fab">
             <a href="{{ route('portal.presensi') }}" aria-label="Presensi">
                 <i class="fas fa-fingerprint"></i>
             </a>
         </div>
+        {{-- Menu "Gaji" portal disembunyikan sementara (tidak dihapus) --}}
+        {{--
         <a href="{{ route('portal.gaji') }}" class="{{ $navActive === 'gaji' ? 'active' : '' }}">
             <i class="fas fa-wallet"></i> Gaji
         </a>
+        --}}
         <a href="{{ route('portal.profil') }}" class="{{ $navActive === 'profil' ? 'active' : '' }}">
             <i class="fas fa-user"></i> Profil
         </a>

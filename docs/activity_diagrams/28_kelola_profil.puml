@@ -1,0 +1,31 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 28: Pengelolaan Profil Karyawan
+
+|Karyawan|
+start
+:Buka Profil;
+:Edit Profil;
+:Ubah Data (No HP, Alamat, Foto);
+:Simpan;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:UPDATE karyawans;
+
+|Karyawan|
+:Tampilkan Sukses;
+
+stop
+@enduml

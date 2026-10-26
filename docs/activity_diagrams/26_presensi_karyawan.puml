@@ -1,0 +1,47 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 26: Presensi Karyawan
+
+|Karyawan|
+start
+:Login;
+:Buka Presensi;
+
+|Sistem|
+if (Consent Sudah Ada?) then (Tidak)
+  |Karyawan|
+  :Setujui & Simpan;
+  |Database|
+  :Simpan Consent;
+  |Sistem|
+endif
+
+:Verifikasi Perangkat;
+:Refresh GPS;
+:Verifikasi Biometrik;
+
+|Karyawan|
+:Klik Check In/Out;
+
+|Sistem|
+:Validasi Fingerprint;
+:Hitung Jarak (Haversine);
+
+if (Lokasi Valid?) then (Ya)
+  |Database|
+  :INSERT absensis & Simpan Metadata;
+  |Karyawan|
+  :Tampilkan Sukses;
+endif
+
+stop
+@enduml

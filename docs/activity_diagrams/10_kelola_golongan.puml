@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 10: Pengelolaan Data Golongan
+
+|Admin|
+start
+:Buka Golongan;
+:Tambah/Edit/Hapus;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE golongans;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

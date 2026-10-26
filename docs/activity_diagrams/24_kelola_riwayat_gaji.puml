@@ -1,0 +1,29 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 24: Pengelolaan Riwayat Gaji Pegawai
+
+|Admin|
+start
+:Buka Riwayat Gaji;
+:Pilih Karyawan;
+:Tambah Riwayat;
+:Isi Tanggal Efektif, Gaji Pokok, Tunjangan, Alasan;
+
+|Database|
+:INSERT employee_salary_histories;
+:UPDATE karyawan gaji;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

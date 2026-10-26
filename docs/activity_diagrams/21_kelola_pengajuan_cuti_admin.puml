@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 21: Pengelolaan Pengajuan Cuti (Admin)
+
+|Admin|
+start
+:Buka Pengajuan Cuti;
+:Lihat Semua;
+:Setujui/Tolak/Edit;
+
+|Database|
+:UPDATE cutis;
+if (Disetujui?) then (Ya)
+  :Kurangi Saldo;
+endif
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

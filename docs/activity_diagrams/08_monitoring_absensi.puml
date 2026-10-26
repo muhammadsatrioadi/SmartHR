@@ -1,0 +1,29 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 8: Monitoring Absensi Tim oleh Manager
+
+|Manager|
+start
+:Buka Monitoring;
+:Pilih Periode;
+
+|Database|
+:Ambil Data Absensi;
+
+|Sistem|
+:Hitung Statistik;
+
+|Manager|
+:Tampilkan Laporan;
+
+stop
+@enduml

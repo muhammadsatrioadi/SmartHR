@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 17: Pengelolaan Shift Kerja
+
+|Admin|
+start
+:Buka Shift Kerja;
+:Tambah/Edit/Hapus;
+:Isi Form (Nama Shift, Jam Masuk, Jam Keluar);
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE work_shifts;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

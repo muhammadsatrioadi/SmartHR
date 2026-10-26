@@ -1,0 +1,2978 @@
+PANDUAN PELAKSANAAN
+CAPSTONE PROJECT
+TIM PENYUSUN
+TIM Dosen PSTI
+PROGRAM STUDI TEKNOLOGI INFORMASI
+FAKULTAS SAINS DAN TEKNOLOGI
+UNIVERSITAS ‘AISYIYAH YOGYAKARTA
+2026
+
+-- 1 of 65 --
+
+2
+Kata Pengantar
+Capstone Project merupakan salah satu elemen dari penilaian Suplemen Akreditasi
+kriteria pendidikan. Capstone Project adalah Mata Kuliah yang mengintegrasi dan
+menerapkan pengetahuan dan keterampilan yang diperoleh dari penugasan Mata Kuliah
+sebelumnya. Mata Kuliah ini diharapkan Mahasiswa dapat menghasilkan sebuah produk
+sistem informasi secara lengkap dengan menerapkan pengetahuan yang sudah
+didapatkan dari Mata Kuliah Pemrograman Full Stack, Manajemen Proyek Teknologi
+Informasi, Kecerdasan Artifisial, Pemrograman Perangkat Bergerak, Rekayasa
+Perangkat Lunak, Keamanan Komputer dan Jaringan.
+Program Studi S1 Teknologi Informasi menyusun buku panduan ini sebagai acuan
+pelaksanaan Capstone Project. Panduan memuat penjelasan umum, tahapan pengerjaan,
+dokumen luaran, peran pihak terkait, bimbingan, serta pemantauan dan penilaian.
+Templat laporan terpadu C-1 sampai C-5 disediakan pada lampiran. Panduan dapat
+diperbarui sesuai kebutuhan program studi.
+Harapan adanya buku panduan Capstone Project ini, Mahasiswa, dosen
+pembimbing, dan elemen Program Studi Teknologi Informasi dapat mengerjakan
+Capstone Project dengan baik dan lancar, sehingga capaian pembelajaran mata kuliah
+dapat tercapai.
+Yogyakarta, Agustus 2026
+Tim Penyusun
+
+-- 2 of 65 --
+
+3
+Daftar Isi
+Kata Pengantar ............................................................................................................... 2
+Daftar Isi .......................................................................................................................... 3
+Daftar Tabel .................................................................................................................... 5
+A. Penjelasan Umum .................................................................................................... 6
+B. Proses Pelaksanaan ................................................................................................. 7
+C. Tahapan dan Detail Pelaksanaan Capstone Project ............................................ 9
+D. Dokumen Luaran Utama ...................................................................................... 10
+C-1: Proposal Proyek............................................................................................... 11
+C-2: Spesifikasi Produk ........................................................................................... 12
+C-3: Perancangan .................................................................................................... 13
+C-4: Implementasi dan Pemasangan Sistem ........................................................... 14
+C-5: Pengujian ......................................................................................................... 15
+E. Hal-Hal Umum dalam Pelaksanaan Capstone Project ...................................... 16
+Bimbingan Capstone Project ................................................................................... 16
+Kegiatan Dalam Capstone Project ........................................................................... 16
+Dokumentasi ............................................................................................................ 17
+F. Pihak-Pihak dalam Pelaksanaan Capstone Project ........................................... 17
+Peserta Capstone Project ......................................................................................... 17
+Pembimbing Capstone Project ................................................................................ 17
+Tim Capstone Project .............................................................................................. 17
+G. Dokumen Luaran Lainnya ................................................................................... 18
+Poster ....................................................................................................................... 18
+Bahan Presentasi ...................................................................................................... 18
+H. Pemantauan dan Evaluasi .................................................................................... 19
+Capstone Project 1 ................................................................................................... 19
+Capstone Project 2 ................................................................................................... 20
+I. Penutup................................................................................................................... 23
+Lampiran ......................................................................................................................... 25
+
+-- 3 of 65 --
+
+4
+Daftar Tabel
+Tabel 1. Kriteria penilaian proposal proyek ................................................................... 11
+Tabel 2. Kriteria penilaian spesifikasi produk ................................................................ 12
+Tabel 3. Kriteria penilaian perancangan ......................................................................... 13
+Tabel 4. Kriteria penilaian implementasi ....................................................................... 14
+Tabel 5. Kriteria penilaian pengujian ............................................................................. 15
+Tabel 6. Jadwal dan komposisi asesmen Capstone Project 2 ......................................... 21
+
+-- 4 of 65 --
+
+5
+A. Penjelasan Umum
+Dokumen ini menjelaskan pelaksanaan konsep Capstone Project 1 dan
+Capstone Project 2, sehingga menjadi acuan dalam pelaksanaan Capstone Project.
+Dokumen ini sebagai bagian dari perbaikan berkelanjutan, akan selalu dapat
+diperbaiki, dikoreksi, diubah bila diperlukan, dan dokumen versi terakhir akan
+dijadikan acuan. Capstone Project dirancang untuk meningkatkan keahlian
+profesional mahasiswa S1 Program Studi Teknologi Informasi (PSTI) dalam
+mengembangkan solusi untuk memecahkan masalah, serta meningkatkan
+keterampilan berkomunikasi dan kerja sama dalam tim. Capstone Project bukan
+bertujuan untuk penelitian yang mendapatkan kebaruan, melainkan demonstrasi
+kemampuan yang akan diterapkan untuk praktik profesional setelah kandidat
+menyelesaikan prasyarat studi.
+Setiap Capstone Project memiliki luaran yang berbeda-beda:
+1. Capstone Project 1 menghasilkan dokumen perancangan sebagai dasar
+pembuatan purwarupa perangkat lunak, perangkat keras, atau program
+simulasi. Rancangan disusun untuk menjawab masalah kompleks yang
+dihadapi mitra dengan solusi yang relevan dan dapat diterapkan.
+Permasalahan komputasi kompleks dalam Capstone Project pada program studi
+ini ditetapkan berdasarkan dua karakteristik berikut:
+a. Kebutuhan atau batasan yang saling bertentangan (Complex-1). Tim
+menjelaskan konflik kebutuhan atau batasan, pilihan yang diambil, alasan
+pemilihan, serta konsekuensi yang harus diterima.
+b. Ketergantungan antarkomponen atau submasalah (Complex-2). Tim
+menjelaskan hubungan ketergantungan dan dampak perubahan atau
+kegagalan satu bagian terhadap bagian lain atau hasil akhir.
+Keterlibatan pemangku kepentingan diperlukan untuk memperoleh kebutuhan
+dan bukti pendukung. Penetapan kompleksitas proyek didasarkan pada
+pembuktian Complex-1 dan Complex-2; keterlibatan pemangku kepentingan
+atau ketidakjelasan awal masalah tidak menjadi kriteria tersendiri.
+Permasalahan pada Capstone Project 1 diselesaikan melalui rancangan solusi
+yang dapat berupa: (1) Perangkat keras; (2) Perangkat lunak; (3) Program
+simulasi
+2. Capstone Project 2: Luaran dari Capstone Project 2 adalah hasil implementasi
+dari rancangan Capstone Project 1 yang telah diuji secara fungsional,
+nonfungsional, integrasi, dan keamanan sesuai karakteristik proyek, serta
+divalidasi bersama pemangku kepentingan/mitra sehingga produk dapat
+digunakan sesuai tujuan yang disepakati. Pelaksanaan Capstone Project 2 juga
+harus menyediakan bukti kontribusi setiap mahasiswa agar ketercapaian
+
+-- 5 of 65 --
+
+6
+kompetensi individu dapat ditelusuri dan dipertanggungjawabkan.
+Capstone Project diharapkan dapat memfasilitasi seorang mahasiswa untuk:
+1. Memahami dan menerapkan proses rekayasa teknologi informasi melalui
+pengalaman menyelesaikan siklus perancangan, implementasi, dan pengujian
+pada kasus nyata.
+2. Mengasah keterampilan nonteknis seperti kerja sama tim, komunikasi secara
+lisan dan tulisan, multidisiplin, kepemimpinan, tanggung jawab, kedisiplinan,
+dan integritas serta mempresentasikan produk.
+Dalam mencari solusi atas permasalahan, solusi yang didapatkan harus jelas
+terformulasi dengan baik sesuai dengan masalah yang ada.
+B. Proses Pelaksanaan
+Sesuai dengan Kurikulum 2022, pelaksanaan Capstone Project dilakukan
+dalam dua semester yaitu Semester 6 untuk Capstone Project 1 dan semester 7
+untuk Capstone Project 2 dengan masing-masing 3 beban SKS. Capstone Project
+ini harus menghasilkan produk yang memecahkan masalah yang sudah ditentukan
+dengan menggunakan metode yang benar. Definisi tersebut dapat diperjelas dalam
+poin-poin berikut:
+• Capstone Project ini harus menghasilkan produk, tidak seluruh bagian harus
+dirancang dari awal, namun pada Capstone Project ini harus mengandung
+perancangan, implementasi, pengujian, dan pemasangan dan pengoperasian
+sistem. Hal ini berkaitan dengan salah satu ciri spesifik dari lulusan PSTI.
+1. Proses perancangan merupakan proses tahapan yang melibatkan analisis
+kebutuhan, pemodelan sistem, perancangan arsitektur, antarmuka, dan
+basis data.
+2. Proses implementasi merupakan proses ketika perancangan yang sudah
+disusun diimplementasi menjadi kode program. Tim pengembang menulis
+kode, mengintegrasikan antarsistem, menghubungkan dengan basis data,
+mengimplementasikan logika bisnis yang diperlukan, dan mengamankan
+sistem.
+3. Pengujian meliputi pengujian fungsional, nonfungsional, integrasi, dan
+keamanan sesuai karakteristik proyek. Setiap tim wajib
+mendokumentasikan pengujian fungsional dan keamanan sistem. Cakupan
+setiap pengujian dijelaskan dalam C-2 dan hasilnya dilaporkan dalam C-5.
+4. Pemasangan dan pengoperasian sistem bertujuan menyediakan produk agar
+dapat digunakan. Kegiatannya mencakup penyiapan infrastruktur,
+pemasangan, pengaturan teknis, pengamanan, dan pemeriksaan fungsi pada
+lingkungan penggunaan yang disepakati.
+• Tahap pengerjaan Capstone Project adalah sebagai berikut:
+
+-- 6 of 65 --
+
+7
+a. Proposal Proyek (C-1): mahasiswa memiliki pemahaman mendalam
+terhadap kebutuhan pengguna dan masalah yang ingin dipecahkan oleh
+perangkat lunak. Hal ini meliputi identifikasi pemangku kepentingan,
+pengumpulan persyaratan, dan analisis kebutuhan. Mahasiswa diharapkan
+memiliki pemahaman yang komprehensif tentang proses analisis
+kebutuhan perangkat lunak. Dengan mengidentifikasi pemangku
+kepentingan yang relevan, mengumpulkan data melalui berbagai teknik,
+dan menganalisis kebutuhan pengguna secara mendalam. Mahasiswa
+mampu merumuskan persyaratan fungsional dan nonfungsional yang jelas,
+terukur, dan lengkap. Rencana ini mencakup metode pengembangan,
+perencanaan jadwal, dan solusi yang ditawarkan yang diperlukan untuk
+menyelesaikan proyek sesuai dengan target waktu yang telah ditetapkan.
+Mahasiswa juga telah mengidentifikasi dan mengevaluasi potensi risiko
+yang dapat timbul selama proses pengembangan, serta merancang strategi
+mitigasi yang sesuai. Hasil analisis ini menjadi dasar yang kuat untuk
+merancang dan mengembangkan perangkat lunak yang memenuhi
+kebutuhan pengguna dan mencapai tujuan bisnis
+b. Spesifikasi Produk (C-2): mahasiswa menjelaskan spesifikasi yang
+dibutuhkan untuk menerapkan solusi atau metode yang diajukan pada
+tahap C-1. Solusinya harus merupakan produk dengan fungsi, kinerja, dan
+karakteristik tertentu. Selain itu ditunjukkan rencana dan jadwal
+pelaksanaan proyek dan pengujiannya. Tahap ini menjelaskan spesifikasi
+yang dibutuhkan untuk menerapkan solusi atau metode yang diajukan pada
+dokumen C-1
+c. Perancangan (C-3): mahasiswa mampu membuat perancangan
+berdasarkan tahap C-2. Mahasiswa merancang arsitektur sistem yang
+komprehensif dan terstruktur. Rancangan ini mencakup desain tingkat
+tinggi dari setiap komponen perangkat lunak. Mahasiswa juga telah
+memperhatikan aspek keamanan sistem dengan merancang mekanisme
+otentikasi, otorisasi, dan enkripsi yang sesuai. Selain itu, mahasiswa telah
+merancang antarmuka pengguna yang intuitif dan menarik, serta telah
+memilih teknologi yang tepat untuk mendukung implementasi sistem.
+Seluruh hasil rancangan telah didokumentasikan dengan baik untuk
+memudahkan proses pengembangan selanjutnya.
+d. Implementasi dan Pemasangan Sistem (C-4): mahasiswa melakukan
+implementasi dengan melakukan konversi desain perangkat lunak menjadi
+kode program yang dapat dieksekusi oleh komputer. Ini termasuk
+pemrograman, integrasi komponen, mengamankan dan pengembangan
+basis data jika diperlukan sesuai dengan hasil C-3. Berlandaskan hasil
+perancangan (C-3), mahasiswa telah berhasil mengimplementasikan
+
+-- 7 of 65 --
+
+8
+perangkat lunak dengan mengubah desain menjadi kode program yang
+dapat dieksekusi. Proses implementasi mencakup penulisan kode
+menggunakan bahasa pemrograman yang sesuai, pengembangan basis
+data, dan integrasi antarkomponen. Mahasiswa juga telah menerapkan
+praktik pengembangan perangkat lunak yang baik, seperti pengendalian
+versi, integrasi berkelanjutan, dan pengujian untuk memastikan kualitas
+dan keberlanjutan pengembangan perangkat lunak. Selain itu, mahasiswa
+juga telah memperhatikan aspek keamanan untuk melindungi perangkat
+lunak dari ancaman.
+e. Pengujian (C-5): mahasiswa memastikan bahwa perangkat lunak
+berfungsi dengan baik, memenuhi persyaratan, dan dapat diandalkan dalam
+berbagai situasi. Pengujian meliputi pengujian fungsional, pengujian
+nonfungsional, pengujian integrasi, dan pengujian keseluruhan sistem
+termasuk pengujian keamanan sehingga memenuhi fungsi dan kinerja yang
+dihasilkan sesuai dengan spesifikasi yang dijanjikan C-1 dan C-2 sehingga
+produk yang dihasilkan memecahkan masalah yang didefinisikan C-1.
+Setiap pengujian harus didokumentasikan dengan prosedur, hasil, dan
+analisis yang jelas. Berikut beberapa poin penting lainnya:
+1. Pengujian harus dilakukan secara objektif dan terukur.
+2. Data pengujian harus dikumpulkan dan dianalisis secara sistematis.
+3. Mencakup analisis terhadap hasil pengujian, perbandingan antara hasil
+yang diperoleh dengan tujuan yang telah ditetapkan, serta
+pengumpulan umpan balik dari pengguna.
+4. Kesimpulan dan rekomendasi berdasarkan hasil pengujian harus
+disusun.
+Ketiga tahap pertama (C-1, C-2, dan C-3) dilaksanakan pada Capstone
+Project 1 pada Semester 6 dan menghasilkan dokumen rancangan awal.
+Tahap C-4 dan C-5 dilaksanakan pada Capstone Project 2 pada Semester 7.
+C. Tahapan dan Detail Pelaksanaan Capstone Project
+• Mahasiswa yang Diperbolehkan Menjadi Peserta Capstone Project 1
+Syarat minimum, mahasiswa yang akan mendaftar Capstone Project 1
+setidaknya memenuhi semua syarat sebagai berikut:
+- Sudah lulus setidaknya 77 SKS.
+• Mahasiswa yang Diperbolehkan Menjadi Peserta Capstone Project 2
+Mahasiswa yang akan mendaftar Capstone Project 2 harus memenuhi semua
+persyaratan berikut:
+- Sudah lulus setidaknya 97 SKS.
+
+-- 8 of 65 --
+
+9
+- Sudah lulus Capstone Project 1.
+Pemeriksaan syarat-syarat tersebut akan dilakukan oleh pihak program
+studi. Bila semua syarat di atas terpenuhi, maka mahasiswa yang bersangkutan
+diperbolehkan untuk mengikuti program Capstone Project.
+• Topik Yang Ditawarkan
+Setiap awal semester ganjil, program studi akan menawarkan daftar topik
+Capstone Project atau Pemangku kepentingan. Bidang aplikasi/bidang
+pemanfaatan/bidang industri dalam Capstone Project adalah deskripsi
+luas/longgar tentang lingkup pemanfaatan dari hasil Capstone Project ini.
+Deskripsi ini mewakili/mensimulasikan jenis perusahaan/jenis industri teknologi
+informasi. Contoh dari bidang aplikasi ini misalnya: bidang kesehatan, bidang
+telekomunikasi, bidang manufaktur, bidang energi baru dan terbarukan, bidang
+manufaktur, militer, pertanian, pengelolaan infrastruktur, pendidikan dan
+sebagainya. Bidang ini tidak membatasi pilihan teknologi atau metode yang
+akan diterapkan secara spesifik.
+Masalah yang ditawarkan program studi masih bersifat umum. Mahasiswa
+merumuskannya menjadi masalah teknologi informasi yang jelas, benar-benar
+terjadi, dan memiliki solusi yang dapat diterapkan. Ruang lingkup harus
+memungkinkan perancangan diselesaikan pada semester Capstone Project 1,
+kemudian implementasi dan pengujian dilanjutkan pada semester Capstone
+Project 2.
+• Proses Penawaran Topik
+Topik ditawarkan oleh program studi di awal semester melalui situs web
+prodi, atau sistem pembelajaran daring UNISA atau melalui lokakarya KBM.
+Kelompok Capstone Project ditentukan oleh Program Studi sehingga mahasiswa
+belajar untuk bekerja sama dan mengembangkan keterampilan nonteknis yang
+diperlukan dalam pekerjaan mereka setelah lulus. Setiap kelompok mempunyai
+Dosen Pembimbing yang akan membimbing kelompok mahasiswa untuk
+menyelesaikan Capstone Project.
+D. Dokumen Luaran Utama
+Dokumen luaran kelompok terdiri atas C-1 sampai C-5. Capstone Project 1
+menyelesaikan C-1, C-2, dan C-3. Capstone Project 2 melanjutkan C-4 dan C-5.
+Kelima bagian disusun dalam satu laporan terpadu menggunakan templat pada
+Lampiran Panduan. Pada CP 1, C-4 dan C-5 belum perlu diisi. Pada CP 2, C-1
+sampai C-3 tetap disertakan sebagai dasar implementasi; perubahan yang disetujui
+dicatat beserta alasannya. Persetujuan setiap tahap dicantumkan pada bagian
+terkait.
+
+-- 9 of 65 --
+
+10
+Lampiran templat hanya mengatur susunan laporan, petunjuk pengisian, contoh
+penulisan, dan penyajian bukti. Jadwal, mekanisme bimbingan, luaran tambahan, dan
+ketentuan penilaian mengikuti bagian utama panduan ini. Lampiran A sampai G di
+dalam templat merupakan lampiran laporan mahasiswa, bukan lampiran tambahan
+panduan.
+C-1: Proposal Proyek
+Proposal proyek (C-1) adalah dokumen pertama yang dilakukan oleh mahasiswa
+setelah mendapatkan topik dan kelompok Capstone Project (CP). Dokumen ini berisi
+tujuan dan masalah yang harus dipecahkan berikut karakteristik solusi yang diharapkan.
+Masalah ini juga harus benar- benar perlu untuk dipecahkan. Masalah ini harus
+terformulasi dengan baik dan ditunjukkan dalam dokumen proposal. Hal yang harus
+ditunjukkan adalah bagaimana skenario penggunaan produk, apa atau berapa
+keuntungan dari produk yang dihasilkan, dan juga telah mengetahui kendala dan
+parameter yang penting dari produk tersebut. Capaian yang diharapkan pada bagian
+proposal proyek ini adalah mahasiswa mampu menunjukkan aspek nonteknis dari
+produk tersebut seperti permasalahan yang ada, skenario penggunaan produk, manfaat
+atau keuntungan yang akan dihasilkan dari produk tersebut, dan pemahaman terhadap
+kendala serta parameter penting dari produk tersebut.
+Masalah nyata perlu didukung identitas pihak yang mengalaminya dan bukti yang
+dapat diperiksa. Sebagai contoh penulisan, mahasiswa dapat menjelaskan kebutuhan
+petugas sarana dan prasarana yang menerima laporan kerusakan, jumlah laporan yang
+terdampak, serta kendala yang ditemukan melalui pengamatan atau wawancara. Angka,
+nama, dan pernyataan kesediaan pengguna harus berdasarkan data yang dikumpulkan,
+bukan perkiraan. Pernyataan umum seperti “sistem dibutuhkan semua orang” belum
+menjelaskan pengguna dan masalah secara spesifik. Kriteria penilaian C-1 ditunjukkan
+pada Tabel 1.
+Tabel 1. Kriteria penilaian proposal proyek
+Kriteria penilaian proposal
+proyek
+Pencapaian
+Kelengkapan Dokumen i.Tanda Tangan Pengusul dan Pembimbing telah disertakan.
+ii.Kerangka Dokumen telah disusun dengan benar.
+Formulasi Masalah
+iii.Masalah diungkapkan dengan jelas dan dapat diringkas dalam dua
+kalimat tanpa penggunaan istilah teknis yang sulit dipahami.
+iv.Perspektif masalah dipertimbangkan dari sudut pandang pelanggan.
+v.Ada kemampuan untuk memberikan contoh konkret terkait
+keberadaan masalah.
+Analisis Masalah vi.Analisis mencakup sekurang-kurangnya dua aspek, yaitu keandalan
+sistem dan keberlanjutan pengembangan.
+
+-- 10 of 65 --
+
+11
+Kriteria penilaian proposal
+proyek
+Pencapaian
+Analisis Terhadap
+Karakteristik Produk yang
+Diinginkan
+vii.Fungsi produk terdefinisi dengan jelas dan mampu menyelesaikan
+masalah yang telah diidentifikasi sebelumnya.
+viii.Penjelasan mengenai jejak (keterlacakan) setiap fungsi produk telah
+disertakan.
+Pemilihan Solusi
+ix.Terdapat minimal 2 alternatif solusi yang berbeda secara signifikan
+terkait dengan metode pengembangan, platform, atau yang lainnya.
+x.Proses pemilihan solusi dilakukan secara terstruktur dan sistematis.
+Skenario Pemakaian
+Pemangku kepentingan Jelas
+xi.Mampu memberikan gambaran yang jelas mengenai bagaimana
+produk akan digunakan oleh para pemangku kepentingan.
+C-2: Spesifikasi Produk
+Dokumen kedua yang harus dihasilkan adalah spesifikasi. Dokumen ini
+menjelaskan spesifikasi yang dibutuhkan untuk menerapkan solusi atau metode yang
+diajukan pada dokumen C-1. Solusinya harus merupakan produk dengan fungsi, kinerja,
+dan karakteristik tertentu. Selain itu ditunjukkan rencana dan jadwal pelaksanaan
+proyek dan pengujiannya.
+Tahap ini menilai kelayakan beban kerja, biaya, serta cara menguji atau mengukur
+spesifikasi yang dijanjikan. C-1 dan C-2 dikumpulkan bersama untuk dievaluasi sesuai
+jadwal program studi. Spesifikasi harus dapat ditelusuri sumbernya, tidak ambigu, serta
+terukur atau dapat diperiksa.
+Dapat ditelusuri berarti alasan dan sumber setiap spesifikasi dapat ditemukan
+kembali pada kebutuhan pengguna atau bukti yang mendasarinya. Hubungan tersebut
+dicatat dalam matriks keterlacakan kebutuhan.
+Tidak ambigu berarti spesifikasi tidak menimbulkan penafsiran ganda. Sebagai
+contoh, istilah “sistem mandiri” perlu diperjelas dengan tindakan yang masih dilakukan
+pengguna, nilai yang dimasukkan, dan tindakan yang dikerjakan sistem secara otomatis.
+Terukur atau dapat diperiksa berarti spesifikasi memiliki parameter atau kondisi
+penerimaan yang jelas. Contohnya adalah batas waktu respons, ketepatan keluaran,
+atau aturan hak akses. Metode pengujian harus dapat membuktikan apakah kondisi
+tersebut terpenuhi. Kriteria penilaian spesifikasi produk ditunjukkan pada Tabel 2.
+Tabel 2. Kriteria penilaian spesifikasi produk
+Kriteria penilaian spesifikasi
+produk
+Pencapaian
+Kelengkapan Dokumen xii.Tanda Tangan Pengusul dan Pembimbing telah disertakan -
+Kerangka Dokumen telah disusun dengan benar.
+
+-- 11 of 65 --
+
+12
+Kriteria penilaian spesifikasi
+produk
+Pencapaian
+Kerangka Dokumen Benar
+xiii.Penilaian: Dokumen harus mengikuti kerangka yang benar, sesuai
+dengan format yang telah ditetapkan, termasuk bagian-bagian
+yang relevan dan penting seperti abstrak, definisi spesifikasi, dan
+definisi pengujian.
+Definisi Spesifikasi
+xiv.Dapat ditelusuri. Penilaian: Definisi spesifikasi harus memiliki
+elemen yang dapat dilacak, memungkinkan identifikasi asal mula
+setiap persyaratan atau klaim yang diajukan.
+xv.Tidak Ambigu:Penilaian: Definisi spesifikasi harus diformulasikan
+dengan bahasa yang jelas dan tidak memberikan ruang bagi
+interpretasi ganda atau ambiguitas.
+xvi.Dapat diukur:Penilaian: Spesifikasi harus dapat diukur atau dinilai
+menggunakan parameter atau kriteria tertentu, memungkinkan
+evaluasi kuantitatif terhadap pemenuhan persyaratan.
+Definisi Pengujian xvii.Definisi pengujian harus menjelaskan metode pengujian yang akan
+dilaksanakan dan alasannya
+C-3: Perancangan
+Perancangan teknis dimulai dari arsitektur sistem, kemudian dijabarkan sampai
+rincian komponen. Dokumen C-3 harus cukup jelas untuk menjadi pedoman
+implementasi. Mahasiswa menunjukkan alasan pengambilan keputusan, hubungan
+rancangan dengan kebutuhan, dan pertimbangan terhadap alternatif. Simulasi,
+perhitungan, atau perbandingan dapat digunakan jika diperlukan. Kriteria penilaian
+perancangan ditunjukkan pada Tabel 3.
+Validasi permasalahan komputasi kompleks disajikan pada akhir C-3 sebelum
+lembar persetujuan. Complex-1 dirujuk ke analisis masalah, batasan, alternatif solusi,
+dan spesifikasi kebutuhan pada C-1 sampai C-2. Complex-2 dirujuk ke rancangan dan
+penjelasan ketergantungan pada C-3. Ringkasan validasi mencantumkan rujukan bagian,
+tabel, atau gambar secara spesifik. Mahasiswa menyusun bukti dan mengusulkan status;
+dosen pembimbing memverifikasi bukti serta mencatat perbaikan yang diperlukan.
+Status setiap karakteristik ditetapkan sebagai Memenuhi, Memenuhi Sebagian, atau
+Belum Terbukti. Kedua karakteristik harus berstatus Memenuhi agar pembuktian
+kompleksitas proyek dinyatakan lengkap. Status belum lengkap ditindaklanjuti dengan
+perbaikan bukti. Pada C-4 dan C-5, tabel validasi tidak perlu diulang. Perubahan
+substantif pada kebutuhan, keputusan, atau ketergantungan sistem harus diikuti
+pembaruan ringkasan C-3 dengan rujukan bukti implementasi atau pengujian yang
+relevan.
+Tabel 3. Kriteria penilaian perancangan
+
+-- 12 of 65 --
+
+13
+Kriteria Penilaian
+Perancangan
+Pencapaian
+Kelengkapan Dokumen xviii.Tanda Tangan Pengusul dan Pembimbing telah disertakan -
+Kerangka Dokumen telah disusun dengan benar.
+Kerangka Dokumen Benar
+xix.Penilaian: Dokumen harus mengikuti kerangka yang benar, sesuai
+dengan format yang telah ditetapkan, termasuk bagian-bagian yang
+relevan dan penting seperti diagram kasus penggunaan, antarmuka,
+diagram hubungan entitas (ERD), dan seterusnya
+Perancangan terdokumentasi
+dengan baik
+xx.Menggunakan standar pemodelan yang baik.
+xxi.Jika menggunakan pemrograman berorientasi objek (OOP), wajib
+menyertakan diagram: antarmuka pengguna, diagram kasus
+penggunaan, diagram kelas, diagram urutan, diagram keadaan atau
+diagram aktivitas dan arsitektur sistem.
+xxii.Jika menggunakan Prosedural, wajib menyertakan diagram:
+antarmuka pengguna, diagram alir, diagram aliran data (DFD)
+tingkat 0, DFD tingkat 1, ERD dan arsitektur sistem.
+Membuat perencanaan
+implementasi
+xxiii.Terdapat bagan Gantt yang menunjukkan jadwal, dan dependensi
+pekerjaan
+C-4: Implementasi dan Pemasangan Sistem
+Implementasi hasil rancangan dilakukan pada tahap C-4. Setiap bagian
+harus diimplementasikan secara bertahap dan diverifikasi sebelum
+diintegrasikan dengan bagian lain. Implementasi harus dapat ditelusuri terhadap
+dokumen C-3, termasuk perubahan yang terjadi selama pengembangan.
+Pemilihan alat bantu, kerangka kerja, platform, pustaka, atau teknologi yang
+digunakan perlu didokumentasikan beserta alasan pemilihan, keterbatasan,
+risiko, konsekuensi pilihan, dan alternatif yang relevan. Bukti kontribusi
+individu, seperti catatan kegiatan, catatan perubahan kode atau riwayat revisi,
+konfigurasi, desain, maupun artefak teknis lain, digunakan sebagai bukti
+pendukung asesmen individu.
+Tabel 4. Kriteria penilaian implementasi
+Kriteria Penilaian
+Implementasi
+Pencapaian
+Kelengkapan Dokumen xxiv.Tanda tangan dari Pembimbing
+xxv.Kerangka Dokumen telah disusun dengan benar.
+Dokumentasi implementasi
+xxvi.Implementasi dilakukan sesuai dengan Dokumen C-3 dan
+terdokumentasi dengan baik
+Kontribusi setiap anggota dapat ditelusuri melalui riwayat perubahan
+kode, riwayat revisi, catatan kegiatan, pembagian tugas, atau bukti
+implementasi lainnya.
+
+-- 13 of 65 --
+
+14
+Kriteria Penilaian
+Implementasi
+Pencapaian
+Dokumentasi pemasangan dan
+pengoperasian sistem
+Jelaskan langkah pemasangan dan pengoperasian sistem, alat bantu,
+lingkungan tujuan, konfigurasi teknis, dan pengamanan yang
+diterapkan. Metode dapat berupa pemasangan manual, integrasi dan
+pengiriman berkelanjutan (CI/CD), atau penggunaan kontainer,
+misalnya Docker dan Kubernetes. Uraikan langkah pemasangan pada
+peladen produksi atau lingkungan penggunaan yang disepakati.
+Dokumentasikan alasan pemilihan teknologi, keterbatasan, risiko,
+konsekuensi pilihan, dan alternatif yang dipertimbangkan.
+Ketuntasan implementasi:
+xxvii.Ketuntasan implementasi dapat ditunjukkan
+Ketuntasan bagian yang menjadi tanggung jawab mahasiswa dapat
+didemonstrasikan dan didukung bukti yang dapat diverifikasi.
+C-5: Pengujian
+Pengujian (C-5), pada tahap ini mahasiswa diminta untuk menguji produk yang
+sudah dihasilkan. Setidaknya ada dua hal yang perlu ditunjukkan pada laporan ini:
+1. Apakah purwarupa tadi memenuhi fungsi dan kinerja yang dihasilkan sesuai
+dengan spesifikasi yang dijanjikan. Hal ini meliputi fungsional, kinerja, dan
+juga aspek/karakteristik lain.
+2. Sejauh mana produk yang dihasilkan memecahkan masalah yang
+didefinisikan (C-1). Analisis kelebihan dan kekurangan produk yang
+dihasilkan dalam memecahkan masalah yang disebutkan pada C-1.
+Pengujian menjelaskan metode, prosedur, data, hasil, dan analisis. Metode dipilih
+sesuai karakteristik produk, misalnya pengujian masukan dan keluaran tanpa memeriksa
+kode, pemeriksaan struktur kode, pengujian integrasi, kinerja dan beban, kemudahan
+penggunaan, serta keamanan. Hasil gagal, keterbatasan, dan masalah yang belum
+terselesaikan tetap dilaporkan secara jujur, disertai tindak lanjut dan pengujian ulang
+apabila relevan. Aspek pada Tabel 5 dinilai oleh dosen yang ditugaskan program studi.
+Tabel 5. Kriteria penilaian pengujian
+Kriteria Penilaian Pengujian Pencapaian
+Kelengkapan Dokumen xxviii.Tanda tangan dari Pembimbing
+xxix.Kerangka Dokumen telah disusun dengan benar.
+Pengujian Fungsional
+xxx.Deskripsikan apakah perangkat lunak sudah berfungsi sesuai dengan
+spesifikasi yang ditentukan.
+.
+
+-- 14 of 65 --
+
+15
+Kriteria Penilaian Pengujian Pencapaian
+Pengujian Nonfungsional
+xxxi.Pengujian terkait performa, keamanan, dan keandalan sistem seperti
+contohnya evaluasi kinerja perangkat lunak dalam situasi beban
+tinggi, keamanan sistem terhadap serangan yang mungkin terjadi.
+Pengujian keamanan mendokumentasikan risiko, kontrol yang
+diterapkan, skenario uji, hasil, temuan, dan mitigasi.
+Umpan Balik dari Pengguna
+xxxii.Mencatat umpan balik yang dikumpulkan dari pengguna perangkat
+lunak. Umpan balik ini penting untuk memastikan perangkat lunak
+sesuai dengan harapan pengguna. Format untuk mencatat umpan
+balik adalah:
+xxxiii.Pengalaman pengguna dalam menggunakan perangkat lunak.
+xxxiv.Keluhan atau masalah yang dihadapi oleh pengguna.
+xxxv.Saran atau rekomendasi pengguna untuk perbaikan perangkat lunak.
+Validasi atau umpan balik mitra/pengguna dicatat sebagai bukti
+kesesuaian produk dengan kebutuhan.
+Rekomendasi Perbaikan
+xxxvi.Berdasarkan hasil analisis dan umpan balik pengguna, bagian ini
+harus memuat rekomendasi perbaikan atau penyesuaian yang perlu
+dilakukan untuk meningkatkan kualitas perangkat lunak. Format
+rekomendasi meliputi:
+xxxvii.Peningkatan performa.
+xxxviii.Perbaikan keamanan.
+xxxix.Peningkatan kemudahan penggunaan atau pengalaman pengguna.
+Kesimpulan
+xl.Terdapat kesimpulan terkait hasil pengujian apakah sudah sesuai
+dengan kebutuhan pengguna yang didefinisikan pada dokumen C-1.
+Kesimpulan memuat keterbatasan produk dan masalah yang belum
+terselesaikan secara jujur.
+E. Hal-Hal Umum dalam Pelaksanaan Capstone Project
+• Bimbingan Capstone Project
+Pada Capstone Project, peserta wajib menghadiri bimbingan yang dilaksanakan
+secara berkala, sekurang-kurangnya satu kali dalam satu minggu sesuai pengaturan
+pembimbing. Setiap mahasiswa wajib memiliki catatan kegiatan individu yang
+mencatat kemajuan, tugas yang dikerjakan, kendala, tindak lanjut hasil bimbingan,
+dan keputusan penting yang berkaitan dengan tanggung jawabnya. Bimbingan
+kelompok dapat dilakukan bersama, namun kontribusi masing-masing mahasiswa
+harus tetap dapat ditelusuri.
+• Kegiatan Dalam Capstone Project
+Pelaksanaan Capstone Project meliputi diskusi kelompok, pencarian informasi,
+pengambilan keputusan, perancangan, dokumentasi, penulisan kode, konfigurasi,
+pemasangan dan pengoperasian sistem, pengujian, evaluasi, dan perbaikan.
+Aktivitas kelompok dicatat dalam dokumen proyek, sedangkan aktivitas dan
+
+-- 15 of 65 --
+
+16
+kontribusi personal dicatat pada catatan kegiatan individu serta didukung bukti yang
+dapat diverifikasi.
+• Dokumentasi
+Hasil utama Capstone Project adalah dokumen dan produk yang merekam
+keseluruhan proses perancangan, implementasi, pemasangan dan pengoperasian
+sistem, pengujian, evaluasi, dan perbaikan. Dokumen C-1 sampai C-5 merupakan
+dokumen kelompok dan harus disusun secara serius serta disahkan sesuai
+mekanisme program studi. Di samping dokumen kelompok, asesmen individu
+didukung oleh catatan kegiatan dan artefak kontribusi personal, misalnya riwayat
+perubahan kode atau dokumen, konfigurasi, desain, kasus uji, hasil pengujian, atau
+bukti teknis lain yang relevan.
+F. Pihak-Pihak dalam Pelaksanaan Capstone Project
+1. Peserta Capstone Project
+Peserta Capstone Project (CP) merupakan mahasiswa yang mengambil mata
+kuliah Capstone Project 1 dan 2. Setiap kelompok mengerjakan satu topik/masalah
+dan menghasilkan produk serta dokumen proyek secara kolaboratif. Pengerjaan
+proyek dilaksanakan sebagai kerja kelompok, sedangkan evaluasi ketercapaian
+pembelajaran dapat memuat komponen individu dan kelompok. Khusus Capstone
+Project 2, penilaian formal menggunakan komposisi 70% individu dan 30%
+kelompok, sehingga setiap mahasiswa wajib menunjukkan penguasaan dan bukti
+kontribusi personal.
+2. Pembimbing Capstone Project
+Pada dasarnya pembimbing Capstone Project merupakan dosen yang
+bertanggung jawab dan mengusulkan topik capstone. Pembimbing capstone
+sebanyak 1 dosen dan ditentukan di tahap awal capstone dan harus selalu
+dikonsultasikan oleh mahasiswa.
+Dosen pembimbing bertindak seperti konsultan dalam proses Capstone Project.
+Dosen pembimbing ini juga ikut menilai dalam Capstone Project.
+3. Tim Capstone Project
+Tim Capstone Project adalah tim yang terdiri dari dosen PSTI yang bertugas
+memastikan pelaksanaan Capstone Project sesuai dengan konsep dan tujuan
+perkuliahan. Pada dasarnya tim ini mengelola setiap proses Capstone Project mulai
+dari pengumpulan usul topik, pelaksanaan setiap tahap, evaluasi, penilaian, pameran
+sampai dengan kelulusan. Tim ini juga mengawal semua tim peserta capstone agar
+mengikuti tahap dan metode yang berlaku.
+
+-- 16 of 65 --
+
+17
+G. Dokumen Luaran Lainnya
+Selain dokumen utama C-1 sampai C-5, peserta Capstone Project menyiapkan
+luaran dan bukti pendukung sesuai jadwal yang ditentukan. Luaran tambahan digunakan
+untuk dokumentasi, evaluasi, penilaian, diseminasi, dan validasi produk.
+Bukti Pendukung Capstone Project 2
+Bukti pendukung disusun sesederhana mungkin dan berfungsi sebagai pendukung
+Laporan utama. Bukti pendukung lebih berupa bukti individu yang berupa : catatan
+kegiatan individu dan bukti kontribusi personal, seperti riwayat perubahan kode atau
+dokumen, konfigurasi, desain, hasil pengujian, foto/perangkat, atau artefak lain yang
+relevan.
+Bukti individu digunakan untuk memverifikasi bahwa mahasiswa benar-benar
+berkontribusi dan menguasai bagian yang menjadi tanggung jawabnya; bukti tidak
+harus menjadi dokumen terpisah apabila sudah tersedia pada repositori atau sistem kerja
+proyek.
+Poster dan bahan presentasi merupakan luaran pendukung sesuai ketentuan
+panduan. Berkasnya dapat disimpan terpisah dan dirujuk melalui Indeks Bukti pada
+Lampiran G laporan. Catatan kegiatan individu mencakup tanggal, pekerjaan,
+kemajuan, kendala, tindak lanjut bimbingan, keputusan penting, serta lokasi bukti
+kontribusi. Pembagian tugas dalam Lampiran A laporan diperbarui sejak CP 1;
+penilaian silang dan penilaian dosen tetap menggunakan instrumen program studi.
+1. Poster
+Setiap kelompok Capstone menyiapkan poster setelah C-5 diselesaikan untuk
+mendukung pameran produk. Poster bertujuan mempromosikan produk dan
+menjelaskan cara kerja, manfaat, hasil implementasi, serta pengujian kepada
+masyarakat umum maupun pihak yang memahami bidangnya. Poster menjadi
+bagian dari kesiapan demonstrasi/pameran dan bukti kelompok pada asesmen akhir
+Capstone Project 2.
+2. Bahan Presentasi
+Setiap kelompok menyiapkan bahan presentasi/visual sesuai kebutuhan
+asesmen. Pada Capstone Project 1, bahan ini digunakan untuk presentasi formal.
+Pada Capstone Project 2, bahan presentasi dapat digunakan pada tahap asesmen,
+demonstrasi produk, dan pameran untuk membantu menjelaskan proses, kontribusi
+anggota, hasil implementasi, pengujian, keamanan, dan keterbatasan produk.
+1. Menjelaskan setiap tahap perancangan mulai dari masalah, spesifikasi,
+perancangan, implementasi sampai pengujian.
+
+-- 17 of 65 --
+
+18
+2. Menjelaskan pekerjaan setiap anggota kelompok.
+Durasi presentasi Capstone Project 1 mengikuti ketentuan ujian yang ditetapkan
+program studi. Pada Capstone Project 2, asesmen dilakukan bertahap pada tahap
+asesmen Minggu 4, 8, 12, dan 16; durasi demonstrasi/tanya jawab diatur oleh tim
+Capstone Project sesuai kebutuhan asesmen.
+H. Pemantauan dan Evaluasi
+Pemantauan dan evaluasi dalam pelaksanaan Capstone Project dilakukan secara
+terstruktur dan melibatkan berbagai pihak untuk memastikan bahwa setiap proyek
+yang dikerjakan mahasiswa berjalan sesuai dengan tujuan pembelajaran dan standar
+mutu program studi.
+Capstone Project 1
+Pemantauan Capstone 1 dilakukan melalui presentasi formal yang wajib
+dihadiri oleh dosen pembimbing dan dosen penguji. Evaluasi dilakukan secara
+komprehensif, dengan komposisi penilaian adalah rata – rata dari dewan penguji
+dan pembimbing. Penilaian akhir Capstone Project 1 disusun berdasarkan empat
+komponen Capaian Pembelajaran Mata Kuliah (CPMK) berikut, beserta kriteria
+dan rubrik penilaiannya.
+CPMK-TIO6029-1 : Mahasiswa mampu mengidentifikasi kebutuhan
+masyarakat atau pengguna yang relevan dan merumuskannya sebagai
+masalah yang dapat diselesaikan dengan pendekatan teknologi informasi.
+Mengukur kemampuan mahasiswa mengidentifikasi kebutuhan
+pengguna dan merumuskannya sebagai masalah TI yang dapat diselesaikan.
+Penilaian mencakup 8 kriteria:
+i. Identifikasi Kebutuhan Nyata (Latar Belakang, Tujuan)
+ii. Formulasi Masalah TI
+iii. Relevansi dan Justifikasi Solusi (Alternatif Solusi)
+iv. Deskripsi Sistem dan Kebutuhan Fungsional
+v. Kebutuhan Nonfungsional & Spesifikasi Teknis
+vi. Matriks Keterlacakan Kebutuhan
+vii. Desain Arsitektur & Alur Sistem
+viii. Kesesuaian dan Kerapian Dokumen
+CPMK-TIO6029-2 : Mahasiswa mampu mempertimbangkan aspek
+tanggung jawab profesional, etika, serta dampak sosial, lingkungan, dan
+budaya dalam proses perancangan solusi teknologi informasi.
+
+-- 18 of 65 --
+
+19
+Mengukur tanggung jawab profesional, etika, dan dampak sosial/mitra
+dalam presentasi. Kriteria: (1) Tanggung Jawab Profesional, (2) Etika dan
+Dampak Proyek terhadap Mitra, (3) Respons Etis dalam Tanya Jawab.
+CPMK-TIO6029-3 : Mahasiswa mampu bekerja secara efektif dalam tim,
+termasuk melakukan evaluasi terhadap kontribusi diri sendiri dan anggota tim
+selama pelaksanaan proyek.
+Efektivitas kerja tim dan evaluasi kontribusi anggota dinilai melalui dua
+sumber dengan bobot yang sama. Masing-masing menyumbang 17,5%
+terhadap nilai akhir mata kuliah sehingga bobot CPMK-TIO6029-3 berjumlah
+35%.
+Penilaian Silang (17,5%) — dilakukan oleh sesama anggota kelompok;
+Penilaian Dosen (17,5%) — dilakukan oleh dosen pembimbing/penguji
+saat ujian.
+Kriteria yang dinilai: Kontribusi, Inisiatif, Kolaborasi, Komunikasi,
+Akuntabilitas, dan Kehadiran (partisipasi dalam bimbingan mingguan).
+CPMK-TIO6029-4 : Mahasiswa mampu mengidentifikasi kebutuhan
+pengguna secara sistematis dan mempertimbangkannya dalam proses
+pemilihan dan perancangan sistem berbasis teknologi informasi.
+Mengukur kemampuan mahasiswa mempertahankan hasil rancangan di
+hadapan penguji. Kriteria: (1) Formulasi Masalah & Analisis Pengguna (C-1),
+(2) Spesifikasi Kebutuhan Sistem (C-2), (3) Perancangan Sistem Berbasis
+Kebutuhan (C-3).
+Nilai Total Capstone Project 1 diperoleh dari penjumlahan terboboti keempat
+komponen CPMK di atas (20% + 15% + 35% + 30% = 100%) dan menjadi
+dasar penentuan kelulusan mahasiswa pada Mata Kuliah Capstone Project 1.
+Rangkaian Pelaksanaan Ujian
+Ujian/presentasi Capstone Project 1 dilaksanakan dengan susunan acara
+sebagai berikut: (1) Pembukaan (2) Presentasi — maksimal 20 menit; (3)
+Diskusi dan Tanya Jawab; (4) Penutup
+Capstone Project 2
+Pemantauan Capstone Project 2 dilakukan sepanjang semester melalui bimbingan
+mingguan dan asesmen formal bertahap. Pameran karya tetap menjadi puncak
+demonstrasi produk pada akhir semester, tetapi bukan satu-satunya sumber penilaian.
+Asesmen formal dilaksanakan setiap empat minggu agar perkembangan kompetensi
+mahasiswa dapat diamati secara berkelanjutan.
+
+-- 19 of 65 --
+
+20
+Prinsip asesmen Capstone Project 2
+Penilaian formal dilaksanakan pada Minggu 4, 8, 12, dan 16; minggu
+lainnya digunakan untuk pengembangan, bimbingan, pemantauan kemajuan, dan
+pemberian umpan balik.
+Komposisi nilai akhir adalah 70% penilaian individu dan 30% penilaian
+kelompok. Nilai kelompok tidak dapat menggantikan bukti ketercapaian individu.
+Penilaian individu tidak hanya bertumpu pada kemampuan menjelaskan.
+Dosen wajib mempertimbangkan bukti kontribusi yang dapat diverifikasi, seperti
+catatan kegiatan, riwayat perubahan kode atau dokumen, konfigurasi, desain,
+kasus uji, hasil uji, atau artefak teknis lain yang relevan.
+Daftar periksa observasi merupakan bukti pendukung pertimbangan
+profesional dosen dan tidak menghitung nilai secara otomatis. Dosen menetapkan
+kategori kompetensi dan skor berdasarkan observasi, demonstrasi, jawaban,
+dokumen proyek, dan bukti kerja.
+Pengunjung pameran dan mitra dapat memberikan umpan balik terhadap
+produk, tetapi nilai formal CPMK ditetapkan oleh dosen yang ditugaskan program
+studi menggunakan instrumen asesmen yang berlaku.
+Tabel 6. Jadwal dan komposisi asesmen Capstone Project 2
+Minggu CPMK Bobot
+MK Individu Kelompok Fokus asesmen
+4 CPMK-
+TIO7031-1 20% 20% - Etika profesional, integritas,
+tanggung jawab, dan akuntabilitas.
+8 CPMK-
+TIO7031-3 25% 15% 10% Implementasi, pengujian/evaluasi,
+analisis hasil, dan perbaikan.
+12 CPMK-
+TIO7031-4 25% 15% 10% Kontrol dan pengujian keamanan;
+CIA; risiko dan mitigasi.
+16 CPMK-
+TIO7031-2 30% 20% 10%
+Integrasi produk; alat
+bantu/teknologi dan
+keterbatasannya; penyelesaian
+masalah.
+CPMK-TIO7031-1 : Mahasiswa mampu menerapkan prinsip etika profesional
+yang meliputi integritas, kejujuran, dan independensi dalam pengambilan
+keputusan serta penilaian pada proses pengembangan dan implementasi perangkat
+lunak atau perangkat keras.
+Penilaian formal dilaksanakan pada Minggu 4 dan seluruh bobot CPMK ini
+bersifat individu (20%). Tiga kriteria memiliki bobot yang sama.
+a. Kejujuran, tanggung jawab, dan kepemilikan pekerjaan.
+b. Pertimbangan etika dan kepentingan pengguna/mitra.
+
+-- 20 of 65 --
+
+21
+c. Akuntabilitas keputusan profesional.
+Penerapan etika dipantau sepanjang semester. Pada Minggu 16 dilakukan
+verifikasi akhir tanpa bobot tambahan untuk memastikan konsistensi terkait
+transparansi penggunaan kecerdasan artifisial, termasuk kecerdasan artifisial
+generatif, atau asisten pemrograman, privasi dan penggunaan data/kredensial
+mitra, lisensi dan hak kekayaan intelektual, kejujuran pelaporan hasil pengujian
+dan keterbatasan produk, serta dokumentasi/komunikasi keputusan penting
+dengan mitra. Temuan yang tidak konsisten menjadi dasar klarifikasi dan dapat
+digunakan untuk meninjau kembali penilaian CPMK-TIO7031-1 sesuai kebijakan
+program studi.
+CPMK-TIO7031-3 : Mahasiswa mampu melakukan implementasi dan evaluasi
+sistem berdasarkan dokumen perancangan yang sudah disusun. Penilaian formal
+dilaksanakan pada Minggu 8 dengan bobot 15% individu dan 10% kelompok.
+a. Kriteria individu (masing-masing 1/3): penguasaan implementasi sesuai
+rancangan; pelaksanaan pengujian dan evaluasi; analisis hasil dan tindak
+lanjut perbaikan.
+b. Kriteria kelompok (masing-masing 1/3): kesesuaian implementasi dengan
+dokumen perancangan; kelengkapan dan konsistensi pengujian sistem;
+dokumentasi hasil evaluasi dan perbaikan.
+CPMK-TIO7031-4 : Mahasiswa mampu menerapkan pengamanan infrastruktur
+teknologi informasi untuk menjaga integritas, ketersediaan, dan kerahasiaan
+sistem dalam implementasi perangkat lunak atau perangkat keras. Penilaian
+formal dilaksanakan pada Minggu 12 dengan bobot 15% individu dan 10%
+kelompok.
+a. Kriteria individu (masing-masing 1/3): penguasaan dan penerapan kontrol
+keamanan; pelaksanaan pengujian keamanan; pemahaman kerahasiaan,
+integritas, dan ketersediaan (CIA) dan mitigasi risiko.
+b. Kriteria kelompok (masing-masing 1/3): kelengkapan penerapan kontrol
+keamanan; cakupan dan bukti pengujian keamanan; dokumentasi risiko,
+temuan, dan mitigasi.
+CPMK-TIO7031-2 : Mahasiswa mampu mengintegrasikan ilmu dan teknologi
+informasi dalam merancang dan mengimplementasikan solusi perangkat lunak
+atau perangkat keras yang efektif untuk menyelesaikan permasalahan nyata.
+Penilaian formal dilaksanakan pada Minggu 16 dengan bobot 20% individu dan
+10% kelompok.
+
+-- 21 of 65 --
+
+22
+a. Kriteria individu (masing-masing 1/3): penguasaan bagian produk yang
+menjadi tanggung jawab individu; kemampuan mendemonstrasikan dan
+menjelaskan integrasi sistem; analisis teknis, pemilihan alat bantu/teknologi,
+dan penyelesaian masalah.
+b. Kriteria kelompok (masing-masing 1/3): keberfungsian dan kestabilan produk
+akhir; integrasi komponen dan kesesuaian dengan kebutuhan mitra; kesiapan
+demo/pameran dan validasi mitra.
+Pada aspek penggunaan alat bantu modern, mahasiswa harus mampu menjelaskan
+alasan pemilihan alat bantu, kerangka kerja, platform, pustaka, atau teknologi
+yang digunakan beserta keterbatasan, risiko, konsekuensi pilihan, dan alternatif
+yang relevan.
+Instrumen asesmen
+Rubrik rinci, daftar periksa observasi individu dan kelompok, validasi kesesuaian
+kategori dengan skor, serta rekap nilai digunakan sesuai instrumen penilaian
+dosen Capstone Project 2 yang ditetapkan program studi. Nilai akhir Capstone
+Project 2 diperoleh dari penjumlahan kontribusi CPMK-TIO7031-1 (20%),
+CPMK-TIO7031-3 (25%), CPMK-TIO7031-4 (25%), dan CPMK-TIO7031-2
+(30%) = 100%.
+I. Penutup
+Buku panduan Capstone Project, telah disajikan informasi dan panduan yang
+diharapkan dapat membantu Mahasiswa dalam mengerjakan proyek capstone
+Mahasiswa. Buku panduan Capstone Project ini diharapkan pembaca dapat
+memahami pentingnya Capstone Project dalam pengembangan kemampuan
+profesional. Kesimpulan yang didapatkan adalah Capstone Project adalah sebuah
+kesempatan untuk mengembangkan kemampuan profesional dan mempersiapkan
+diri untuk memasuki dunia industri. Mahasiswa diharapkan dapat memanfaatkan
+buku panduan Capstone Project ini dengan baik dan menghasilkan Capstone Project
+yang dapat bermanfaat bagi masyarakat dan dunia industri. Terima kasih kepada
+semua pihak yang terlibat membantu dalam penyusunan buku panduan Capstone
+Project ini, semoga memberikan manfaat yang besar bagi semua pihak.
+
+-- 22 of 65 --
+
+23
+Mengetahui,
+Ketua Program Studi S1 Teknologi Informasi
+Tikaridha Hardiani, S.Kom., M.Eng.
+
+-- 23 of 65 --
+
+24
+Lampiran
+Lampiran ini memuat format laporan kelompok dari C-1 sampai C-5. Salin bagian
+mulai dari sampul laporan sampai Lampiran G ke berkas Word tersendiri untuk
+digunakan mahasiswa. Bagian panduan dan halaman pengantar lampiran ini tidak
+disertakan dalam laporan mahasiswa.
+Petunjuk dan contoh isian membantu penyusunan laporan. Hapus petunjuk, contoh,
+serta isian pengganti setelah laporan dilengkapi. Lampiran A sampai G pada templat
+merupakan bagian laporan mahasiswa.
+Jadwal, proses bimbingan, luaran tambahan, dan penilaian tetap mengacu pada bagian
+utama panduan. Nomor halaman pada buku gabungan mengikuti urutan panduan;
+nomor halaman laporan diatur kembali setelah templat disalin.
+
+-- 24 of 65 --
+
+25
+[JUDUL PROYEK DALAM BAHASA INDONESIA -
+MAKSIMAL 15 KATA]
+LAPORAN CAPSTONE PROJECT
+Dokumen Terpadu C-1 sampai dengan C-5
+Anggota Kelompok
+[Nama Lengkap / NIM]
+[Nama Lengkap / NIM]
+[Nama Lengkap / NIM]
+Mitra
+[Nama Mitra Capstone Project]
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+PROGRAM STUDI TEKNOLOGI INFORMASI
+FAKULTAS SAINS DAN TEKNOLOGI
+UNIVERSITAS 'AISYIYAH YOGYAKARTA
+[TAHUN AKADEMIK]
+
+-- 25 of 65 --
+
+26
+PETUNJUK PENGGUNAAN TEMPLAT
+Templat ini menyediakan susunan laporan proyek, petunjuk pengisian, dan
+contoh penulisan untuk bagian C-1 sampai C-5. Isi setiap bagian dengan data,
+uraian pekerjaan, dan bukti yang sesuai dengan proyek.
+Bagian utama laporan menjelaskan pekerjaan, alasan pelaksanaan, dan
+hasilnya. Lampiran laporan memuat bukti terperinci yang mendukung uraian
+tersebut. Gunakan rujukan yang jelas agar bukti dapat diperiksa tanpa menyalin
+materi yang sama berulang kali.
+Petunjuk: Ganti seluruh isian dalam tanda [kurung siku] dengan data proyek. Semua paragraf
+berlabel Petunjuk dan Contoh pola isian dihapus sebelum pengumpulan. Contoh hanya
+menjelaskan cara menulis, bukan hasil proyek atau standar kelulusan. Target, angka, tanggal,
+nama, dan bukti harus berasal dari pekerjaan serta kesepakatan tim dengan mitra/pembimbing.
+Cara mengisi dan menjaga konsistensi
+Cantumkan nomor versi dan tanggal pembaruan pada identitas proyek. Gunakan
+kode yang konsisten untuk menghubungkan kebutuhan, rancangan, implementasi,
+dan hasil pengujian. Catat perubahan penting pada Catatan Keputusan dan
+Perubahan.
+Petunjuk: Satu baris tabel mewakili satu butir yang dapat ditelusuri. Tambahkan baris sesuai
+kebutuhan. Gunakan “Belum dilaksanakan” untuk kegiatan yang belum dikerjakan dan “Tidak
+relevan — [alasan]” hanya untuk aspek yang memang tidak berlaku. Jangan mengganti hasil
+yang belum tersedia dengan angka contoh.
+Tabel P.1. Kode penelusuran yang digunakan
+Kode Arti dan penggunaan
+PR-01 / NEED-01 Masalah / kebutuhan pengguna; ditetapkan di C-1 B.4.
+PC-01 Karakteristik produk pada C-1 B.5.
+FR-01 / NFR-01 Kebutuhan fungsional / nonfungsional pada C-2.
+DES-[jenis]-01 /
+ACT-01 Rancangan / aktivitas implementasi pada C-3.
+FT-01 / IT-01 Uji fungsional / integrasi; rencana di C-2, hasil di C-5.
+NFT-01 / ST-01 Uji nonfungsional / keamanan.
+CHG-01 / BUG-01 Perubahan keputusan / temuan pengujian.
+EV-01 Semua bukti: wawancara, rancangan, catatan perubahan kode, hasil uji, dan
+validasi. Satu kode merujuk satu bukti pada Lampiran G.
+
+-- 26 of 65 --
+
+27
+Petunjuk: Nomor pada kode hanya berfungsi sebagai penanda pembeda antarbutir, bukan nilai
+atau urutan prioritas. Kode yang sama merujuk pada butir yang sama, dan satu kebutuhan
+dapat dikaitkan dengan beberapa rancangan, bukti, dan kasus uji.
+Contoh alur rujukan: PR-01 → NEED-01 → FR-01 → DES-SEQ-01 → implementasi pada C-4
+→ FT-01. Setiap butir merujuk pada EV (bukti) yang sesuai.
+Kode jenis rancangan yang direkomendasikan:
+- DES-ARCH — arsitektur
+- DES-UC — use case diagram
+- DES-CL — class diagram
+- DES-SEQ — sequence diagram
+- DES-AD — activity diagram
+- DES-STATE — state diagram
+- DES-DB — rancangan basis data/ERD
+- DES-UI — rancangan UI/UX
+- DES-FLOW — flowchart
+- DES-DFD — data flow diagram
+Nomor terakhir pada kode menunjukkan urutan artefak dalam jenis yang sama (contoh: DES-UI-
+01, DES-UI-02, DES-SEQ-01, DES-SEQ-02).
+Contoh fungsi: pelapor mengirim laporan kerusakan; hasil uji membandingkan data yang
+tersimpan dengan data uji yang diketahui.
+Petunjuk: PJ adalah singkatan dari penanggung jawab pekerjaan. Hasil pekerjaan wajib disertai
+bukti yang dapat diperiksa, dengan pemetaan sebagai berikut:
+- C-2 — kebutuhan dan rencana pengujian
+- C-3 — rancangan
+- C-4 — hasil implementasi
+- C-5 — hasil pengujian serta evaluasi
+Gunakan kode rujukan agar uraian yang sama tidak perlu disalin berulang. Kode pada Tabel P.1
+dipertahankan agar rujukan antarbagian tetap konsisten.
+Kode rancangan tidak menggantikan nomor dan caption gambar. Setiap diagram atau artefak
+visual tetap diberi nomor gambar sesuai ketentuan laporan, dengan kode DES dicantumkan di
+dalam caption untuk mendukung keterlacakan.
+Contoh format caption: Gambar 3.7. DES-UI-02 – Rancangan Antarmuka Status Laporan.
+Unsur-unsur dalam caption tersebut:
+- Gambar 3.7 — nomor gambar dokumen
+- DES-UI-02 — kode artefak desain
+- Rancangan Antarmuka Status Laporan — nama artefak
+Format Dokumen
+Ukuran kertas: A4 (21 cm x 29,7 cm).
+Margin: 4 cm (atas dan kiri), 3 cm (kanan dan bawah).
+Jenis huruf: Times New Roman; judul bab 14 poin; isi 12 poin; tabel dapat
+menggunakan 9–10 poin agar tetap terbaca.
+Spasi: 1,5 untuk isi utama; tabel dan petunjuk dapat menggunakan spasi 1,0.
+Paragraf: rata kiri-kanan.
+Nomor halaman: kanan bawah.
+
+-- 27 of 65 --
+
+28
+Sitasi dan daftar referensi menggunakan gaya APA edisi ke-7 serta dikelola
+dengan aplikasi pengelola referensi.
+Gambar, tabel, dan persamaan diberi nomor berdasarkan bagian C (misalnya
+Tabel 1.1, Gambar 3.2, Persamaan 4.1).
+
+-- 28 of 65 --
+
+29
+ABSTRAK
+Petunjuk: Ringkas masalah mitra, tujuan, kebutuhan utama, pendekatan solusi, dan ruang
+lingkup. Pada Capstone Project 1, jelaskan hasil perancangan tanpa mengklaim implementasi
+atau pengujian yang belum dilakukan. Pada Capstone Project 2, perbarui abstrak dengan
+implementasi, hasil uji terukur, dan keterbatasan aktual.
+[Isi abstrak sesuai tahap pengumpulan.]
+Kata kunci: [kata kunci yang mewakili proyek].
+
+-- 29 of 65 --
+
+30
+DAFTAR ISI
+Petunjuk: Setelah templat disalin ke berkas laporan tersendiri dan isinya dilengkapi, buat atau
+perbarui daftar isi melalui fasilitas daftar isi di Microsoft Word. Pastikan hanya judul bagian
+laporan yang tercantum.
+[Daftar isi laporan otomatis]
+
+-- 30 of 65 --
+
+31
+DAFTAR GAMBAR
+Petunjuk: Beri keterangan dan nomor pada setiap gambar melalui fasilitas keterangan gambar di
+Microsoft Word. Gunakan label “Gambar”, lalu buat daftar gambar otomatis melalui fasilitas
+daftar ilustrasi.
+[Daftar gambar otomatis]
+DAFTAR TABEL
+Petunjuk: Beri judul dan nomor pada setiap tabel melalui fasilitas keterangan tabel di Microsoft
+Word. Gunakan label “Tabel”, lalu buat daftar tabel otomatis melalui fasilitas daftar ilustrasi.
+[Daftar tabel otomatis]
+DAFTAR PERSAMAAN
+Petunjuk: Jika laporan memuat persamaan, buat daftar persamaan secara konsisten sesuai nomor
+bagian.
+[Daftar persamaan bila ada]
+
+-- 31 of 65 --
+
+32
+C-1: PROPOSAL PROYEK
+Petunjuk: C-1 menjelaskan kebutuhan nyata, pihak yang terlibat, masalah, pilihan solusi, serta
+pertimbangan profesional dan etika. Capstone Project merupakan proyek rekayasa untuk
+menyelesaikan masalah nyata. Uraian diarahkan pada kebutuhan dan rancangan solusi, bukan
+pada pengujian hipotesis penelitian.
+A. Identitas Proyek
+Tabel 1.1. Identitas proyek
+Elemen Isian
+Judul Proyek [Judul proyek]
+Nama Tim [Nama tim]
+Anggota [Nama / NIM seluruh anggota]
+Dosen Pembimbing [Nama dosen]
+Mitra / pihak utama [Nama organisasi/unit/komunitas/pengguna]
+Tanggal Pengajuan [tanggal/bulan/tahun]
+Versi / tanggal dokumen [Versi / tanggal pembaruan]
+B. Latar Belakang dan Identifikasi Masalah
+Petunjuk: Jelaskan kondisi mitra, kegiatan yang sedang berjalan, dan pihak yang terlibat.
+Uraikan gejala masalah, penyebab, dampak, dan alasan masalah perlu ditangani. Sertakan bukti
+dari pengamatan, wawancara, dokumen, atau data lain yang dapat dipertanggungjawabkan.
+B.1 Konteks Mitra dan Pemangku Kepentingan
+[Jelaskan konteks mitra, siapa pengguna utama, pemangku kepentingan
+lain yang terlibat, dan aktivitas/proses yang relevan.]
+B.2 Bukti Kebutuhan dan Kondisi Saat Ini
+[Jelaskan sumber bukti: wawancara, observasi, dokumen, data operasional,
+survei, atau sumber lain. Tunjukkan bahwa kebutuhan bukan hanya asumsi tim.]
+
+-- 32 of 65 --
+
+33
+Tabel 1.2. Ringkasan bukti kebutuhan
+Kode
+bukti Sumber / tanggal Temuan utama Pihak terkait
+EV-01 Wawancara petugas
+sarpras, 10 Maret 2026
+Laporan kerusakan diterima melalui
+WhatsApp dan dicatat kembali ke
+spreadsheet sehingga status tindak lanjut
+sulit dipantau; rekap bulanan disusun
+manual
+Petugas Sarpras
+EV-02
+Observasi proses
+pelaporan, 11 Maret
+2026
+Pelapor tidak memperoleh informasi
+perkembangan laporan dan menanyakan
+ulang melalui WhatsApp
+Pelapor, Petugas
+Sarpras
+EV-03 Wawancara kepala unit
+sarpras, 12 Maret 2026
+Data laporan hanya boleh dikelola petugas
+dan tidak boleh hilang; komputer unit
+berspesifikasi terbatas
+Kepala Unit Sarpras
+Contoh pola isian — EV-01 | Notulen wawancara [tanggal] | [Kendala yang benar-benar
+disampaikan] | [Peran narasumber]. Cantumkan lokasi notulen pada Lampiran G; tabel ini berisi
+temuan, bukan salinan seluruh wawancara.
+B.3 Gejala, Akar Masalah, Dampak, dan Urgensi
+[Jelaskan gejala yang diamati, akar penyebab berdasarkan bukti, dampak,
+dan urgensi. Analisis sekurang-kurangnya dua aspek, yaitu keandalan sistem dan
+keberlanjutan pengembangan. Jangan menyimpulkan akar penyebab hanya
+berdasarkan dugaan.]
+B.4 Rumusan Masalah
+[Rumuskan setiap masalah dari sudut pandang pengguna dalam bahasa
+sederhana. Rumusan dapat diringkas dalam dua kalimat. Bedakan masalah
+berkode PR dari kebutuhan pengguna berkode NEED. Sertakan bukti pendukung
+dan bandingkan pilihan solusi sebelum menentukan teknologinya.]
+Tabel 1.2a. Hubungan masalah dan kebutuhan pengguna
+Kode
+masalah Rumusan masalah Kode NEED Kebutuhan pengguna Kode bukti
+PR-01
+Pelaporan kerusakan
+tersebar melalui beberapa
+media sehingga laporan
+dan tindak lanjut sulit
+ditelusuri
+NEED-01
+Pelapor dan petugas
+membutuhkan proses
+pelaporan yang terpusat
+EV-01
+
+-- 33 of 65 --
+
+34
+Kode
+masalah Rumusan masalah Kode NEED Kebutuhan pengguna Kode bukti
+PR-02 Pelapor tidak memperoleh
+informasi perkembangan
+laporan
+NEED-02 Pelapor membutuhkan
+informasi status tindak lanjut
+EV-02
+PR-03 Rekap laporan per periode
+disusun manual dari
+spreadsheet sehingga
+lambat dan rawan tidak
+konsisten
+NEED-03 Petugas membutuhkan rekap
+laporan berdasarkan periode
+dan kategori
+EV-01
+Contoh pola isian — Masalah menjelaskan kendala, misalnya rekap harus disusun ulang dari
+beberapa catatan jika hal tersebut terbukti. Kebutuhannya adalah memperoleh rekap yang
+konsisten untuk periode tertentu. Nama teknologi belum menjadi rumusan kebutuhan.
+B.5 Karakteristik Produk yang Diinginkan dan Skenario Pemakaian
+Pemangku Kepentingan
+Petunjuk: Kode PC-xx menunjukkan karakteristik atau kapabilitas produk, bukan jumlah produk
+yang dihasilkan. Satu kelompok pada umumnya menghasilkan satu produk, tetapi produk tersebut
+dapat memiliki beberapa karakteristik yang diberi kode PC-01, PC-02, dan seterusnya. Setiap
+karakteristik penting harus dapat ditelusuri ke bukti/kebutuhan dan memiliki indikator
+keberhasilan awal.
+Tabel 1.3. Karakteristik produk dan skenario pemakaian pemangku kepentingan
+Kode
+Karakt
+eristik
+produk
+Karakteristik produk Kode kebutuhan
+/ bukti Skenario penggunaan Indikator awal
+PC-01 Pelaporan terpusat NEED-01 / EV-
+01
+Pelapor mengisi laporan →
+sistem menyimpan →
+petugas menerima laporan
+Laporan dapat
+dicatat dan
+ditelusuri dalam
+satu sistem
+PC-02 Pemantauan status
+laporan
+NEED-02 / EV-
+02
+Pelapor membuka riwayat →
+sistem menampilkan status
+Status laporan
+dapat diketahui
+pengguna
+PC-03 Rekap laporan NEED-03 / EV-
+01
+Petugas memilih periode →
+sistem menampilkan rekap
+Rekap per periode
+dapat diperoleh
+tanpa penyusunan
+manual
+Contoh pola isian — Skenario ditulis sebagai aktor → tindakan → hasil: petugas memilih periode
+→ membuka rekap → memperoleh rekap sesuai periode. Karakteristik menyatakan kemampuan
+produk; rincian kriteria penerimaannya ditulis pada C-2.
+C. Tujuan Proyek
+Petunjuk: Tuliskan hasil yang ingin dicapai untuk menjawab rumusan masalah. Gunakan
+penomoran berurutan tanpa subnomor.
+Contoh ilustratif — hapus sebelum pengumpulan:
+
+-- 34 of 65 --
+
+35
+1. Menghasilkan sistem pelaporan kerusakan sarana yang dapat mencatat
+laporan secara terpusat.
+2. Menyediakan informasi status tindak lanjut laporan kepada pelapor dan
+petugas.
+D. Batasan Proyek
+Petunjuk: Jelaskan ruang lingkup, fitur yang termasuk/tidak termasuk, asumsi, batasan sumber
+daya, serta keterbatasan proyek yang sudah diketahui.
+Contoh : Sistem digunakan untuk pelaporan kerusakan sarana di lingkungan kampus. Sistem tidak
+mencakup pengadaan barang dan pengelolaan anggaran perbaikan. Notifikasi eksternal melalui
+WhatsApp tidak termasuk ruang lingkup versi awal. Sistem harus dapat digunakan pada komputer
+mitra dengan spesifikasi yang tersedia/terbatas
+[Batasan ruang lingkup]
+[Asumsi/keterbatasan]
+E. Alternatif Solusi dan Alasan Pemilihan
+Petunjuk: Bandingkan minimal dua alternatif yang berbeda secara bermakna. Alternatif dapat
+terkait pendekatan solusi, platform, arsitektur, metode, algoritma, atau strategi implementasi.
+Jelaskan alasan pemilihan tanpa hanya menyatakan “paling mudah”.
+Tabel 1.4. Perbandingan alternatif solusi
+Alternatif Kelebihan Keterbatasan/risiko Kesesuaian terhadap
+masalah
+Web responsif Dapat digunakan melalui
+berbagai perangkat tanpa
+instalasi
+Membutuhkan koneksi
+jaringan; tampilan harus
+ringan agar berjalan pada
+komputer mitra
+Tinggi
+Aplikasi
+Android native
+Kamera dan notifikasi
+perangkat dapat
+dimanfaatkan langsung
+Perlu instalasi; tidak dapat
+digunakan pada komputer
+petugas; waktu
+pengembangan lebih lama
+Sedang
+Contoh pola isian — Bandingkan alternatif menggunakan dasar yang sama, seperti pemenuhan
+kebutuhan, biaya, waktu, pemeliharaan, dan risiko. Jelaskan konsekuensi pilihan. Bobot penilaian
+hanya digunakan jika tim memang menetapkan dan menjelaskan dasarnya. Untuk Complex-1,
+jelaskan kebutuhan atau batasan yang bertentangan, keputusan yang dipilih, dan konsekuensinya.
+Perbandingan nama teknologi saja belum menunjukkan konflik kebutuhan.
+[Jelaskan solusi yang dipilih, alasan pemilihan, serta kelebihan dan
+keterbatasan yang diterima dari pilihan tersebut.]
+
+-- 35 of 65 --
+
+36
+F. Pertimbangan Profesional, Etika, dan Dampak
+Petunjuk: Pertimbangkan aspek yang relevan dengan proyek, misalnya privasi/data, hak
+pengguna, aksesibilitas, keamanan, penggunaan kecerdasan artifisial atau layanan pihak ketiga,
+lisensi/HKI, dampak sosial, lingkungan, budaya, dan tanggung jawab profesional kepada mitra.
+Tidak semua aspek harus muncul jika memang tidak relevan, tetapi alasan ketidakrelevanan harus
+masuk akal.
+Tabel 1.5. Pertimbangan profesional, etika, dan dampak
+Aspek Risiko/dampak Pihak terdampak Mitigasi/rencana tindakan
+Privasi/Data Foto laporan dapat memuat
+informasi yang tidak
+seharusnya diakses publik
+Pelapor/Mitra File hanya dapat diakses
+pengguna dengan hak yang
+sesuai
+Etika
+Profesional
+Hasil uji dapat dilaporkan tidak
+lengkap jika hanya hasil
+berhasil yang ditampilkan
+Mitra/Dosen Seluruh hasil gagal dan
+keterbatasan tetap dicatat
+Lisensi/HKI Penggunaan ikon atau library
+tanpa memperhatikan lisensi
+Pemilik karya/Tim Sumber dan lisensi dicatat pada
+Lampiran F
+Contoh pola isian — Privasi | [Risiko data terbaca pihak tanpa hak] | [Pemilik data] | [Rencana
+pembatasan akses dan izin penggunaan]. Pada C-4 dan Lampiran F, jelaskan tindakan yang
+benar-benar dilaksanakan beserta buktinya.
+G. Metode Pengembangan
+Petunjuk: Jelaskan metode pengembangan yang digunakan, misalnya metode air terjun,
+pengembangan tangkas, atau pembuatan purwarupa. Uraikan tahap, alasan pemilihan, dan
+penerapannya dalam proyek.
+[Uraian metode pengembangan.]
+H. Jadwal Pelaksanaan
+Petunjuk: Sajikan bagan Gantt yang mencakup penyelesaian C-1 sampai C-3 dan rencana awal
+implementasi/pengujian C-4 sampai C-5. Sesuaikan dengan kalender semester.
+[Masukkan bagan Gantt di sini.]
+
+-- 36 of 65 --
+
+37
+I. Persetujuan C-1
+Petunjuk: Bagian ini ditandatangani setelah tahap terkait disetujui. Bentuk persetujuan dapat
+berupa tanda tangan basah, tanda tangan elektronik, atau mekanisme resmi lain yang ditetapkan
+program studi.
+Tabel 1.6. Lembar persetujuan tahap C-1
+No. Nama anggota kelompok NIM Menyetujui
+1 [Nama] [NIM] [Paraf/Tanda Tangan]
+2 [Nama] [NIM] [Paraf/Tanda Tangan]
+3 [Nama] [NIM] [Paraf/Tanda Tangan]
+Yogyakarta, [tanggal bulan tahun]
+Menyetujui,
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+NIP/NIK. [....................]
+
+-- 37 of 65 --
+
+38
+C-2: SPESIFIKASI PRODUK
+Petunjuk: C-2 mengubah kebutuhan pengguna menjadi persyaratan sistem yang jelas dan dapat
+diuji. Beri kode pada setiap kebutuhan agar dapat dirujuk dalam rancangan, implementasi, dan
+pengujian.
+A. Deskripsi Sistem
+[Jelaskan gambaran sistem, aktor/pengguna utama, fungsi inti, batas
+sistem, dan hubungan dengan sistem/proses lain jika ada.]
+B. Kebutuhan Fungsional dan Prioritas
+Tabel 2.1. Kebutuhan fungsional
+Kode FR Kebutuhan/fungsi Sumber
+kebutuhan Prioritas Kriteria penerimaan
+FR-01
+Pelapor dapat
+membuat laporan
+dengan kategori,
+lokasi, deskripsi, dan
+foto opsional
+NEED-01 / EV-
+01 Wajib Data laporan tersimpan dan
+memperoleh nomor laporan
+FR-02 Pelapor dapat melihat
+status laporannya
+NEED-02 / EV-
+02
+Wajib Status terakhir laporan
+ditampilkan pada riwayat
+FR-03 Petugas dapat melihat
+rekap laporan
+berdasarkan periode
+dan kategori melalui
+dashboard
+NEED-03 / EV-
+01
+Penting Rekap hanya memuat laporan
+sesuai periode dan kategori
+terpilih
+Contoh pola isian — FR-03 | Petugas melihat rekap laporan berdasarkan periode | NEED-03 /
+EV-01 | Penting | Rekap hanya memuat laporan pada periode terpilih dan jumlahnya sama
+dengan data uji. Prioritas “Wajib” harus dipenuhi dalam lingkup proyek; “Penting” diutamakan
+setelah kebutuhan wajib; “Tambahan” dikerjakan jika sumber daya memungkinkan.
+C. Kebutuhan Nonfungsional dan Prioritas
+Petunjuk: Kebutuhan nonfungsional menjelaskan mutu sistem, seperti kinerja, keamanan,
+keandalan, kemudahan penggunaan, kesesuaian dengan perangkat lain, dan ketersediaan
+layanan. Setiap kebutuhan harus memiliki sumber yang jelas, tidak menimbulkan penafsiran
+ganda, serta dapat diukur atau diperiksa.
+
+-- 38 of 65 --
+
+39
+Tabel 2.2. Kebutuhan nonfungsional
+Kode NFR Kategori Persyaratan Target / kondisi uji Prioritas Sumber /
+bukti
+NFR-01 Kinerja Sistem
+menampilkan
+daftar laporan
+dengan waktu
+respons yang
+dapat diterima
+Rata-rata ≤3 detik pada 50
+pengguna bersamaan
+Penting NEED-01 /
+EV-03
+NFR-02 Keamanan Menu administrasi
+hanya dapat
+digunakan petugas
+berhak
+Akses pengguna biasa
+terhadap fungsi admin
+ditolak
+Wajib EV-03
+NFR-03 Keandalan Sistem dapat
+digunakan
+kembali setelah
+layanan aplikasi
+dimulai ulang
+Fungsi utama dapat
+digunakan setelah restart
+terkontrol
+Penting EV-03
+NFR-04 Kemudaha
+n
+penggunaa
+n
+Tugas utama dapat
+diselesaikan
+pengguna tanpa
+bantuan
+Minimal 80% tugas utama
+selesai tanpa bantuan
+Penting NEED-01 /
+EV-02
+NFR-05 Keamanan Data masukan
+diperiksa pada sisi
+peladen
+Permintaan dengan nilai
+tidak valid ditolak dan
+tidak tersimpan
+Wajib EV-03
+NFR-06 Ketersedia
+an
+Data laporan dapat
+dipulihkan dari
+cadangan
+Data uji pulih dari
+cadangan dan dapat dibaca
+aplikasi
+Penting EV-03
+Contoh pola isian — Ganti pernyataan “sistem harus cepat” dengan ukuran yang jelas: waktu
+respons [kegiatan] paling lama [target dan satuan], diuji pada [jumlah pengguna bersamaan],
+[jumlah data], dan [lingkungan pengujian]. Sebutkan ukuran yang digunakan, misalnya rata-rata
+waktu respons. Tetapkan target bersama pihak terkait.
+D. Spesifikasi Teknis
+Petunjuk: Tuliskan teknologi yang direncanakan, fungsi, dan alasan pemilihannya. Penggunaan
+yang sebenarnya, keterbatasan, dan pilihan pengganti dijelaskan kembali pada C-4.
+Tabel 2.3. Spesifikasi teknis
+Komponen Teknologi/spesifikasi Fungsi Alasan/kendala awal
+Sisi server /
+Backend
+Laravel 12 / PHP 8.3 Menjalankan logika
+aplikasi dan API
+Kompetensi tim tersedia;
+membutuhkan lingkungan PHP
+Basis data PostgreSQL 16 Menyimpan data
+pengguna dan
+laporan
+Mendukung relasi dan transaksi
+yang dibutuhkan
+
+-- 39 of 65 --
+
+40
+Contoh pola isian — Tuliskan nama dan versi teknologi, fungsi, serta alasan pemilihannya
+berdasarkan kebutuhan. Pada proyek perangkat keras atau simulasi, komponen dapat berupa
+perangkat, perangkat tegar, protokol komunikasi, atau perangkat lunak simulasi.
+D.1 Kelayakan Beban Kerja dan Biaya
+Petunjuk: Ringkas perkiraan pekerjaan, penanggung jawab, kebutuhan sumber daya, biaya dan
+dasar estimasinya. Bedakan fasilitas yang sudah tersedia dari kebutuhan pengadaan. Nyatakan
+kelayakan rencana terhadap waktu dan sumber daya; rencana aktivitas rinci dirujuk ke C-3 G.
+Contoh : Pengembangan dilakukan oleh tiga anggota selama satu semester. Infrastruktur uji
+menggunakan server yang telah tersedia sehingga tidak memerlukan pengadaan server baru.
+Biaya tambahan diperkirakan hanya untuk domain apabila diperlukan. Aktivitas utama dibagi
+menjadi backend, frontend, basis data, pengujian, dan deployment sesuai Tabel 3.2.
+[Uraikan estimasi beban kerja, biaya, dasar perhitungan, sumber daya yang
+tersedia, dan kendala utama.]
+E. Matriks Keterlacakan Kebutuhan
+Petunjuk: Hubungkan bukti dan kebutuhan pengguna dengan kebutuhan sistem, fitur, rancangan,
+serta rencana pengujian. Gunakan kode yang sama dengan bagian asalnya.
+Tabel 2.4. Matriks keterlacakan kebutuhan
+Kode
+kebutuhan /
+bukti
+Kode FR /
+NFR Fitur / komponen Kode / lokasi rancangan Kode uji
+NEED-01 / EV-
+01
+FR-01 Pelaporan kerusakan DES-UC-01 / Gambar 3.2; DES-
+UI-01 / Gambar 3.6
+FT-01
+NEED-02 / EV-
+02
+FR-02 Monitoring status DES-UI-02 / Gambar 3.7 FT-02
+NEED-03 / EV-
+01
+FR-03 Dashboard dan rekap DES-UI-03 / Gambar 3.8 FT-04, FT-
+05
+NEED-01 / EV-
+03
+NFR-01 Kinerja daftar laporan DES-ARCH-01 / Gambar 3.1 NFT-01
+EV-03 NFR-02 Kontrol akses DES-ARCH-01 / Gambar 3.1 ST-01
+EV-03 NFR-03 Pemulihan layanan
+aplikasi
+DES-ARCH-01 / Gambar 3.1 NFT-02
+NEED-01 / EV-
+02
+NFR-04 Kemudahan
+penggunaan form dan
+status
+DES-UI-01 / Gambar 3.6; DES-
+UI-02 / Gambar 3.7
+NFT-03
+EV-03 NFR-05 Validasi data masukan DES-SEQ-01 / Gambar 3.4 ST-02
+EV-03 NFR-06 Pencadangan dan
+pemulihan data
+DES-DB-01 / Gambar 3.5 ST-03
+
+-- 40 of 65 --
+
+41
+Contoh pola isian — Gunakan rujukan spesifik, misalnya DES-UC-01 / Gambar 3.2, bukan hanya
+“lihat C-3”. Jika rancangan atau uji belum tersedia, tulis “Direncanakan — [kode]”, lalu
+perbarui ketika dibuat. Implementasi aktual dirujuk pada Tabel 4.3.
+F. Rencana Pengujian
+Petunjuk: Rencana pengujian minimal mencakup pengujian fungsional, nonfungsional yang
+relevan, keamanan, dan validasi pengguna/mitra. Rincian pengujian aktual ditulis pada C-5.
+Tabel 2.5. Rencana pengujian
+Kode / jenis
+uji
+Kode
+FR/NFR Metode Kriteria lulus Alasan metode Jadwal / PJ
+FT-01 /
+Fungsional
+FR-01 Black-box Laporan valid
+tersimpan dan
+mendapat nomor
+Memeriksa fungsi
+dari sisi pengguna
+M8 / Ahmad
+FT-02 /
+Fungsional
+FR-02 Black-box Status terakhir tampil
+sesuai data petugas
+Memeriksa fungsi
+dari sisi pengguna
+M8 / Budi
+FT-03 /
+Fungsional
+FR-01 Black-box
+(kondisi
+gagal)
+Form tanpa lokasi
+ditolak dengan pesan
+validasi
+Memeriksa
+penanganan
+masukan tidak
+lengkap
+M8 / Ahmad
+FT-04 /
+Fungsional
+FR-03 Black-box Rekap hanya memuat
+laporan pada periode
+terpilih
+Memeriksa fungsi
+dari sisi petugas
+M10 / Citra
+FT-05 /
+Fungsional
+FR-03 Black-box Rekap hanya memuat
+laporan pada kategori
+terpilih
+Memeriksa fungsi
+dari sisi petugas
+M10 / Citra
+IT-01 /
+Integrasi
+FR-01 Uji integrasi
+form, API,
+dan basis
+data
+Data dari form
+diterima API dan
+tersimpan
+Memeriksa
+hubungan
+antarkomponen
+M8 / Ahmad,
+Budi
+NFT-01 /
+Kinerja
+NFR-01 Load test Rata-rata ≤3 detik
+pada 50 user
+Memverifikasi
+target kinerja
+M12 / Budi
+NFT-02 /
+Keandalan
+NFR-03 Recovery
+test
+Sistem dapat
+digunakan kembali
+setelah restart
+Memverifikasi
+pemulihan layanan
+M12 / Citra
+NFT-03 /
+Kemudahan
+penggunaan
+NFR-04 Task-based
+usability test
+Minimal 80% tugas
+selesai tanpa bantuan
+Mengukur
+kemudahan dari
+sisi pengguna
+M12 / Budi
+ST-01 /
+Keamanan
+NFR-02 Access-
+control test
+User biasa tidak dapat
+membuka fungsi
+admin
+Memverifikasi
+kontrol akses
+M12 / Citra
+
+-- 41 of 65 --
+
+42
+Kode / jenis
+uji
+Kode
+FR/NFR Metode Kriteria lulus Alasan metode Jadwal / PJ
+ST-02 /
+Keamanan
+NFR-05 Uji validasi
+sisi peladen
+Permintaan tidak valid
+ditolak dan tidak
+tersimpan
+Memverifikasi
+integritas data
+masukan
+M12 /
+Ahmad
+ST-03 /
+Keamanan
+NFR-06 Backup-
+restore test
+Data pulih dan dapat
+dibaca aplikasi
+Memverifikasi
+ketersediaan data
+M12 / Citra
+Contoh pola isian — Tambahkan kode NFT untuk uji nonfungsional, IT untuk uji integrasi, dan
+kegiatan validasi pengguna. Bedakan jenis dan metode uji. Sebagai contoh, pengujian fungsional
+dapat dilakukan dengan memeriksa masukan dan keluaran tanpa memeriksa kode program.
+Bagian ini berisi rencana, bukan hasil pengujian.
+G. Verifikasi Kualitas Spesifikasi
+Petunjuk: Periksa kebutuhan utama sebelum C-2 disetujui. “Dapat ditelusuri” berarti sumber
+kebutuhan jelas. “Tidak ambigu” berarti tidak menimbulkan penafsiran ganda. “Terukur atau
+dapat diperiksa” berarti memiliki target atau kondisi penerimaan yang dapat diuji.
+Tabel 2.6. Verifikasi kualitas spesifikasi
+Kode
+FR/NFR
+Dapat
+ditelusuri Tidak ambigu Terukur / dapat
+diperiksa Catatan perbaikan
+FR-01 Ya – NEED-
+01/EV-01
+Ya Ya -
+NFR-01 Ya – NEED-
+01/EV-03
+Ya Ya Lingkungan uji perlu
+dicantumkan pada kondisi uji
+Contoh pola isian — “Ya” untuk dapat dilacak harus disertai rujukan sumber; “Ya” untuk
+terukur/dapat diverifikasi harus didukung target atau kondisi penerimaan. Catatan perbaikan
+menyebut kekurangan spesifik, bukan sekadar “sudah baik”.
+
+-- 42 of 65 --
+
+43
+H. Persetujuan C-2
+Petunjuk: Bagian ini ditandatangani setelah tahap terkait disetujui. Bentuk persetujuan dapat
+berupa tanda tangan basah, tanda tangan elektronik, atau mekanisme resmi lain yang ditetapkan
+program studi.
+Tabel 2.7. Lembar persetujuan tahap C-2
+No. Nama anggota kelompok NIM Menyetujui
+1 [Nama] [NIM] [Paraf/Tanda Tangan]
+2 [Nama] [NIM] [Paraf/Tanda Tangan]
+3 [Nama] [NIM] [Paraf/Tanda Tangan]
+Yogyakarta, [tanggal bulan tahun]
+Menyetujui,
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+NIP/NIK. [....................]
+
+-- 43 of 65 --
+
+44
+C-3: PERANCANGAN
+Petunjuk: C-3 memuat rancangan teknis yang cukup rinci untuk menjadi pedoman implementasi
+pada C-4. Setiap rancangan harus sesuai dengan kebutuhan pada C-2 dan mencantumkan kode
+kebutuhan yang dipenuhi.
+A. Identitas Proyek
+[Tuliskan ringkas identitas proyek dan referensi versi C-1/C-2 yang
+digunakan sebagai dasar rancangan.]
+B. Rancangan Arsitektur Sistem
+Petunjuk: Jelaskan susunan sistem, komponen utama, hubungan antarkomponen, aliran data, dan
+lingkungan penggunaannya. Sajikan diagram arsitektur beserta penjelasannya. Untuk Complex-2,
+jelaskan bentuk ketergantungan dan dampak perubahan atau kegagalan satu komponen terhadap
+bagian lain. Jumlah modul saja belum membuktikan ketergantungan.
+[Masukkan diagram arsitektur dan penjelasannya.]
+C. Rancangan Basis Data
+Petunjuk: Jika sistem menggunakan basis data, sertakan diagram hubungan entitas (ERD), model
+data, dan struktur penyimpanannya. Pastikan rancangan sesuai dengan kebutuhan sistem dan
+dapat diterapkan.
+[Masukkan ERD/model data, kamus data penting, dan penjelasan.]
+D. Rancangan Antarmuka Pengguna
+Petunjuk: Tampilkan kerangka atau rancangan tampilan antarmuka utama. Jelaskan fungsi setiap
+tampilan, kebutuhan pengguna yang dipenuhi, dan urutan kegiatan pengguna.
+[Masukkan kerangka atau rancangan tampilan antarmuka beserta
+penjelasannya.]
+E. Diagram Alur Sistem
+Petunjuk: Setiap artefak perancangan utama diberi kode DES-[jenis]-xx untuk mendukung
+keterlacakan kebutuhan terhadap rancangan. Kode rancangan tidak menggantikan nomor
+gambar. Setiap artefak visual tetap diberi caption gambar, misalnya Gambar 3.2. DES-UC-01 –
+Use Case Diagram Sistem Pelaporan.
+Contoh :
+DES-ARCH-01 – Arsitektur Sistem
+DES-UC-01 – Use Case Diagram
+DES-CL-01 – Class Diagram
+DES-AD-01 – Activity Diagram
+DES-SEQ-01 – Sequence Diagram Pengiriman Laporan
+DES-DB-01 – ERD
+DES-UI-01 – Rancangan UI Form Pelaporan
+DES-UI-02 – Rancangan UI Status Laporan
+DES-UI-03 – Rancangan UI Dashboard Petugas.
+
+-- 44 of 65 --
+
+45
+Ikuti Tabel 3 buku panduan. Pada pemrograman berorientasi objek (OOP), sertakan rancangan
+antarmuka pengguna pada Bagian D, diagram kasus penggunaan, diagram kelas, diagram
+urutan, diagram keadaan atau aktivitas, dan arsitektur sistem pada Bagian B. Pada pemrograman
+prosedural, sertakan rancangan antarmuka pengguna, diagram alir, diagram aliran data (DFD)
+tingkat 0 dan 1, diagram hubungan entitas (ERD) pada Bagian C, serta arsitektur sistem. Jelaskan
+fungsi dan hubungan setiap diagram.
+Petunjuk: Pilih diagram sesuai pendekatan pemrograman dan jelaskan alasannya. Beri kode,
+nomor gambar, keterangan simbol, serta rujukan FR atau NFR yang terkait. Gunakan penamaan
+DFD tingkat 0 dan 1 sesuai panduan. Jelaskan cakupan setiap tingkat agar tidak tertukar dengan
+diagram konteks.
+[Masukkan diagram dan penjelasan.]
+F. Keterlacakan Rancangan
+Petunjuk: Hubungkan setiap kebutuhan penting dengan komponen rancangan/diagram yang
+merealisasikannya. Matriks ini menjadi penghubung langsung dari C-2 ke C-4.
+Tabel 3.1. Keterlacakan kebutuhan terhadap rancangan
+Kode
+FR/NFR Kode DES Komponen/diagram Kebutuhan yang
+dipenuhi
+Rencana
+implementasi
+FR-01 DES-UC-01 Use Case Pelaporan Pelapor membuat
+laporan
+ACT-01
+FR-01 DES-SEQ-01 Sequence Submit
+Laporan
+Proses pengiriman dan
+penyimpanan
+ACT-01
+FR-01 DES-UI-01 Form Pelaporan Interaksi pelapor ACT-02
+FR-01 DES-DB-01 Entitas Laporan Penyimpanan laporan ACT-01
+FR-03 DES-UI-03 Dashboard Petugas Rekap laporan per
+periode dan kategori
+ACT-03
+Contoh pola isian — FR-01 → DES-SEQ-01 → [diagram/komponen pengiriman laporan] →
+[kebutuhan pelaporan] → [aktivitas implementasi]. Tabel ini menjelaskan rancangan; realisasi
+dan penyimpangannya baru dicatat pada C-4.
+G. Rencana Implementasi dan Pembagian Tanggung Jawab
+Petunjuk: Susun bagan Gantt yang menunjukkan jadwal mulai dan selesai, hubungan
+antarpekerjaan, penanggung jawab awal, serta hasil yang harus diselesaikan. Perubahan jadwal
+atau penanggung jawab pada C-4 dicatat dalam Catatan Keputusan dan Perubahan.
+Tabel 3.2. Rencana implementasi, jadwal, dan ketergantungan
+Kode / aktivitas Kode FR /
+DES PJ awal Mulai Selesai Prasyarat Hasil / target
+ACT-01 /
+Implementasi API
+pelaporan
+FR-01 /
+DES-SEQ-
+01
+Ahmad M1 M2 DES-DB-01
+selesai
+Endpoint laporan
+dapat digunakan
+
+-- 45 of 65 --
+
+46
+Kode / aktivitas Kode FR /
+DES PJ awal Mulai Selesai Prasyarat Hasil / target
+ACT-02 /
+Implementasi
+form laporan
+FR-01 /
+DES-UI-01
+Budi M2 M3 ACT-01 Form terhubung ke
+API
+ACT-03 /
+Implementasi
+dashboard dan
+rekap
+FR-03 /
+DES-UI-03
+Citra M4 M6 ACT-01 Rekap per periode
+dapat ditampilkan
+Contoh pola isian — Prasyarat menunjukkan pekerjaan yang harus selesai lebih dahulu.
+Misalnya, ACT-02 baru dimulai setelah ACT-01 selesai. Target penyelesaian berupa hasil yang
+dapat diperiksa. Gunakan kode dan jadwal yang sama pada bagan Gantt dan tabel. Jelaskan
+acuan minggu dalam semester.
+[Masukkan bagan Gantt yang menunjukkan jadwal dan ketergantungan pekerjaan.]
+H. Rancangan Keamanan Sistem
+Petunjuk: Tentukan aset yang dilindungi dan risiko utamanya. Jelaskan kebutuhan kerahasiaan,
+integritas, dan ketersediaan, yang dikenal dengan singkatan CIA. Tentukan langkah pengamanan
+dan cara mengujinya sesuai risiko.
+Tabel 3.3. Rancangan keamanan sistem
+Aset/risiko CIA Kontrol yang dirancang Kode kebutuhan /
+komponen Rencana uji
+User biasa mengakses
+fungsi administrasi
+C Role-based access control NFR-02 / Modul
+Admin
+ST-01
+Data masukan tidak
+valid tersimpan
+I Validasi data pada sisi peladen NFR-05 / API
+Pelaporan
+ST-02
+Kehilangan data laporan A Backup harian dan prosedur
+restore
+NFR-06 ST-03
+Contoh pola isian — C = kerahasiaan, I = integritas atau keutuhan data, dan A = ketersediaan.
+Risiko akses tanpa hak dapat ditangani dengan pemeriksaan hak akses pada peladen. Risiko
+kehilangan data dapat ditangani dengan pencadangan dan pemulihan. Hubungkan setiap langkah
+pengamanan dengan kode NFR dan ST yang sesuai.
+
+-- 46 of 65 --
+
+47
+I. Validasi Permasalahan Komputasi Kompleks
+Bagian ini merangkum pembuktian Complex-1 dan Complex-2 berdasarkan uraian pada C-1, C-2,
+dan C-3. Gunakan bukti yang sudah tersedia tanpa menyalin seluruh pembahasannya.
+Petunjuk: Isi ringkasan sesuai kondisi proyek. Cantumkan nomor bagian, tabel, atau gambar dan
+kode bukti bila tersedia. Pilih satu status untuk setiap karakteristik berdasarkan kelengkapan
+bukti.
+Tabel 3.4. Validasi permasalahan komputasi kompleks
+Kode Karakteristik Ringkasan Bukti dalam Proyek Rujukan
+Laporan Status
+Comp
+lex-1
+Kebutuhan/batasan
+saling
+bertentangan
+Pengguna menginginkan aplikasi
+dapat diakses dengan cepat, tetapi
+perangkat komputer yang digunakan
+memiliki spesifikasi rendah. Tim
+harus memilih desain aplikasi yang
+ringan agar tetap dapat digunakan
+pada perangkat tersebut, dengan
+konsekuensi beberapa fitur visual
+atau proses berat dibatasi.
+C-1 D, Tabel 1.4;
+C-2 Tabel 2.2
+(NFR-01); EV-03
+Memenuhi
+Comp
+lex-2
+Ketergantungan
+antarkomponen
+Form pelaporan, database, dan
+dashboard saling bergantung.
+Laporan yang dikirim dari form harus
+disimpan ke database sebelum dapat
+ditampilkan pada dashboard. Jika
+proses penyimpanan gagal, laporan
+tidak akan muncul pada dashboard.
+DES-ARCH-01,
+DES-DB-01
+Memenuhi
+Memenuhi: seluruh unsur pembuktian karakteristik tersedia dan didukung rujukan yang sesuai.
+Memenuhi Sebagian: sebagian unsur tersedia, tetapi keputusan, alasan, konsekuensi, atau dampak
+ketergantungan yang diperlukan belum lengkap.
+Belum Terbukti: bukti belum tersedia atau uraian belum menunjukkan karakteristik yang
+dimaksud.
+Contoh pola isian Complex-1: [Keamanan akses bertentangan dengan kemudahan penggunaan]
+→ [pemeriksaan tambahan hanya untuk tindakan sensitif] → [alasan pilihan] → [tambahan
+langkah bagi pengguna dan konsekuensi keamanan]. Sesuaikan dengan bukti proyek.
+Contoh pola isian Complex-2: [Perubahan struktur data pengguna] → [penyesuaian autentikasi,
+transaksi, dan laporan] → [risiko kegagalan akses atau ketidaksesuaian data jika komponen
+terkait tidak diperbarui]. Rujuk diagram dan penjelasan proyek.
+Catatan Verifikasi Dosen Pembimbing
+[Tuliskan hasil pemeriksaan Complex-1 dan Complex-2, perbaikan yang diperlukan, nama
+pemeriksa, dan tanggal verifikasi.]
+
+-- 47 of 65 --
+
+48
+J. Persetujuan C-3
+Petunjuk: Bagian ini ditandatangani setelah tahap terkait disetujui. Bentuk persetujuan dapat
+berupa tanda tangan basah, tanda tangan elektronik, atau mekanisme resmi lain yang ditetapkan
+program studi.
+Tabel 3.5. Lembar persetujuan tahap C-3
+No. Nama anggota kelompok NIM Menyetujui
+1 [Nama] [NIM] [Paraf/Tanda Tangan]
+2 [Nama] [NIM] [Paraf/Tanda Tangan]
+3 [Nama] [NIM] [Paraf/Tanda Tangan]
+Yogyakarta, [tanggal bulan tahun]
+Menyetujui,
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+NIP/NIK. [....................]
+
+-- 48 of 65 --
+
+49
+C-4: IMPLEMENTASI DAN PEMASANGAN SISTEM
+Petunjuk: C-4 menjelaskan hasil implementasi berdasarkan rancangan C-3. Uraikan kontribusi
+anggota, perubahan keputusan, teknologi, integrasi komponen, keamanan, ketuntasan fitur, serta
+pemasangan dan pengoperasian sistem. Sertakan bukti yang dapat diperiksa.
+A. Pendahuluan
+[Ringkas hasil C-1 sampai C-3, tujuan implementasi, ruang lingkup
+implementasi semester ini, dan kondisi awal sebelum pengembangan.]
+B. Implementasi Sistem
+B.1 Pembagian Tugas dan Tanggung Jawab yang Dilaksanakan
+Petunjuk: Ringkas pekerjaan yang benar-benar dilakukan setiap anggota. Rincian pembagian
+tugas dapat ditempatkan pada Lampiran A. Dukung kontribusi dengan catatan kegiatan, riwayat
+perubahan kode atau dokumen, konfigurasi, rancangan, hasil uji, atau bukti pekerjaan lainnya.
+Tabel 4.1. Ringkasan kontribusi anggota
+Anggota Tanggung jawab yang dilaksanakan Modul/fitur Kode bukti
+Ahmad /
+221xxxx
+Mengimplementasikan REST API
+pelaporan, validasi data masukan, dan
+proses penyimpanan laporan ke basis
+data
+Modul Pelaporan
+Kerusakan
+EV-21, EV-22
+Budi / 221xxxx Mengimplementasikan antarmuka form
+pelaporan dan halaman riwayat serta
+status tindak lanjut laporan
+Modul Pelaporan dan
+Monitoring Status
+EV-23, EV-24
+Citra / 221xxxx Mengimplementasikan dashboard
+petugas, kontrol hak akses pengguna,
+serta melakukan konfigurasi deployment
+aplikasi
+Dashboard, Keamanan,
+dan Deployment
+EV-25, EV-26,
+EV-27–EV-30
+Contoh ilustratif — hapus/ganti sebelum pengumpulan. Tabel ini berisi pekerjaan yang benar-
+benar telah dilaksanakan, bukan hanya pembagian tugas pada awal proyek. Tuliskan kontribusi
+secara spesifik sehingga bagian pekerjaan setiap anggota dapat ditelusuri. Kode EV merujuk
+pada bukti yang tercatat pada Lampiran G, misalnya commit atau riwayat perubahan kode,
+dokumen, konfigurasi, desain, hasil pengujian, atau artefak teknis lainnya.
+Contoh pola isian — [Nama/NIM] | Mengimplementasikan [modul] | [Modul/fitur] | EV-[kode].
+Bukti harus menunjukkan bagian pekerjaan mahasiswa; jumlah catatan perubahan kode atau
+banyaknya tangkapan layar saja tidak membuktikan kualitas kontribusi.
+B.2 Teknologi dan Alat Bantu yang Digunakan
+Petunjuk: Jelaskan teknologi, alat bantu, kerangka kerja, atau pustaka yang benar-benar
+digunakan. Uraikan alasan pemilihan, keterbatasan, risiko, dan pilihan penggantinya. Kaitkan
+alasan tersebut dengan kebutuhan proyek.
+
+-- 49 of 65 --
+
+50
+Tabel 4.2. Teknologi, alasan pemilihan, dan keterbatasan
+Teknologi/alat
+bantu Fungsi Alasan dipilih Keterbatasan/risiko Alternatif
+Laravel 12 / PHP
+8.3
+Mengembangkan
+backend dan
+REST API
+Kompetensi tim
+tersedia, mendukung
+autentikasi, validasi,
+ORM, dan kebutuhan
+pengembangan sistem
+berbasis web
+Membutuhkan runtime
+PHP dan pengelolaan
+dependency; performa
+perlu diperhatikan ketika
+beban meningkat
+NestJS; tidak
+dipilih karena
+waktu
+adaptasi tim
+lebih besar
+PostgreSQL 16 Menyimpan data
+pengguna,
+laporan, status,
+dan riwayat
+tindak lanjut
+Mendukung relasi,
+transaksi, constraint,
+dan kebutuhan
+integritas data
+Memerlukan konfigurasi
+serta pemeliharaan
+server basis data
+MySQL;
+dapat
+memenuhi
+kebutuhan
+dasar tetapi
+PostgreSQL
+dipilih karena
+fitur transaksi
+dan constraint
+yang
+dibutuhkan
+GitHub Pengendalian
+versi dan
+kolaborasi kode
+Memungkinkan
+riwayat perubahan
+serta kontribusi
+anggota ditelusuri
+Membutuhkan disiplin
+commit dan pengelolaan
+branch
+GitLab
+Contoh pola isian — Tuliskan [alat bantu dan versi] | [fungsi aktual] | [alasan sesuai kebutuhan]
+| [batas/risiko serta konsekuensi yang diterima] | [alternatif dan alasan tidak dipilih].
+Keterbatasan alat dibedakan dari fitur yang belum selesai dikerjakan.
+Contoh ilustratif — hapus/ganti sebelum pengumpulan. Alasan pemilihan tidak cukup ditulis
+“mudah digunakan” atau “sudah familiar”. Jelaskan kaitannya dengan kebutuhan proyek.
+Keterbatasan menjelaskan batas atau risiko dari teknologi yang dipilih, bukan fitur proyek yang
+belum selesai.
+B.3 Implementasi Berdasarkan Rancangan
+Petunjuk: Jelaskan penerapan fitur atau modul utama dan hubungkan dengan kebutuhan C-2
+serta rancangan C-3. Tampilkan cuplikan kode yang diperlukan untuk menjelaskan pekerjaan.
+Kode lengkap dapat dirujuk melalui repositori proyek.
+[Uraian implementasi.]
+Tabel 4.3. Matriks kesesuaian rancangan dan implementasi
+Kode DES Kode
+FR/NFR Hasil implementasi PJ Kode bukti Status
+DES-UI-
+01
+FR-01 Form pelaporan telah
+diimplementasikan dengan
+input kategori, lokasi,
+deskripsi, dan foto opsional
+Budi EV-23 Sesuai
+
+-- 50 of 65 --
+
+51
+Kode DES Kode
+FR/NFR Hasil implementasi PJ Kode bukti Status
+DES-SEQ-
+01
+FR-01 Alur pengiriman laporan
+direalisasikan melalui
+endpoint POST /reports dan
+penyimpanan ke basis data
+Ahmad EV-21 Sesuai
+DES-UI-
+02
+FR-02 Tampilan status laporan
+diubah dari tabel menjadi
+timeline status
+Budi EV-24 /
+CHG-01
+Berubah
+DES-
+ARCH-01
+NFR-02 Pembatasan akses admin
+diterapkan pada middleware
+berdasarkan role pengguna
+Citra EV-26 Sesuai
+DES-UI-
+03
+FR-03 Dashboard dan rekap per
+periode diimplementasikan
+sesuai rancangan; filter
+kategori belum
+diimplementasikan (lihat
+Tabel 4.5)
+Citra EV-25 Sesuai
+Contoh pola isian — “Sesuai” berarti hasil implementasi mengikuti rancangan. “Berubah”
+berarti terdapat perubahan yang dirujuk ke kode CHG. “Belum” berarti rancangan belum
+diimplementasikan. Kesesuaian dengan rancangan berbeda dari ketuntasan pekerjaan yang
+dicatat pada Tabel 4.5.
+B.4 Ringkasan Keputusan dan Perubahan Rancangan
+Petunjuk: Ringkas keputusan/perubahan penting yang terjadi setelah C-3. Catatan Keputusan dan
+Perubahan lengkap diletakkan pada Lampiran B.
+Tabel 4.4. Ringkasan perubahan implementasi
+Kode
+CHG Perubahan Alasan Dampak PJ
+CHG-01 Tampilan status laporan
+dari tabel menjadi
+timeline
+Mitra meminta
+perkembangan laporan
+lebih mudah dipahami
+oleh pelapor
+DES-UI-02 direvisi; FR-
+02 tidak berubah;
+pengujian FT-02 perlu
+menggunakan rancangan
+baru
+Budi
+CHG-02 Penyimpanan foto
+laporan dari basis data
+menjadi berkas pada
+server
+Ukuran basis data
+membesar dan
+memperlambat
+pencadangan
+DES-DB-01 direvisi;
+FR-01 tidak berubah; IT-
+01 perlu memeriksa
+unggah foto
+Ahmad
+Contoh pola isian — CHG-01 | [Rancangan lama → baru] | [Alasan terverifikasi] | [Dampak
+pada kebutuhan, jadwal, biaya, dan uji] | [PJ]. Persetujuan dan referensi versi dicatat pada
+Lampiran B. Jika tidak ada perubahan, tulis “Tidak ada perubahan dari C-3 versi [versi]”.
+CHG-01 tidak mengubah kebutuhan pengguna pada FR-02, tetapi mengubah bentuk penyajian
+informasi. Rancangan antarmuka DES-UI-02 diperbarui dan disetujui pembimbing sebelum
+implementasi dilanjutkan.
+
+-- 51 of 65 --
+
+52
+B.5 Integrasi Komponen
+[Jelaskan proses integrasi antarmodul/layanan/perangkat, ketergantungan,
+masalah integrasi yang ditemukan, dan penyelesaiannya.]
+Petunjuk: Jelaskan komponen asal dan tujuan, antarmuka/protokol, data yang dipertukarkan,
+urutan interaksi, serta penanganan kegagalan. Bukti keberhasilan integrasi dirujuk ke IT-[kode]
+pada C-5 B; daftar komponen saja belum menjelaskan integrasi.
+Contoh ilustratif: Modul antarmuka pelaporan berkomunikasi dengan REST API melalui HTTPS.
+Setelah pengguna mengirim laporan, API melakukan validasi identitas pengguna, kategori, dan
+lokasi, kemudian menyimpan data melalui modul basis data. Data laporan selanjutnya digunakan
+oleh modul dashboard dan monitoring status. Kegagalan layanan API menyebabkan form tidak
+dapat menyimpan laporan dan dashboard tidak memperoleh data terbaru. Keberhasilan integrasi
+antarmuka, API, dan basis data diverifikasi melalui IT-01.
+B.6 Implementasi Kontrol Keamanan
+Petunjuk: Jelaskan kontrol keamanan yang benar-benar diimplementasikan berdasarkan
+rancangan keamanan C-3. Pengujian efektivitas kontrol ditulis pada C-5.
+[Jelaskan pemeriksaan identitas pengguna, pengaturan hak akses,
+pemeriksaan data masukan, enkripsi, pencadangan, pencatatan aktivitas,
+penguatan keamanan, atau langkah lain yang relevan.]
+Petunjuk: Bedakan rencana kontrol pada C-3, konfigurasi yang sudah diterapkan pada C-4, dan
+efektivitas yang dibuktikan melalui ST-[kode] pada C-5. Setiap kontrol utama dirujuk ke NFR,
+DES, dan EV yang relevan.
+Contoh ilustratif : Kontrol akses pada fungsi administrasi direalisasikan berdasarkan NFR-02
+dan DES-ARCH-01. Setiap permintaan ke fungsi administrasi diperiksa menggunakan middleware
+autentikasi dan role pengguna. Pengguna dengan role pelapor tidak diberikan akses terhadap
+fungsi pengelolaan master data. Kredensial basis data disimpan melalui environment variable dan
+tidak disimpan pada repositori. Efektivitas kontrol akses diuji melalui ST-01 pada C-5.
+C. Ketuntasan Implementasi
+Tabel 4.5. Status ketuntasan implementasi
+Fitur/komponen Kode
+FR/NFR Status PJ Kode bukti
+Pelaporan kerusakan FR-01 Selesai Ahmad/Budi EV-21, EV-22,
+EV-23
+Pemantauan status laporan FR-02 Selesai Budi EV-24
+Dashboard petugas FR-03 Sebagian Citra EV-25
+Contoh pola isian — “Selesai” berarti seluruh fitur yang direncanakan telah diimplementasikan.
+“Sebagian” berarti masih ada bagian yang belum selesai dan harus dijelaskan. “Belum” berarti
+fitur belum diimplementasikan. Status “Selesai” belum berarti semua pengujian lulus; hasil
+pengujian tetap dicatat pada C-5.
+
+-- 52 of 65 --
+
+53
+Catatan: FR-03 berstatus Sebagian karena informasi jumlah laporan sudah tersedia, tetapi filter
+kategori belum diimplementasikan. Status ketuntasan tidak menunjukkan hasil pengujian; fitur
+yang berstatus Selesai tetap harus diuji pada C-5.
+D. Dokumentasi Pemasangan dan Pengoperasian Sistem
+Petunjuk: Jelaskan tempat sistem dipasang, cara pemasangan, pengaturan, komponen pendukung,
+dan langkah pengamanannya. Uraikan pencadangan serta pemulihan jika diperlukan. Sertakan
+bukti bahwa sistem dapat digunakan pada lingkungan yang disepakati.
+[Uraian pemasangan dan pengoperasian sistem.]
+Tabel 4.6. Dokumentasi pemasangan dan pengoperasian sistem
+Langkah /
+tindakan
+Cara /
+alat
+Lingkungan
+tujuan
+Konfigurasi teknis
+utama
+Konfigurasi
+keamanan
+Kode
+bukti
+Menyiapkan
+aplikasi
+backend
+Docker
+Compose
+Ubuntu
+Server 24.04
+PHP=8.3; application
+port=8000;
+PostgreSQL=16
+Port aplikasi tidak
+dibuka langsung ke
+internet; credential
+disimpan sebagai
+environment variable
+EV-27
+Menyiapkan
+basis data
+PostgreSQ
+L
+Server
+aplikasi
+Database=sarpras; port
+internal=5432;
+migration dijalankan
+Akses database
+dibatasi dari jaringan
+internal aplikasi
+EV-28
+Mengaktifkan
+reverse proxy
+Nginx Server
+produksi
+Domain=[domain
+proyek]; proxy ke
+service aplikasi
+HTTPS/TLS
+diaktifkan; hanya port
+80/443 yang dibuka
+EV-29
+Menjalankan
+pemeriksaan
+setelah
+deployment
+Browser
+dan API
+client
+Lingkungan
+produksi
+Pemeriksaan login,
+pembuatan laporan, dan
+dashboard
+Tidak menggunakan
+akun administrator
+untuk uji pengguna
+biasa
+EV-30
+Petunjuk:
+Jangan menyalin nilai konfigurasi jika tidak sama dengan proyek. Password, API key, token,
+private key, dan kredensial rahasia tidak dituliskan dalam laporan.
+Konfigurasi teknis utama adalah pengaturan yang diperlukan agar sistem berjalan. Isinya dapat
+berupa bahasa pemrograman dan versinya, nomor porta, nama layanan, koneksi basis data,
+komponen pendukung, atau lokasi penyimpanan. Tulis “parameter = nilai yang digunakan”,
+misalnya “versi bahasa pemrograman = [versi]; porta aplikasi = [nomor]; lokasi penyimpanan =
+[lokasi]”. Konfigurasi keamanan berisi pengaturan perlindungan, seperti hak akses dan enkripsi
+koneksi. Kata sandi, token akses, dan kunci privat tidak dicantumkan; jelaskan cara
+penyimpanannya.
+Petunjuk: Uraikan langkah secara berurutan agar dapat diikuti kembali: persiapan, pemasangan,
+pengaturan, pengoperasian layanan, pemeriksaan fungsi, dan pemulihan jika diperlukan.
+Cantumkan kode bukti EV. Untuk perangkat keras, jelaskan pemasangan, perangkat tegar,
+koneksi, pengaturan operasi, dan pemeriksaan fungsinya.
+Contoh pola isian — “Langkah” berisi tindakan, misalnya mengaktifkan layanan aplikasi.
+“Cara/alat” menjelaskan cara dan alat yang digunakan. “Lingkungan tujuan” menyebutkan
+tempat pemasangan, misalnya peladen uji atau perangkat mitra.
+
+-- 53 of 65 --
+
+54
+E. Persetujuan C-4
+Petunjuk: Bagian ini ditandatangani setelah tahap terkait disetujui. Bentuk persetujuan dapat
+berupa tanda tangan basah, tanda tangan elektronik, atau mekanisme resmi lain yang ditetapkan
+program studi.
+Tabel 4.7. Lembar persetujuan tahap C-4
+No. Nama anggota kelompok NIM Menyetujui
+1 [Nama] [NIM] [Paraf/Tanda Tangan]
+2 [Nama] [NIM] [Paraf/Tanda Tangan]
+3 [Nama] [NIM] [Paraf/Tanda Tangan]
+Yogyakarta, [tanggal bulan tahun]
+Menyetujui,
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+NIP/NIK. [....................]
+
+-- 54 of 65 --
+
+55
+C-5: PENGUJIAN DAN EVALUASI
+Petunjuk: C-5 membuktikan bahwa sistem telah diuji secara objektif, terukur, dan sistematis.
+Dokumentasikan prosedur, jumlah/data uji, hasil, analisis, pengujian fungsional, nonfungsional,
+keamanan, umpan balik pengguna, perbaikan/pengujian ulang, serta evaluasi sejauh mana produk
+memecahkan masalah yang didefinisikan pada C-1.
+A. Strategi dan Metode Pengujian
+Petunjuk: Jelaskan ruang lingkup pengujian, metode, data uji, lingkungan, kriteria keberhasilan,
+serta keterbatasan pengujian. Hubungkan pengujian aktual dengan rencana C-2.
+[Uraian strategi pengujian.]
+Petunjuk: Catat versi produk, tanggal, lingkungan, penguji, data/prasyarat, prosedur, dan kriteria
+lulus. Data uji harus sesuai izin penggunaannya. Gunakan “Belum diuji” atau “Terkendala —
+[alasan]” untuk hasil yang belum tersedia; kedua status tersebut bukan Lulus atau Gagal.
+B. Pengujian Fungsional
+Petunjuk: Sajikan pengujian fungsional berkode FT dan pengujian integrasi berkode IT. Uji
+kondisi penggunaan normal serta kondisi gagal yang relevan. Satu baris merangkum satu kasus
+uji dan jumlah pelaksanaannya. Rincian langkah serta hasil setiap pelaksanaan dicatat pada
+Lampiran C. Pengujian dinyatakan lulus jika hasilnya sesuai dengan yang diharapkan. Penolakan
+data masukan yang tidak sah dapat menjadi hasil uji yang lulus.
+Tabel 5.1. Ringkasan hasil pengujian fungsional
+Kode uji /
+kebutuhan Skenario Jumlah
+uji
+Hasil yang
+diharapkan Hasil uji
+Lulus /
+gagal
+(%)
+PJ /
+bukti
+FT-01 / FR-
+01
+Pelapor
+mengirim
+laporan dengan
+data wajib
+lengkap
+10 Laporan
+tersimpan dan
+memperoleh
+nomor laporan
+10 laporan
+berhasil
+tersimpan
+100% /
+0%
+Ahmad /
+EV-50
+FT-02 / FR-
+02
+Pelapor melihat
+status laporan
+8 Status terakhir
+ditampilkan
+sesuai data
+petugas
+8 status tampil
+sesuai data
+100% /
+0%
+Budi /
+EV-51
+FT-03 / FR-
+01
+Pelapor
+mengirim form
+tanpa lokasi
+5 Sistem menolak
+dan menampilkan
+pesan validasi
+4 ditolak dengan
+pesan; 1 tidak
+menampilkan
+pesan yang sesuai
+80% /
+20%
+Ahmad /
+EV-52
+FT-04 / FR-
+03
+Petugas
+menampilkan
+rekap
+berdasarkan
+periode
+6 Rekap hanya
+memuat laporan
+pada periode
+terpilih
+6 rekap sesuai
+data uji
+100% /
+0%
+Citra /
+EV-53
+
+-- 55 of 65 --
+
+56
+Kode uji /
+kebutuhan Skenario Jumlah
+uji
+Hasil yang
+diharapkan Hasil uji
+Lulus /
+gagal
+(%)
+PJ /
+bukti
+FT-05 / FR-
+03
+Petugas
+menampilkan
+rekap
+berdasarkan
+kategori
+0 Rekap hanya
+memuat laporan
+pada kategori
+terpilih
+Belum diuji —
+filter kategori
+belum
+diimplementasika
+n
+Belum
+dapat
+dihitung
+Citra / -
+IT-01 / FR-
+01
+Form frontend
+mengirim
+laporan ke API
+dan basis data
+10 Data dari form
+diterima API dan
+tersimpan pada
+basis data
+10 berhasil 100% /
+0%
+Ahmad/B
+udi / EV-
+54
+Petunjuk: Hitung persentase keseluruhan dari jumlah pelaksanaan uji, bukan rata-rata persentase
+setiap baris jika jumlah ujinya berbeda. Pisahkan hasil uji awal dari pengujian ulang. Persentase
+uji gagal tidak boleh langsung dianggap sebagai tingkat kesalahan sistem saat digunakan sehari-
+hari.
+Contoh pola isian — Persentase lulus = jumlah pelaksanaan uji yang lulus ÷ jumlah pelaksanaan
+uji yang sudah memiliki hasil lulus atau gagal × 100%. Persentase gagal dihitung dengan
+penyebut yang sama. Laporkan uji yang belum dilaksanakan atau terkendala secara terpisah. Jika
+belum ada hasil uji, persentase belum dapat dihitung.
+C. Pengujian Nonfungsional
+Petunjuk: Uji nonfungsional disesuaikan dengan kebutuhan dan risiko sistem. Minimal
+pertimbangkan aspek kinerja, keandalan, dan aspek lain yang relevan. Keamanan dibahas lebih
+rinci pada bagian berikutnya. Nyatakan parameter/target, metode, jumlah data/beban/iterasi,
+hasil, dan status.
+Tabel 5.2. Ringkasan hasil pengujian nonfungsional
+Kode uji /
+NFR Aspek Target / kondisi Metode Beban /
+iterasi Hasil / bukti Status
+NFT-01 /
+NFR-01
+Kinerja Rata-rata waktu
+respons ≤3 detik
+Load test 50
+pengguna
+bersamaan
+selama 10
+menit
+Uji awal rata-rata
+4,2 detik (gagal,
+BUG-02); uji ulang
+rata-rata 1,8 detik /
+EV-55, EV-62
+Lulus (uji
+ulang)
+NFT-02 /
+NFR-03
+Keandala
+n
+Sistem kembali
+dapat digunakan
+setelah service
+aplikasi direstart
+Recovery
+test
+5 kali
+restart
+terkontrol
+Seluruh percobaan
+pulih dan dapat
+digunakan kembali
+/ EV-56
+Lulus
+NFT-03 /
+NFR-04
+Usability Minimal 80%
+tugas utama dapat
+diselesaikan
+pengguna uji tanpa
+bantuan
+Task-based
+usability
+test
+10
+pengguna
+× 4 tugas
+36 dari 40 tugas
+selesai tanpa
+bantuan = 90% /
+EV-57
+Lulus
+Contoh pola isian — Gunakan ukuran yang sama untuk membandingkan target dan hasil. Jika
+target memakai rata-rata waktu respons, hasilnya juga harus memakai rata-rata. Catat jumlah
+pengguna bersamaan, jumlah data, durasi, dan lingkungan uji. Untuk uji keandalan, jelaskan
+gangguan yang diberikan dan cara menilai keberhasilan pemulihannya.
+
+-- 56 of 65 --
+
+57
+D. Pengujian Keamanan
+Petunjuk: Pengujian keamanan disesuaikan dengan risiko dan kontrol yang diterapkan. Tidak
+semua proyek membutuhkan skenario yang sama. Rincian teknis dapat diletakkan pada Lampiran
+D.
+Tabel 5.3. Ringkasan pengujian keamanan
+Kode uji /
+NFR Risiko / kontrol CIA Skenario Hasil yang
+diharapkan Hasil / bukti Status
+ST-01 /
+NFR-02
+Pengguna tanpa
+hak mengakses
+menu admin /
+RBAC
+C User dengan
+role pelapor
+membuka URL
+fungsi
+administrasi
+Akses ditolak
+dan data admin
+tidak
+ditampilkan
+HTTP 403,
+menu tidak
+dapat diakses /
+EV-58
+Lulus
+ST-02 /
+NFR-05
+Data masukan
+tidak valid /
+server-side
+validation
+I Mengirim nilai
+kategori yang
+tidak tersedia
+melalui request
+langsung
+Request ditolak
+dan data tidak
+tersimpan
+Request
+ditolak dengan
+status validasi
+/ EV-59
+Lulus
+ST-03 /
+NFR-06
+Kehilangan data
+/ backup-restore
+A Basis data uji
+dipulihkan dari
+backup
+Data dapat
+dipulihkan dan
+aplikasi kembali
+membaca data
+Restore
+berhasil / EV-
+60
+Lulus
+Contoh pola isian — Uji pengguna tanpa hak terhadap fungsi terbatas: hasil yang diharapkan
+adalah akses ditolak dan data tidak ditampilkan. Catat respons aktual serta EV hasil uji.
+Pengujian dilakukan pada sistem dan lingkup yang diizinkan; bukti disamarkan jika mengandung
+informasi sensitif.
+E. Analisis, Temuan, Perbaikan, dan Pengujian Ulang
+Petunjuk: Analisis harus menjelaskan penyebab masalah dan dampaknya, bukan sekadar daftar
+kesalahan sistem. Tunjukkan tindak lanjut dan pengujian ulang jika perbaikan telah dilakukan.
+Tabel 5.4. Temuan dan tindak lanjut
+Kode / temuan
+uji Penyebab Dampak Perbaikan / uji ulang PJ / bukti
+BUG-01 / FT-
+03
+Validasi pesan
+kesalahan lokasi
+pada frontend
+belum menangani
+respons API
+tertentu
+Pengguna tidak
+memperoleh
+informasi
+mengapa laporan
+gagal dikirim
+Validasi diperbaiki pada versi
+1.3; FT-03 diulang pada 20 Nov
+2026 dan 5/5 percobaan berhasil
+Ahmad / EV-
+61
+BUG-02 /
+NFT-01
+Query dashboard
+mengambil data
+detail yang tidak
+diperlukan
+Waktu respons
+meningkat ketika
+jumlah laporan
+besar
+Query diperbaiki dan pagination
+ditambahkan; NFT-01 diulang
+pada 22 Nov 2026 dengan rata-
+rata 1,8 detik
+Citra / EV-
+62
+
+-- 57 of 65 --
+
+58
+Contoh pola isian — Jika penyebab belum diketahui, tulis “Belum terverifikasi” beserta langkah
+investigasi. Pengujian ulang memakai kode uji yang sama dengan catatan versi dan tanggal baru.
+Simpan hasil awal, tindakan perbaikan, hasil ulang, dan bukti masing-masing.
+F. Umpan Balik dan Validasi Mitra/Pengguna
+Petunjuk: Ringkas proses dan hasil validasi mitra/pengguna. Formulir atau bukti
+persetujuan/umpan balik lengkap ditempatkan pada Lampiran E.
+Tabel 5.5. Ringkasan validasi mitra/pengguna
+Aspek Umpan balik/hasil Status Tindak lanjut Bukti
+Pelaporan Petugas menilai informasi
+kategori dan lokasi sudah
+mencukupi kebutuhan tindak
+lanjut
+Sesuai Tidak ada perubahan EV-63
+Dashboard Mitra meminta filter kategori
+dilengkapi agar rekap per jenis
+kerusakan dapat diperoleh
+Perlu
+perbaikan
+Filter kategori
+dijadwalkan pada
+pengembangan
+berikutnya
+EV-64
+Tampilan
+status
+Pengguna lebih mudah memahami
+status dalam bentuk timeline
+Sesuai Dipertahankan EV-65
+Contoh pola isian — Catat peran pengguna, tanggal, kegiatan yang dicoba, pengalaman, keluhan,
+saran, dan tindak lanjut. Jelaskan apakah fungsi sistem sudah sesuai dengan kebutuhan
+pengguna. Foto pertemuan atau daftar hadir perlu dilengkapi hasil pembahasan dan persetujuan.
+G. Rekomendasi Perbaikan
+Contoh ilustratif: Pengembangan berikutnya direkomendasikan untuk menambahkan notifikasi
+eksternal yang tidak termasuk ruang lingkup versi awal, melengkapi filter dashboard berdasarkan
+kategori, dan melakukan pengujian kinerja pada jumlah pengguna yang lebih besar. Pengujian
+keamanan juga dapat diperluas pada mekanisme pengelolaan sesi dan pencatatan aktivitas
+pengguna.
+[Tuliskan rekomendasi pengembangan lanjutan berdasarkan pengujian,
+temuan keamanan, keterbatasan teknologi, dan umpan balik pengguna/mitra.]
+H. Evaluasi Ketercapaian Kebutuhan dan Masalah C-1
+Petunjuk: Bandingkan masalah dan kebutuhan pada C-1 dengan target serta hasil akhir produk.
+Jelaskan bagian masalah yang sudah terselesaikan, yang baru sebagian terselesaikan, dan yang
+belum terselesaikan.
+
+-- 58 of 65 --
+
+59
+Tabel 5.6. Evaluasi ketercapaian kebutuhan dan masalah C-1
+Kode masalah
+/ kebutuhan Target / indikator Hasil akhir Status Kode uji / bukti
+PR-01 /
+NEED-01
+Laporan dapat dicatat
+dalam satu sistem dan
+dapat ditelusuri
+berdasarkan nomor
+laporan
+Seluruh data uji
+tersimpan dalam sistem
+dan setiap laporan
+memperoleh nomor unik
+Terpenuhi FT-01 / EV-50
+PR-02 /
+NEED-02
+Pelapor dapat mengetahui
+status terakhir laporan
+Status dapat ditampilkan
+pada seluruh laporan
+yang diuji
+Terpenuhi FT-02 / EV-51
+PR-03 /
+NEED-03
+Petugas dapat memperoleh
+rekap berdasarkan periode
+dan kategori
+Rekap per periode
+tersedia (FT-04 lulus);
+filter kategori belum
+selesai (FT-05 belum
+diuji)
+Sebagian FT-04, FT-05 /
+EV-53
+Contoh pola isian — Bandingkan target dan hasil dengan indikator serta kondisi yang sama.
+Fungsi yang lulus uji belum otomatis membuktikan dampak bagi mitra. Jika data dampak belum
+tersedia, nyatakan “Dampak belum terverifikasi” dan jelaskan batas kesimpulannya; jangan
+menyatakan efisiensi meningkat tanpa pengukuran.
+I. Kesimpulan
+Petunjuk: Kesimpulan harus merujuk hasil Tabel 5.6 dan menjawab apakah kebutuhan pengguna,
+tujuan proyek, fungsi/kinerja, serta masalah yang didefinisikan pada C-1 telah terpenuhi
+berdasarkan bukti. Nyatakan juga keterbatasan utama yang masih tersisa secara jujur.
+Contoh ilustratif: Berdasarkan hasil pengujian dan validasi, kebutuhan NEED-01 dan NEED-02
+telah terpenuhi, sedangkan NEED-03 terpenuhi sebagian karena filter kategori belum tersedia.
+Seluruh fungsi utama yang telah diimplementasikan dapat digunakan pada lingkungan deployment
+yang disepakati. Produk masih memiliki keterbatasan pada notifikasi eksternal dan cakupan
+pengujian kinerja sehingga hasil proyek tidak digunakan untuk menyimpulkan kemampuan sistem
+di luar kondisi pengujian yang telah dilakukan.
+[Kesimpulan.]
+
+-- 59 of 65 --
+
+60
+J. Persetujuan C-5
+Petunjuk: Bagian ini ditandatangani setelah tahap terkait disetujui. Bentuk persetujuan dapat
+berupa tanda tangan basah, tanda tangan elektronik, atau mekanisme resmi lain yang ditetapkan
+program studi.
+Tabel 5.7. Lembar persetujuan tahap C-5
+No. Nama anggota kelompok NIM Menyetujui
+1 [Nama] [NIM] [Paraf/Tanda Tangan]
+2 [Nama] [NIM] [Paraf/Tanda Tangan]
+3 [Nama] [NIM] [Paraf/Tanda Tangan]
+Yogyakarta, [tanggal bulan tahun]
+Menyetujui,
+Dosen Pembimbing
+[Nama Dosen Pembimbing]
+NIP/NIK. [....................]
+
+-- 60 of 65 --
+
+61
+DAFTAR REFERENSI
+Petunjuk: Masukkan hanya referensi yang benar-benar dirujuk di dalam laporan. Gunakan
+aplikasi pengelola referensi dan gaya APA edisi ke-7. Hindari contoh referensi yang tidak
+berkaitan dengan proyek.
+[Daftar referensi otomatis dari aplikasi pengelola referensi.]
+
+-- 61 of 65 --
+
+62
+LAMPIRAN
+Petunjuk: Lampiran menyimpan bukti terperinci yang mendukung laporan utama. Jangan
+memenuhi lampiran dengan tangkapan layar berulang; utamakan bukti yang relevan, dapat
+ditelusuri, dan diberi kode. Catatan kegiatan individu dapat dikumpulkan terpisah sesuai
+mekanisme program studi dan direferensikan pada Lampiran G.
+Lampiran A. Matriks Pembagian Tugas dan Kontribusi Anggota
+Lampiran A.1. Matriks kontribusi anggota
+Anggota Tugas/modul Periode Hasil pekerjaan Kode bukti
+Ahmad /
+221xxxx
+Backend modul
+pelaporan
+M1–M5 API pelaporan, validasi,
+dan penyimpanan laporan
+EV-21, EV-22
+Budi / 221xxxx Antarmuka pelaporan dan
+status
+M2–M6 Form laporan dan timeline
+status
+EV-23, EV-24
+Citra / 221xxxx Dashboard, deployment,
+keamanan
+M4–M12 Dashboard, deployment
+server, konfigurasi akses
+EV-25–EV-30
+Lampiran B. Catatan Keputusan dan Perubahan
+Lampiran B.1. Catatan Keputusan dan Perubahan
+Tanggal /
+kode Perubahan / versi Alasan dan dampak PJ Persetujuan / bukti
+25/10/2026 /
+CHG-01
+Tampilan status tabel →
+timeline, versi 1.1
+Permintaan mitra agar
+perkembangan lebih
+mudah dipahami;
+DES-UI-02 diperbarui
+Budi Pembimbing & mitra,
+25/10/2026 / EV-31
+05/11/2026 /
+CHG-02
+Penyimpanan foto: basis
+data → berkas pada
+server, versi 1.2
+Ukuran basis data
+membesar dan
+memperlambat
+pencadangan; DES-
+DB-01 diperbarui
+Ahmad Pembimbing,
+05/11/2026 / EV-32
+Contoh pola isian — Catat pihak yang menyetujui, tanggal, dan lokasi bukti. Perubahan
+lingkup/kebutuhan melibatkan mitra/pembimbing yang berwenang sesuai mekanisme proyek.
+Baris dengan persetujuan masih diproses tidak boleh dianggap sudah disetujui.
+
+-- 62 of 65 --
+
+63
+Lampiran C. Rincian Kasus Uji dan Hasil Pengujian
+Lampiran C.1. Rincian kasus uji
+Kode uji /
+kebutuhan Prasyarat / data Langkah uji Hasil yang
+diharapkan Hasil uji Status /
+bukti
+FT-01 /
+FR-01
+User pelapor
+aktif; kategori
+dan lokasi
+tersedia
+Login → buka
+form → isi data
+valid → klik
+Kirim
+Data tersimpan
+dan nomor
+laporan tampil
+Nomor LP-001
+tampil dan data
+tersimpan
+Lulus / EV-
+50
+FT-03 /
+FR-01
+User pelapor
+aktif
+Login →
+kosongkan lokasi
+→ klik Kirim
+Sistem menolak
+dan
+menampilkan
+pesan lokasi
+wajib
+Sistem menolak
+tetapi pesan tidak
+tampil pada
+pengujian awal
+Gagal / EV-
+52
+FT-01 /
+FR-01
+User pelapor
+aktif; kategori
+dan lokasi
+tersedia
+Login → buka
+form → isi data
+valid → klik
+Kirim
+Data tersimpan
+dan nomor
+laporan tampil
+Nomor LP-002
+tampil dan data
+tersimpan
+Lulus / EV-
+50
+Contoh pola isian — Catat satu pelaksanaan uji per baris. Jika penjelasan panjang, pisahkan
+rincian berdasarkan kode uji. Cantumkan data masukan, langkah, hasil, versi produk, tanggal,
+penguji, dan bukti. Gunakan IT untuk uji integrasi. Catat pengujian ulang sebagai pelaksanaan
+baru agar hasil awal tetap tersimpan.
+Lampiran D. Rincian Pengujian Keamanan
+Lampiran D.1. Rincian pengujian keamanan
+Kode uji /
+NFR
+Risiko /
+kontrol
+Prasyarat /
+langkah
+Hasil yang
+diharapkan Hasil uji Status /
+bukti
+ST-01 /
+NFR-02
+Unauthorized
+access / RBAC
+Login sebagai
+pelapor → akses
+URL admin
+Server menolak
+akses dan tidak
+menampilkan
+data
+HTTP 403; data
+admin tidak tampil
+Lulus / EV-
+58
+Contoh pola isian — Tuliskan langkah yang dapat diikuti oleh penguji lain. Jika ditemukan
+kelemahan, rujuk kode BUG dan tindakan penanganannya pada Tabel 5.4. Bukti teknis harus
+dapat diakses sesuai kebutuhan penilaian tanpa menampilkan kata sandi atau informasi akses
+rahasia.
+Lampiran E. Formulir Validasi/Umpan Balik Mitra
+Petunjuk: Lampirkan formulir, notulen, berita acara, hasil kuesioner, atau bukti validasi lain
+sesuai mekanisme yang digunakan. Minimal memuat identitas mitra, tanggal, bagian sistem yang
+divalidasi, hasil/umpan balik, tindak lanjut, dan pengesahan bila diperlukan.
+[Lampirkan bukti validasi mitra/pengguna.]
+
+-- 63 of 65 --
+
+64
+Lampiran F. Pernyataan Etika, Penggunaan Kecerdasan Artifisial dan Alat
+Bantu, Data, dan Lisensi
+Petunjuk: Isi pernyataan berdasarkan pelaksanaan proyek dan bukti yang tersedia. Tulis “Tidak
+relevan” beserta alasannya untuk aspek yang memang tidak berlaku.
+Petunjuk: Gunakan “Tidak digunakan” untuk alat yang tidak dipakai. Jika kecerdasan artifisial
+atau alat bantu digunakan, jelaskan bagian pekerjaan yang dibantu, keluaran yang dimanfaatkan,
+pemeriksaan oleh mahasiswa, dan tanggung jawab akhirnya. Catat perubahan penggunaan
+beserta tanggal dan bukti yang mendukungnya.
+Lampiran F.1. Pernyataan etika dan penggunaan sumber daya
+Aspek Pernyataan / penggunaan Bukti/referensi
+Kecerdasan
+artifisial/asisten
+pemrograman/layanan
+pihak ketiga
+ChatGPT digunakan untuk membantu
+mengidentifikasi alternatif penyebab error pada
+validasi API. Keluaran diperiksa terhadap
+dokumentasi framework dan diuji kembali oleh
+mahasiswa sebelum digunakan
+EV-40
+Data/informasi akses
+mitra
+Data pengujian digunakan atas persetujuan mitra.
+Identitas pengguna pada bukti laporan disamarkan
+dan kredensial tidak dicantumkan dalam dokumen
+EV-41
+Lisensi/HKI/dataset/as
+et
+Material Icons digunakan sebagai aset antarmuka
+sesuai ketentuan lisensinya; library proyek tercatat
+pada dependency project
+EV-42
+Kejujuran hasil
+pengujian dan
+keterbatasan
+Kegagalan awal FT-03 tetap dilaporkan sebagai
+BUG-01. Keterbatasan notifikasi eksternal dan
+cakupan load test juga dicantumkan
+Tabel 5.4 / EV-43
+Lampiran G. Indeks Bukti Proyek dan Kontribusi Individu
+Petunjuk: Indeks ini mencakup semua bukti yang dirujuk dalam C-1 sampai C-5 dan kontribusi
+individu. Tidak perlu menyalin seluruh repositori atau tangkapan layar berulang. Gunakan satu
+kode EV untuk satu bukti yang sama, lalu rujuk kembali kode tersebut dari bagian lain. Catatan
+kegiatan individu tetap terpisah dan dicantumkan lokasinya di sini.
+Lampiran G.1. Indeks bukti proyek dan kontribusi individu
+Kode
+bukti
+Pemilik /
+kontributor
+Jenis /
+tanggal Deskripsi / kode terkait Lokasi / versi
+EV-01 Tim / Petugas
+Sarpras
+Notulen
+wawancara /
+10-03-2026
+Bukti PR-01 dan NEED-01 Folder Evidence/C1/EV-
+01.pdf
+EV-21 Ahmad Commit / 12-
+10-2026
+Implementasi FR-01 / ACT-
+01
+Repository commit
+a1b2c3d
+
+-- 64 of 65 --
+
+65
+Kode
+bukti
+Pemilik /
+kontributor
+Jenis /
+tanggal Deskripsi / kode terkait Lokasi / versi
+EV-24 Budi Riwayat
+desain &
+commit / 28-
+10-2026
+Implementasi DES-UI-02 /
+FR-02
+Figma version xx;
+repository commit d4e5f6
+EV-27 Citra Catatan
+pemasangan /
+10-11-2026
+Pemasangan aplikasi backend
+/ Tabel 4.6
+Folder Evidence/C4/EV-
+27.pdf
+EV-58 Citra Hasil security
+test / 20-11-
+2026
+ST-01 / NFR-02 Folder Evidence/C5/ST-
+01.pdf
+EV-64 Tim / Mitra Notulen
+validasi / 25-
+11-2026
+Feedback dashboard Lampiran E / halaman xx
+Contoh pola isian — Cantumkan bukti kebutuhan, kontribusi, pemasangan sistem, dan hasil uji
+pada indeks ini. Tulis lokasi berkas atau tautan yang jelas, nomor halaman atau riwayat
+perubahan jika tersedia, serta nama kontributor. Untuk pekerjaan bersama, jelaskan bagian yang
+dikerjakan setiap anggota. Pastikan dosen dapat mengakses bukti sesuai izin yang diberikan.
+Berkas poster, bahan presentasi, dan catatan kegiatan individu dapat dirujuk melalui indeks ini
+apabila tersedia.
+
+-- 65 of 65 --
+

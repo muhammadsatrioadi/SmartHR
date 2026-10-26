@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Daftar Absensi Alpha')
+@section('title', 'Daftar Presensi Alpha')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
 
-        <h1>Daftar Absensi Alpha</h1>
+        <h1>Daftar Presensi Alpha</h1>
 
         <div class="card bg-secondary rounded mt-4">
             <div class="card-body">

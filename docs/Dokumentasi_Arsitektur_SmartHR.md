@@ -1,4 +1,4 @@
-# Dokumentasi Arsitektur dan Keamanan SmartHR
+# Dokumentasi Arsitektur dan Keamanan PILAR HR
 
 ## Daftar Isi
 1. [Arsitektur Sistem](#arsitektur-sistem)
@@ -14,7 +14,7 @@
 
 ## Arsitektur Sistem
 
-SmartHR dibangun dengan arsitektur berlapis (Layered Architecture) menggunakan Laravel Framework, yang terdiri dari:
+PILAR HR dibangun dengan arsitektur berlapis (Layered Architecture) menggunakan Laravel Framework, yang terdiri dari:
 
 1. Presentation Layer
 2. Application Layer
@@ -32,7 +32,7 @@ Lapisan antarmuka pengguna yang berinteraksi langsung dengan pengguna sistem.
 ### Aktor Pengguna
 - **HR Admin**: Memiliki akses penuh ke seluruh fitur sistem
 - **Manager / Atasan**: Memiliki akses ke data timnya (approval, absensi bawahan)
-- **Employee / Karyawan**: Memiliki akses ke fitur pribadi (presensi, cuti, lihat gaji)
+- **Karyawan**: Memiliki akses ke fitur pribadi (presensi, cuti, lihat gaji)
 
 ### Akses
 - Semua aktor mengakses melalui Web Browser
@@ -51,10 +51,9 @@ Lapisan inti aplikasi yang dibangun dengan Laravel Framework, berisi modul-modul
 | Employee Management | Mengelola data karyawan master |
 | Department Management | Mengelola departemen |
 | Position Management | Mengelola jabatan, golongan, dan pangkat |
-| Attendance | Mengelola presensi masuk & pulang |
-| Leave | Mengelola pengajuan dan persetujuan cuti |
-| Overtime | Mengelola pengajuan lembur |
-| Reimbursement | Mengelola klaim biaya |
+| Presensi | Mengelola presensi masuk & pulang |
+| Cuti | Mengelola pengajuan dan persetujuan cuti |
+| Lembur | Mengelola pengajuan lembur |
 | Payroll Management | Mengelola gaji dan slip gaji |
 | Work Schedule Management | Mengelola shift dan jadwal kerja |
 | Dashboard | Menampilkan ringkasan data sesuai role |
@@ -71,11 +70,11 @@ Lapisan yang mengimplementasikan logika bisnis inti:
    - `DeviceBindingService`: Mengelola binding perangkat (satu akun satu perangkat)
    - `LeaveBalanceService`: Mengelola perhitungan saldo cuti
    - `HolidaySyncService`: Menyinkronkan hari libur
-3. **Validation**: Memvalidasi semua input pengguna
-4. **Business Rules**:
+3. **Validasi**: Memvalidasi semua input pengguna
+4. **Aturan Bisnis**:
    - **Geofencing**: Memverifikasi lokasi presensi menggunakan rumus Haversine
    - **Device Binding**: Memastikan akun hanya dipakai di perangkat terdaftar
-   - **Leave Calculation**: Menghitung hari cuti dengan mengecualikan akhir pekan dan hari libur
+   - **Perhitungan Cuti**: Menghitung hari cuti dengan mengecualikan akhir pekan dan hari libur
 
 ---
 
@@ -108,7 +107,6 @@ Lapisan penyimpanan data menggunakan **MySQL**, berisi tabel-tabel berikut:
 | work_shifts | Shift kerja |
 | employee_schedules | Jadwal karyawan |
 | overtimes | Pengajuan lembur |
-| reimbursements | Pengajuan reimbursement |
 | salary_steps | Skala gaji berkala |
 | employee_salary_histories | Riwayat gaji karyawan |
 | gajis | Data gaji bulanan |
@@ -171,7 +169,7 @@ Lapisan keamanan yang melindungi seluruh sistem, terdiri dari:
 
 ## Ringkasan Fitur Keamanan
 
-Berikut adalah ringkasan fitur keamanan di SmartHR:
+Berikut adalah ringkasan fitur keamanan di PILAR HR:
 
 | Fitur | Teknologi |
 |-------|-----------|
@@ -201,6 +199,156 @@ Berikut adalah ringkasan fitur keamanan di SmartHR:
 
 ---
 
+## Diagram Arsitektur Sistem
+
+Berikut adalah diagram arsitektur PILAR HR dalam format Mermaid.js:
+
+```mermaid
+graph TB
+    subgraph Presentation_Layer["Presentation Layer"]
+        direction TB
+        A[HR Admin] --> Browser["Web Browser\n(HTTPS)"]
+        M[Manager] --> Browser
+        K[Karyawan] --> Browser
+    end
+
+    subgraph Application_Layer["Application Layer\n(Laravel Framework)"]
+        direction TB
+        Auth[Authentication]
+        UserMgmt[User Management]
+        EmpMgmt[Employee Management]
+        DeptMgmt[Department Management]
+        PosMgmt[Position Management]
+        Attendance[Presensi]
+        Leave[Cuti]
+        Overtime[Lembur]
+        Payroll[Payroll Management]
+        Schedule[Work Schedule Management]
+        Dashboard[Dashboard]
+    end
+
+    subgraph Business_Layer["Business Layer"]
+        direction TB
+        Controllers[Controllers]
+        Services[Services]
+        Validation[Validasi]
+        BusinessRules[Aturan Bisnis]
+    end
+
+    subgraph Data_Layer["Data Layer"]
+        ORM[Laravel Eloquent ORM]
+    end
+
+    subgraph Database_Layer["Database Layer\n(MySQL)"]
+        direction TB
+        Users[users]
+        Karyawans[karyawans]
+        Departments[departments]
+        Jabatans[jabatans]
+        Golongans[golongans]
+        Pangkats[pangkats]
+        EmpStatus[employee_statuses]
+        WorkUnits[work_units]
+        Absensis[absensis]
+        Cutis[cutis]
+        LeaveTypes[leave_types]
+        LeaveBalances[employee_leave_balances]
+        Holidays[holidays]
+        ShiftGroups[shift_groups]
+        WorkShifts[work_shifts]
+        EmpSchedules[employee_schedules]
+        Overtimes[overtimes]
+        SalarySteps[salary_steps]
+        SalaryHistories[employee_salary_histories]
+        Gajis[gajis]
+        AttendanceLocations[attendance_locations]
+        AttendanceConsents[attendance_consents]
+        UserDevices[user_devices]
+        Provinces[provinces]
+        Regencies[regencies]
+        Districts[districts]
+        Villages[villages]
+    end
+
+    subgraph Security_Layer["Security Layer\n(PILAR HR)"]
+        direction TB
+        SecAuth[Laravel Auth + Session]
+        SecHash[Password Hashing\n(Bcrypt/Argon2)]
+        SecRedirect[Role-Based Login Redirect]
+        SecSession[Session Management]
+        SecCSRF[CSRF Protection]
+        SecInput[Input Validation]
+        SecDevice[Device Binding/\nFingerprint]
+        SecBiometric[Biometric Verification\n(WebAuthn)]
+        SecGeofence[Geofencing\n(GPS + Rumus Haversine)]
+        SecConsent[Attendance Consent]
+        SecAudit[Audit Trail &\nData Integrity]
+        SecMetadata[Attendance Metadata]
+    end
+
+    %% Connections
+    Browser --> Auth
+    Auth --> UserMgmt
+    UserMgmt --> Controllers
+    EmpMgmt --> Controllers
+    DeptMgmt --> Controllers
+    PosMgmt --> Controllers
+    Attendance --> Controllers
+    Leave --> Controllers
+    Overtime --> Controllers
+    Payroll --> Controllers
+    Schedule --> Controllers
+    Dashboard --> Controllers
+    Controllers --> Services
+    Services --> Validation
+    Validation --> BusinessRules
+    BusinessRules --> ORM
+    ORM --> Users
+    ORM --> Karyawans
+    ORM --> Departments
+    ORM --> Jabatans
+    ORM --> Golongans
+    ORM --> Pangkats
+    ORM --> EmpStatus
+    ORM --> WorkUnits
+    ORM --> Absensis
+    ORM --> Cutis
+    ORM --> LeaveTypes
+    ORM --> LeaveBalances
+    ORM --> Holidays
+    ORM --> ShiftGroups
+    ORM --> WorkShifts
+    ORM --> EmpSchedules
+    ORM --> Overtimes
+    ORM --> SalarySteps
+    ORM --> SalaryHistories
+    ORM --> Gajis
+    ORM --> AttendanceLocations
+    ORM --> AttendanceConsents
+    ORM --> UserDevices
+    ORM --> Provinces
+    ORM --> Regencies
+    ORM --> Districts
+    ORM --> Villages
+
+    %% Styling
+    classDef presentation fill:#FFE4B5,stroke:#333,stroke-width:2px;
+    classDef application fill:#E0FFFF,stroke:#333,stroke-width:2px;
+    classDef business fill:#E6E6FA,stroke:#333,stroke-width:2px;
+    classDef data fill:#F0E68C,stroke:#333,stroke-width:2px;
+    classDef database fill:#98FB98,stroke:#333,stroke-width:2px;
+    classDef security fill:#FFB6C1,stroke:#333,stroke-width:2px;
+
+    class Presentation_Layer,Browser,A,M,K presentation;
+    class Application_Layer,Auth,UserMgmt,EmpMgmt,DeptMgmt,PosMgmt,Attendance,Leave,Overtime,Payroll,Schedule,Dashboard application;
+    class Business_Layer,Controllers,Services,Validation,BusinessRules business;
+    class Data_Layer,ORM data;
+    class Database_Layer,Users,Karyawans,Departments,Jabatans,Golongans,Pangkats,EmpStatus,WorkUnits,Absensis,Cutis,LeaveTypes,LeaveBalances,Holidays,ShiftGroups,WorkShifts,EmpSchedules,Overtimes,SalarySteps,SalaryHistories,Gajis,AttendanceLocations,AttendanceConsents,UserDevices,Provinces,Regencies,Districts,Villages database;
+    class Security_Layer,SecAuth,SecHash,SecRedirect,SecSession,SecCSRF,SecInput,SecDevice,SecBiometric,SecGeofence,SecConsent,SecAudit,SecMetadata security;
+```
+
+---
+
 ## Kesimpulan
 
-Arsitektur SmartHR dirancang dengan prinsip keamanan dan keterpeliharaan (maintainability) yang tinggi. Setiap lapisan memiliki tanggung jawab yang jelas, dan seluruh sistem dilindungi oleh fitur keamanan yang komprehensif.
+Arsitektur PILAR HR dirancang dengan prinsip keamanan dan keterpeliharaan (maintainability) yang tinggi. Setiap lapisan memiliki tanggung jawab yang jelas, dan seluruh sistem dilindungi oleh fitur keamanan yang komprehensif.

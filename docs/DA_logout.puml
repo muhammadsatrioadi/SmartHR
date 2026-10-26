@@ -1,0 +1,38 @@
+@startuml
+title DA_logout - Diagram Alur Logout
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Klik Menu Profil/Akun;
+:Klik Tombol "Logout";
+
+|Sistem|
+:Cek Session Login Aktif;
+if (Session Ada?) then (Tidak)
+  :Tampilkan Pesan "Sudah Logout";
+  :Redirect ke Halaman Login;
+  stop
+endif
+
+:Hapus Session dari Server;
+:Hapus Cookie (opsional);
+:Catat Log Aktivitas Logout;
+
+|Database|
+:INSERT ke tabel activity_logs (user_id, action, timestamp);
+
+|Sistem|
+:Redirect ke Halaman Login;
+
+|Karyawan|
+:Menampilkan Halaman Login;
+
+stop
+@enduml

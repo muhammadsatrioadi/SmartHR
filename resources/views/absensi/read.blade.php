@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Absensi')
+@section('title', 'Presensi')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
 
-        <h1>Absensi</h1>
+        <h1>Presensi</h1>
 
         <div class="card bg-secondary rounded mt-4">
             <div class="card-body">
@@ -24,7 +24,7 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $karyawanBelumAbsens->name }}</td>
-                                    <form action="{{ route('absensi.createProses') }}" method="POST"
+                                    <form action="{{ route('presensi.createProses') }}" method="POST"
                                         style="display:inline;">
                                         @csrf
                                         @method('POST')

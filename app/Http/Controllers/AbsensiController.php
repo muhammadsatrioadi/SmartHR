@@ -40,7 +40,7 @@ class AbsensiController extends Controller
         // dd($deadline);
 
         // if ($currentTime->greaterThan($deadline)) {
-        //     return redirect()->route('absensi.read')->with('success', 'Absensi Sudah Tidak bisa Dilakukan');
+        //     return redirect()->route('presensi.read')->with('success', 'Absensi Sudah Tidak bisa Dilakukan');
         // }
 
         $validateData = $request->validate([
@@ -53,7 +53,7 @@ class AbsensiController extends Controller
         $validateData['time'] = $currentTime->toTimeString();
 
         Absensi::create($validateData);
-        return redirect()->route('absensi.read')->with('success', 'Data Absensi Berhasil dibuat');
+        return redirect()->route('presensi.read')->with('success', 'Data Absensi Berhasil dibuat');
     }
 
 

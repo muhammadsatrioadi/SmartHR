@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 3: Pengelolaan Data Master Pegawai
+
+|Admin|
+start
+:Buka Data Karyawan;
+:Tambah/Edit/Hapus;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

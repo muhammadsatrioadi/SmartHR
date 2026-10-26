@@ -12,9 +12,9 @@
     @endif
 
     <div class="portal-saldo-card mb-3">
-        <h6><i class="fas fa-file-contract"></i> Surat Perjanjian Absensi</h6>
+        <h6><i class="fas fa-file-contract"></i> Surat Perjanjian Presensi</h6>
         <p class="small text-muted mb-2">
-            Saya menyetujui kebijakan absensi berbasis lokasi GPS, verifikasi biometrik perangkat,
+            Saya menyetujui kebijakan presensi berbasis lokasi GPS, verifikasi biometrik perangkat,
             serta pembatasan satu akun email untuk satu perangkat seluler.
         </p>
         @php $p = $consents->get('perjanjian_absensi'); @endphp
@@ -34,8 +34,8 @@
     </div>
 
     <div class="portal-saldo-card mb-3">
-        <h6><i class="fas fa-project-diagram"></i> Task List — Flowchart Absensi</h6>
-        <p class="small text-muted">Alur proses absensi yang wajib dipahami:</p>
+        <h6><i class="fas fa-project-diagram"></i> Task List — Flowchart Presensi</h6>
+        <p class="small text-muted">Alur proses presensi yang wajib dipahami:</p>
         <pre class="small bg-light p-2 rounded" style="white-space:pre-wrap;font-size:0.7rem;">[START]
   |
   v
@@ -60,7 +60,7 @@
 [Kirim ke Server]---Offline-->[Antrian lokal]
   | Online
   v
-[Catat Absensi Masuk/Pulang]
+[Catat Presensi Masuk/Pulang]
   |
   v
 [END]</pre>

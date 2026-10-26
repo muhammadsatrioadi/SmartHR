@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 25: Pengelolaan Titik Lokasi Absensi
+
+|Admin|
+start
+:Buka Lokasi Absensi;
+:Tambah/Edit/Hapus;
+:Isi Nama, Latitude, Longitude, Radius, Aktif;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE attendance_locations;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

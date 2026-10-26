@@ -1,0 +1,29 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 4: Pengajuan Cuti oleh Karyawan
+
+|Karyawan|
+start
+:Buka Pengajuan Cuti;
+:Isi Form;
+
+|Sistem|
+:Cek Saldo;
+
+|Database|
+:INSERT cutis (pending);
+
+|Karyawan|
+:Tampilkan Sukses;
+
+stop
+@enduml

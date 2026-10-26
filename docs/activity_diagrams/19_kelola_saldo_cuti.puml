@@ -1,0 +1,31 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 19: Pengelolaan Saldo Cuti Pegawai
+
+|Admin|
+start
+:Buka Saldo Cuti;
+:Pilih Karyawan;
+:Tambah/Edit Saldo;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE employee_leave_balances;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

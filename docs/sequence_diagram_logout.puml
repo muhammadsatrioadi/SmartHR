@@ -1,0 +1,21 @@
+@startuml
+title Sequence Diagram: Logout
+skinparam handwritten false
+skinparam maxMessageSize 200
+
+actor "Karyawan" as K
+participant "Sistem PILAR HR" as S
+database "Database" as DB
+
+autonumber
+
+K -> S: Klik Tombol Logout
+activate S
+
+S -> S: Hapus Session Login
+S -> S: Bersihkan Cookie (jika ada)
+
+S --> K: Redirect ke Halaman Login
+
+deactivate S
+@enduml

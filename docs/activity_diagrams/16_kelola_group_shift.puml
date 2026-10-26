@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 16: Pengelolaan Group Shift
+
+|Admin|
+start
+:Buka Group Shift;
+:Tambah/Edit/Hapus;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE shift_groups;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

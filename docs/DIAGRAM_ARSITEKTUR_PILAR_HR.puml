@@ -1,0 +1,169 @@
+@startuml DIAGRAM_ARSITEKTUR_PILAR_HR
+
+!define RECTANGLE class
+!define LAYER(x) skinparam rectangle {
+!define LAYER_END }
+
+title
+  Arsitektur Sistem PILAR HR
+end title
+
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+skinparam shadowing false
+skinparam rectangle {
+  BackgroundColor<<Presentation>> #FFE4B5
+  BackgroundColor<<Application>> #E0FFFF
+  BackgroundColor<<Business>> #E6E6FA
+  BackgroundColor<<Data>> #F0E68C
+  BackgroundColor<<Database>> #98FB98
+  BackgroundColor<<Security>> #FFB6C1
+  BorderColor #333333
+}
+
+package "Presentation Layer" <<Presentation>> {
+  actor "HR Admin" as admin
+  actor "Manager" as manager
+  actor "Karyawan" as karyawan
+  database "Web Browser\n(HTTPS)" as browser
+}
+
+package "Application Layer\n(Laravel Framework)" <<Application>> {
+  [Authentication] as auth
+  [User Management] as usermgmt
+  [Employee Management] as empmgmt
+  [Department Management] as deptmgmt
+  [Position Management] as posmgmt
+  [Presensi] as attendance
+  [Cuti] as leave
+  [Lembur] as overtime
+  [Payroll Management] as payroll
+  [Work Schedule Management] as schedule
+  [Dashboard] as dashboard
+}
+
+package "Business Layer" <<Business>> {
+  [Controllers] as controllers
+  [Services] as services
+  [Validasi] as validation
+  [Aturan Bisnis] as businessrules
+}
+
+package "Data Layer" <<Data>> {
+  [Laravel Eloquent ORM] as orm
+}
+
+package "Database Layer\n(MySQL)" <<Database>> {
+  database "users" as db_users
+  database "karyawans" as db_karyawans
+  database "departments" as db_dept
+  database "jabatans" as db_jabatan
+  database "golongans" as db_golongan
+  database "pangkats" as db_pangkat
+  database "employee_statuses" as db_empstatus
+  database "work_units" as db_workunit
+  database "absensis" as db_absensi
+  database "cutis" as db_cuti
+  database "leave_types" as db_leavetype
+  database "employee_leave_balances" as db_leavebalance
+  database "holidays" as db_holiday
+  database "shift_groups" as db_shiftgroup
+  database "work_shifts" as db_workshift
+  database "employee_schedules" as db_empschedule
+  database "overtimes" as db_overtime
+  database "salary_steps" as db_salarystep
+  database "employee_salary_histories" as db_salaryhist
+  database "gajis" as db_gaji
+  database "attendance_locations" as db_attloc
+  database "attendance_consents" as db_attconsent
+  database "user_devices" as db_userdevice
+  database "provinces" as db_province
+  database "regencies" as db_regency
+  database "districts" as db_district
+  database "villages" as db_village
+}
+
+package "Security Layer\n(PILAR HR)" <<Security>> {
+  [Laravel Auth + Session] as sec_auth
+  [Password Hashing\n(Bcrypt/Argon2)] as sec_hash
+  [Role-Based Login Redirect] as sec_redirect
+  [Session Management] as sec_session
+  [CSRF Protection] as sec_csrf
+  [Input Validation] as sec_input
+  [Device Binding/\nFingerprint] as sec_device
+  [Biometric Verification\n(WebAuthn)] as sec_biometric
+  [Geofencing\n(GPS + Rumus Haversine)] as sec_geofence
+  [Attendance Consent] as sec_consent
+  [Audit Trail &\nData Integrity] as sec_audit
+  [Attendance Metadata] as sec_metadata
+}
+
+// Koneksi Presentation ke Application
+admin -down-> browser
+manager -down-> browser
+karyawan -down-> browser
+browser -down-> auth
+auth -down-> usermgmt
+
+// Koneksi Application ke Business
+usermgmt -down-> controllers
+empmgmt -down-> controllers
+deptmgmt -down-> controllers
+posmgmt -down-> controllers
+attendance -down-> controllers
+leave -down-> controllers
+overtime -down-> controllers
+payroll -down-> controllers
+schedule -down-> controllers
+dashboard -down-> controllers
+
+// Koneksi Business ke Data
+controllers -down-> services
+services -down-> validation
+validation -down-> businessrules
+businessrules -down-> orm
+
+// Koneksi Data ke Database
+orm -down-> db_users
+orm -down-> db_karyawans
+orm -down-> db_dept
+orm -down-> db_jabatan
+orm -down-> db_golongan
+orm -down-> db_pangkat
+orm -down-> db_empstatus
+orm -down-> db_workunit
+orm -down-> db_absensi
+orm -down-> db_cuti
+orm -down-> db_leavetype
+orm -down-> db_leavebalance
+orm -down-> db_holiday
+orm -down-> db_shiftgroup
+orm -down-> db_workshift
+orm -down-> db_empschedule
+orm -down-> db_overtime
+orm -down-> db_salarystep
+orm -down-> db_salaryhist
+orm -down-> db_gaji
+orm -down-> db_attloc
+orm -down-> db_attconsent
+orm -down-> db_userdevice
+orm -down-> db_province
+orm -down-> db_regency
+orm -down-> db_district
+orm -down-> db_village
+
+// Koneksi Security ke seluruh lapisan
+sec_auth -[hidden]- auth
+sec_hash -[hidden]- usermgmt
+sec_redirect -[hidden]- dashboard
+sec_session -[hidden]- controllers
+sec_csrf -[hidden]- validation
+sec_input -[hidden]- orm
+sec_device -[hidden]- attendance
+sec_biometric -[hidden]- attendance
+sec_geofence -[hidden]- attendance
+sec_consent -[hidden]- attendance
+sec_audit -[hidden]- db_absensi
+sec_metadata -[hidden]- db_absensi
+
+@enduml

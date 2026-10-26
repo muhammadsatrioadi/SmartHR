@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 23: Pengelolaan Skala Gaji Berkala
+
+|Admin|
+start
+:Buka Skala Gaji;
+:Tambah/Edit/Hapus;
+:Isi Form (Golongan, Pangkat, Masa Kerja, Gaji Pokok);
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE salary_steps;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

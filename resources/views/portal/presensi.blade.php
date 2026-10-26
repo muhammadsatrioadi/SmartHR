@@ -13,7 +13,7 @@
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @unless($consentsOk)
         <div class="alert alert-warning small">
-            Setujui <a href="{{ route('portal.consent') }}">Surat Perjanjian</a> dan Task List sebelum absen.
+            Setujui <a href="{{ route('portal.consent') }}">Surat Perjanjian</a> dan Task List sebelum presensi.
         </div>
     @endunless
 
@@ -44,7 +44,7 @@
             </button>
         @else
             <button type="button" class="portal-btn-checkin" disabled>
-                <i class="fas fa-check"></i> Absensi hari ini selesai
+                <i class="fas fa-check"></i> Presensi hari ini selesai
             </button>
         @endif
     </div>
@@ -68,7 +68,7 @@
         </div>
         @if($location)
             <div class="portal-verify-item small text-muted mt-2">
-                Titik absensi: {{ $location->nama }} (radius {{ $location->radius_meter }}m)
+                Titik presensi: {{ $location->nama }} (radius {{ $location->radius_meter }}m)
             </div>
             @php
                 $locations = $karyawan->attendance_location_id 

@@ -1,10 +1,10 @@
 @extends('layouts.portal')
-@section('title', 'Riwayat Absensi')
+@section('title', 'Riwayat Presensi')
 @php $navActive = 'absensi'; @endphp
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Riwayat Absensi</strong>
+    <strong>Riwayat Presensi</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @forelse($items as $row)
@@ -21,7 +21,7 @@
             </small>
         </div>
     @empty
-        <p class="text-center text-muted">Belum ada riwayat absensi.</p>
+        <p class="text-center text-muted">Belum ada riwayat presensi.</p>
     @endforelse
     <div class="mt-3">{{ $items->links() }}</div>
 </div>

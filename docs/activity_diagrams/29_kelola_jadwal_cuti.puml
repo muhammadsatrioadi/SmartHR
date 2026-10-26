@@ -1,0 +1,32 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 29: Pengelolaan Jadwal dan Cuti
+
+|Admin|
+start
+:Buka Jadwal & Cuti;
+:Pilih Karyawan;
+
+if (Atur Jadwal?) then (Ya)
+  :Pilih Tanggal & Shift;
+  :Simpan Jadwal;
+  |Database|
+  :INSERT/UPDATE employee_schedules;
+  |Admin|
+else (Lihat Pengajuan)
+  :Lihat Pengajuan;
+endif
+
+:Tampilkan Sukses;
+
+stop
+@enduml

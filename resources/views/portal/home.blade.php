@@ -37,15 +37,21 @@
 
     <p class="portal-section-title">MENU CEPAT</p>
     <div class="portal-quick-grid">
-        <a href="{{ route('portal.absensi') }}" class="portal-quick-item"><i class="fas fa-calendar-alt text-primary"></i>Absensi</a>
+        <a href="{{ route('portal.presensi.riwayat') }}" class="portal-quick-item"><i class="fas fa-calendar-alt text-primary"></i>Presensi</a>
         @if(in_array($user->role, ['atasan', 'manajer', 'admin_hr']))
-            <a href="{{ route('portal.absensi.subordinate') }}" class="portal-quick-item"><i class="fas fa-users text-primary"></i>Absen Tim</a>
+            <a href="{{ route('portal.presensi.subordinate') }}" class="portal-quick-item"><i class="fas fa-users text-primary"></i>Presensi Tim</a>
             <a href="{{ route('portal.cuti.approvals') }}" class="portal-quick-item"><i class="fas fa-check-double text-success"></i>Approval</a>
         @endif
         <a href="{{ route('portal.cuti') }}" class="portal-quick-item"><i class="fas fa-calendar-check text-success"></i>Cuti</a>
+        {{-- Menu "Slip Gaji" portal disembunyikan sementara (tidak dihapus) --}}
+        {{--
         <a href="{{ route('portal.gaji') }}" class="portal-quick-item"><i class="fas fa-wallet text-warning"></i>Slip Gaji</a>
+        --}}
         <a href="{{ route('portal.cuti.ajukan') }}" class="portal-quick-item"><i class="fas fa-plus-circle text-info"></i>Ajukan Cuti</a>
+        {{-- Menu "Reimburse" portal disembunyikan sementara (tidak dihapus) --}}
+        {{--
         <a href="{{ route('portal.reimburse.index') }}" class="portal-quick-item"><i class="fas fa-receipt" style="color:#8b5cf6"></i>Reimburse</a>
+        --}}
         <a href="{{ route('portal.profil') }}" class="portal-quick-item"><i class="fas fa-id-card text-primary"></i>Profil</a>
         <a href="{{ route('portal.profil.password') }}" class="portal-quick-item"><i class="fas fa-key text-danger"></i>Password</a>
         <a href="{{ route('actionlogout') }}" class="portal-quick-item" id="btn-logout"><i class="fas fa-sign-out-alt text-secondary"></i>Logout</a>

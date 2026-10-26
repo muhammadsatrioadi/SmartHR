@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 9: Pengelolaan Data Jabatan
+
+|Admin|
+start
+:Buka Jabatan;
+:Tambah/Edit/Hapus;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE jabatans;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

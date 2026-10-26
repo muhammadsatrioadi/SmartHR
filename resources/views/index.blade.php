@@ -13,7 +13,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Absensi Hadir Hari Ini</p>
+                        <p class="mb-2">Presensi Hadir Hari Ini</p>
                         <h6 class="mb-0">{{ $totalKehadiranHariIni }}</h6>
                     </div>
                 </div>
@@ -22,7 +22,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Absensi Alpha Hari Ini</p>
+                        <p class="mb-2">Presensi Alpha Hari Ini</p>
                         <h6 class="mb-0">{{ $totalAlphaHariIni }}</h6>
                     </div>
                 </div>
@@ -31,7 +31,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Absensi Hadir Bulan Ini</p>
+                        <p class="mb-2">Presensi Hadir Bulan Ini</p>
                         <h6 class="mb-0">{{ $totalKehadiranBulanIni }}</h6>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Absensi Alpha Bulan Ini</p>
+                        <p class="mb-2">Presensi Alpha Bulan Ini</p>
                         <h6 class="mb-0">{{ $totalAlphaBulanIni }}</h6>
                     </div>
                 </div>
@@ -117,8 +117,8 @@ active
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Absensi Terbaru</h6>
-                <a href="{{ route('absensi.read') }}">Show All</a>
+                <h6 class="mb-0">Presensi Terbaru</h6>
+                <a href="{{ route('presensi.read') }}">Show All</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">

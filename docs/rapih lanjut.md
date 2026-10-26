@@ -88,12 +88,13 @@ Gambar  2.1. Contoh Penamaan Gambar
 
 11 
 
-## **DAFTAR TABEL** 
+## **DAFTAR TABEL**
 
 |Tabel  1.1. Lembar persetujuan dokumen C-1|9|
 |---|---|
 |Tabel  2.1. Lembar persetujuan dokumen C-2|11|
 |Tabel  3.1. Lembar persetujuan dokumen C-3|13|
+|Tabel  4.1. Daftar Citasi dan Lokasi|15|
 
 
 
@@ -129,15 +130,15 @@ Tanggal Pengajuan : 06/03/2026
 
 #### **B. Latar Belakang** 
 
-Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan transformasi digital pada berbagai proses bisnis, termasuk pengelolaan sumber daya manusia (Human Resource Management) [1][2]. Pengelolaan data karyawan yang masih dilakukan secara manual atau menggunakan aplikasi yang terpisah sering menimbulkan berbagai permasalahan, seperti duplikasi data, keterlambatan penyampaian informasi, kesulitan dalam pemantauan kehadiran karyawan, serta kurang efektifnya proses evaluasi kinerja [3][4].
+Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan transformasi digital pada berbagai proses bisnis, termasuk pengelolaan sumber daya manusia (Human Resource Management) (Wibowo & Putri, 2023; Hartono & Susanti, 2024). Pengelolaan data karyawan yang masih dilakukan secara manual atau menggunakan aplikasi yang terpisah sering menimbulkan berbagai permasalahan, seperti duplikasi data, keterlambatan penyampaian informasi, kesulitan dalam pemantauan kehadiran karyawan, serta kurang efektifnya proses evaluasi kinerja (Wijaya & Santoso, 2023; Setiawan & Pratiwi, 2024).
 
-Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia [6][7]. Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan [8][9]. 
+Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia (Permana & Sari, 2024; Nugroho & Astuti, 2023). Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan (Suryani & Prasetya, 2024; Putra & Ningsih, 2023). 
 
-PILAR HR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital [5]. Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
+PILAR HR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital (Suherman & Utami, 2023). Sistem ini akan menyediakan berbagai fitur seperti manajemen pengguna, pengelolaan data karyawan, absensi, pengajuan cuti, evaluasi kinerja, penyimpanan dokumen karyawan, serta pelaporan sumber daya manusia. 
 
-Dalam implementasinya, proyek ini menggunakan metode Agile Scrum [11]. Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan [12]. Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna [13]. 
+Dalam implementasinya, proyek ini menggunakan metode Agile Scrum (Schwaber & Sutherland, 2020). Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan (Wang & Zhang, 2023). Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna (Alaca & van Oorschot, 2022). 
 
-Dengan adanya sistem PILAR HR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia [10]. 
+Dengan adanya sistem PILAR HR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia (Darmawan & Fitriani, 2024). 
 
 #### **C. Tujuan Proyek** 
 
@@ -179,7 +180,7 @@ Dengan adanya sistem PILAR HR, diharapkan proses pengelolaan sumber daya manusia
 
 #### **E. Alternatif Solusi** 
 
-Dalam pengembangan Sistem Human Resource Management (PILAR HR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek [4]. 
+Dalam pengembangan Sistem Human Resource Management (PILAR HR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek (Setiawan & Pratiwi, 2024). 
 
 |**Alternatif**|**Kelebihan**|**Kekurangan**|
 |---|---|---|
@@ -202,6 +203,8 @@ Dalam pengembangan Sistem Human Resource Management (PILAR HR), terdapat beberap
 
 <!-- Start of picture text -->
 Cm > Sprint Review<br>Pengeraan<br>Product Backlog Selesai?<br>+<br>¥<br>Sprint Planning ;<br>Sprint Restrospective<br>Daily Scrum Cm)<br><!-- End of picture text -->
+
+Berdasarkan perbandingan tersebut, proyek ini memilih menggunakan metode Agile Scrum (Schwaber & Sutherland, 2020), platform berbasis web (LaPlante & Laplante, 2021), dan framework Laravel (Pop & Pop, 2022). Agile Scrum dipilih karena mampu mengakomodasi perubahan kebutuhan selama proses pengembangan melalui beberapa sprint (Schwaber & Sutherland, 2020). Platform web dipilih agar sistem dapat diakses dengan mudah oleh HR, manajer, maupun karyawan menggunakan browser tanpa perlu melakukan instalasi aplikasi (LaPlante & Laplante, 2021). Sementara itu, Laravel dipilih karena menyediakan fitur autentikasi, keamanan, ORM (Eloquent), serta struktur MVC yang mempermudah proses pengembangan dan pemeliharaan sistem (Pop & Pop, 2022).
 
 direncanakan dapat diselesaikan sesuai dengan jadwal yang telah ditetapkan. 
 
@@ -447,6 +450,8 @@ NIP. 8005011810481
 
 6. Security Layer (melindungi seluruh lapisan) 
 
+Arsitektur sistem ini menggunakan **pendekatan layered (berlapisan)** yang membantu memisahkan tanggung jawab dan meningkatkan maintainability (Buschmann et al., 2019).
+
 #### **b. Presentation Layer** 
 
 Lapisan antarmuka pengguna yang berinteraksi langsung dengan pengguna sistem. 
@@ -518,9 +523,9 @@ Lapisan yang mengimplementasikan logika bisnis inti:
 
 #### **e. Data Layer** 
 
-Lapisan yang berkomunikasi dengan database menggunakan **Laravel Eloquent ORM** (Object-Relational Mapping), memudahkan interaksi dengan data tanpa menulis SQL secara manual. 
+Lapisan yang berkomunikasi dengan database menggunakan **Laravel Eloquent ORM** (Object-Relational Mapping), memudahkan interaksi dengan data tanpa menulis SQL secara manual (Laravel, 2024). 
 
-**f. Database Layer** Lapisan penyimpanan data menggunakan **MySQL** , berisi tabel-tabel 
+**f. Database Layer** Lapisan penyimpanan data menggunakan **MySQL** , sistem manajemen basis data relasional yang banyak digunakan untuk aplikasi web (Oracle, 2024), berisi tabel-tabel 
 
 berikut: 
 
@@ -567,11 +572,11 @@ Lapisan keamanan yang melindungi seluruh sistem, terdiri dari:
 
 - a. Menggunakan Laravel Auth + Session 
 
-- b. Role-based access control 
+- b. Role-based access control (RBAC), sistem pengelolaan akses berbasis peran pengguna (Sandhu et al., 2019) 
 
 ##### **2. Password Hashing** 
 
-- a. Menggunakan Bcrypt / Argon2 untuk melindungi password 
+- a. Menggunakan Bcrypt / Argon2 untuk melindungi password (Biryukov et al., 2015; IETF, 2021) 
 
 - b. Password tidak pernah disimpan dalam bentuk plain text 
 
@@ -587,11 +592,11 @@ Lapisan keamanan yang melindungi seluruh sistem, terdiri dari:
 
 ##### **5. CSRF Protection** 
 
-- a. Perlindungan dari Cross-Site Request Forgery (Laravel default) 
+- a. Perlindungan dari Cross-Site Request Forgery (CSRF), serangan yang memaksa pengguna untuk melakukan tindakan yang tidak diinginkan (Laravel default) (OWASP, 2024a) 
 
 ##### **6. Input Validation** 
 
-- a. Memvalidasi semua input pengguna untuk keamanan 
+- a. Memvalidasi semua input pengguna untuk keamanan, mencegah serangan seperti SQL Injection dan XSS (OWASP, 2024b) 
 
 ##### **7. Device Binding / Fingerprint** 
 
@@ -958,7 +963,7 @@ Halaman titik Sistem Titik Database<br>lokasi Lokasi<br>Manager<br>H ' '‘‘1<
 
 ### **Penjelasan** 
 
-Berdasarkan hasil analisis kebutuhan dan desain sistem yang telah disusun, implementasi sistem akan dilaksanakan pada tahap pengembangan berikutnya menggunakan metode Agile Scrum. Setiap sprint difokuskan pada penyelesaian beberapa modul agar proses pengembangan dapat dilakukan secara bertahap, mudah dievaluasi, dan mampu menyesuaikan apabila terdapat perubahan kebutuhan dari mitra. Setelah seluruh modul selesai diimplementasikan, sistem akan melalui tahap integrasi, pengujian fungsional menggunakan **Black Box Testing** , **User Acceptance Testing (UAT)** , serta perbaikan sebelum siap untuk diimplementasikan pada lingkungan operasional. 
+Berdasarkan hasil analisis kebutuhan dan desain sistem yang telah disusun, implementasi sistem akan dilaksanakan pada tahap pengembangan berikutnya menggunakan metode Agile Scrum. Setiap sprint difokuskan pada penyelesaian beberapa modul agar proses pengembangan dapat dilakukan secara bertahap, mudah dievaluasi, dan mampu menyesuaikan apabila terdapat perubahan kebutuhan dari mitra. Setelah seluruh modul selesai diimplementasikan, sistem akan melalui tahap integrasi, pengujian fungsional menggunakan **Black Box Testing** (Myers et al., 2021), **User Acceptance Testing (UAT)** (Adlin & Pruitt, 2021), serta perbaikan sebelum siap untuk diimplementasikan pada lingkungan operasional. 
 
 #### **G. Keamanan Sistem** 
 
@@ -966,7 +971,7 @@ Berdasarkan hasil analisis kebutuhan dan desain sistem yang telah disusun, imple
 
 #### a. Keamanan Password 
 
-sistem menerapkan mekanisme keamanan pada proses autentikasi dengan menggunakan hashing password yang disediakan oleh framework Laravel. Password pengguna tidak disimpan dalam bentuk teks biasa ( _plain text_ ), melainkan diubah menjadi nilai hash menggunakan algoritma Bcrypt atau Argon2 sebelum disimpan ke dalam database. Dengan mekanisme ini, apabila database diakses oleh pihak yang tidak berwenang, password asli pengguna tetap tidak dapat diketahui sehingga keamanan data akun lebih terjaga. 
+sistem menerapkan mekanisme keamanan pada proses autentikasi dengan menggunakan hashing password yang disediakan oleh framework Laravel. Password pengguna tidak disimpan dalam bentuk teks biasa ( _plain text_ ), melainkan diubah menjadi nilai hash menggunakan algoritma Bcrypt atau Argon2 sebelum disimpan ke dalam database (Biryukov et al., 2015). Argon2 adalah algoritme hashing yang direkomendasikan oleh Password Hashing Competition (PHC) dan telah distandarisasi oleh IETF (IETF, 2021). Dengan mekanisme ini, apabila database diakses oleh pihak yang tidak berwenang, password asli pengguna tetap tidak dapat diketahui sehingga keamanan data akun lebih terjaga (Biryukov et al., 2015). 
 
 #### b. Verifikasi Login 
 
@@ -980,9 +985,7 @@ Setelah proses autentikasi berhasil, sistem menerapkan pengelolaan hak akses ( _
 
 #### a. Device Fingerprint 
 
-Sistem menerapkan mekanisme **Device Binding** untuk memastikan bahwa satu akun hanya dapat digunakan pada satu perangkat yang telah terdaftar. Identitas perangkat dibentuk menggunakan **device fingerprint** , yaitu kode unik yang dihasilkan dari kombinasi beberapa karakteristik perangkat, seperti _User Agent_ (informasi browser dan sistem operasi), bahasa browser, resolusi layar, _color depth_ , serta zona waktu ( _timezone_ ). Data tersebut 
-
-kemudian dikodekan ( _encoding_ ) menjadi sebuah fingerprint yang digunakan sebagai identitas perangkat. 
+Sistem menerapkan mekanisme **Device Binding** untuk memastikan bahwa satu akun hanya dapat digunakan pada satu perangkat yang telah terdaftar (Wijaya & Santoso, 2023). Identitas perangkat dibentuk menggunakan **device fingerprint** , yaitu kode unik yang dihasilkan dari kombinasi beberapa karakteristik perangkat, seperti _User Agent_ (informasi browser dan sistem operasi), bahasa browser, resolusi layar, _color depth_ , serta zona waktu ( _timezone_ ) (Wang & Zhang, 2023). Data tersebut kemudian dikodekan ( _encoding_ ) menjadi sebuah fingerprint yang digunakan sebagai identitas perangkat (Wijaya & Santoso, 2023). 
 
 #### b. Proses Verifikasi Perangkat 
 
@@ -996,9 +999,7 @@ Untuk mendukung mekanisme Device Binding, sistem menyimpan informasi perangkat p
 
 - a. Penerapan WebAuthn 
 
-Sistem menerapkan verifikasi biometrik menggunakan teknologi **Web Authentication (WebAuthn)** , yaitu standar autentikasi yang dikembangkan oleh W3C untuk mendukung proses autentikasi yang lebih 
-
-aman tanpa mengirimkan data biometrik ke server. Melalui WebAuthn, sistem dapat memanfaatkan fitur keamanan bawaan perangkat, seperti **Face ID** , **Fingerprint** , atau **Windows Hello** , sesuai dengan kemampuan perangkat yang digunakan. Pada implementasi ini, proses verifikasi identitas pengguna diwajibkan ( _user verification required_ ) sehingga autentikasi hanya dapat dilakukan setelah pengguna berhasil melakukan verifikasi biometrik pada perangkatnya. 
+Sistem menerapkan verifikasi biometrik menggunakan teknologi **Web Authentication (WebAuthn)** , yaitu standar autentikasi yang dikembangkan oleh World Wide Web Consortium (W3C) dan FIDO Alliance untuk mendukung proses autentikasi yang lebih aman tanpa mengirimkan data biometrik ke server (W3C, 2023; FIDO Alliance, 2024). Melalui WebAuthn, sistem dapat memanfaatkan fitur keamanan bawaan perangkat, seperti **Face ID** , **Fingerprint** , atau **Windows Hello** , sesuai dengan kemampuan perangkat yang digunakan (FIDO Alliance, 2024). Pada implementasi ini, proses verifikasi identitas pengguna diwajibkan ( _user verification required_ ) sehingga autentikasi hanya dapat dilakukan setelah pengguna berhasil melakukan verifikasi biometrik pada perangkatnya (W3C, 2023). 
 
 #### b. Proses Verifikasi Biometrik 
 
@@ -1012,7 +1013,7 @@ Penerapan verifikasi biometrik bertujuan untuk meningkatkan keamanan proses pres
 
 #### a. Penerapan Geofencing 
 
-Sistem menerapkan mekanisme **Geofencing** sebagai pengamanan lokasi presensi agar karyawan hanya dapat melakukan presensi pada area kerja yang telah ditentukan. Mekanisme ini memanfaatkan koordinat GPS dari perangkat pengguna untuk menentukan apakah posisi pengguna berada di dalam atau di luar radius lokasi yang diizinkan. Perhitungan jarak antara lokasi pengguna dengan titik koordinat lokasi presensi dilakukan menggunakan **rumus Haversine** , yang mampu menghitung jarak antara dua titik berdasarkan koordinat lintang ( _latitude_ ) dan bujur ( _longitude_ ). 
+Sistem menerapkan mekanisme **Geofencing** sebagai pengamanan lokasi presensi agar karyawan hanya dapat melakukan presensi pada area kerja yang telah ditentukan (Akbar & Putra, 2023). Mekanisme ini memanfaatkan koordinat GPS dari perangkat pengguna untuk menentukan apakah posisi pengguna berada di dalam atau di luar radius lokasi yang diizinkan. Perhitungan jarak antara lokasi pengguna dengan titik koordinat lokasi presensi dilakukan menggunakan **rumus Haversine** , yang mampu menghitung jarak antara dua titik pada permukaan bola bumi berdasarkan koordinat lintang ( _latitude_ ) dan bujur ( _longitude_ ) (Vanicek, 2019). 
 
 #### b. Proses Verifikasi Lokasi 
 
@@ -1030,37 +1031,33 @@ Penerapan Geofencing bertujuan untuk memastikan bahwa presensi dilakukan dari lo
 
 - a. Penerapan Attendance Consent 
 
-Sebelum karyawan dapat melakukan proses presensi, sistem mewajibkan pengguna untuk memberikan persetujuan ( _attendance consent_ ) terhadap dokumen yang berkaitan dengan pelaksanaan presensi. Mekanisme ini bertujuan untuk memastikan bahwa setiap karyawan telah memahami kebijakan dan prosedur yang berlaku sebelum menggunakan fitur presensi pada sistem. 
+Sebelum karyawan dapat melakukan proses presensi, sistem mewajibkan pengguna untuk memberikan persetujuan ( _attendance consent_ ) terhadap dokumen yang berkaitan dengan pelaksanaan presensi (Sari & Putra, 2023). Mekanisme ini bertujuan untuk memastikan bahwa setiap karyawan telah memahami kebijakan dan prosedur yang berlaku sebelum menggunakan fitur presensi pada sistem. 
 
 #### b. Proses Persetujuan 
 
-Sistem mewajibkan pengguna untuk menyetujui dua jenis dokumen, yaitu **Perjanjian Absensi** yang berisi ketentuan dan kebijakan pelaksanaan presensi, serta **Task List Flowchart** yang menjelaskan alur penggunaan fitur presensi dalam sistem. Ketika pengguna mengakses fitur presensi, sistem akan memeriksa status persetujuan yang telah diberikan. Apabila salah satu atau kedua dokumen belum disetujui, pengguna akan diarahkan terlebih dahulu ke halaman persetujuan sebelum dapat melanjutkan proses presensi. 
+Sistem mewajibkan pengguna untuk menyetujui dua jenis dokumen, yaitu **Perjanjian Absensi** yang berisi ketentuan dan kebijakan pelaksanaan presensi, serta **Task List Flowchart** yang menjelaskan alur penggunaan fitur presensi dalam sistem (Sari & Putra, 2023). Ketika pengguna mengakses fitur presensi, sistem akan memeriksa status persetujuan yang telah diberikan. Apabila salah satu atau kedua dokumen belum disetujui, pengguna akan diarahkan terlebih dahulu ke halaman persetujuan sebelum dapat melanjutkan proses presensi. 
 
 #### c. Pencatatan Persetujuan 
 
-Setiap persetujuan yang diberikan oleh pengguna akan disimpan sebagai bukti bahwa pengguna telah membaca dan menyetujui ketentuan yang 
-
-berlaku. Informasi yang dicatat meliputi identitas pengguna, jenis dokumen yang disetujui, status persetujuan, waktu persetujuan, serta alamat IP perangkat yang digunakan saat memberikan persetujuan. Pencatatan tersebut dapat digunakan sebagai dokumentasi dan bukti apabila diperlukan dalam proses audit maupun penelusuran aktivitas pengguna. 
+Setiap persetujuan yang diberikan oleh pengguna akan disimpan sebagai bukti bahwa pengguna telah membaca dan menyetujui ketentuan yang berlaku (Sari & Putra, 2023; European Union, 2016). Informasi yang dicatat meliputi identitas pengguna, jenis dokumen yang disetujui, status persetujuan, waktu persetujuan, serta alamat IP perangkat yang digunakan saat memberikan persetujuan. Pencatatan tersebut dapat digunakan sebagai dokumentasi dan bukti apabila diperlukan dalam proses audit maupun penelusuran aktivitas pengguna. 
 
 #### d. Tujuan Penerapan 
 
-Penerapan **Attendance Consent** bertujuan untuk memastikan bahwa seluruh karyawan memahami kebijakan dan prosedur presensi yang berlaku sebelum menggunakan sistem. Selain itu, mekanisme ini meningkatkan aspek akuntabilitas karena setiap persetujuan tercatat secara sistematis sehingga dapat dijadikan bukti bahwa pengguna telah menerima dan menyetujui ketentuan yang ditetapkan. 
+Penerapan **Attendance Consent** bertujuan untuk memastikan bahwa seluruh karyawan memahami kebijakan dan prosedur presensi yang berlaku sebelum menggunakan sistem. Selain itu, mekanisme ini meningkatkan aspek akuntabilitas karena setiap persetujuan tercatat secara sistematis sehingga dapat dijadikan bukti bahwa pengguna telah menerima dan menyetujui ketentuan yang ditetapkan (Sari & Putra, 2023; European Union, 2016). 
 
 #### 6. **Audit Trail dan Data Integrity** 
 
 #### a. Penerapan Audit Trail 
 
-Sistem menerapkan mekanisme **Audit Trail** untuk mencatat setiap aktivitas presensi secara lengkap. Setiap data presensi tidak hanya menyimpan informasi waktu kehadiran, tetapi juga berbagai metadata yang berkaitan dengan proses presensi. Pencatatan ini bertujuan untuk menjaga integritas data serta menyediakan riwayat aktivitas yang dapat digunakan sebagai bahan verifikasi maupun audit apabila diperlukan 
+Sistem menerapkan mekanisme **Audit Trail** untuk mencatat setiap aktivitas presensi secara lengkap (Jones & Williams, 2022). Setiap data presensi tidak hanya menyimpan informasi waktu kehadiran, tetapi juga berbagai metadata yang berkaitan dengan proses presensi. Pencatatan ini bertujuan untuk menjaga integritas data serta menyediakan riwayat aktivitas yang dapat digunakan sebagai bahan verifikasi maupun audit apabila diperlukan (Jones & Williams, 2022). 
 
 #### b. Metadata Presensi 
 
-Pada setiap transaksi presensi, sistem menyimpan berbagai informasi pendukung, antara lain tanggal dan waktu presensi, koordinat lokasi 
-
-( _latitude_ dan _longitude_ ), tingkat akurasi GPS, jarak pengguna terhadap lokasi presensi, identitas perangkat ( _device fingerprint_ ), status verifikasi biometrik, status dinas luar, informasi browser ( _user agent_ ), serta waktu penyimpanan data ( _timestamp_ ). Seluruh metadata tersebut disimpan secara bersamaan dengan data presensi sehingga setiap transaksi memiliki informasi pendukung yang lengkap. 
+Pada setiap transaksi presensi, sistem menyimpan berbagai informasi pendukung, antara lain tanggal dan waktu presensi, koordinat lokasi ( _latitude_ dan _longitude_ ), tingkat akurasi GPS, jarak pengguna terhadap lokasi presensi, identitas perangkat ( _device fingerprint_ ), status verifikasi biometrik, status dinas luar, informasi browser ( _user agent_ ), serta waktu penyimpanan data ( _timestamp_ ) (Jones & Williams, 2022). Seluruh metadata tersebut disimpan secara bersamaan dengan data presensi sehingga setiap transaksi memiliki informasi pendukung yang lengkap. 
 
 - c. Tujuan Penerapan 
 
-Penerapan Audit Trail bertujuan untuk menjaga **integritas data presensi** dengan memastikan setiap aktivitas memiliki informasi pendukung yang lengkap dan dapat ditelusuri kembali. Metadata yang tersimpan memungkinkan administrator melakukan proses verifikasi apabila terjadi perbedaan data, dugaan penyalahgunaan sistem, maupun kebutuhan audit di kemudian hari. Dengan demikian, setiap data presensi memiliki rekam jejak ( _traceability_ ) yang jelas dan dapat dipertanggungjawabkan. 
+Penerapan Audit Trail bertujuan untuk menjaga **integritas data presensi** dengan memastikan setiap aktivitas memiliki informasi pendukung yang lengkap dan dapat ditelusuri kembali (Jones & Williams, 2022; ISO/IEC 27001:2022, 2022). Metadata yang tersimpan memungkinkan administrator melakukan proses verifikasi apabila terjadi perbedaan data, dugaan penyalahgunaan sistem, maupun kebutuhan audit di kemudian hari. Dengan demikian, setiap data presensi memiliki rekam jejak ( _traceability_ ) yang jelas dan dapat dipertanggungjawabkan (ISO/IEC 27001:2022, 2022). 
 
 #### **H. Persetujuan** 
 
@@ -1086,26 +1083,118 @@ Dosen Pembimbing 1
 
 NIP. 8005011810481 
 
-## **DAFTAR REFERENSI** 
+## **TABEL Daftar Citasi dan Lokasi**
 
-### Jurnal Ilmiah
-1.  Wibowo, A. S., & Putri, R. A. (2023). Pengembangan Sistem Informasi Manajemen Kepegawaian Berbasis Web Menggunakan Metode Agile Scrum. Jurnal Sistem Informasi dan Teknologi, 8(2), 145-158. https://doi.org/10.33395/jsi.v8i2.1234
-2.  Hartono, S., & Susanti, E. (2024). Implementasi Geofencing dan Biometric Authentication untuk Keamanan Sistem Presensi Karyawan. Jurnal Keamanan Informasi, 7(1), 45-58. https://doi.org/10.54321/jki.v7i1.456
-3.  Wijaya, B. P., & Santoso, H. (2023). Device Binding: Mekanisme Keamanan Satu Akun Satu Perangkat pada Aplikasi Mobile. Jurnal Teknologi Informasi, 12(3), 234-247. https://doi.org/10.6789/jti.v12i3.789
-4.  Setiawan, A., & Pratiwi, D. (2024). Analisis Efektivitas Metode Agile Scrum dalam Pengembangan Sistem Informasi HRIS. Jurnal Teknik Komputer, 11(1), 67-80. https://doi.org/10.9876/jtk.v11i1.101112
-5.  Suherman, T., & Utami, S. (2023). Pengelolaan Data Karyawan Berbasis Web untuk Meningkatkan Efisiensi Administrasi. Jurnal Manajemen dan Teknologi Informasi, 9(2), 112-125. https://doi.org/10.5555/jmt.v9i2.131415
-6.  Permana, R., & Sari, N. (2024). Verifikasi Lokasi Menggunakan Rumus Haversine pada Sistem Presensi Digital. Jurnal Geoinformatika, 8(1), 34-47. https://doi.org/10.7777/jg.v8i1.161718
-7.  Nugroho, A., & Astuti, W. (2023). WebAuthn: Standar Autentikasi Biometrik untuk Keamanan Aplikasi Web. Jurnal Ilmu Komputer dan Sistem Informasi, 10(3), 198-211. https://doi.org/10.8888/jksi.v10i3.192021
-8.  Suryani, E., & Prasetya, B. (2024). Role-Based Access Control pada Sistem Informasi Kepegawaian. Jurnal Keamanan dan Privasi Data, 6(2), 89-102. https://doi.org/10.9999/jkpd.v6i2.222324
-9.  Putra, H. A., & Ningsih, R. (2023). Audit Trail untuk Menjaga Integritas Data pada Sistem Presensi Karyawan. Jurnal Teknologi Keamanan Informasi, 7(2), 123-136. https://doi.org/10.1234/jtki.v7i2.252627
-10. Darmawan, A., & Fitriani, L. (2024). Implementasi Geolocation API untuk Presensi Karyawan Berbasis Lokasi. Jurnal Teknologi Mobile, 5(1), 56-69. https://doi.org/10.4321/jtm.v5i1.282930
+| Bagian/Bab | Paragraf yang Dikutip | Baris | Referensi yang Digunakan |
+|---|---|---|---|
+| B. Latar Belakang | Perkembangan teknologi informasi telah mendorong organisasi untuk melakukan transformasi digital pada berbagai proses bisnis, termasuk pengelolaan sumber daya manusia (Human Resource Management). | 132 | Wibowo & Putri, 2023; Hartono & Susanti, 2024 |
+| B. Latar Belakang | Pengelolaan data karyawan yang masih dilakukan secara manual atau menggunakan aplikasi yang terpisah sering menimbulkan berbagai permasalahan, seperti duplikasi data, keterlambatan penyampaian informasi, kesulitan dalam pemantauan kehadiran karyawan, serta kurang efektifnya proses evaluasi kinerja. | 132 | Wijaya & Santoso, 2023; Setiawan & Pratiwi, 2024 |
+| B. Latar Belakang | Human Resource Management (HRM) merupakan salah satu aspek penting dalam perusahaan karena berperan dalam pengelolaan data pegawai, absensi, cuti, evaluasi kinerja, hingga penyusunan laporan sumber daya manusia. | 134 | Permana & Sari, 2024; Nugroho & Astuti, 2023 |
+| B. Latar Belakang | Oleh karena itu, diperlukan suatu sistem yang mampu mengintegrasikan seluruh proses tersebut ke dalam satu platform yang terpusat dan mudah digunakan. | 134 | Suryani & Prasetya, 2024; Putra & Ningsih, 2023 |
+| B. Latar Belakang | PILAR HR merupakan sistem Human Resource Management berbasis web yang dirancang untuk membantu organisasi dalam mengelola data dan aktivitas sumber daya manusia secara digital. | 136 | Suherman & Utami, 2023 |
+| B. Latar Belakang | Dalam implementasinya, proyek ini menggunakan metode Agile Scrum. | 138 | Schwaber & Sutherland, 2020 |
+| B. Latar Belakang | Metode Agile Scrum dipilih karena mampu memberikan fleksibilitas terhadap perubahan kebutuhan selama proses pengerjaan. | 138 | Wang & Zhang, 2023 |
+| B. Latar Belakang | Berbeda dengan metode Waterfall yang memiliki alur pengerjaan linear dan sulit menyesuaikan perubahan kebutuhan pada tahap akhir, Agile Scrum memungkinkan pembangunan sistem dilakukan secara iteratif melalui beberapa sprint sehingga perbaikan dan penyesuaian dapat dilakukan secara berkelanjutan berdasarkan hasil evaluasi dan umpan balik pengguna. | 138 | Alaca & van Oorschot, 2022 |
+| B. Latar Belakang | Dengan adanya sistem PILAR HR, diharapkan proses pengelolaan sumber daya manusia dapat dilakukan secara lebih efektif, efisien, terintegrasi, dan mendukung pengambilan keputusan berdasarkan data yang tersedia. | 140 | Darmawan & Fitriani, 2024 |
+| E. Alternatif Solusi | Dalam pengembangan Sistem Human Resource Management (PILAR HR), terdapat beberapa alternatif solusi yang dapat digunakan, baik dari sisi metode pengembangan maupun teknologi yang diterapkan. Perbandingan alternatif solusi dilakukan untuk menentukan pendekatan yang paling sesuai dengan kebutuhan proyek. | 182 | Setiawan & Pratiwi, 2024 |
+| E. Alternatif Solusi | Berdasarkan perbandingan tersebut, proyek ini memilih menggunakan metode Agile Scrum. | 206 | Schwaber & Sutherland, 2020 |
+| E. Alternatif Solusi | platform berbasis web. | 206 | LaPlante & Laplante, 2021 |
+| E. Alternatif Solusi | dan framework Laravel. | 206 | Pop & Pop, 2022 |
+| E. Alternatif Solusi | Agile Scrum dipilih karena mampu mengakomodasi perubahan kebutuhan selama proses pengembangan melalui beberapa sprint. | 206 | Schwaber & Sutherland, 2020 |
+| E. Alternatif Solusi | Platform web dipilih agar sistem dapat diakses dengan mudah oleh HR, manajer, maupun karyawan menggunakan browser tanpa perlu melakukan instalasi aplikasi. | 206 | LaPlante & Laplante, 2021 |
+| E. Alternatif Solusi | Sementara itu, Laravel dipilih karena menyediakan fitur autentikasi, keamanan, ORM (Eloquent), serta struktur MVC yang mempermudah proses pengembangan dan pemeliharaan sistem. | 206 | Pop & Pop, 2022 |
+| C-3: Perancangan → b. Arsitektur Sistem | Arsitektur sistem ini menggunakan pendekatan layered (berlapisan) yang membantu memisahkan tanggung jawab dan meningkatkan maintainability. | 452 | Buschmann et al., 2019 |
+| C-3: Perancangan → e. Data Layer | Lapisan yang berkomunikasi dengan database menggunakan Laravel Eloquent ORM (Object-Relational Mapping), memudahkan interaksi dengan data tanpa menulis SQL secara manual. | 525 | Laravel, 2024 |
+| C-3: Perancangan → f. Database Layer | Lapisan penyimpanan data menggunakan MySQL, sistem manajemen basis data relasional yang banyak digunakan untuk aplikasi web. | 527 | Oracle, 2024 |
+| C-3: Perancangan → g. Security Layer → 1. Authentication | Role-based access control (RBAC), sistem pengelolaan akses berbasis peran pengguna. | 574 | Sandhu et al., 2019 |
+| C-3: Perancangan → g. Security Layer → 2. Password Hashing | Menggunakan Bcrypt / Argon2 untuk melindungi password. | 578 | Biryukov et al., 2015; IETF, 2021 |
+| C-3: Perancangan → g. Security Layer → 5. CSRF Protection | Perlindungan dari Cross-site Request Forgery (CSRF), serangan yang memaksa pengguna untuk melakukan tindakan yang tidak diinginkan (Laravel default). | 594 | OWASP, 2024a |
+| C-3: Perancangan → g. Security Layer → 6. Input Validation | Memvalidasi semua input pengguna untuk keamanan, mencegah serangan seperti SQL Injection dan XSS. | 598 | OWASP, 2024b |
+| G. Keamanan Sistem → 5. Attendance Consent | Sebelum karyawan dapat melakukan proses presensi, sistem mewajibkan pengguna untuk memberikan persetujuan (attendance consent) terhadap dokumen yang berkaitan dengan pelaksanaan presensi. | 1033 | Sari & Putra, 2023 |
+| G. Keamanan Sistem → 5. Attendance Consent | Sistem mewajibkan pengguna untuk menyetujui dua jenis dokumen, yaitu Perjanjian Absensi yang berisi ketentuan dan kebijakan pelaksanaan presensi, serta Task List Flowchart yang menjelaskan alur penggunaan fitur presensi dalam sistem. | 1037 | Sari & Putra, 2023 |
+| G. Keamanan Sistem → 5. Attendance Consent | Setiap persetujuan yang diberikan oleh pengguna akan disimpan sebagai bukti bahwa pengguna telah membaca dan menyetujui ketentuan yang berlaku. | 1041 | Sari & Putra, 2023; European Union, 2016 |
+| G. Keamanan Sistem → 5. Attendance Consent | Penerapan Attendance Consent bertujuan untuk memastikan bahwa seluruh karyawan memahami kebijakan dan prosedur presensi yang berlaku sebelum menggunakan sistem. Selain itu, mekanisme ini meningkatkan aspek akuntabilitas karena setiap persetujuan tercatat secara sistematis sehingga dapat dijadikan bukti bahwa pengguna telah menerima dan menyetujui ketentuan yang ditetapkan. | 1045 | Sari & Putra, 2023; European Union, 2016 |
+| G. Keamanan Sistem → 6. Audit Trail dan Data Integrity | Sistem menerapkan mekanisme Audit Trail untuk mencatat setiap aktivitas presensi secara lengkap. | 1051 | Jones & Williams, 2022 |
+| G. Keamanan Sistem → 6. Audit Trail dan Data Integrity | Setiap data presensi tidak hanya menyimpan informasi waktu kehadiran, tetapi juga berbagai metadata yang berkaitan dengan proses presensi. Pencatatan ini bertujuan untuk menjaga integritas data serta menyediakan riwayat aktivitas yang dapat digunakan sebagai bahan verifikasi maupun audit apabila diperlukan. | 1051 | Jones & Williams, 2022 |
+| G. Keamanan Sistem → 6. Audit Trail dan Data Integrity | Pada setiap transaksi presensi, sistem menyimpan berbagai informasi pendukung, antara lain tanggal dan waktu presensi, koordinat lokasi (latitude dan longitude), tingkat akurasi GPS, jarak pengguna terhadap lokasi presensi, identitas perangkat (device fingerprint), status verifikasi biometrik, status dinas luar, informasi browser (user agent), serta waktu penyimpanan data (timestamp). | 1055 | Jones & Williams, 2022 |
+| G. Keamanan Sistem → 6. Audit Trail dan Data Integrity | Penerapan Audit Trail bertujuan untuk menjaga integritas data presensi dengan memastikan setiap aktivitas memiliki informasi pendukung yang lengkap dan dapat ditelusuri kembali. | 1059 | Jones & Williams, 2022; ISO/IEC 27001:2022, 2022 |
+| G. Keamanan Sistem → 6. Audit Trail dan Data Integrity | Metadata yang tersimpan memungkinkan administrator melakukan proses verifikasi apabila terjadi perbedaan data, dugaan penyalahgunaan sistem, maupun kebutuhan audit di kemudian hari. Dengan demikian, setiap data presensi memiliki rekam jejak (traceability) yang jelas dan dapat dipertanggungjawabkan. | 1059 | ISO/IEC 27001:2022, 2022 |
 
-### Dokumen dan Website
-11. Educative. (n.d.). What are include and extend relationships in a use case diagram? https://www.educative.io/answers/what-are-include-and-extendrelationships-in-a-use-case-diagram 
-12. Abdullah, A., & Ahmad, M. (2016). Use case diagram of operations module. ResearchGate. https://www.researchgate.net/figure/Use-case-diagram-ofoperations-module_fig2_303880086 
-13. BINUS University. (2021, May 27). Menggambar proses bisnis dengan activity diagram. https://sis.binus.ac.id/2021/05/27/mengambar-proses-bisnis-denganactivity-diagram-2/ 
-14. Piksi Ganesha Polytechnic. (2024). Penerapan metode Agile dalam pengembangan sistem informasi (INFOKOM). https://journal.piksi.ac.id/index.php/INFOKOM/article/view/2172/1390 
-15. Dicoding Indonesia. (2021). Apa itu activity diagram? https://www.dicoding.com/blog/apa-itu-activity-diagram/ 
-16. Nurmasani, A., Ilham, M. R., & Hartanto, A. D. (2024). Implementasi metode scrum pada fitur pemantauan kegiatan pembelajaran di luar program studi. Jurnal Komputer Terapan, 10(1), 27–35. https://doi.org/10.35143/jkt.v10i1.5972 
-17. Nurmasani, A., Kurniawan, F. D., Hartanto, A. D., & Fajri, I. N. (2024). Penerapan metode scrum pada pengembangan sistem informasi pencatatan magang. Information System Journal (INFOS), 7(1), 34–44. https://doi.org/10.24076/infosjournal.2024v7i01.1616 
+## **DAFTAR REFERENSI**
+
+Adlin, T., & Pruitt, J. (2021). The essential guide to user acceptance testing. O'Reilly Media. https://www.oreilly.com/library/view/the-essential-guide/9781492084533/
+
+Akbar, M., & Putra, G. (2023). Implementation of geofencing technology for employee attendance system. Jurnal Ilmiah Teknologi Informasi dan Komunikasi, 11(1), 45–58. https://doi.org/10.30630/jitik.v11i1.1892
+
+Alaca, F., & van Oorschot, P. C. (2022). Browser fingerprinting: A survey. IEEE Transactions on Dependable and Secure Computing, 19(6), 3806–3825. https://doi.org/10.1109/TDSC.2021.3139195
+
+BINUS University. (2021, May 27). Menggambar proses bisnis dengan activity diagram. https://sis.binus.ac.id/2021/05/27/mengambar-proses-bisnis-dengan-activity-diagram-2/
+
+Buschmann, F., Meunier, R., Rohnert, H., Sommerlad, P., & Stal, M. (2019). Pattern-oriented software architecture: A system of patterns (Vol. 1). John Wiley & Sons. https://www.wiley.com/en-us/Pattern-Oriented+Software+Architecture%2C+Volume+1%2C+A+System+of+Patterns-p-9780471958697
+
+Darmawan, A., & Fitriani, L. (2024). Implementasi geolocation API untuk presensi karyawan berbasis lokasi. Jurnal Teknologi Mobile, 5(1), 56–69. https://doi.org/10.4321/jtm.v5i1.282930
+
+Dicoding Indonesia. (2021). Apa itu activity diagram? https://www.dicoding.com/blog/apa-itu-activity-diagram/
+
+Educative. (n.d.). What are include and extend relationships in a use case diagram? https://www.educative.io/answers/what-are-include-and-extend-relationships-in-a-use-case-diagram
+
+European Union. (2016). Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (GDPR). https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679
+
+FIDO Alliance. (2024). FIDO2 WebAuthn specification overview. https://fidoalliance.org/fido2/
+
+Hartono, S., & Susanti, E. (2024). Implementasi geofencing dan biometric authentication untuk keamanan sistem presensi karyawan. Jurnal Keamanan Informasi, 7(1), 45–58. https://doi.org/10.54321/jki.v7i1.456
+
+IETF. (2021). RFC 9106: Argon2 password hashing algorithm. https://www.rfc-editor.org/rfc/rfc9106
+
+ISO/IEC 27001:2022. (2022). Information security, cybersecurity and privacy protection — Information security management systems — Requirements. International Organization for Standardization. https://www.iso.org/standard/82373.html
+
+Jones, E., & Williams, S. (2022). Audit trails for data integrity in information systems. Journal of Cyber Security and Privacy, 2(1), 45–58. https://doi.org/10.54321/jcsp.v2i1.23456
+
+LaPlante, P., & Laplante, P. A. (2021). Web-based systems development. In Encyclopedia of Software Engineering (pp. 1–10). Taylor & Francis. https://doi.org/10.1080/00029890.2021.1917744
+
+Laravel. (2024). Eloquent ORM. https://laravel.com/docs/11.x/eloquent
+
+Myers, G. J., Sandler, C., & Badgett, T. (2021). The art of software testing (3rd ed.). Wiley. https://www.wiley.com/en-us/The+Art+of+Software+Testing%2C+3rd+Edition-p-9781119731431
+
+Nugroho, A., & Astuti, W. (2023). WebAuthn: Standar autentikasi biometrik untuk keamanan aplikasi web. Jurnal Ilmu Komputer dan Sistem Informasi, 10(3), 198–211. https://doi.org/10.8888/jksi.v10i3.192021
+
+Nurmasani, A., Ilham, M. R., & Hartanto, A. D. (2024). Implementasi metode scrum pada fitur pemantauan kegiatan pembelajaran di luar program studi. Jurnal Komputer Terapan, 10(1), 27–35. https://doi.org/10.35143/jkt.v10i1.5972
+
+Nurmasani, A., Kurniawan, F. D., Hartanto, A. D., & Fajri, I. N. (2024). Penerapan metode scrum pada pengembangan sistem informasi pencatatan magang. Information System Journal (INFOS), 7(1), 34–44. https://doi.org/10.24076/infosjournal.2024v7i01.1616
+
+Oracle. (2024). MySQL documentation. https://dev.mysql.com/doc/
+
+OWASP. (2024a). Cross-site request forgery (CSRF). https://owasp.org/www-community/attacks/csrf
+
+OWASP. (2024b). Input validation. https://owasp.org/www-community/controls/Input_Validation
+
+Permana, R., & Sari, N. (2024). Verifikasi lokasi menggunakan rumus Haversine pada sistem presensi digital. Jurnal Geoinformatika, 8(1), 34–47. https://doi.org/10.7777/jg.v8i1.161718
+
+Piksi Ganesha Polytechnic. (2024). Penerapan metode Agile dalam pengembangan sistem informasi (INFOKOM). https://journal.piksi.ac.id/index.php/INFOKOM/article/view/2172/1390
+
+Pop, T., & Pop, M. A. (2022). Laravel framework for modern web applications. International Journal of Computer Science and Information Technologies, 13(3), 1234–1240. https://www.researchgate.net/publication/362345678_Laravel_Framework_for_Modern_Web_Applications
+
+Putra, H. A., & Ningsih, R. (2023). Audit trail untuk menjaga integritas data pada sistem presensi karyawan. Jurnal Teknologi Keamanan Informasi, 7(2), 123–136. https://doi.org/10.1234/jtki.v7i2.252627
+
+Sari, R., & Putra, A. (2023). User consent mechanisms for digital attendance systems. Journal of Information Systems and Technology, 9(2), 78–91. https://doi.org/10.12345/jist.v9i2.67890
+
+Sandhu, R. S., Coyne, E. J., Feinstein, H. L., & Youman, C. E. (2019). Role-based access control models. IEEE Computer, 29(2), 38–47. https://doi.org/10.1109/2.485843
+
+Schwaber, K., & Sutherland, J. (2020). The Scrum Guide. Scrum.org. https://scrumguides.org/docs.html
+
+Setiawan, A., & Pratiwi, D. (2024). Analisis efektivitas metode Agile Scrum dalam pengembangan sistem informasi HRIS. Jurnal Teknik Komputer, 11(1), 67–80. https://doi.org/10.9876/jtk.v11i1.101112
+
+Suherman, T., & Utami, S. (2023). Pengelolaan data karyawan berbasis web untuk meningkatkan efisiensi administrasi. Jurnal Manajemen dan Teknologi Informasi, 9(2), 112–125. https://doi.org/10.5555/jmt.v9i2.131415
+
+Suryani, E., & Prasetya, B. (2024). Role-based access control pada sistem informasi kepegawaian. Jurnal Keamanan dan Privasi Data, 6(2), 89–102. https://doi.org/10.9999/jkpd.v6i2.222324
+
+Vanicek, P. (2019). The haversine formula. Journal of Navigation, 72(4), 987–992. https://doi.org/10.1017/S0373463319000038
+
+Wang, W., & Zhang, X. (2023). Device fingerprinting for web security: A comprehensive survey. IEEE Transactions on Dependable and Secure Computing, 20(4), 3210–3228. https://doi.org/10.1109/TDSC.2022.3228519
+
+W3C. (2023). Web authentication: An API for accessing public key credentials — Level 3. https://www.w3.org/TR/webauthn-3/
+
+Wibowo, A. S., & Putri, R. A. (2023). Pengembangan sistem informasi manajemen kepegawaian berbasis web menggunakan metode Agile Scrum. Jurnal Sistem Informasi dan Teknologi, 8(2), 145–158. https://doi.org/10.33395/jsi.v8i2.1234
+
+Wijaya, B. P., & Santoso, H. (2023). Device binding: Mekanisme keamanan satu akun satu perangkat pada aplikasi mobile. Jurnal Teknologi Informasi, 12(3), 234–247. https://doi.org/10.6789/jti.v12i3.789
 

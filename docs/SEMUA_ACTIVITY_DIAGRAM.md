@@ -1,0 +1,1459 @@
+# SEMUA ACTIVITY DIAGRAM PILAR HR
+
+Dokumen ini berisi semua Activity Diagram untuk sistem PILAR HR menggunakan PlantUML (dengan swimlane) dan Mermaid.js.
+
+---
+
+## 1. Activity Diagram Login
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Buka Halaman Login;
+:Masukkan Email & Password;
+:Klik Tombol Login;
+
+|Sistem|
+:Validasi Email di Database;
+if (Email Terdaftar?) then (Tidak)
+  :Tampilkan Pesan Error "Email Tidak Terdaftar";
+  stop
+endif
+
+:Verifikasi Password Hash;
+if (Password Cocok?) then (Tidak)
+  :Tampilkan Pesan Error "Password Salah";
+  stop
+endif
+
+:Simpan Session Login;
+:Redirect ke Halaman Utama (Sesuai Role);
+|Karyawan|
+:Menampilkan Halaman Dashboard;
+
+stop
+@enduml
+```
+
+---
+
+## 2. Activity Diagram Logout
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Klik Tombol Logout;
+
+|Sistem|
+:Hapus Session Login;
+:Redirect ke Halaman Login;
+|Karyawan|
+:Menampilkan Halaman Login;
+
+stop
+@enduml
+```
+
+---
+
+## 3. Activity Diagram Pengelolaan Data Master Pegawai (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Karyawan;
+:Klik Tambah Data / Edit Data / Hapus Data;
+
+if (Tambah Data?) then (Ya)
+  :Isi Form Data Karyawan (NIK, Nama, Jabatan, Departemen, dll);
+  :Upload Dokumen Pendukung (Opsional);
+  :Klik Simpan;
+elseif (Edit Data?) then (Ya)
+  :Pilih Karyawan yang Akan Diedit;
+  :Ubah Data yang Diperlukan;
+  :Klik Simpan Perubahan;
+else
+  :Pilih Karyawan yang Akan Dihapus;
+  :Konfirmasi Penghapusan;
+endif
+
+|Sistem|
+:Validasi Input Data;
+if (Data Valid?) then (Tidak)
+  :Tampilkan Pesan Error Validasi;
+  stop
+endif
+
+|Database|
+if (Tambah Data?) then (Ya)
+  :INSERT ke tabel karyawans;
+elseif (Edit Data?) then (Ya)
+  :UPDATE tabel karyawans;
+else
+  :DELETE dari tabel karyawans;
+endif
+
+|Sistem|
+:Tampilkan Pesan Sukses;
+|Admin|
+:Menampilkan Halaman Data Karyawan Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 4. Activity Diagram Pengajuan Cuti oleh Karyawan
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Buka Halaman Pengajuan Cuti;
+:Klik Tambah Pengajuan Cuti;
+:Pilih Jenis Cuti;
+:Isi Tanggal Mulai & Tanggal Selesai;
+:Isi Alasan Cuti;
+:Upload Lampiran (Opsional);
+:Klik Ajukan;
+
+|Sistem|
+:Validasi Input Data;
+:Cek Saldo Cuti;
+if (Data Valid & Saldo Cukup?) then (Tidak)
+  :Tampilkan Pesan Error;
+  stop
+endif
+
+|Database|
+:INSERT ke tabel cutis (status = pending);
+|Sistem|
+:Tampilkan Pesan Sukses "Pengajuan Cuti Dikirim";
+|Karyawan|
+:Menampilkan Daftar Pengajuan Cuti;
+
+stop
+@enduml
+```
+
+---
+
+## 5. Activity Diagram Pengajuan Lembur oleh Karyawan
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Buka Halaman Pengajuan Lembur;
+:Klik Tambah Pengajuan Lembur;
+:Isi Tanggal Lembur;
+:Isi Jam Mulai & Jam Selesai;
+:Isi Alasan Lembur;
+:Upload Lampiran (Opsional);
+:Klik Ajukan;
+
+|Sistem|
+:Validasi Input Data;
+if (Data Valid?) then (Tidak)
+  :Tampilkan Pesan Error;
+  stop
+endif
+
+|Database|
+:INSERT ke tabel overtimes (status = pending);
+|Sistem|
+:Tampilkan Pesan Sukses "Pengajuan Lembur Dikirim";
+|Karyawan|
+:Menampilkan Daftar Pengajuan Lembur;
+
+stop
+@enduml
+```
+
+---
+
+## 6. Activity Diagram Persetujuan Pengajuan Cuti oleh Manager
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Manager|
+start
+:Buka Halaman Persetujuan Cuti;
+:Lihat Daftar Pengajuan Cuti Pending;
+:Pilih Pengajuan yang Akan Diperiksa;
+:Periksa Detail Pengajuan;
+:Klik Setujui / Tolak;
+:Isi Catatan Persetujuan (Opsional);
+:Klik Konfirmasi;
+
+|Sistem|
+:Validasi Status Pengajuan;
+if (Status Pending?) then (Tidak)
+  :Tampilkan Pesan Error;
+  stop
+endif
+
+|Database|
+:UPDATE tabel cutis (status = approved/rejected, notes, approved_at, approved_by);
+if (Disetujui?) then (Ya)
+  :Kurangi Saldo Cuti di tabel employee_leave_balances;
+endif
+
+|Sistem|
+:Tampilkan Pesan Sukses;
+|Manager|
+:Menampilkan Daftar Pengajuan Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 7. Activity Diagram Persetujuan Pengajuan Lembur oleh Manager
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Manager|
+start
+:Buka Halaman Persetujuan Lembur;
+:Lihat Daftar Pengajuan Lembur Pending;
+:Pilih Pengajuan yang Akan Diperiksa;
+:Periksa Detail Pengajuan;
+:Klik Setujui / Tolak;
+:Isi Catatan Persetujuan (Opsional);
+:Klik Konfirmasi;
+
+|Sistem|
+:Validasi Status Pengajuan;
+if (Status Pending?) then (Tidak)
+  :Tampilkan Pesan Error;
+  stop
+endif
+
+|Database|
+:UPDATE tabel overtimes (status = approved/rejected, notes, approved_at, approved_by);
+
+|Sistem|
+:Tampilkan Pesan Sukses;
+|Manager|
+:Menampilkan Daftar Pengajuan Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 8. Activity Diagram Monitoring Absensi Tim oleh Manager
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Manager|
+start
+:Buka Halaman Monitoring Absensi Tim;
+:Pilih Periode (Tanggal Mulai - Tanggal Selesai);
+:Klik Tampilkan;
+
+|Sistem|
+:Ambil Data Karyawan Bawahan;
+:Ambil Data Absensi Karyawan;
+|Database|
+:SELECT FROM absensis WHERE karyawan_id IN (bawahan) AND tanggal BETWEEN ...;
+
+|Sistem|
+:Hitung Statistik Absensi (Hadir, Izin, Sakit, Alpha);
+|Manager|
+:Menampilkan Laporan & Grafik Absensi Tim;
+:Klik Export ke PDF/Excel (Opsional);
+
+stop
+@enduml
+```
+
+---
+
+## 9. Activity Diagram Pengelolaan Data Jabatan (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Jabatan;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Jabatan & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Jabatan yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Jabatan yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT jabatans;
+elseif (Edit?) then (Ya)
+  :UPDATE jabatans;
+else
+  :DELETE jabatans;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 10. Activity Diagram Pengelolaan Data Golongan (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Golongan;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Golongan & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Golongan yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Golongan yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT golongans;
+elseif (Edit?) then (Ya)
+  :UPDATE golongans;
+else
+  :DELETE golongans;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 11. Activity Diagram Pengelolaan Data Pangkat (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Pangkat;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Pangkat & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Pangkat yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Pangkat yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT pangkats;
+elseif (Edit?) then (Ya)
+  :UPDATE pangkats;
+else
+  :DELETE pangkats;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 12. Activity Diagram Pengelolaan Data Departemen (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Departemen;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Departemen & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Departemen yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Departemen yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT departments;
+elseif (Edit?) then (Ya)
+  :UPDATE departments;
+else
+  :DELETE departments;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 13. Activity Diagram Pengelolaan Data Status Pegawai (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Status Pegawai;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Status & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Status yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Status yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT employee_statuses;
+elseif (Edit?) then (Ya)
+  :UPDATE employee_statuses;
+else
+  :DELETE employee_statuses;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 14. Activity Diagram Pengelolaan Unit Kerja (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Data Unit Kerja;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Unit Kerja & Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Unit Kerja yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Unit Kerja yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT work_units;
+elseif (Edit?) then (Ya)
+  :UPDATE work_units;
+else
+  :DELETE work_units;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 15. Activity Diagram Pengelolaan Hari Libur Nasional (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Hari Libur Nasional;
+:Klik Tambah / Edit / Hapus / Sync dari API;
+
+if (Sync dari API?) then (Ya)
+  |Sistem|
+  :Panggil API Hari Libur;
+  :Simpan ke tabel holidays;
+  :Tampilkan Sukses;
+  stop
+endif
+
+|Admin|
+if (Tambah?) then (Ya)
+  :Isi Nama Hari Libur, Tanggal, Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Hari Libur yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Hari Libur yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT holidays;
+elseif (Edit?) then (Ya)
+  :UPDATE holidays;
+else
+  :DELETE holidays;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 16. Activity Diagram Pengelolaan Group Shift (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Group Shift;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Group Shift;
+  :Pilih Shift Kerja yang Termasuk;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Group Shift yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Group Shift yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT shift_groups;
+elseif (Edit?) then (Ya)
+  :UPDATE shift_groups;
+else
+  :DELETE shift_groups;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 17. Activity Diagram Pengelolaan Shift Kerja (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Shift Kerja;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Shift, Jam Masuk, Jam Keluar;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Shift Kerja yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Shift Kerja yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT work_shifts;
+elseif (Edit?) then (Ya)
+  :UPDATE work_shifts;
+else
+  :DELETE work_shifts;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 18. Activity Diagram Pengelolaan Jenis Cuti (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Jenis Cuti;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Jenis Cuti, Jumlah Hari, Keterangan;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Jenis Cuti yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Jenis Cuti yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT leave_types;
+elseif (Edit?) then (Ya)
+  :UPDATE leave_types;
+else
+  :DELETE leave_types;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 19. Activity Diagram Pengelolaan Saldo Cuti Pegawai (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Saldo Cuti Pegawai;
+:Pilih Karyawan yang Akan Diatur Saldo;
+:Klik Tambah / Edit Saldo;
+
+if (Tambah?) then (Ya)
+  :Pilih Jenis Cuti;
+  :Isi Jumlah Saldo;
+  :Klik Simpan;
+else
+  :Ubah Jumlah Saldo;
+  :Klik Simpan;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT employee_leave_balances;
+else
+  :UPDATE employee_leave_balances;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 20. Activity Diagram Pengelolaan Jadwal Shift Pegawai (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Jadwal Shift Pegawai;
+:Pilih Karyawan atau Kelompok Karyawan;
+:Pilih Tanggal atau Periode;
+:Pilih Shift Kerja;
+:Klik Simpan Jadwal;
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+:INSERT/UPDATE employee_schedules;
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Jadwal Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 21. Activity Diagram Pengelolaan Pengajuan Cuti (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Pengajuan Cuti;
+:Lihat Semua Pengajuan Cuti;
+:Pilih Pengajuan yang Akan Diperiksa;
+:Klik Setujui / Tolak / Edit;
+:Isi Catatan (Opsional);
+:Klik Konfirmasi;
+
+|Sistem|
+:Validasi Status Pengajuan;
+if (Status Pending?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+:UPDATE cutis;
+if (Disetujui?) then (Ya)
+  :Kurangi Saldo Cuti;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Daftar Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 22. Activity Diagram Pengelolaan Pengajuan Lembur (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Pengajuan Lembur;
+:Lihat Semua Pengajuan Lembur;
+:Pilih Pengajuan yang Akan Diperiksa;
+:Klik Setujui / Tolak / Edit;
+:Isi Catatan (Opsional);
+:Klik Konfirmasi;
+
+|Sistem|
+:Validasi Status Pengajuan;
+if (Status Pending?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+:UPDATE overtimes;
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Daftar Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 23. Activity Diagram Pengelolaan Skala Gaji Berkala (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Skala Gaji Berkala;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Golongan, Pangkat, Masa Kerja, Gaji Pokok;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Skala Gaji yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Skala Gaji yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT salary_steps;
+elseif (Edit?) then (Ya)
+  :UPDATE salary_steps;
+else
+  :DELETE salary_steps;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 24. Activity Diagram Pengelolaan Riwayat Gaji Pegawai (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Riwayat Gaji Pegawai;
+:Pilih Karyawan;
+:Klik Tambah Riwayat Gaji;
+:Isi Tanggal Efektif, Gaji Pokok, Tunjangan;
+:Isi Alasan Perubahan Gaji;
+:Klik Simpan;
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+:INSERT employee_salary_histories;
+:UPDATE gaji karyawan di tabel karyawans;
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Riwayat Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 25. Activity Diagram Pengelolaan Titik Lokasi Absensi (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Titik Lokasi Absensi;
+:Klik Tambah / Edit / Hapus;
+
+if (Tambah?) then (Ya)
+  :Isi Nama Lokasi;
+  :Isi Latitude, Longitude;
+  :Isi Radius (meter);
+  :Set Aktif/Nonaktif;
+  :Klik Simpan;
+elseif (Edit?) then (Ya)
+  :Pilih Lokasi yang Akan Diedit;
+  :Ubah Data;
+  :Klik Simpan;
+else
+  :Pilih Lokasi yang Akan Dihapus;
+  :Konfirmasi;
+endif
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+if (Tambah?) then (Ya)
+  :INSERT attendance_locations;
+elseif (Edit?) then (Ya)
+  :UPDATE attendance_locations;
+else
+  :DELETE attendance_locations;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 26. Activity Diagram Presensi Karyawan
+
+(Sudah ada di file ACTIVITY_DIAGRAM_PRESENSI_KARYAWAN.md, berikut ringkasannya):
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Login ke Sistem;
+:Buka Halaman Presensi;
+
+|Sistem|
+:Cek Attendance Consent;
+if (Sudah Disetujui?) then (Tidak)
+  |Karyawan|
+  :Setujui Perjanjian Presensi;
+  |Sistem|
+  :Simpan Consent;
+endif
+
+|Karyawan|
+:Verifikasi Perangkat (Device Fingerprint);
+:Refresh Lokasi GPS;
+:Verifikasi Biometrik (Opsional);
+:Klik CHECK IN / OUT;
+
+|Sistem|
+:Validasi Fingerprint;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+:Hitung Jarak dengan Rumus Haversine;
+if (Lokasi Valid / Mode Dinas Luar?) then (Ya)
+  |Database|
+  :INSERT absensis;
+  :Simpan Metadata;
+  |Sistem|
+  :Tampilkan Sukses;
+  |Karyawan|
+  :Halaman Presensi Diperbarui;
+else
+  :Tampilkan Error Lokasi;
+endif
+
+stop
+@enduml
+```
+
+---
+
+## 27. Activity Diagram Melihat Slip Gaji (Karyawan)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Buka Halaman Slip Gaji;
+:Pilih Bulan & Tahun;
+:Klik Lihat Slip Gaji;
+
+|Sistem|
+:Ambil Data Gaji Karyawan;
+|Database|
+:SELECT FROM gajis WHERE karyawan_id = ... AND periode = ...;
+
+|Sistem|
+:Hitung Gaji Bersih (Pokok + Tunjangan - Potongan);
+|Karyawan|
+:Menampilkan Detail Slip Gaji;
+:Klik Download PDF (Opsional);
+
+stop
+@enduml
+```
+
+---
+
+## 28. Activity Diagram Pengelolaan Profil Karyawan (Karyawan Sendiri)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Karyawan|
+start
+:Buka Halaman Profil;
+:Klik Edit Profil;
+:Ubah Data Profil (No HP, Alamat, Foto, dll);
+:Klik Simpan Perubahan;
+
+|Sistem|
+:Validasi Input;
+if (Valid?) then (Tidak)
+  :Tampilkan Error;
+  stop
+endif
+
+|Database|
+:UPDATE karyawans;
+
+|Sistem|
+:Tampilkan Sukses;
+|Karyawan|
+:Menampilkan Profil Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## 29. Activity Diagram Pengelolaan Jadwal dan Cuti (Admin)
+
+### PlantUML
+```plantuml
+@startuml
+skinparam activity {
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+
+|Admin|
+start
+:Buka Halaman Pengelolaan Jadwal & Cuti;
+:Pilih Karyawan;
+
+if (Atur Jadwal?) then (Ya)
+  :Pilih Tanggal & Shift;
+  :Klik Simpan Jadwal;
+  |Database|
+  :INSERT/UPDATE employee_schedules;
+else
+  :Lihat & Kelola Pengajuan Cuti;
+endif
+
+|Sistem|
+:Tampilkan Sukses;
+|Admin|
+:Menampilkan Halaman Terbaru;
+
+stop
+@enduml
+```
+
+---
+
+## Petunjuk Penggunaan
+
+Untuk melihat diagram secara visual:
+1. Salin kode PlantUML di atas
+2. Buka [PlantUML Online Server](http://www.plantuml.com/plantuml/) atau [PlantText](https://www.planttext.com/)
+3. Tempel kode ke kotak teks
+4. Klik Submit / Generate
+
+Semua diagram di atas menggunakan **swimlane** untuk memisahkan peran (Karyawan, Admin, Manager, Sistem, Database).

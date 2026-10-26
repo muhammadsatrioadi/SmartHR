@@ -1,0 +1,30 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 18: Pengelolaan Jenis Cuti
+
+|Admin|
+start
+:Buka Jenis Cuti;
+:Tambah/Edit/Hapus;
+:Isi Form (Nama, Jumlah Hari);
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT/UPDATE/DELETE leave_types;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml

@@ -1,10 +1,10 @@
 @extends('layouts.portal')
-@section('title', 'Absensi Bawahan')
+@section('title', 'Presensi Bawahan')
 @php $navActive = 'absensi'; @endphp
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Absensi Bawahan</strong>
+    <strong>Presensi Bawahan</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @forelse($items as $row)
@@ -17,7 +17,7 @@
                 <span class="badge bg-{{ $row->status_absen === 'hadir' ? 'success' : 'secondary' }}">{{ strtoupper($row->status_absen) }}</span>
             </div>
             <div class="small mt-1 text-muted">
-                {{ $row->tipe_absen ? ucfirst($row->tipe_absen) : 'Absensi' }}
+                {{ $row->tipe_absen ? ucfirst($row->tipe_absen) : 'Presensi' }}
                 @if($row->lokasi_dinas) · <span class="text-info">Dinas Luar</span> @endif
                 @if($row->latitude)
                     <br><i class="fas fa-map-marker-alt"></i> {{ number_format($row->latitude, 5) }}, {{ number_format($row->longitude, 5) }}
@@ -29,7 +29,7 @@
             @endif
         </div>
     @empty
-        <p class="text-center text-muted">Belum ada data absensi bawahan.</p>
+        <p class="text-center text-muted">Belum ada data presensi bawahan.</p>
     @endforelse
     <div class="mt-3">{{ $items->links() }}</div>
 </div>

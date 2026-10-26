@@ -1,0 +1,29 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 5: Pengajuan Lembur oleh Karyawan
+
+|Karyawan|
+start
+:Buka Pengajuan Lembur;
+:Isi Form;
+
+|Sistem|
+:Validasi;
+
+|Database|
+:INSERT overtimes (pending);
+
+|Karyawan|
+:Tampilkan Sukses;
+
+stop
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 1: Login
+
+|Karyawan|
+start
+:Buka Halaman Login;
+:Masukkan Email & Password;
+:Klik Tombol Login;
+
+|Sistem|
+:Validasi Email di Database;
+if (Email Terdaftar?) then (Tidak)
+  :Tampilkan Pesan Error "Email Tidak Terdaftar";
+  stop
+endif
+
+:Verifikasi Password Hash;
+if (Password Cocok?) then (Tidak)
+  :Tampilkan Pesan Error "Password Salah";
+  stop
+endif
+
+:Simpan Session Login;
+:Redirect ke Halaman Utama (Sesuai Role);
+|Karyawan|
+:Menampilkan Halaman Dashboard;
+
+stop
+@enduml

@@ -1,0 +1,28 @@
+
+@startuml
+skinparam activity {
+  BackgroundColor<<Karyawan>> LightBlue
+  BackgroundColor<<Admin>> LightBlue
+  BackgroundColor<<Manager>> LightBlue
+  BackgroundColor<<Sistem>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+  BorderColor Black
+  ArrowColor Black
+}
+title Activity Diagram 20: Pengelolaan Jadwal Shift Pegawai
+
+|Admin|
+start
+:Buka Jadwal Shift;
+:Pilih Karyawan;
+:Pilih Tanggal & Shift;
+:Simpan;
+
+|Database|
+:INSERT/UPDATE employee_schedules;
+
+|Admin|
+:Tampilkan Sukses;
+
+stop
+@enduml
