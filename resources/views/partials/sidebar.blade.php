@@ -59,17 +59,16 @@
                         <li class="{{ request()->routeIs('presensi.alpha') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.alpha') }}">Daftar Alpha</a></li>
                     </ul>
                 </li>
+            {{-- Menu Gaji disembunyikan sementara (tidak dihapus) --}}
+            {{--
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('gaji.*','salaryStep.*','salaryHistory.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        {{-- Menu "Gaji Bulanan" disembunyikan sementara (tidak dihapus) --}}
-                        {{--
-                        <li class="{{ request()->routeIs('gaji.index') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.index') }}">Gaji Bulanan</a></li>
-                        --}}
                         <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
                         <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Riwayat Gaji Pegawai</a></li>
                     </ul>
                 </li>
+            --}}
             @endif
 
             {{-- Lembur: menu "Klaim & Lembur" lama disembunyikan, hanya Lembur yang ditampilkan (tidak menyentuh modul finance) --}}
