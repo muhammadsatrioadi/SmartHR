@@ -73,8 +73,15 @@ class DepartmentController extends Controller
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
+        $previousManagerId = $item->manager_karyawan_id;
+
         $item->update($validated);
         $this->ensureManagerRole($item->manager_karyawan_id);
+
+        if ((int) $previousManagerId !== (int) $item->manager_karyawan_id) {
+            $this->demoteIfNoLongerManager($previousManagerId);
+        }
+
         return redirect()->route('department.index')->with('success', 'Departemen berhasil diperbarui.');
     }
 
@@ -97,6 +104,30 @@ class DepartmentController extends Controller
         User::where('email', $karyawan->email)
             ->whereNotIn('role', ['admin_hr'])
             ->update(['role' => 'manajer']);
+    }
+
+    /**
+     * Turunkan kembali role manajer lama bila ia sudah tidak memimpin
+     * departemen mana pun, agar tampilan portal mengikuti role akun.
+     */
+    protected function demoteIfNoLongerManager($karyawanId): void
+    {
+        if (!$karyawanId) {
+            return;
+        }
+
+        if (Department::where('manager_karyawan_id', $karyawanId)->exists()) {
+            return;
+        }
+
+        $karyawan = Karyawan::find($karyawanId);
+        if (!$karyawan || empty($karyawan->email)) {
+            return;
+        }
+
+        User::where('email', $karyawan->email)
+            ->where('role', 'manajer')
+            ->update(['role' => 'karyawan']);
     }
 
     public function destroy($id)

@@ -70,9 +70,8 @@ class PortalController extends Controller
 
         $subordinateIds = Karyawan::subordinateIds($karyawan);
         $isAdminHr = $user->role === 'admin_hr';
-        // Seorang karyawan juga dianggap approver bila ia ditunjuk sebagai manajer departemen,
-        // meskipun role akunnya belum dinaikkan menjadi manajer/atasan.
-        $isManager = in_array($user->role, ['atasan', 'manajer'], true) || $subordinateIds->isNotEmpty();
+        // Role akun (Admin HR memilih di Master Karyawan) menjadi penentu tunggal tampilan.
+        $isManager = in_array($user->role, ['atasan', 'manajer'], true);
         $isApprover = $isAdminHr || $isManager;
 
         $pendingApprovals = collect();
@@ -175,8 +174,7 @@ class PortalController extends Controller
 
         $subordinateIds = Karyawan::subordinateIds($karyawan);
         $isAdminHr = $user->role === 'admin_hr';
-        // Karyawan yang ditunjuk sebagai manajer departemen juga berhak menyetujui bawahannya.
-        $isManager = in_array($user->role, ['atasan', 'manajer'], true) || $subordinateIds->isNotEmpty();
+        $isManager = in_array($user->role, ['atasan', 'manajer'], true);
 
         abort_unless($isAdminHr || $isManager, 403);
 
@@ -321,6 +319,7 @@ class PortalController extends Controller
             'new_password' => 'required|min:6|confirmed',
         ]);
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->with('error', 'Password lama salah.');

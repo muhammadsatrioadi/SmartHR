@@ -249,9 +249,8 @@ class Karyawan extends Model
     }
 
     /**
-     * Daftar ID karyawan yang berperan sebagai manajer/atasan (pemilik hak approval).
-     * Mencakup akun ber-role manajer/atasan maupun karyawan yang ditunjuk sebagai
-     * manajer departemen.
+     * Daftar ID karyawan yang berperan sebagai manajer/atasan.
+     * Role akun pada tabel users menjadi penentu tunggal.
      */
     public static function managerKaryawanIds()
     {
@@ -259,20 +258,22 @@ class Karyawan extends Model
             ->whereNotNull('email')
             ->pluck('email');
 
-        $departmentManagerIds = Department::whereNotNull('manager_karyawan_id')
-            ->pluck('manager_karyawan_id');
-
         return static::query()
             ->whereIn('email', $emails)
-            ->orWhereIn('id', $departmentManagerIds)
             ->pluck('id');
     }
 
     /**
-     * Apakah karyawan ini adalah manajer/atasan (pemilik hak approval).
+     * Apakah karyawan ini berperan sebagai manajer/atasan.
      */
     public function isManager(): bool
     {
-        return static::managerKaryawanIds()->contains($this->id);
+        if (empty($this->email)) {
+            return false;
+        }
+
+        return User::where('email', $this->email)
+            ->whereIn('role', ['manajer', 'atasan'])
+            ->exists();
     }
 }
