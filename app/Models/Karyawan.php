@@ -247,4 +247,32 @@ class Karyawan extends Model
             })
             ->pluck('id');
     }
+
+    /**
+     * Daftar ID karyawan yang berperan sebagai manajer/atasan (pemilik hak approval).
+     * Mencakup akun ber-role manajer/atasan maupun karyawan yang ditunjuk sebagai
+     * manajer departemen.
+     */
+    public static function managerKaryawanIds()
+    {
+        $emails = User::whereIn('role', ['manajer', 'atasan'])
+            ->whereNotNull('email')
+            ->pluck('email');
+
+        $departmentManagerIds = Department::whereNotNull('manager_karyawan_id')
+            ->pluck('manager_karyawan_id');
+
+        return static::query()
+            ->whereIn('email', $emails)
+            ->orWhereIn('id', $departmentManagerIds)
+            ->pluck('id');
+    }
+
+    /**
+     * Apakah karyawan ini adalah manajer/atasan (pemilik hak approval).
+     */
+    public function isManager(): bool
+    {
+        return static::managerKaryawanIds()->contains($this->id);
+    }
 }

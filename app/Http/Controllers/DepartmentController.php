@@ -45,7 +45,8 @@ class DepartmentController extends Controller
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
-        Department::create($validated);
+        $department = Department::create($validated);
+        $this->ensureManagerRole($department->manager_karyawan_id);
         return redirect()->route('department.index')->with('success', 'Departemen berhasil ditambahkan.');
     }
 
@@ -73,7 +74,29 @@ class DepartmentController extends Controller
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
         $item->update($validated);
+        $this->ensureManagerRole($item->manager_karyawan_id);
         return redirect()->route('department.index')->with('success', 'Departemen berhasil diperbarui.');
+    }
+
+    /**
+     * Pastikan akun user dari manajer departemen memiliki role yang bisa
+     * mengakses halaman approval (manajer/atasan). Tanpa ini, manajer yang
+     * baru ditunjuk tidak dapat melihat pengajuan meski sudah dipilih.
+     */
+    protected function ensureManagerRole($karyawanId): void
+    {
+        if (!$karyawanId) {
+            return;
+        }
+
+        $karyawan = Karyawan::find($karyawanId);
+        if (!$karyawan || empty($karyawan->email)) {
+            return;
+        }
+
+        User::where('email', $karyawan->email)
+            ->whereNotIn('role', ['admin_hr'])
+            ->update(['role' => 'manajer']);
     }
 
     public function destroy($id)

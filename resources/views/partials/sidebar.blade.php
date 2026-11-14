@@ -60,8 +60,6 @@
                         <li class="{{ request()->routeIs('presensi.alpha') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.alpha') }}">Daftar Alpha</a></li>
                     </ul>
                 </li>
-            {{-- Menu Gaji disembunyikan sementara (tidak dihapus) --}}
-            {{--
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('gaji.*','salaryStep.*','salaryHistory.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
@@ -69,15 +67,9 @@
                         <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Riwayat Gaji Pegawai</a></li>
                     </ul>
                 </li>
-            --}}
             @endif
 
-            {{-- Lembur: menu "Klaim & Lembur" lama disembunyikan, hanya Lembur yang ditampilkan (tidak menyentuh modul finance) --}}
             @if (in_array($role, ['admin_hr', 'atasan', 'manajer', 'karyawan']))
-                <li class="nav-item {{ request()->routeIs('overtime.*') ? 'active' : '' }}">
-                    <a href="{{ route('overtime.index') }}" class="nav-link"><i class="fas fa-file-invoice-dollar"></i><span>Lembur Pegawai</span></a>
-                </li>
-                {{-- Disembunyikan sementara (tidak dihapus): accordion "Klaim & Lembur" beserta menu Reimbursement Nota
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('reimbursement.*','overtime.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i><span>Klaim & Lembur</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
@@ -85,7 +77,6 @@
                         <li class="{{ request()->routeIs('overtime.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('overtime.index') }}">Lembur Pegawai</a></li>
                     </ul>
                 </li>
-                --}}
                 @if ($role === 'admin_hr')
                 <li class="nav-item {{ request()->routeIs('attendanceLocation.*') ? 'active' : '' }}">
                     <a href="{{ route('attendanceLocation.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i><span>Titik Lokasi Presensi</span></a>

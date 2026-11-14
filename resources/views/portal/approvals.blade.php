@@ -53,6 +53,11 @@
                             <form method="POST" action="{{ route('cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
                             <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">Tolak</button>
                         </div>
+                    @elseif($cuti->status === 'menunggu_hr' && auth()->user()->role === 'admin_hr')
+                        <div class="mt-2 d-flex gap-2">
+                            <form method="POST" action="{{ route('cuti.approveHr', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
+                            <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">Tolak</button>
+                        </div>
                     @endif
 
                     @if($cuti->status === 'ditolak' && $cuti->rejected_reason)
@@ -95,7 +100,7 @@
                         </div>
                     @endif
                     
-                    @if($ot->status === 'menunggu_approval' && in_array(auth()->user()->role, ['atasan', 'manajer']))
+                    @if($ot->status === 'menunggu_approval' && in_array(auth()->user()->role, ['atasan', 'manajer', 'admin_hr']))
                         <div class="mt-2 d-flex gap-2">
                             <form method="POST" action="{{ route('overtime.approveSupervisor', $ot->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
                             <button class="btn btn-sm btn-outline-danger btn-reject-overtime" data-id="{{ $ot->id }}">Tolak</button>
@@ -165,7 +170,7 @@ document.querySelectorAll('.btn-reject-cuti').forEach(btn => {
 
 document.querySelectorAll('.btn-reject-overtime').forEach(btn => {
     btn.addEventListener('click', function() {
-        handleReject(this.dataset.id, `/overtime/${this.dataset.id}/reject`);
+        handleReject(this.dataset.id, `/overtimes/${this.dataset.id}/reject`);
     });
 });
 </script>

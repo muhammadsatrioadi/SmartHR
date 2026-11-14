@@ -288,7 +288,32 @@ class CutiController extends Controller
 
     public function approveHr($id)
     {
-        return back()->with('error', 'Persetujuan cukup dilakukan oleh Atasan/Manajer.');
+        $cuti = Cuti::findOrFail($id);
+
+        if (Auth::user()->role !== 'admin_hr') {
+            return back()->with('error', 'Hanya Admin HR yang dapat menyetujui pengajuan cuti manajer.');
+        }
+
+        if ($cuti->status !== 'menunggu_hr') {
+            return back()->with('error', 'Status cuti tidak valid untuk persetujuan HR.');
+        }
+
+        $cuti->update([
+            'status' => 'disetujui',
+            'approved_by_hr_id' => Auth::id(),
+            'approved_at_hr' => now(),
+        ]);
+
+        $cuti->load('karyawan');
+        if ($cuti->leave_type_id && $cuti->karyawan) {
+            $this->leaveBalance->recalculateUsed(
+                $cuti->karyawan,
+                $cuti->leave_type_id,
+                (int) Carbon::parse($cuti->tanggal_mulai)->year
+            );
+        }
+
+        return back()->with('success', 'Cuti berhasil disetujui oleh Admin HR.');
     }
 
     public function reject(Request $request, $id)

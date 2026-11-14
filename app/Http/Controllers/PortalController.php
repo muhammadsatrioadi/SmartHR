@@ -68,21 +68,35 @@ class PortalController extends Controller
         $user = Auth::user();
         $greeting = $this->greeting();
 
+        $subordinateIds = Karyawan::subordinateIds($karyawan);
+        $isAdminHr = $user->role === 'admin_hr';
+        // Seorang karyawan juga dianggap approver bila ia ditunjuk sebagai manajer departemen,
+        // meskipun role akunnya belum dinaikkan menjadi manajer/atasan.
+        $isManager = in_array($user->role, ['atasan', 'manajer'], true) || $subordinateIds->isNotEmpty();
+        $isApprover = $isAdminHr || $isManager;
+
         $pendingApprovals = collect();
-        if (in_array($user->role, ['atasan', 'manajer', 'admin_hr'], true)) {
+        if ($isAdminHr) {
+            // Admin HR menangani pengajuan cuti dari para manajer
+            $managerIds = Karyawan::managerKaryawanIds();
+            $pendingApprovals = Cuti::with(['karyawan', 'leaveType'])
+                ->where('status', 'menunggu_hr')
+                ->whereIn('karyawan_id', $managerIds)
+                ->latest()
+                ->limit(5)
+                ->get();
+        } elseif ($isManager) {
+            // Manajer/atasan menangani pengajuan cuti karyawan di departemennya
             $pendingApprovals = Cuti::with(['karyawan', 'leaveType'])
                 ->where('status', 'menunggu_atasan')
-                ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                    $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
-                })
+                ->whereIn('karyawan_id', $subordinateIds)
                 ->latest()
                 ->limit(5)
                 ->get();
         }
 
         $managerStats = null;
-        if (in_array($user->role, ['atasan', 'manajer'], true)) {
-            $subordinateIds = Karyawan::subordinateIds($karyawan);
+        if ($isManager) {
             $managerStats = [
                 'total_tim' => $subordinateIds->count(),
                 'hadir_hari_ini' => Absensi::whereIn('karyawan_id', $subordinateIds)
@@ -108,7 +122,8 @@ class PortalController extends Controller
             'greeting',
             'pendingApprovals',
             'today',
-            'managerStats'
+            'managerStats',
+            'isApprover'
         ));
     }
 
@@ -158,21 +173,36 @@ class PortalController extends Controller
         $karyawan = $this->karyawanOrAbort();
         $user = Auth::user();
 
-        abort_unless(in_array($user->role, ['atasan', 'manajer', 'admin_hr'], true), 403);
+        $subordinateIds = Karyawan::subordinateIds($karyawan);
+        $isAdminHr = $user->role === 'admin_hr';
+        // Karyawan yang ditunjuk sebagai manajer departemen juga berhak menyetujui bawahannya.
+        $isManager = in_array($user->role, ['atasan', 'manajer'], true) || $subordinateIds->isNotEmpty();
+
+        abort_unless($isAdminHr || $isManager, 403);
 
         $cutis = Cuti::with(['karyawan', 'leaveType'])
-            ->whereIn('status', ['menunggu_atasan', 'disetujui', 'ditolak'])
-            ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
+            ->whereIn('status', ['menunggu_atasan', 'menunggu_hr', 'disetujui', 'ditolak'])
+            ->when($isAdminHr, function ($q) {
+                // Admin HR menangani pengajuan cuti para manajer
+                $q->whereIn('karyawan_id', Karyawan::managerKaryawanIds());
             })
-            ->orderByRaw("FIELD(status, 'menunggu_atasan', 'disetujui', 'ditolak')")
+            ->when(!$isAdminHr && $isManager, function ($q) use ($subordinateIds) {
+                // Manajer/atasan menangani pengajuan cuti karyawan di departemennya
+                $q->whereIn('karyawan_id', $subordinateIds);
+            })
+            ->orderByRaw("FIELD(status, 'menunggu_atasan', 'menunggu_hr', 'disetujui', 'ditolak')")
             ->orderByDesc('created_at')
             ->get();
 
         $overtimes = Overtime::with(['karyawan'])
             ->whereIn('status', ['menunggu_approval', 'disetujui', 'ditolak'])
-            ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
+            ->when($isAdminHr, function ($q) {
+                // Admin HR menangani pengajuan lembur para manajer
+                $q->whereIn('karyawan_id', Karyawan::managerKaryawanIds());
+            })
+            ->when(!$isAdminHr && $isManager, function ($q) use ($subordinateIds) {
+                // Manajer/atasan menangani pengajuan lembur karyawan di departemennya
+                $q->whereIn('karyawan_id', $subordinateIds);
             })
             ->orderByRaw("FIELD(status, 'menunggu_approval', 'disetujui', 'ditolak')")
             ->orderByDesc('created_at')
@@ -239,6 +269,9 @@ class PortalController extends Controller
             return back()->withInput()->with('error', 'Saldo cuti tidak mencukupi. Sisa saldo: ' . ($balance->sisa ?? 0) . ' hari, Pengajuan: ' . $hakDiambil . ' hari kerja.');
         }
 
+        // Pengajuan karyawan disetujui manajer, sedangkan pengajuan manajer disetujui Admin HR.
+        $statusAwal = $karyawan->isManager() ? 'menunggu_hr' : 'menunggu_atasan';
+
         Cuti::create([
             'karyawan_id' => $karyawan->id,
             'leave_type_id' => $leaveType->id,
@@ -247,7 +280,7 @@ class PortalController extends Controller
             'keterangan' => $validated['keterangan'],
             'lampiran' => $path,
             'jenis_cuti' => $leaveType->nama,
-            'status' => 'menunggu_atasan',
+            'status' => $statusAwal,
             'saldo_awal' => $balance->kuota,
             'hak_diambil' => $hakDiambil,
             'saldo_sisa' => $balance->sisa - $hakDiambil,
