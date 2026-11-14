@@ -59,15 +59,9 @@
                                     <input type="text" name="nik_utama" value="{{ old('nik_utama', $karyawan->nik_utama) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Atasan Langsung</label>
-                                    <select name="nik_atasan" class="form-select">
-                                        <option value="">- Pilih Atasan -</option>
-                                        @foreach($allKaryawan ?? [] as $ak)
-                                            <option value="{{ $ak->nik }}" {{ old('nik_atasan', $karyawan->nik_atasan) == $ak->nik ? 'selected' : '' }}>
-                                                {{ $ak->nik }} - {{ $ak->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label class="form-label">Atasan Langsung (otomatis)</label>
+                                    <input type="text" id="atasan-otomatis" class="form-control" value="" readonly
+                                        placeholder="Terisi otomatis dari manajer departemen">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Pegawai</label>
@@ -299,6 +293,24 @@
                 <div class="mb-3">
                                     <label class="form-label">No SK Penempatan</label>
                                     <input type="text" name="no_sk_penempatan" value="{{ old('no_sk_penempatan', $karyawan->no_sk_penempatan) }}" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Departemen <span class="text-danger">*</span></label>
+                                    <select name="department_id" id="select-departemen"
+                                        class="form-select @error('department_id') is-invalid @enderror" required>
+                                        <option value="">- Pilih Departemen -</option>
+                                        @foreach ($departments as $d)
+                                            <option value="{{ $d->id }}"
+                                                data-manager-name="{{ $d->manager->name ?? '' }}"
+                                                data-manager-nik="{{ $d->manager->nik ?? '' }}"
+                                                {{ (string) old('department_id', $karyawan->department_id) === (string) $d->id ? 'selected' : '' }}>
+                                                {{ $d->kode }} - {{ $d->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('department_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Divisi</label>
@@ -606,6 +618,29 @@
 @section('script')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Atasan langsung otomatis mengikuti manajer departemen terpilih
+    var selectDepartemen = document.getElementById('select-departemen');
+    var atasanOtomatis = document.getElementById('atasan-otomatis');
+
+    function syncAtasanOtomatis() {
+        if (!selectDepartemen || !atasanOtomatis) return;
+        var opt = selectDepartemen.options[selectDepartemen.selectedIndex];
+        if (!opt || !opt.value) {
+            atasanOtomatis.value = '';
+            return;
+        }
+        var managerName = opt.getAttribute('data-manager-name') || '';
+        var managerNik = opt.getAttribute('data-manager-nik') || '';
+        atasanOtomatis.value = managerName ?
+            (managerNik ? managerNik + ' - ' + managerName : managerName) :
+            'Belum ada manajer departemen';
+    }
+
+    if (selectDepartemen) {
+        selectDepartemen.addEventListener('change', syncAtasanOtomatis);
+        syncAtasanOtomatis();
+    }
+
     // Dinamis riwayat kepegawaian
     var tbody = document.getElementById('riwayat-kepegawaian-tbody');
     var rowIndex = tbody.querySelectorAll('tr.riwayat-row').length;

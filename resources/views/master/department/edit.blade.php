@@ -23,6 +23,20 @@
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Manajer Departemen <span class="text-danger">*</span></label>
+                    <select name="manager_karyawan_id" class="form-select @error('manager_karyawan_id') is-invalid @enderror" required>
+                        <option value="">- Pilih Manajer -</option>
+                        @foreach ($managers as $m)
+                            <option value="{{ $m->id }}" {{ (string) old('manager_karyawan_id', $item->manager_karyawan_id) === (string) $m->id ? 'selected' : '' }}>
+                                {{ $m->nik }} - {{ $m->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <small class="text-muted">Bila manajer diganti, riwayat cuti &amp; lembur karyawan departemen ini otomatis berpindah ke manajer baru.</small>
+                    @error('manager_karyawan_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" {{ old('is_active', $item->is_active) ? 'checked' : '' }}>
                     <label class="form-check-label" for="is_active">

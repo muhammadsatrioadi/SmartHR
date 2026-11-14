@@ -18,6 +18,21 @@
 
     <div class="section-body">
         <div class="card mt-3">
+            <div class="card-body">
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label mb-1">Filter Departemen</label>
+                        <select id="filter-departemen" class="form-select form-select-sm">
+                            <option value="">Semua Departemen</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover mb-0" id="table-karyawan">
@@ -41,7 +56,7 @@
                         </thead>
                         <tbody>
                             @foreach ($karyawans as $karyawan)
-                                <tr>
+                                <tr data-department-id="{{ $karyawan->department_id }}">
                                     <td scope="row">{{ $loop->iteration }}</td>
                                     <td>{{ $karyawan->nik }}</td>
                                     <td>{{ $karyawan->name }}</td>
@@ -141,9 +156,24 @@
             });
         });
 
+        // Filter tabel berdasarkan departemen terpilih
+        $('#filter-departemen').on('change', function() {
+            var selected = $(this).val();
+            $('#table-karyawan tbody tr').each(function() {
+                var row = $(this);
+                var match = !selected || row.data('department-id') == selected;
+                row.toggle(match);
+            });
+            renumberKaryawanRows();
+        });
+
         function renumberKaryawanRows() {
-            $('#table-karyawan tbody tr').each(function(index) {
-                $(this).find('td:first').text(index + 1);
+            var number = 0;
+            $('#table-karyawan tbody tr').each(function() {
+                if ($(this).is(':visible')) {
+                    number++;
+                    $(this).find('td:first').text(number);
+                }
             });
         }
     </script>

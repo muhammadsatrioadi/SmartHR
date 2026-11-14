@@ -219,4 +219,32 @@ class Karyawan extends Model
     {
         return $this->hasMany(EmployeeLeaveBalance::class);
     }
+
+    /**
+     * Ambil ID karyawan yang menjadi bawahan seorang manajer.
+     *
+     * Bawahan ditentukan dari manajer departemen tempat karyawan bergabung.
+     * Karena dihitung saat itu juga (bukan disimpan per karyawan), riwayat
+     * cuti/lembur otomatis berpindah ke manajer baru ketika manajer
+     * departemen diganti. Data lama yang memakai atasan langsung (nik_atasan)
+     * tetap ikut terhitung.
+     */
+    public static function subordinateIds(?Karyawan $manager)
+    {
+        if (!$manager) {
+            return collect();
+        }
+
+        return static::query()
+            ->where(function ($query) use ($manager) {
+                $query->whereHas('department', function ($department) use ($manager) {
+                    $department->where('manager_karyawan_id', $manager->id);
+                });
+
+                if (!empty($manager->nik)) {
+                    $query->orWhere('nik_atasan', $manager->nik);
+                }
+            })
+            ->pluck('id');
+    }
 }

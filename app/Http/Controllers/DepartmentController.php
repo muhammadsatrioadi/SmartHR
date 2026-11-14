@@ -3,19 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Karyawan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    /**
+     * Kandidat manajer departemen: karyawan yang akunnya berperan
+     * sebagai manajer atau atasan. Bila belum ada, seluruh karyawan
+     * ditampilkan agar pengaturan tetap bisa dilakukan.
+     */
+    protected function managerCandidates()
+    {
+        $emails = User::whereIn('role', ['manajer', 'atasan'])->pluck('email')->filter();
+
+        $candidates = Karyawan::whereIn('email', $emails)->orderBy('name')->get();
+
+        return $candidates->isNotEmpty() ? $candidates : Karyawan::orderBy('name')->get();
+    }
+
     public function index()
     {
-        $data = Department::orderBy('kode')->paginate(10);
+        $data = Department::with('manager')->orderBy('kode')->paginate(10);
         return view('master.department.index', compact('data'));
     }
 
     public function create()
     {
-        return view('master.department.create');
+        $managers = $this->managerCandidates();
+        return view('master.department.create', compact('managers'));
     }
 
     public function store(Request $request)
@@ -23,6 +40,7 @@ class DepartmentController extends Controller
         $validated = $request->validate([
             'kode' => 'required|string|max:20|unique:departments,kode',
             'nama' => 'required|string|max:150',
+            'manager_karyawan_id' => 'required|exists:karyawans,id',
             'is_active' => 'nullable|boolean',
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));
@@ -33,8 +51,14 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
-        $item = Department::findOrFail($id);
-        return view('master.department.edit', compact('item'));
+        $item = Department::with('manager')->findOrFail($id);
+
+        $managers = $this->managerCandidates();
+        if ($item->manager && !$managers->contains('id', $item->manager->id)) {
+            $managers = $managers->push($item->manager)->sortBy('name')->values();
+        }
+
+        return view('master.department.edit', compact('item', 'managers'));
     }
 
     public function update(Request $request, $id)
@@ -43,6 +67,7 @@ class DepartmentController extends Controller
         $validated = $request->validate([
             'kode' => 'required|string|max:20|unique:departments,kode,' . $item->id,
             'nama' => 'required|string|max:150',
+            'manager_karyawan_id' => 'required|exists:karyawans,id',
             'is_active' => 'nullable|boolean',
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));

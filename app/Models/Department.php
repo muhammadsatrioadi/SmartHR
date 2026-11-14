@@ -12,8 +12,15 @@ class Department extends Model
     protected $fillable = [
         'kode',
         'nama',
+        'manager_karyawan_id',
         'is_active',
     ];
+
+    // Manajer departemen (diatur oleh Admin HR)
+    public function manager()
+    {
+        return $this->belongsTo(Karyawan::class, 'manager_karyawan_id');
+    }
 
     public function workUnits()
     {

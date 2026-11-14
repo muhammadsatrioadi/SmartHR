@@ -73,7 +73,7 @@ class PortalController extends Controller
             $pendingApprovals = Cuti::with(['karyawan', 'leaveType'])
                 ->where('status', 'menunggu_atasan')
                 ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                    $q->whereHas('karyawan', fn ($k) => $k->where('nik_atasan', $karyawan->nik));
+                    $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
                 })
                 ->latest()
                 ->limit(5)
@@ -82,7 +82,7 @@ class PortalController extends Controller
 
         $managerStats = null;
         if (in_array($user->role, ['atasan', 'manajer'], true)) {
-            $subordinateIds = Karyawan::where('nik_atasan', $karyawan->nik)->pluck('id');
+            $subordinateIds = Karyawan::subordinateIds($karyawan);
             $managerStats = [
                 'total_tim' => $subordinateIds->count(),
                 'hadir_hari_ini' => Absensi::whereIn('karyawan_id', $subordinateIds)
@@ -132,7 +132,7 @@ class PortalController extends Controller
 
         $items = Absensi::with('karyawan')
             ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                $q->whereHas('karyawan', fn ($k) => $k->where('nik_atasan', $karyawan->nik));
+                $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
             })
             ->orderByDesc('tanggal_absensi')
             ->orderByDesc('time')
@@ -163,7 +163,7 @@ class PortalController extends Controller
         $cutis = Cuti::with(['karyawan', 'leaveType'])
             ->whereIn('status', ['menunggu_atasan', 'disetujui', 'ditolak'])
             ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                $q->whereHas('karyawan', fn ($k) => $k->where('nik_atasan', $karyawan->nik));
+                $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
             })
             ->orderByRaw("FIELD(status, 'menunggu_atasan', 'disetujui', 'ditolak')")
             ->orderByDesc('created_at')
@@ -172,7 +172,7 @@ class PortalController extends Controller
         $overtimes = Overtime::with(['karyawan'])
             ->whereIn('status', ['menunggu_approval', 'disetujui', 'ditolak'])
             ->when(in_array($user->role, ['atasan', 'manajer'], true), function ($q) use ($karyawan) {
-                $q->whereHas('karyawan', fn ($k) => $k->where('nik_atasan', $karyawan->nik));
+                $q->whereIn('karyawan_id', Karyawan::subordinateIds($karyawan));
             })
             ->orderByRaw("FIELD(status, 'menunggu_approval', 'disetujui', 'ditolak')")
             ->orderByDesc('created_at')

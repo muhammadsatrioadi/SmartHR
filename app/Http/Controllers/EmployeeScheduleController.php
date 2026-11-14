@@ -26,10 +26,13 @@ class EmployeeScheduleController extends Controller
         if ($user->role !== 'admin_hr') {
             $me = Karyawan::where('email', $user->email)->first();
             if ($me) {
-                // Hanya tampilkan diri sendiri dan bawahan langsung
-                $query->where(function($q) use ($me) {
-                    $q->where('id', $me->id)
-                      ->orWhere('nik_atasan', $me->nik);
+                // Hanya tampilkan diri sendiri dan bawahan (mengikuti manajer departemen)
+                $subordinateIds = Karyawan::subordinateIds($me);
+                $query->where(function ($q) use ($me, $subordinateIds) {
+                    $q->where('id', $me->id);
+                    if ($subordinateIds->isNotEmpty()) {
+                        $q->orWhereIn('id', $subordinateIds);
+                    }
                 });
             }
         }

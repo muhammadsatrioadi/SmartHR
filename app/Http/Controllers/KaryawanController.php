@@ -21,8 +21,9 @@ class KaryawanController extends Controller
 {
     public function index()
     {
-        $karyawans = Karyawan::all();
-        return view('karyawans.index', compact('karyawans'));
+        $karyawans = Karyawan::with(['department', 'jabatan', 'workUnit'])->orderBy('name')->get();
+        $departments = Department::orderBy('nama')->get();
+        return view('karyawans.index', compact('karyawans', 'departments'));
     }
 
     public function create()
@@ -31,10 +32,9 @@ class KaryawanController extends Controller
         $golongans = Golongan::orderBy('kode')->get();
         $pangkats = Pangkat::orderBy('kode')->get();
         $employeeStatuses = EmployeeStatus::orderBy('kode')->get();
-        $departments = Department::orderBy('kode')->get();
+        $departments = Department::with('manager')->orderBy('kode')->get();
         $workUnits = WorkUnit::orderBy('kode')->get();
         $shiftGroups = ShiftGroup::orderBy('kode')->get();
-        $allKaryawan = Karyawan::orderBy('name')->get();
         return view('karyawans.create', compact(
             'jabatans',
             'golongans',
@@ -42,8 +42,7 @@ class KaryawanController extends Controller
             'employeeStatuses',
             'departments',
             'workUnits',
-            'shiftGroups',
-            'allKaryawan'
+            'shiftGroups'
         ));
     }
 
@@ -58,6 +57,12 @@ class KaryawanController extends Controller
         $validatedData['ditanggung'] = $request->boolean('ditanggung');
         $validatedData['is_full_time'] = $request->boolean('is_full_time');
         $validatedData['ptkp_tak_penuh'] = $request->boolean('ptkp_tak_penuh');
+
+        // Atasan langsung tidak dipilih manual: otomatis mengikuti manajer departemen
+        $validatedData['nik_atasan'] = $this->resolveAtasanNik(
+            $validatedData['department_id'] ?? null,
+            $validatedData['nik'] ?? null
+        );
 
         $karyawan = Karyawan::create($validatedData);
 
@@ -106,7 +111,7 @@ class KaryawanController extends Controller
             'golongan_id' => 'nullable|exists:golongans,id',
             'pangkat_id' => 'nullable|exists:pangkats,id',
             'employee_status_id' => 'nullable|exists:employee_statuses,id',
-            'department_id' => 'nullable|exists:departments,id',
+            'department_id' => 'required|exists:departments,id',
             'work_unit_id' => 'nullable|exists:work_units,id',
             'shift_group_id' => 'nullable|exists:shift_groups,id',
             'ktp' => 'required|string|max:50',
@@ -205,6 +210,22 @@ class KaryawanController extends Controller
         return $base;
     }
 
+    /**
+     * Tentukan NIK atasan langsung dari manajer departemen terpilih.
+     */
+    protected function resolveAtasanNik($departmentId, $ownNik)
+    {
+        if (!$departmentId) {
+            return null;
+        }
+
+        $department = Department::with('manager')->find($departmentId);
+        $nik = $department && $department->manager ? $department->manager->nik : null;
+
+        // Karyawan yang sekaligus manajer departemennya tidak menjadi atasan dirinya sendiri
+        return ($nik !== null && $ownNik !== null && (string) $nik === (string) $ownNik) ? null : $nik;
+    }
+
     public function edit($id)
     {
         $karyawan = Karyawan::with('employmentHistories')->findOrFail($id);
@@ -215,10 +236,9 @@ class KaryawanController extends Controller
         $golongans = Golongan::orderBy('kode')->get();
         $pangkats = Pangkat::orderBy('kode')->get();
         $employeeStatuses = EmployeeStatus::orderBy('kode')->get();
-        $departments = Department::orderBy('kode')->get();
+        $departments = Department::with('manager')->orderBy('kode')->get();
         $workUnits = WorkUnit::orderBy('kode')->get();
         $shiftGroups = ShiftGroup::orderBy('kode')->get();
-        $allKaryawan = Karyawan::where('id', '!=', $id)->orderBy('name')->get();
         return view('karyawans.edit', compact(
             'karyawan',
             'currentRole',
@@ -228,8 +248,7 @@ class KaryawanController extends Controller
             'employeeStatuses',
             'departments',
             'workUnits',
-            'shiftGroups',
-            'allKaryawan'
+            'shiftGroups'
         ));
     }
 
@@ -245,6 +264,12 @@ class KaryawanController extends Controller
         $validatedData['ditanggung'] = $request->boolean('ditanggung');
         $validatedData['is_full_time'] = $request->boolean('is_full_time');
         $validatedData['ptkp_tak_penuh'] = $request->boolean('ptkp_tak_penuh');
+
+        // Atasan langsung tidak dipilih manual: otomatis mengikuti manajer departemen
+        $validatedData['nik_atasan'] = $this->resolveAtasanNik(
+            $validatedData['department_id'] ?? null,
+            $validatedData['nik'] ?? null
+        );
 
         $karyawan->update($validatedData);
 

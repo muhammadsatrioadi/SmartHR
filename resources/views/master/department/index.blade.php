@@ -16,6 +16,7 @@
                         <tr>
                             <th>Kode</th>
                             <th>Nama</th>
+                            <th>Manajer</th>
                             <th>Aktif</th>
                             <th style="width: 160px;">Aksi</th>
                         </tr>
@@ -25,6 +26,7 @@
                             <tr>
                                 <td>{{ $row->kode }}</td>
                                 <td>{{ $row->nama }}</td>
+                                <td>{{ $row->manager->name ?? '-' }}</td>
                                 <td>{{ $row->is_active ? 'Ya' : 'Tidak' }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="{{ route('department.edit', $row->id) }}">Edit</a>
@@ -37,7 +39,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Belum ada data.</td>
+                                <td colspan="5" class="text-center">Belum ada data.</td>
                             </tr>
                         @endforelse
                     </tbody>
