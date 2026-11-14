@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gaji;
+use App\Models\Reimbursement;
 use App\Support\PayrollCalculator;
 use App\Support\StatutoryPayrollEstimator;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class GajiController extends Controller
             $gaji->tunjangan_lain_aktif = $components['tunjangan_lain'];
             $gaji->hari_kerja_per_minggu = $components['hari_kerja_per_minggu'];
             $gaji->lembur_bulan_ini = $this->calculateApprovedOvertime($gaji);
+            $gaji->reimbursement_bulan_lalu = $this->calculateReimbursement($gaji);
             $gaji->total_potongan = $this->calculateTotalPotongan($gaji);
             $gaji->total_tunjangan = $this->calculateTotalTunjangan($gaji);
             $gaji->total_gaji = $this->calculateTotalGaji($gaji);
@@ -59,7 +61,22 @@ class GajiController extends Controller
         $tunjangan = $gaji->tunjangan_tetap_aktif + $gaji->tunjangan_lain_aktif + $gaji->lembur_bulan_ini;
         $totalPotongan = $this->calculateTotalPotongan($gaji);
 
-        return ($gajiPokok + $tunjangan) - $totalPotongan;
+        return ($gajiPokok + $tunjangan + $gaji->reimbursement_bulan_lalu) - $totalPotongan;
+    }
+
+    /**
+     * Reimbursement yang disetujui pada bulan sebelumnya dibayarkan pada gaji bulan ini.
+     */
+    private function calculateReimbursement($gaji)
+    {
+        $periodeGaji = $gaji->created_at->copy()->startOfMonth();
+        $bulanSebelumnya = $periodeGaji->copy()->subMonthNoOverflow();
+
+        return Reimbursement::where('karyawan_id', $gaji->karyawan->id)
+            ->where('status', 'disetujui')
+            ->whereYear('tanggal', $bulanSebelumnya->year)
+            ->whereMonth('tanggal', $bulanSebelumnya->month)
+            ->sum('nominal');
     }
 
     private function calculateApprovedOvertime($gaji)

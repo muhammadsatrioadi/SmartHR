@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="section-header d-flex justify-content-between align-items-center">
-        <h1 class="h3 mb-0">Master Pegawai</h1>
+        <h1 class="h3 mb-0">Master Karyawan</h1>
         <div class="section-header-button">
             <a href="{{ route('karyawans.create') }}" class="btn btn-primary btn-sm">Tambah Karyawan</a>
         </div>
@@ -20,7 +20,7 @@
         <div class="card mt-3">
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover mb-0">
+                    <table class="table table-striped table-hover mb-0" id="table-karyawan">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -72,8 +72,9 @@
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger delete-confirm" title="Hapus"
-                                                    data-message="Yakin ingin menghapus data {{ $karyawan->name }}?"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-danger delete-karyawan" title="Hapus"
+                                                    data-url="{{ route('karyawans.delete', ['id' => $karyawan->id]) }}"
+                                                    data-name="{{ $karyawan->name }}"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -86,4 +87,64 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    <script>
+        // Hapus karyawan via AJAX: tampil popup sukses + baris langsung hilang tanpa reload
+        $(document).on('click', '.delete-karyawan', function(e) {
+            e.preventDefault();
+            var button = $(this);
+            var url = button.data('url');
+            var name = button.data('name') || 'karyawan ini';
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: 'Hapus data ' + name + '? Akun login dan perangkat HP karyawan juga akan dihapus.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then(function(result) {
+                if (!result.isConfirmed) {
+                    return;
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE',
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(res) {
+                        button.closest('tr').remove();
+                        renumberKaryawanRows();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: res.message || 'Data karyawan berhasil dihapus.',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: (xhr.responseJSON && xhr.responseJSON.message) || 'Gagal menghapus data karyawan.'
+                        });
+                    }
+                });
+            });
+        });
+
+        function renumberKaryawanRows() {
+            $('#table-karyawan tbody tr').each(function(index) {
+                $(this).find('td:first').text(index + 1);
+            });
+        }
+    </script>
 @endsection

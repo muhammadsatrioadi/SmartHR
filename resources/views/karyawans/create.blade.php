@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Master Pegawai - Data Baru')
+@section('title', 'Master Karyawan - Data Baru')
 
 @section('navKaryawan')
     active
@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Setup Pegawai - Data Baru</h6>
+            <h6 class="mb-4">Master Karyawan - Data Baru</h6>
 
             <ul class="nav nav-tabs mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -34,7 +34,7 @@
                 </li>
             </ul>
 
-            <form action="{{ route('karyawans.store') }}" method="POST">
+            <form action="{{ route('karyawans.store') }}" method="POST" class="js-validate" novalidate>
                 @csrf
                 <div class="tab-content">
                     {{-- Tab 1: Data Umum --}}
@@ -315,7 +315,7 @@
                                         class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Status Pegawai RS</label>
+                                    <label class="form-label">Status Karyawan</label>
                                     <select name="employee_status_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach ($employeeStatuses as $es)

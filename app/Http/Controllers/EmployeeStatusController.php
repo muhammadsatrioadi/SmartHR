@@ -30,7 +30,7 @@ class EmployeeStatusController extends Controller
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
         EmployeeStatus::create($validated);
-        return redirect()->route('employeeStatus.index')->with('success', 'Status pegawai berhasil ditambahkan.');
+        return redirect()->route('employeeStatus.index')->with('success', 'Status karyawan berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -52,12 +52,12 @@ class EmployeeStatusController extends Controller
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
         $item->update($validated);
-        return redirect()->route('employeeStatus.index')->with('success', 'Status pegawai berhasil diperbarui.');
+        return redirect()->route('employeeStatus.index')->with('success', 'Status karyawan berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         EmployeeStatus::whereKey($id)->delete();
-        return redirect()->route('employeeStatus.index')->with('success', 'Status pegawai berhasil dihapus.');
+        return redirect()->route('employeeStatus.index')->with('success', 'Status karyawan berhasil dihapus.');
     }
 }

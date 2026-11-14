@@ -1,24 +1,26 @@
 @extends('layouts.main')
 
-@section('title', 'Edit Status Pegawai')
+@section('title', 'Edit Status Karyawan')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Edit Status Pegawai RS</h6>
+            <h6 class="mb-4">Edit Status Karyawan</h6>
 
-            <form method="POST" action="{{ route('employeeStatus.update', $item->id) }}">
+            <p class="text-muted fst-italic mb-4">Isi seluruh data di bawah ini. Kolom bertanda <span class="text-danger">*</span> wajib diisi.</p>
+
+            <form class="js-validate" method="POST" action="{{ route('employeeStatus.update', $item->id) }}" novalidate>
                 @csrf
                 @method('PUT')
 
                 <div class="mb-3">
-                    <label class="form-label">Kode</label>
+                    <label class="form-label">Kode <span class="text-danger">*</span></label>
                     <input type="text" name="kode" value="{{ old('kode', $item->kode) }}" class="form-control @error('kode') is-invalid @enderror" required>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nama</label>
+                    <label class="form-label">Nama Status <span class="text-danger">*</span></label>
                     <input type="text" name="nama" value="{{ old('nama', $item->nama) }}" class="form-control @error('nama') is-invalid @enderror" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
@@ -50,4 +52,3 @@
         </div>
     </div>
 @endsection
-

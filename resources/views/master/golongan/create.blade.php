@@ -1,23 +1,28 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah Golongan')
+@section('title', 'Buat Golongan')
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Tambah Golongan</h6>
+            <h6 class="mb-4">Buat Golongan</h6>
 
-            <form method="POST" action="{{ route('golongan.store') }}">
+            <p class="text-muted fst-italic mb-4">Isi seluruh data di bawah ini. Kolom bertanda <span class="text-danger">*</span> wajib diisi.</p>
+
+            <form class="js-validate" method="POST" action="{{ route('golongan.store') }}" novalidate>
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Kode</label>
-                    <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('kode') is-invalid @enderror" required>
+                    <label class="form-label">Kode <span class="text-danger">*</span></label>
+                    <input type="text" name="kode" value="{{ old('kode') }}"
+                        class="form-control @error('kode') is-invalid @enderror"
+                        pattern="[A-Za-z0-9]+" title="Kode hanya boleh berisi huruf dan angka" required>
+                    <div class="form-text">Hanya huruf dan angka, tanpa spasi atau karakter khusus. Contoh: GOL01</div>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nama</label>
+                    <label class="form-label">Nama <span class="text-danger">*</span></label>
                     <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
@@ -37,4 +42,3 @@
         </div>
     </div>
 @endsection
-

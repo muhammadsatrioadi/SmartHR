@@ -13,6 +13,7 @@ use App\Models\ShiftGroup;
 use App\Models\EmployeeEmploymentHistory;
 use App\Models\User;
 use App\Models\UserDevice;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -285,10 +286,35 @@ class KaryawanController extends Controller
         return view('karyawans.show', compact('karyawan'));
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Karyawan::where('id', $id)->delete();
-        return redirect()->route('karyawans.index')->with('success', 'Data karyawan berhasil dihapus.');
+        $karyawan = Karyawan::findOrFail($id);
+
+        DB::transaction(function () use ($karyawan) {
+            // Hapus akun login (HP) beserta perangkat yang ter-bind
+            if (!empty($karyawan->email)) {
+                $user = User::where('email', $karyawan->email)->first();
+                if ($user) {
+                    UserDevice::where('user_id', $user->id)->delete();
+                    $user->delete();
+                }
+            }
+
+            // Hapus data turunan yang tidak memakai cascadeOnDelete
+            $karyawan->absensis()->delete();
+            $karyawan->cutis()->delete();
+            $karyawan->employmentHistories()->delete();
+
+            $karyawan->delete();
+        });
+
+        $message = 'Data karyawan berhasil dihapus.';
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json(['message' => $message]);
+        }
+
+        return redirect()->route('karyawans.index')->with('success', $message);
     }
 
     /**

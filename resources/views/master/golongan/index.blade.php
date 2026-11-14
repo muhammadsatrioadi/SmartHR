@@ -6,8 +6,8 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Golongan</h6>
-                <a class="btn btn-primary" href="{{ route('golongan.create') }}">Tambah</a>
+                <h6 class="mb-0">Kelola Golongan</h6>
+                <a class="btn btn-primary" href="{{ route('golongan.create') }}">Buat Golongan</a>
             </div>
 
             <div class="table-responsive">

@@ -21,7 +21,7 @@ class GolonganController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:golongans,kode',
+            'kode' => 'required|alpha_num|max:20|unique:golongans,kode',
             'nama' => 'required|string|max:150',
             'is_active' => 'nullable|boolean',
         ]);
@@ -42,7 +42,7 @@ class GolonganController extends Controller
     {
         $item = Golongan::findOrFail($id);
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:golongans,kode,' . $item->id,
+            'kode' => 'required|alpha_num|max:20|unique:golongans,kode,' . $item->id,
             'nama' => 'required|string|max:150',
             'is_active' => 'nullable|boolean',
         ]);

@@ -24,6 +24,7 @@
                             <th>Tunjangan Tetap</th>
                             <th>Tunjangan Tidak Tetap</th>
                             <th>Lembur Bulan Ini</th>
+                            <th title="Reimbursement yang disetujui bulan lalu, dibayarkan pada gaji bulan ini">Reimburse Bulan Lalu</th>
                             <th>Bruto</th>
                             <th>Pot. internal</th>
                             <th title="Estimasi dari config/payroll.php — sesuaikan tarif & plafon">Perkiraan iuran BPJS</th>
@@ -41,6 +42,7 @@
                             <td>{{ number_format($gaji->tunjangan_tetap_aktif, 0, ',', '.') }}</td>
                             <td>{{ number_format($gaji->tunjangan_lain_aktif, 0, ',', '.') }}</td>
                             <td>{{ number_format($gaji->lembur_bulan_ini, 0, ',', '.') }}</td>
+                            <td>{{ number_format($gaji->reimbursement_bulan_lalu, 0, ',', '.') }}</td>
                             <td>{{ number_format($gaji->bruto_bulanan, 0, ',', '.') }}</td>
                             <td>{{ number_format($gaji->total_potongan, 0, ',', '.') }}</td>
                             <td>{{ number_format($gaji->perkiraan_total_iuran_bpjs, 0, ',', '.') }}</td>

@@ -25,7 +25,7 @@ active
     <section id="read" class="m-5 mt-4 " >
         <div class="container bg-secondary rounded p-3" style="margin-bottom: 10rem">
             <div id="menu-sorting-jabatan" class="" >
-                <a href="{{ route('jabatan.create') }}" class="btn btn-primary mt-4 m-3">Buat Jabatan Baru</a>
+                <a href="{{ route('jabatan.create') }}" class="btn btn-primary mt-4 m-3">Buat Jabatan</a>
                 <div id="search-jabatan" class="ms-3 me-3 d-flex">
                     <form action="{{ route('jabatan.search') }}" class="d-flex w-50">
                         <div class="input-group">
@@ -57,9 +57,6 @@ active
                                 <th scope="col">Jam Mulai Kerja</th>
                                 <th scope="col">Jam Selesai Kerja</th>
                                 <th scope="col">Note Pekerjaan</th>
-                                <th scope="col">Gaji Pokok</th>
-                                <th scope="col">Tunjangan</th>
-                                <th scope="col">Potongan</th>
                                 <th scope="col">Opsi</th>
                             </tr>
                         </thead>
@@ -71,9 +68,6 @@ active
                                     <td>{{ substr($items->jam_mulai_kerja,0,5) }}</td>
                                     <td>{{ substr($items->jam_selesai_kerja,0,5) }}</td>
                                     <td style="width: 20%;">{{ $items->note_pekerjaan }}</td>
-                                    <td>{{ $items->gaji_pokok }}</td>
-                                    <td>{{ $items->tunjangan }}</td>
-                                    <td>{{ $items->potongan }}</td>
                                     <td class="opsi"><a href="{{ route('jabatan.edit', ['id' => $items->id]) }}"
                                             class="btn btn-warning d-inline"> Edit </a> | <form
                                             action="{{ route('jabatan.delete', ['id' => $items->id]) }}"

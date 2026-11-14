@@ -6,13 +6,9 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Pangkat</h6>
-                <a class="btn btn-primary" href="{{ route('pangkat.create') }}">Tambah</a>
+                <h6 class="mb-0">Kelola Pangkat</h6>
+                <a class="btn btn-primary" href="{{ route('pangkat.create') }}">Buat Pangkat</a>
             </div>
-
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -32,11 +28,10 @@
                                 <td>{{ $row->is_active ? 'Ya' : 'Tidak' }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="{{ route('pangkat.edit', $row->id) }}">Edit</a>
-                                    <form class="d-inline" method="POST" action="{{ route('pangkat.delete', $row->id) }}"
-                                        onsubmit="return confirm('Hapus pangkat ini?')">
+                                    <form class="d-inline" method="POST" action="{{ route('pangkat.delete', $row->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                                        <button class="btn btn-sm btn-danger delete-confirm" type="submit" data-message="Hapus pangkat {{ $row->nama }}?">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -55,4 +50,3 @@
         </div>
     </div>
 @endsection
-

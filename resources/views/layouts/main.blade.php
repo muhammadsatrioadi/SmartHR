@@ -145,6 +145,50 @@
             });
         @endif
 
+        // Error validasi (server-side) -> tampilkan popup
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Data Belum Lengkap',
+                html: {!! json_encode(implode('<br>', $errors->all())) !!}
+            });
+        @endif
+
+        // Validasi mandatory pada form (tampilkan popup, bukan bubble bawaan browser)
+        $(document).on('submit', 'form.js-validate', function(e) {
+            let $form = $(this);
+            let $empty = null;
+
+            $form.find('[required]').each(function() {
+                let $field = $(this);
+                if (!$field.val() || ($field.is('select') && $field.val() === '')) {
+                    $empty = $field;
+                    return false;
+                }
+            });
+
+            if ($empty) {
+                e.preventDefault();
+
+                // Buka tab yang memuat field kosong (jika form bertab)
+                let pane = $empty.closest('.tab-pane');
+                if (pane.length && pane.attr('id')) {
+                    let trigger = document.querySelector('[data-bs-target="#' + pane.attr('id') + '"]');
+                    if (trigger) trigger.click();
+                }
+
+                let label = $empty.closest('.mb-3, .mb-4').find('label').first().text().replace('*', '').trim() || 'wajib diisi';
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data Belum Lengkap',
+                    text: 'Bagian "' + label + '" belum diisi. Lengkapi data mandatory terlebih dahulu.'
+                });
+                $empty.focus();
+                return false;
+            }
+        });
+
         // Global Delete Confirmation
         $(document).on('click', '.delete-confirm', function(e) {
             e.preventDefault();

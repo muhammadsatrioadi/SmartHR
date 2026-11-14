@@ -36,12 +36,9 @@ class JabatanController extends Controller
         'jam_selesai_kerja' => 'required|date_format:H:i',
         'jam_mulai_kerja' => 'required|date_format:H:i',
         'note_pekerjaan' => 'required|string|max:255',
-        'gaji_pokok' => 'required|integer|min:0',
-        'tunjangan' => 'required|integer|min:0',
-        'potongan' => 'required|integer|min:0',
         ]);
 
-        Jabatan::create($request->all());
+        Jabatan::create($validatedData);
 
         return redirect()->route('jabatan.read')->with('success','data berhasil ditambahkan');
     }
@@ -69,7 +66,13 @@ class JabatanController extends Controller
     public function update(Request $request, $id)
     {
         $data = Jabatan::find($id);
-        $data->update($request->all());
+        $validatedData = $request->validate([
+            'nama_jabatan' => 'required|string|max:255',
+            'jam_selesai_kerja' => 'required|date_format:H:i',
+            'jam_mulai_kerja' => 'required|date_format:H:i',
+            'note_pekerjaan' => 'required|string|max:255',
+        ]);
+        $data->update($validatedData);
         return redirect()->route('jabatan.read')->with('success', 'Jabatan berhasil di Update');
 
     }

@@ -21,6 +21,7 @@ use App\Http\Controllers\LeaveBalanceController;
 use App\Http\Controllers\EmployeeScheduleController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\SalaryStepController;
+use App\Http\Controllers\SalarySetupController;
 use App\Http\Controllers\EmployeeSalaryHistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndonesiaController;
@@ -224,6 +225,10 @@ Route::get('/presensi', [AbsensiController::class, 'index'])->name('presensi.rea
 Route::post('/presensi/create-proses', [AbsensiController::class, 'store'])->name('presensi.createProses');
 Route::get('/presensi/hadir', [AbsensiController::class, 'getHadir'])->name('presensi.hadir');
 Route::get('/presensi/alpha', [AbsensiController::class, 'getAlpha'])->name('presensi.alpha');
+
+// Setup Gaji (komponen gaji per jabatan: gaji pokok, tunjangan, potongan)
+Route::get('/gaji/setup', [SalarySetupController::class, 'index'])->name('gaji.setup');
+Route::put('/gaji/setup', [SalarySetupController::class, 'update'])->name('gaji.setup.update');
 
 // route gaji
 Route::get('/gajis', [GajiController::class, 'index'])->name('gaji.index');
