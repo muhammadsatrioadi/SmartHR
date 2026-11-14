@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Karyawan;
 use App\Models\User;
+use App\Services\DepartmentManagerSyncService;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -47,6 +48,7 @@ class DepartmentController extends Controller
 
         $department = Department::create($validated);
         $this->ensureManagerRole($department->manager_karyawan_id);
+        app(DepartmentManagerSyncService::class)->syncDepartment($department);
         return redirect()->route('department.index')->with('success', 'Departemen berhasil ditambahkan.');
     }
 
@@ -77,6 +79,7 @@ class DepartmentController extends Controller
 
         $item->update($validated);
         $this->ensureManagerRole($item->manager_karyawan_id);
+        app(DepartmentManagerSyncService::class)->syncDepartment($item);
 
         if ((int) $previousManagerId !== (int) $item->manager_karyawan_id) {
             $this->demoteIfNoLongerManager($previousManagerId);

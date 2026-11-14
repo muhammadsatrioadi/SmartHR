@@ -13,6 +13,7 @@ use App\Models\ShiftGroup;
 use App\Models\EmployeeEmploymentHistory;
 use App\Models\User;
 use App\Models\UserDevice;
+use App\Services\DepartmentManagerSyncService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -84,6 +85,9 @@ class KaryawanController extends Controller
                 ['email' => $karyawan->email],
                 $userData
             );
+
+            app(DepartmentManagerSyncService::class)
+                ->syncAfterRoleChange($karyawan, $userData['role']);
         }
 
         foreach ($employmentHistories as $row) {
@@ -292,6 +296,9 @@ class KaryawanController extends Controller
                 ['email' => $karyawan->email],
                 $userData
             );
+
+            app(DepartmentManagerSyncService::class)
+                ->syncAfterRoleChange($karyawan, $userData['role']);
         }
 
         $karyawan->employmentHistories()->delete();
