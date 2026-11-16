@@ -23,6 +23,8 @@ use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\SalaryStepController;
 use App\Http\Controllers\SalarySetupController;
 use App\Http\Controllers\EmployeeSalaryHistoryController;
+use App\Http\Controllers\EmployeeMonthlyPayrollController;
+use App\Http\Controllers\SlipGajiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndonesiaController;
 use App\Http\Controllers\PortalController;
@@ -212,6 +214,18 @@ Route::delete('/salary-steps/{id}', [SalaryStepController::class, 'destroy'])->n
 Route::get('/salary-histories', [EmployeeSalaryHistoryController::class, 'index'])->name('salaryHistory.index');
 Route::get('/salary-histories/create', [EmployeeSalaryHistoryController::class, 'create'])->name('salaryHistory.create');
 Route::post('/salary-histories', [EmployeeSalaryHistoryController::class, 'store'])->name('salaryHistory.store');
+
+// Rekap gaji bulanan (kelompok 3 panduan komponen gaji)
+Route::get('/payroll-monthly', [EmployeeMonthlyPayrollController::class, 'index'])->name('payrollMonthly.index');
+Route::get('/payroll-monthly/create', [EmployeeMonthlyPayrollController::class, 'create'])->name('payrollMonthly.create');
+Route::post('/payroll-monthly', [EmployeeMonthlyPayrollController::class, 'store'])->name('payrollMonthly.store');
+Route::get('/payroll-monthly/{payrollMonthly}/edit', [EmployeeMonthlyPayrollController::class, 'edit'])->name('payrollMonthly.edit');
+Route::put('/payroll-monthly/{payrollMonthly}', [EmployeeMonthlyPayrollController::class, 'update'])->name('payrollMonthly.update');
+Route::delete('/payroll-monthly/{payrollMonthly}', [EmployeeMonthlyPayrollController::class, 'destroy'])->name('payrollMonthly.delete');
+
+// Slip gaji mengikuti panduan komponen gaji (A, B, D, gaji bersih, terima bersih)
+Route::get('/gaji/slip', [SlipGajiController::class, 'index'])->name('slipGaji.index');
+Route::get('/gaji/slip/{karyawan}', [SlipGajiController::class, 'show'])->name('slipGaji.show');
 
 // Reimbursement Admin
 Route::get('/reimbursements', [ReimbursementController::class, 'adminIndex'])->name('reimbursement.index');

@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\AttendanceConsent;
 use App\Models\Cuti;
+use App\Models\EmployeeMonthlyPayroll;
 use App\Models\EmployeeSchedule;
-use App\Models\Gaji;
 use App\Models\Karyawan;
 use App\Models\LeaveType;
 use App\Models\Overtime;
 use App\Models\Reimbursement;
 use App\Services\LeaveBalanceService;
 use App\Support\KaryawanResolver;
+use App\Support\PanduanGajiCalculator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -287,14 +288,30 @@ class PortalController extends Controller
         return redirect()->route('portal.cuti')->with('success', 'Pengajuan cuti berhasil dikirim.');
     }
 
-    public function gaji()
+    public function gaji(Request $request)
     {
-        $karyawan = $this->karyawanOrAbort();
-        $items = Gaji::where('karyawan_id', $karyawan->id)
-            ->orderByDesc('created_at')
-            ->paginate(10);
+        $karyawan = $this->karyawanOrAbort()->load(['jabatan', 'department', 'employeeStatus', 'salaryHistories']);
 
-        return view('portal.gaji', compact('karyawan', 'items'));
+        $periode = $request->query('periode');
+        if (!is_string($periode) || !preg_match('/^\d{4}-\d{2}$/', $periode)) {
+            $periode = Carbon::now('Asia/Jakarta')->format('Y-m');
+        }
+
+        $rekap = EmployeeMonthlyPayroll::where('karyawan_id', $karyawan->id)
+            ->where('periode', $periode)
+            ->first();
+
+        $slip = PanduanGajiCalculator::slip($karyawan, $periode, $rekap);
+
+        $periodes = collect(range(0, 5))
+            ->map(fn ($i) => Carbon::now('Asia/Jakarta')->subMonthsNoOverflow($i)->format('Y-m'))
+            ->merge(EmployeeMonthlyPayroll::where('karyawan_id', $karyawan->id)->pluck('periode'))
+            ->push($periode)
+            ->unique()
+            ->sortDesc()
+            ->values();
+
+        return view('portal.gaji', compact('karyawan', 'slip', 'rekap', 'periode', 'periodes'));
     }
 
     public function profil()

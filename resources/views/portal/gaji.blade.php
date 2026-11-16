@@ -1,5 +1,5 @@
 @extends('layouts.portal')
-@section('title', 'Gaji')
+@section('title', 'Slip Gaji')
 @php $navActive = 'gaji'; @endphp
 @section('content')
 <div class="portal-page-header">
@@ -7,14 +7,24 @@
     <strong>Slip Gaji</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
-    @forelse($items as $gaji)
-        <div class="portal-saldo-card mb-2">
-            <strong>{{ $gaji->created_at?->format('M Y') }}</strong>
-            <br><small>Total: Rp {{ number_format($gaji->total ?? 0, 0, ',', '.') }}</small>
+    <form method="GET" action="{{ route('portal.gaji') }}" class="mb-3">
+        <label class="form-label small mb-1">Periode</label>
+        <select name="periode" class="form-select" onchange="this.form.submit()">
+            @foreach ($periodes as $p)
+                <option value="{{ $p }}" {{ $periode === $p ? 'selected' : '' }}>
+                    {{ \App\Support\PanduanGajiCalculator::labelPeriode($p) }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+
+    @if (!$rekap)
+        <div class="alert alert-info py-2 small">
+            Rekap bulanan periode ini belum diisi Admin HR. Komponen bulanan (kehadiran, on call, potongan)
+            belum ikut dihitung.
         </div>
-    @empty
-        <p class="text-muted text-center">Data gaji belum tersedia.</p>
-    @endforelse
-    <div class="mt-3">{{ $items->links() }}</div>
+    @endif
+
+    @include('partials.slip_gaji', ['slip' => $slip, 'karyawan' => $karyawan])
 </div>
 @endsection

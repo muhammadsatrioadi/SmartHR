@@ -210,6 +210,12 @@ class Karyawan extends Model
         return $this->hasMany(EmployeeSalaryHistory::class);
     }
 
+    // Rekap gaji bulanan (kehadiran, on call, potongan bulanan)
+    public function monthlyPayrolls()
+    {
+        return $this->hasMany(EmployeeMonthlyPayroll::class);
+    }
+
     public function attendanceLocation()
     {
         return $this->belongsTo(AttendanceLocation::class);

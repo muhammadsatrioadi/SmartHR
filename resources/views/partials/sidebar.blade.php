@@ -60,11 +60,13 @@
                         <li class="{{ request()->routeIs('presensi.alpha') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.alpha') }}">Daftar Alpha</a></li>
                     </ul>
                 </li>
-                <li class="nav-item sidebar-accordion {{ request()->routeIs('gaji.*','salaryStep.*','salaryHistory.*') ? 'active' : '' }}">
+                <li class="nav-item sidebar-accordion {{ request()->routeIs('gaji.*','salaryStep.*','salaryHistory.*','payrollMonthly.*','slipGaji.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
                         <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
-                        <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Riwayat Gaji Pegawai</a></li>
+                        <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Data Gaji Dasar Pegawai</a></li>
+                        <li class="{{ request()->routeIs('payrollMonthly.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.index') }}">Rekap Gaji Bulanan</a></li>
+                        <li class="{{ request()->routeIs('slipGaji.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('slipGaji.index') }}">Slip Gaji</a></li>
                     </ul>
                 </li>
             @endif

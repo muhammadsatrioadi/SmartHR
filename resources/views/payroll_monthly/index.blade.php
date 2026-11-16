@@ -1,0 +1,85 @@
+@extends('layouts.main')
+
+@section('title', 'Rekap Gaji Bulanan')
+
+@section('content')
+<div class="container-fluid pt-4 px-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                <h6 class="mb-0">Rekap Gaji Bulanan</h6>
+                <div class="d-flex align-items-end gap-2">
+                    <form class="d-flex align-items-end gap-2" method="GET" action="{{ route('payrollMonthly.index') }}">
+                        <div>
+                            <label class="form-label mb-1">Periode</label>
+                            <select name="periode" class="form-select" onchange="this.form.submit()">
+                                <option value="">Semua periode</option>
+                                @foreach ($periodes as $p)
+                                    <option value="{{ $p }}" {{ $periode === $p ? 'selected' : '' }}>{{ $p }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+                    <a class="btn btn-primary" href="{{ route('payrollMonthly.create') }}">Input Rekap</a>
+                    <a class="btn btn-outline-primary" href="{{ route('slipGaji.index') }}">Slip Gaji</a>
+                </div>
+            </div>
+
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Pegawai</th>
+                            <th>Periode</th>
+                            <th>Kehadiran</th>
+                            <th class="text-end">On call</th>
+                            <th class="text-end">PPh 21</th>
+                            <th class="text-end">Infaq</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($rekap as $r)
+                            <tr>
+                                <td>{{ $r->karyawan->name ?? '-' }}</td>
+                                <td>{{ $r->labelPeriode() }}</td>
+                                <td>
+                                    {{ (int) $r->hari_pagi }} pagi, {{ (int) $r->hari_siang }} siang, {{ (int) $r->hari_malam }} malam
+                                    @if ($r->is_koordinator) <span class="badge bg-info">Koordinator</span> @endif
+                                    @if ((int) $r->hari_telat_pulang_awal > 0)
+                                        <div class="small text-muted">Telat/pulang awal: {{ (int) $r->hari_telat_pulang_awal }} hari</div>
+                                    @endif
+                                </td>
+                                <td class="text-end">{{ number_format($r->nominal_on_call, 0, ',', '.') }}</td>
+                                <td class="text-end">{{ number_format($r->nominal_pph21, 0, ',', '.') }}</td>
+                                <td class="text-end">{{ $r->potongan_infaq === null ? 'Otomatis' : number_format($r->potongan_infaq, 0, ',', '.') }}</td>
+                                <td><span class="badge bg-secondary">{{ $r->status }}</span></td>
+                                <td class="text-nowrap">
+                                    <a class="btn btn-sm btn-outline-primary"
+                                        href="{{ route('slipGaji.show', ['karyawan' => $r->karyawan_id, 'periode' => $r->periode]) }}">Slip</a>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('payrollMonthly.edit', $r) }}">Ubah</a>
+                                    <form class="d-inline" method="POST" action="{{ route('payrollMonthly.delete', $r) }}"
+                                        onsubmit="return confirm('Hapus rekap ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger" type="submit">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="8" class="text-center">Belum ada rekap gaji bulanan.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-3">{{ $rekap->links() }}</div>
+        </div>
+    </div>
+</div>
+@endsection
