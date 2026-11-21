@@ -213,6 +213,15 @@ class PanduanGajiCalculator
         $totalPotonganResmi = self::jumlah($potonganResmi);
         $totalPotonganLain = self::jumlah($potonganLain);
 
+        // Usulan PPh 21 (admin HR tetap mengisi nominal final di rekap bulanan).
+        $usulanPph21 = self::usulanPph21(
+            $totalPendapatan,
+            $iuranPensiunPegawai,
+            $pasanganDitanggung,
+            $jumlahAnak,
+            $cfg
+        );
+
         return [
             'periode' => $periode,
             'label_periode' => optional($rekap)->labelPeriode() ?? self::labelPeriode($periode),
@@ -230,11 +239,86 @@ class PanduanGajiCalculator
             'gaji_bersih' => $totalPendapatan - $totalPotonganResmi,
             'terima_bersih' => $totalPendapatan - $totalPotonganResmi - $totalPotonganLain,
             'biaya_jabatan' => self::bulatkanAtas($totalPendapatan * (float) $cfg['persen_biaya_jabatan']),
+            'usulan_pph21' => $usulanPph21,
             'uang_lembur' => $uangLembur,
             'tunjangan_kehadiran' => $tunjanganKehadiran,
             'infaq' => $infaq,
             'rekap' => $rekap,
         ];
+    }
+
+    /**
+     * Usulan PPh 21 tahunan disetahunkan lalu dibagi 12 (metode setahun).
+     * Hasil hanya sebagai rekomendasi; nominal final tetap diisi di rekap bulanan.
+     *
+     * @return array{pph_setahun:float,pph_sebulan:float,bruto_setahun:float,biaya_jabatan:float,iuran_pensiun_setahun:float,ptkp:float,pkp:float}
+     */
+    public static function usulanPph21(
+        float $brutoSebulan,
+        float $iuranPensiunSebulan,
+        bool $pasanganDitanggung,
+        int $jumlahAnak,
+        ?array $cfg = null
+    ): array {
+        $cfg = $cfg ?? self::konfigurasi();
+        $ptkpCfg = $cfg['ptkp'] ?? [];
+
+        $brutoSetahun = $brutoSebulan * 12;
+        $iuranPensiunSetahun = $iuranPensiunSebulan * 12;
+
+        $biayaJabatan = min(
+            $brutoSetahun * (float) ($cfg['persen_biaya_jabatan'] ?? 0.05),
+            (float) ($cfg['maks_biaya_jabatan_setahun'] ?? 6_000_000)
+        );
+
+        $nettoSetahun = max(0.0, $brutoSetahun - $biayaJabatan - $iuranPensiunSetahun);
+
+        $ptkp = (float) ($ptkpCfg['tk0'] ?? 54_000_000);
+        if ($pasanganDitanggung) {
+            $ptkp += (float) ($ptkpCfg['tambahan_kawin'] ?? 0);
+        }
+        $tanggungan = min($jumlahAnak, (int) ($ptkpCfg['maks_tanggungan'] ?? 3));
+        $ptkp += $tanggungan * (float) ($ptkpCfg['tambahan_tanggungan'] ?? 0);
+
+        // PKP dibulatkan ke bawah ke ribuan penuh.
+        $pkp = max(0.0, floor(($nettoSetahun - $ptkp) / 1000) * 1000);
+
+        $pphSetahun = self::hitungLapisan($pkp, $cfg['pph21_lapisan'] ?? []);
+
+        return [
+            'pph_setahun' => self::bulatkanAtas($pphSetahun),
+            'pph_sebulan' => self::bulatkanAtas($pphSetahun / 12),
+            'bruto_setahun' => $brutoSetahun,
+            'biaya_jabatan' => self::bulatkanAtas($biayaJabatan),
+            'iuran_pensiun_setahun' => $iuranPensiunSetahun,
+            'ptkp' => $ptkp,
+            'pkp' => $pkp,
+        ];
+    }
+
+    /**
+     * Hitung PPh progresif per lapisan tarif.
+     */
+    protected static function hitungLapisan(float $pkp, array $lapisan): float
+    {
+        $pajak = 0.0;
+        $batasBawah = 0.0;
+
+        foreach ($lapisan as $layer) {
+            $batas = $layer['batas'];
+            $tarif = (float) $layer['tarif'];
+
+            if ($pkp <= $batasBawah) {
+                break;
+            }
+
+            $kena = ($batas === null ? $pkp : min($pkp, (float) $batas)) - $batasBawah;
+            $pajak += $kena * $tarif;
+
+            $batasBawah = (float) ($batas ?? $pkp);
+        }
+
+        return $pajak;
     }
 
     /**

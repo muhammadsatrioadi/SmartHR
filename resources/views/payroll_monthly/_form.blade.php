@@ -1,6 +1,7 @@
 @php
     $v = fn ($kolom, $default = null) => old($kolom, $rekap->{$kolom} ?? $default);
     $lockIdentitas = $lockIdentitas ?? false;
+    $usulanPph21 = $usulanPph21 ?? null;
 @endphp
 
 <div class="row">
@@ -59,6 +60,10 @@
             <label class="form-check-label" for="is_koordinator">Koordinator (THD dikali 2)</label>
         </div>
         <div class="small text-muted">THD: pagi/siang Rp32.500, malam Rp37.500. Menjadi 0 bila telat + pulang awal &ge; 11 hari.</div>
+        <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="btn-tarik-absensi">
+            Tarik Kehadiran dari Absensi
+        </button>
+        <span class="small text-muted ms-2" id="info-tarik-absensi"></span>
     </div>
 </div>
 
@@ -86,7 +91,16 @@
     </div>
     <div class="col-md-3 mb-3">
         <label class="form-label">PPh 21 (potongan resmi)</label>
-        <input type="number" name="nominal_pph21" min="0" value="{{ $v('nominal_pph21', 0) }}" class="form-control">
+        <input type="number" name="nominal_pph21" min="0" value="{{ $v('nominal_pph21', 0) }}" class="form-control" id="input-pph21">
+        @if ($usulanPph21)
+            <div class="small text-muted mt-1">
+                Usulan: <strong>{{ number_format($usulanPph21['pph_sebulan'], 0, ',', '.') }}</strong>/bulan
+                <button type="button" class="btn btn-link btn-sm p-0 align-baseline" id="btn-isi-pph21"
+                    data-usulan="{{ (int) round($usulanPph21['pph_sebulan']) }}">Isi otomatis</button>
+            </div>
+        @else
+            <div class="small text-muted mt-1">Usulan otomatis muncul setelah pegawai &amp; periode dipilih.</div>
+        @endif
     </div>
 </div>
 <div class="alert alert-info py-2 small">
@@ -138,3 +152,66 @@
     <label class="form-label">Catatan</label>
     <textarea name="catatan" rows="2" class="form-control">{{ $v('catatan') }}</textarea>
 </div>
+
+<script>
+    (function () {
+        var form = document.currentScript.closest('form');
+        if (!form) return;
+
+        var btnTarik = form.querySelector('#btn-tarik-absensi');
+        if (btnTarik) {
+            btnTarik.addEventListener('click', function () {
+                var karyawan = form.querySelector('[name="karyawan_id"]');
+                var periode = form.querySelector('[name="periode"]');
+                var token = form.querySelector('[name="_token"]');
+                var info = form.querySelector('#info-tarik-absensi');
+
+                if (!karyawan || !karyawan.value) {
+                    if (info) info.textContent = 'Pilih pegawai terlebih dahulu.';
+                    return;
+                }
+
+                btnTarik.disabled = true;
+                if (info) info.textContent = 'Menarik data absensi...';
+
+                fetch("{{ route('payrollMonthly.tarikAbsensi') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token ? token.value : '',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        karyawan_id: karyawan.value,
+                        periode: periode ? periode.value : ''
+                    })
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        if (!data.success) {
+                            if (info) info.textContent = data.message || 'Gagal menarik data.';
+                            return;
+                        }
+                        ['pagi', 'siang', 'malam'].forEach(function (kunci) {
+                            var input = form.querySelector('[name="hari_' + kunci + '"]');
+                            if (input) input.value = data['hari_' + kunci] || 0;
+                        });
+                        if (info) info.textContent = 'Kehadiran diisi: ' + data.total_hari + ' hari (telat/pulang awal manual).';
+                    })
+                    .catch(function () { if (info) info.textContent = 'Gagal menarik data absensi.'; })
+                    .finally(function () { btnTarik.disabled = false; });
+            });
+        }
+
+        var btnIsi = form.querySelector('#btn-isi-pph21');
+        if (btnIsi) {
+            btnIsi.addEventListener('click', function () {
+                var input = form.querySelector('#input-pph21');
+                if (input) {
+                    input.value = btnIsi.getAttribute('data-usulan');
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+        }
+    })();
+</script>

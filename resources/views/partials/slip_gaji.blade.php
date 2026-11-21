@@ -142,6 +142,20 @@
         </div>
     </div>
 
+    <div class="alert alert-info small mt-3 mb-0">
+        <strong>Usulan PPh 21 (estimasi setahun):</strong>
+        {{ $rp($slip['usulan_pph21']['pph_sebulan']) }} / bulan
+        (setahun {{ $rp($slip['usulan_pph21']['pph_setahun']) }}).
+        <div class="text-muted">
+            Bruto setahun {{ $rp($slip['usulan_pph21']['bruto_setahun']) }}
+            &minus; biaya jabatan {{ $rp($slip['usulan_pph21']['biaya_jabatan']) }}
+            &minus; iuran pensiun {{ $rp($slip['usulan_pph21']['iuran_pensiun_setahun']) }}
+            &minus; PTKP {{ $rp($slip['usulan_pph21']['ptkp']) }}
+            = PKP {{ $rp($slip['usulan_pph21']['pkp']) }}.
+            Nominal final tetap diisi manual di rekap bulanan.
+        </div>
+    </div>
+
     <p class="small text-muted mt-3 mb-0">
         Biaya jabatan 5% ({{ $rp($slip['biaya_jabatan']) }}) hanya dipakai sebagai pengurang dalam menghitung pajak,
         bukan potongan uang yang diambil dari pegawai. Tunjangan BPJS dan dana pensiun muncul sebagai pendapatan lalu

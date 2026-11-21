@@ -331,6 +331,10 @@
                                     @error('jabatan_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                    <div class="form-text">
+                                        Data gaji dasar (gaji pokok &amp; komponen tunjangan) dibuat otomatis
+                                        dari Setup Gaji jabatan ini.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Golongan</label>

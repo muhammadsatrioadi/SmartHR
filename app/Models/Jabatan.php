@@ -17,6 +17,23 @@ class Jabatan extends Model
         'gaji_pokok',
         'tunjangan',
         'potongan',
+        'tunjangan_jabatan',
+        'tunjangan_fungsional',
+        'tunjangan_profesi',
+        'tunjangan_makan',
+        'tunjangan_pulsa',
+        'tkp',
+        'hari_kerja_per_minggu',
+    ];
+
+    protected $casts = [
+        'gaji_pokok' => 'float',
+        'tunjangan_jabatan' => 'float',
+        'tunjangan_fungsional' => 'float',
+        'tunjangan_profesi' => 'float',
+        'tunjangan_makan' => 'float',
+        'tunjangan_pulsa' => 'float',
+        'tkp' => 'float',
     ];
 
     //  Relasi ke karyawans

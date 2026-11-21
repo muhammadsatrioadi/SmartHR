@@ -21,7 +21,8 @@
                         </div>
                     </form>
                     <a class="btn btn-primary" href="{{ route('payrollMonthly.create') }}">Input Rekap</a>
-                    <a class="btn btn-outline-primary" href="{{ route('slipGaji.index') }}">Slip Gaji</a>
+                    <a class="btn btn-outline-primary" href="{{ route('payrollMonthly.batch', ['periode' => $periode]) }}">Proses Massal</a>
+                    <a class="btn btn-outline-primary" href="{{ route('slipGaji.index', ['periode' => $periode]) }}">Slip Gaji</a>
                 </div>
             </div>
 
@@ -58,17 +59,30 @@
                                 <td class="text-end">{{ number_format($r->nominal_on_call, 0, ',', '.') }}</td>
                                 <td class="text-end">{{ number_format($r->nominal_pph21, 0, ',', '.') }}</td>
                                 <td class="text-end">{{ $r->potongan_infaq === null ? 'Otomatis' : number_format($r->potongan_infaq, 0, ',', '.') }}</td>
-                                <td><span class="badge bg-secondary">{{ $r->status }}</span></td>
+                                <td><span class="badge bg-{{ $r->status === 'final' ? 'success' : 'secondary' }}">{{ $r->status }}</span></td>
                                 <td class="text-nowrap">
                                     <a class="btn btn-sm btn-outline-primary"
                                         href="{{ route('slipGaji.show', ['karyawan' => $r->karyawan_id, 'periode' => $r->periode]) }}">Slip</a>
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('payrollMonthly.edit', $r) }}">Ubah</a>
-                                    <form class="d-inline" method="POST" action="{{ route('payrollMonthly.delete', $r) }}"
-                                        onsubmit="return confirm('Hapus rekap ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger" type="submit">Hapus</button>
-                                    </form>
+                                    @if ($r->status !== 'final')
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('payrollMonthly.edit', $r) }}">Ubah</a>
+                                        <form class="d-inline" method="POST" action="{{ route('payrollMonthly.finalize', $r) }}"
+                                            onsubmit="return confirm('Finalkan slip ini? Data akan terkunci.')">
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-success" type="submit">Finalkan</button>
+                                        </form>
+                                        <form class="d-inline" method="POST" action="{{ route('payrollMonthly.delete', $r) }}"
+                                            onsubmit="return confirm('Hapus rekap ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger" type="submit">Hapus</button>
+                                        </form>
+                                    @else
+                                        <form class="d-inline" method="POST" action="{{ route('payrollMonthly.batalkanFinal', $r) }}"
+                                            onsubmit="return confirm('Batalkan finalisasi slip ini?')">
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-warning" type="submit">Buka Kunci</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

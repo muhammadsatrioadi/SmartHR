@@ -7,7 +7,12 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-                <h1 class="h5 mb-0">Slip Gaji</h1>
+                <h1 class="h5 mb-0">
+                    Slip Gaji
+                    @if ($rekap)
+                        <span class="badge bg-{{ $rekap->status === 'final' ? 'success' : 'secondary' }} align-middle">{{ $rekap->status }}</span>
+                    @endif
+                </h1>
                 <form class="d-flex align-items-end gap-2" method="GET"
                     action="{{ route('slipGaji.show', ['karyawan' => $karyawan->id]) }}">
                     <div>
@@ -15,6 +20,8 @@
                         <input type="month" name="periode" value="{{ $periode }}" class="form-control">
                     </div>
                     <button class="btn btn-primary" type="submit">Tampilkan</button>
+                    <a class="btn btn-outline-success"
+                        href="{{ route('slipGaji.cetak', ['karyawan' => $karyawan->id, 'periode' => $periode]) }}" target="_blank">Cetak</a>
                     <a class="btn btn-outline-secondary" href="{{ route('slipGaji.index', ['periode' => $periode]) }}">Kembali</a>
                 </form>
             </div>

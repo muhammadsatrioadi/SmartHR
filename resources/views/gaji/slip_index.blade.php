@@ -50,11 +50,14 @@
                                 <td class="text-end">{{ number_format($item['slip']['total_potongan_resmi'], 0, ',', '.') }}</td>
                                 <td class="text-end">{{ number_format($item['slip']['total_potongan_lain'], 0, ',', '.') }}</td>
                                 <td class="text-end fw-bold">{{ number_format($item['slip']['terima_bersih'], 0, ',', '.') }}</td>
-                                <td>
+                                <td class="text-nowrap">
                                     <a class="btn btn-sm btn-outline-primary"
                                         href="{{ route('slipGaji.show', ['karyawan' => $item['karyawan']->id, 'periode' => $periode]) }}">
                                         Lihat Slip
                                     </a>
+                                    <a class="btn btn-sm btn-outline-success"
+                                        href="{{ route('slipGaji.cetak', ['karyawan' => $item['karyawan']->id, 'periode' => $periode]) }}"
+                                        target="_blank">Cetak</a>
                                 </td>
                             </tr>
                         @empty

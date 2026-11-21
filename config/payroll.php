@@ -53,6 +53,25 @@ return [
         'persen_biaya_jabatan' => 0.05,
 
         /**
+         * Estimasi/ usulan PPh 21 (bukan pengganti perhitungan resmi TER).
+         * Admin HR tetap mengisi nominal final; angka di bawah hanya usulan.
+         */
+        'ptkp' => [
+            'tk0' => 54_000_000.0,
+            'tambahan_kawin' => 4_500_000.0,
+            'tambahan_tanggungan' => 4_500_000.0,
+            'maks_tanggungan' => 3,
+        ],
+        'maks_biaya_jabatan_setahun' => 6_000_000.0,
+        'pph21_lapisan' => [
+            ['batas' => 60_000_000.0, 'tarif' => 0.05],
+            ['batas' => 250_000_000.0, 'tarif' => 0.15],
+            ['batas' => 500_000_000.0, 'tarif' => 0.25],
+            ['batas' => 5_000_000_000.0, 'tarif' => 0.30],
+            ['batas' => null, 'tarif' => 0.35],
+        ],
+
+        /**
          * Status kepegawaian (dicocokkan ke kode/nama employee_statuses) yang tidak
          * memperoleh tunjangan keluarga dan dana pensiun, misalnya peserta magang.
          */

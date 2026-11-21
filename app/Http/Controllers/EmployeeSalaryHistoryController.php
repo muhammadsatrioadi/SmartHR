@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmployeeSalaryHistory;
 use App\Models\Karyawan;
 use App\Models\SalaryStep;
+use App\Support\ActivityLogger;
 use App\Support\PayrollCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +68,18 @@ class EmployeeSalaryHistoryController extends Controller
         $validated['jumlah_anak_ditanggung'] = (int) ($validated['jumlah_anak_ditanggung'] ?? 0);
         $validated['disetujui_oleh'] = Auth::id();
 
-        EmployeeSalaryHistory::create($validated);
+        $history = EmployeeSalaryHistory::create($validated);
+
+        ActivityLogger::catat('data_gaji_dasar', 'buat', [
+            'referensi' => 'Karyawan #' . $history->karyawan_id,
+            'karyawan_id' => $history->karyawan_id,
+            'keterangan' => 'Data gaji dasar baru ditambahkan (berlaku ' . $history->tanggal_berlaku?->format('d/m/Y') . ')',
+            'perubahan' => $history->only([
+                'gaji_pokok', 'tunjangan_jabatan', 'tunjangan_fungsional', 'tunjangan_profesi',
+                'tunjangan_makan', 'tunjangan_pulsa', 'tkp', 'pasangan_ditanggung',
+                'jumlah_anak_ditanggung', 'hari_kerja_per_minggu',
+            ]),
+        ]);
 
         return redirect()->route('salaryHistory.index')->with('success', 'Data gaji dasar pegawai berhasil ditambahkan.');
     }

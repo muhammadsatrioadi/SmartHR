@@ -26,8 +26,8 @@
 
             {{-- Menu khusus Admin HR --}}
             @if ($role === 'admin_hr')
-                <li class="nav-item sidebar-accordion {{ request()->routeIs('jabatan.*','golongan.*','pangkat.*','employeeStatus.*','department.*','workUnit.*','gaji.setup') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-cog"></i><span>Kelola Master</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                <li class="nav-item sidebar-accordion {{ request()->routeIs('jabatan.*','golongan.*','pangkat.*','employeeStatus.*','department.*','workUnit.*','gaji.setup','salaryStep.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-cog"></i><span>Setup Master</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
                         <li class="{{ request()->routeIs('jabatan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('jabatan.read') }}">Jabatan</a></li>
                         <li class="{{ request()->routeIs('golongan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a></li>
@@ -35,7 +35,8 @@
                         <li class="{{ request()->routeIs('employeeStatus.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('employeeStatus.index') }}">Status Karyawan</a></li>
                         <li class="{{ request()->routeIs('department.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('department.index') }}">Departemen</a></li>
                         <li class="{{ request()->routeIs('workUnit.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workUnit.index') }}">Unit Kerja</a></li>
-                        <li class="{{ request()->routeIs('gaji.setup') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.setup') }}">Setup Gaji</a></li>
+                        <li class="{{ request()->routeIs('gaji.setup') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.setup') }}">Setup Gaji (Komponen Jabatan)</a></li>
+                        <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
                     </ul>
                 </li>
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('holiday.*','shiftGroup.*','workShift.*','leaveType.*','cuti.*') ? 'active' : '' }}">
@@ -60,12 +61,12 @@
                         <li class="{{ request()->routeIs('presensi.alpha') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.alpha') }}">Daftar Alpha</a></li>
                     </ul>
                 </li>
-                <li class="nav-item sidebar-accordion {{ request()->routeIs('gaji.*','salaryStep.*','salaryHistory.*','payrollMonthly.*','slipGaji.*') ? 'active' : '' }}">
+                <li class="nav-item sidebar-accordion {{ request()->routeIs('salaryHistory.*','payrollMonthly.*','slipGaji.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
                         <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Data Gaji Dasar Pegawai</a></li>
                         <li class="{{ request()->routeIs('payrollMonthly.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.index') }}">Rekap Gaji Bulanan</a></li>
+                        <li class="{{ request()->routeIs('payrollMonthly.batch','payrollMonthly.export') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.batch') }}">Proses Rekap Massal</a></li>
                         <li class="{{ request()->routeIs('slipGaji.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('slipGaji.index') }}">Slip Gaji</a></li>
                     </ul>
                 </li>

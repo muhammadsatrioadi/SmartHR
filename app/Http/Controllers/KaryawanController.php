@@ -11,9 +11,11 @@ use App\Models\Department;
 use App\Models\WorkUnit;
 use App\Models\ShiftGroup;
 use App\Models\EmployeeEmploymentHistory;
+use App\Models\EmployeeSalaryHistory;
 use App\Models\User;
 use App\Models\UserDevice;
 use App\Services\DepartmentManagerSyncService;
+use App\Support\ActivityLogger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -96,7 +98,60 @@ class KaryawanController extends Controller
             }
         }
 
-        return redirect()->route('karyawans.index')->with('success', 'Data Karyawan berhasil dibuat.');
+        // Data gaji dasar awal diambil otomatis dari Setup Gaji jabatannya.
+        $gajiOtomatis = $this->buatDataGajiDasar($karyawan);
+
+        return redirect()->route('karyawans.index')->with(
+            'success',
+            $gajiOtomatis
+                ? 'Data Karyawan berhasil dibuat. Data gaji dasar otomatis dibuat dari Setup Gaji jabatannya.'
+                : 'Data Karyawan berhasil dibuat.'
+        );
+    }
+
+    /**
+     * Membuat baris "data gaji dasar" pertama dari komponen Setup Gaji jabatan.
+     * Dilewati bila jabatan belum diisi komponen gajinya.
+     */
+    protected function buatDataGajiDasar(Karyawan $karyawan): bool
+    {
+        $jabatan = $karyawan->jabatan()->first();
+
+        if (!$jabatan || (float) $jabatan->gaji_pokok <= 0) {
+            return false;
+        }
+
+        $komponen = [];
+        $totalKomponen = 0;
+        foreach (SalarySetupController::KOMPONEN as $kolom) {
+            $komponen[$kolom] = (float) ($jabatan->{$kolom} ?? 0);
+            $totalKomponen += $komponen[$kolom];
+        }
+
+        $history = EmployeeSalaryHistory::create(array_merge($komponen, [
+            'karyawan_id' => $karyawan->id,
+            'gaji_pokok' => (float) $jabatan->gaji_pokok,
+            'tunjangan_tetap' => $totalKomponen,
+            'tunjangan_lain' => 0,
+            'pasangan_ditanggung' => (bool) $karyawan->ditanggung,
+            'jumlah_anak_ditanggung' => min((int) $karyawan->anak_isteri_ke, 3),
+            'hari_kerja_per_minggu' => (int) ($jabatan->hari_kerja_per_minggu ?: 5),
+            'tanggal_berlaku' => optional($karyawan->tanggal_masuk)->toDateString() ?? now('Asia/Jakarta')->toDateString(),
+            'alasan' => 'Data awal otomatis dari Setup Gaji jabatan',
+            'disetujui_oleh' => \Illuminate\Support\Facades\Auth::id(),
+        ]));
+
+        ActivityLogger::catat('data_gaji_dasar', 'buat_otomatis', [
+            'referensi' => 'Karyawan #' . $karyawan->id,
+            'karyawan_id' => $karyawan->id,
+            'keterangan' => 'Data gaji dasar dibuat otomatis dari jabatan ' . $jabatan->nama_jabatan,
+            'perubahan' => $history->only([
+                'gaji_pokok', 'tunjangan_jabatan', 'tunjangan_fungsional', 'tunjangan_profesi',
+                'tunjangan_makan', 'tunjangan_pulsa', 'tkp', 'hari_kerja_per_minggu',
+            ]),
+        ]);
+
+        return true;
     }
 
     protected function karyawanValidationRules(Request $request, $id)
