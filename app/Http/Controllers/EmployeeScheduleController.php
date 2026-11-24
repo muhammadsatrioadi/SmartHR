@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\EmployeeSchedule;
 use App\Models\Holiday;
 use App\Models\Karyawan;
@@ -16,10 +17,16 @@ class EmployeeScheduleController extends Controller
     {
         $month = $request->input('month', Carbon::now()->format('Y-m'));
         $search = $request->input('search');
+        $departmentId = $request->input('department_id');
         $start = Carbon::parse($month . '-01');
         $end = (clone $start)->endOfMonth();
 
         $query = Karyawan::query();
+
+        // Filter per departemen (mempengaruhi daftar tabel & pilihan pegawai jadwal massal)
+        if ($departmentId) {
+            $query->where('department_id', $departmentId);
+        }
 
         // Filter berdasarkan atasan jika user yang login adalah karyawan/atasan (bukan admin_hr)
         $user = auth()->user();
@@ -47,6 +54,7 @@ class EmployeeScheduleController extends Controller
         $karyawans = $query->orderBy('name')->get();
         $shiftGroups = ShiftGroup::orderBy('kode')->get();
         $workShifts = WorkShift::orderBy('kode')->get();
+        $departments = Department::orderBy('nama')->get();
 
         $schedules = EmployeeSchedule::whereBetween('tanggal', [$start, $end])
             ->get()
@@ -62,9 +70,11 @@ class EmployeeScheduleController extends Controller
         return view('jadwal.employee.index', compact(
             'month',
             'search',
+            'departmentId',
             'start',
             'end',
             'karyawans',
+            'departments',
             'shiftGroups',
             'workShifts',
             'schedules',

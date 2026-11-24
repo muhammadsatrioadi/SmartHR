@@ -17,6 +17,17 @@
                     <input type="month" name="month" value="{{ $month }}" class="form-control">
                 </div>
                 <div class="col-auto">
+                    <label class="form-label">Departemen</label>
+                    <select name="department_id" class="form-select" style="min-width: 220px;" onchange="this.form.submit()">
+                        <option value="">Semua Departemen</option>
+                        @foreach ($departments as $departemen)
+                            <option value="{{ $departemen->id }}" {{ (string) $departmentId === (string) $departemen->id ? 'selected' : '' }}>
+                                {{ $departemen->kode }} - {{ $departemen->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto">
                     <label class="form-label">Cari Pegawai (Nama/NIK)</label>
                     <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Masukkan nama atau nik...">
                 </div>
@@ -66,6 +77,7 @@
                                 <option value="{{ $k->id }}">{{ $k->nik ?? $k->name }} - {{ $k->name }}</option>
                             @endforeach
                         </select>
+                        <small class="text-muted">Daftar pegawai mengikuti filter departemen di atas.</small>
                     </div>
                 </div>
                 <div class="mt-2 d-flex justify-content-end">

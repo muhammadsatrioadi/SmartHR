@@ -7,6 +7,11 @@
 
         <h1>Presensi</h1>
 
+        <div class="alert alert-info mt-3">
+            Presensi tidak dapat diisi manual. Kehadiran hanya tercatat otomatis melalui absen
+            device/portal, untuk menghindari kecurangan presensi.
+        </div>
+
         <div class="card bg-secondary rounded mt-4">
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,8 +20,10 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
+                                {{-- Kolom aksi presensi manual disembunyikan untuk menghindari kecurangan presensi.
                                 <th scope="col">Keterangan</th>
                                 <th scope="col">Action</th>
+                                --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -24,6 +31,8 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $karyawanBelumAbsens->name }}</td>
+                                    {{-- Input presensi manual disembunyikan (tidak dihapus) untuk menghindari
+                                         kecurangan presensi. Kehadiran hanya tercatat otomatis dari absen device/portal.
                                     <form action="{{ route('presensi.createProses') }}" method="POST"
                                         style="display:inline;">
                                         @csrf
@@ -37,8 +46,9 @@
                                                 class="btn btn-success">Hadir</button>
                                             <button type="submit" name="status_absen" value="alpha"
                                                 class="btn btn-danger">Alpha</button>
+                                        </td>
                                     </form>
-                                    </td>
+                                    --}}
                                 </tr>
                             @endforeach
                         </tbody>
