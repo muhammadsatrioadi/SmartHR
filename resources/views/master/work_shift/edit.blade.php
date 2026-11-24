@@ -27,39 +27,43 @@
                 <div class="mb-3">
                     <label class="form-label">Kode Shift</label>
                     <input type="text" name="kode" value="{{ old('kode', $item->kode) }}"
-                        class="form-control @error('kode') is-invalid @enderror" required>
+                        class="form-control @error('kode') is-invalid @enderror"
+                        pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Nama Shift</label>
                     <input type="text" name="nama" value="{{ old('nama', $item->nama) }}"
-                        class="form-control @error('nama') is-invalid @enderror" required>
+                        class="form-control @error('nama') is-invalid @enderror"
+                        pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Jam Masuk</label>
-                        <input type="time" name="jam_masuk" value="{{ old('jam_masuk', $item->jam_masuk) }}"
+                        <input type="time" name="jam_masuk"
+                            value="{{ old('jam_masuk', $item->jam_masuk ? \Illuminate\Support\Carbon::parse($item->jam_masuk)->format('H:i') : '') }}"
                             class="form-control @error('jam_masuk') is-invalid @enderror" required>
                         @error('jam_masuk') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Jam Pulang</label>
-                        <input type="time" name="jam_pulang" value="{{ old('jam_pulang', $item->jam_pulang) }}"
+                        <input type="time" name="jam_pulang"
+                            value="{{ old('jam_pulang', $item->jam_pulang ? \Illuminate\Support\Carbon::parse($item->jam_pulang)->format('H:i') : '') }}"
                             class="form-control @error('jam_pulang') is-invalid @enderror" required>
                         @error('jam_pulang') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Mulai Telat</label>
                         <input type="time" name="jam_mulai_telat"
-                            value="{{ old('jam_mulai_telat', $item->jam_mulai_telat) }}" class="form-control">
+                            value="{{ old('jam_mulai_telat', $item->jam_mulai_telat ? \Illuminate\Support\Carbon::parse($item->jam_mulai_telat)->format('H:i') : '') }}" class="form-control">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Masuk Cepat</label>
                         <input type="time" name="jam_masuk_cepat"
-                            value="{{ old('jam_masuk_cepat', $item->jam_masuk_cepat) }}" class="form-control">
+                            value="{{ old('jam_masuk_cepat', $item->jam_masuk_cepat ? \Illuminate\Support\Carbon::parse($item->jam_masuk_cepat)->format('H:i') : '') }}" class="form-control">
                     </div>
                 </div>
 

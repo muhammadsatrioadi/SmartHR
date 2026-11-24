@@ -40,24 +40,21 @@
                                             <input type="hidden" name="balances[{{ $index }}][id]" value="{{ $row->id }}">
                                         </td>
                                         <td>
-                                            <input type="number" step="0.5" min="0"
+                                            <input type="number" step="1" min="1"
                                                 name="balances[{{ $index }}][kuota]"
                                                 class="form-control balance-kuota"
                                                 data-index="{{ $index }}"
-                                                value="{{ old('balances.'.$index.'.kuota', $row->kuota) }}"
+                                                data-terpakai="{{ (int) $row->terpakai }}"
+                                                value="{{ old('balances.'.$index.'.kuota', (int) $row->kuota) }}"
                                                 required>
                                         </td>
                                         <td>
-                                            <input type="number" step="0.5" min="0"
-                                                name="balances[{{ $index }}][terpakai]"
-                                                class="form-control balance-terpakai"
-                                                data-index="{{ $index }}"
-                                                value="{{ old('balances.'.$index.'.terpakai', $row->terpakai) }}"
-                                                required>
+                                            <span class="form-control-plaintext">{{ number_format($row->terpakai, 0) }} hari</span>
+                                            <small class="text-muted d-block">otomatis</small>
                                         </td>
                                         <td>
                                             <span class="badge badge-{{ $row->sisa > 0 ? 'success' : 'danger' }} balance-sisa" data-index="{{ $index }}">
-                                                {{ number_format($row->sisa, 1) }} hari
+                                                {{ number_format($row->sisa, 0) }} hari
                                             </span>
                                         </td>
                                     </tr>
@@ -83,7 +80,7 @@
                 </form>
 
                 <div class="alert alert-info mt-4 mb-0">
-                    <strong>Petunjuk:</strong> Semua jenis saldo cuti pegawai ditampilkan di sini. Ubah kuota atau terpakai sesuai kebutuhan — sisa dihitung otomatis (<code>Kuota − Terpakai</code>).
+                    <strong>Petunjuk:</strong> Ubah <strong>kuota</strong> sesuai kebutuhan. Jumlah <strong>terpakai</strong> otomatis dari cuti yang disetujui dan sisa dihitung otomatis (<code>Kuota − Terpakai</code>). Kuota tidak boleh 0 dan tidak boleh lebih kecil dari terpakai.
                 </div>
             </div>
         </div>
@@ -92,16 +89,17 @@
 
 <script>
 function updateSisa(index) {
-    const kuota = parseFloat(document.querySelector('.balance-kuota[data-index="' + index + '"]').value) || 0;
-    const terpakai = parseFloat(document.querySelector('.balance-terpakai[data-index="' + index + '"]').value) || 0;
+    const input = document.querySelector('.balance-kuota[data-index="' + index + '"]');
+    const kuota = parseInt(input.value) || 0;
+    const terpakai = parseInt(input.dataset.terpakai) || 0;
     const sisa = Math.max(kuota - terpakai, 0);
     const badge = document.querySelector('.balance-sisa[data-index="' + index + '"]');
-    badge.textContent = sisa.toFixed(1) + ' hari';
+    badge.textContent = sisa + ' hari';
     badge.className = 'badge balance-sisa ' + (sisa > 0 ? 'badge-success' : 'badge-danger');
     badge.dataset.index = index;
 }
 
-document.querySelectorAll('.balance-kuota, .balance-terpakai').forEach(function (el) {
+document.querySelectorAll('.balance-kuota').forEach(function (el) {
     el.addEventListener('input', function () {
         updateSisa(this.dataset.index);
     });

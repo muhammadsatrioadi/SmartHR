@@ -24,14 +24,18 @@ class WorkShiftController extends Controller
     {
         $validated = $request->validate([
             'shift_group_id' => 'nullable|exists:shift_groups,id',
-            'kode' => 'required|string|max:20|unique:work_shifts,kode',
-            'nama' => 'required|string|max:100',
+            'kode' => 'required|alpha_num|max:20|unique:work_shifts,kode',
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:100',
             'jam_masuk' => 'required|date_format:H:i',
-            'jam_pulang' => 'required|date_format:H:i',
+            'jam_pulang' => 'required|date_format:H:i|different:jam_masuk',
             'jam_mulai_telat' => 'nullable|date_format:H:i',
             'jam_masuk_cepat' => 'nullable|date_format:H:i',
             'toleransi_telat_menit' => 'nullable|integer|min:0',
             'is_aktif' => 'nullable|boolean',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'jam_pulang.different' => 'Jam pulang tidak boleh sama dengan jam masuk.',
         ]);
         $validated['is_aktif'] = (bool)($request->input('is_aktif', true));
 
@@ -51,14 +55,18 @@ class WorkShiftController extends Controller
         $item = WorkShift::findOrFail($id);
         $validated = $request->validate([
             'shift_group_id' => 'nullable|exists:shift_groups,id',
-            'kode' => 'required|string|max:20|unique:work_shifts,kode,' . $item->id,
-            'nama' => 'required|string|max:100',
+            'kode' => 'required|alpha_num|max:20|unique:work_shifts,kode,' . $item->id,
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:100',
             'jam_masuk' => 'required|date_format:H:i',
-            'jam_pulang' => 'required|date_format:H:i',
+            'jam_pulang' => 'required|date_format:H:i|different:jam_masuk',
             'jam_mulai_telat' => 'nullable|date_format:H:i',
             'jam_masuk_cepat' => 'nullable|date_format:H:i',
             'toleransi_telat_menit' => 'nullable|integer|min:0',
             'is_aktif' => 'nullable|boolean',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'jam_pulang.different' => 'Jam pulang tidak boleh sama dengan jam masuk.',
         ]);
         $validated['is_aktif'] = (bool)($request->input('is_aktif', true));
 

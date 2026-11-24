@@ -36,20 +36,16 @@
 
                     <div class="form-group">
                         <label>Kuota Hari</label>
-                        <input type="number" step="0.5" name="kuota" id="kuota" class="form-control @error('kuota') is-invalid @enderror"
+                        <input type="number" step="1" min="1" name="kuota" id="kuota" class="form-control @error('kuota') is-invalid @enderror"
                             value="{{ old('kuota') }}" required>
+                        <small class="text-muted">Wajib diisi, minimal 1 hari (tanpa desimal).</small>
                         @error('kuota')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label>Terpakai</label>
-                        <input type="number" step="0.5" name="terpakai" class="form-control @error('terpakai') is-invalid @enderror"
-                            value="{{ old('terpakai', 0) }}" required>
-                        @error('terpakai')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="alert alert-info small">
+                        <i class="fas fa-info-circle"></i> Jumlah <strong>terpakai</strong> dihitung otomatis dari cuti yang sudah disetujui, sehingga tidak perlu diisi manual.
                     </div>
 
                     <div class="form-group mt-4">

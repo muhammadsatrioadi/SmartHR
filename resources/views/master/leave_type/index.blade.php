@@ -10,10 +10,6 @@
                 <a class="btn btn-primary" href="{{ route('leaveType.create') }}">Tambah</a>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>

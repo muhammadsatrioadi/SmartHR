@@ -14,20 +14,23 @@
                 <div class="mb-3">
                     <label class="form-label">Kode</label>
                     <input type="text" name="kode" value="{{ old('kode', $item->kode) }}"
-                        class="form-control @error('kode') is-invalid @enderror" required>
+                        class="form-control @error('kode') is-invalid @enderror"
+                        pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Jenis Cuti</label>
                     <input type="text" name="nama" value="{{ old('nama', $item->nama) }}"
-                        class="form-control @error('nama') is-invalid @enderror" required>
+                        class="form-control @error('nama') is-invalid @enderror"
+                        pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Grup</label>
-                    <input type="text" name="grup" value="{{ old('grup', $item->grup) }}" class="form-control">
+                    <input type="text" name="grup" value="{{ old('grup', $item->grup) }}" class="form-control"
+                        pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')">
                 </div>
 
                 <div class="row">
@@ -56,7 +59,8 @@
                         <label class="form-label">Max Expired</label>
                         <div class="d-flex gap-2">
                             <input type="number" name="max_expired"
-                                value="{{ old('max_expired', $item->max_expired) }}" class="form-control">
+                                value="{{ old('max_expired', $item->max_expired) }}" min="0" step="1"
+                                class="form-control">
                             <select name="satuan_expired" class="form-select">
                                 <option value="">-</option>
                                 <option value="hari"
@@ -78,7 +82,8 @@
                         <label class="form-label">Jika Masa Kerja (&gt;=)</label>
                         <div class="d-flex gap-2">
                             <input type="number" name="min_masa_kerja"
-                                value="{{ old('min_masa_kerja', $item->min_masa_kerja) }}" class="form-control">
+                                value="{{ old('min_masa_kerja', $item->min_masa_kerja) }}" min="0" step="1"
+                                class="form-control">
                             <select name="satuan_masa_kerja" class="form-select">
                                 <option value="">-</option>
                                 <option value="hari"
@@ -99,13 +104,14 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Max BackDate (Hari)</label>
                         <input type="number" name="max_backdate"
-                            value="{{ old('max_backdate', $item->max_backdate) }}" class="form-control">
+                            value="{{ old('max_backdate', $item->max_backdate) }}" min="0" step="1"
+                            class="form-control">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Kuota Hari (per tahun)</label>
-                    <input type="number" step="0.5" name="kuota_hari"
+                    <input type="number" step="1" name="kuota_hari"
                         value="{{ old('kuota_hari', $item->kuota_hari ?? 0) }}"
                         class="form-control" min="0" max="365">
                 </div>

@@ -20,7 +20,8 @@
                 <div class="mb-3">
                     <label class="form-label">Kode Libur</label>
                     <input type="text" name="kode_libur" value="{{ old('kode_libur') }}"
-                        class="form-control @error('kode_libur') is-invalid @enderror" required>
+                        class="form-control @error('kode_libur') is-invalid @enderror"
+                        pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
                     @error('kode_libur') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 

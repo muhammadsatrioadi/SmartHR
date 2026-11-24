@@ -21,9 +21,9 @@ class LeaveTypeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:leave_types,kode',
-            'nama' => 'required|string|max:150',
-            'grup' => 'nullable|string|max:50',
+            'kode' => 'required|alpha_num|max:20|unique:leave_types,kode',
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:150',
+            'grup' => 'nullable|regex:/^[A-Za-z0-9 ]+$/|max:50',
             'pakai_periode' => 'nullable|boolean',
             'satuan_periode' => 'nullable|in:hari,bulan,tahun',
             'max_expired' => 'nullable|integer|min:0',
@@ -32,7 +32,15 @@ class LeaveTypeController extends Controller
             'satuan_masa_kerja' => 'nullable|in:hari,bulan,tahun',
             'max_backdate' => 'nullable|integer|min:0',
             'rekap' => 'nullable|boolean',
-            'kuota_hari' => 'nullable|numeric|min:0|max:365',
+            'kuota_hari' => 'nullable|integer|min:0|max:365',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'grup.regex' => 'Grup hanya boleh berisi huruf, angka, dan spasi.',
+            'max_expired.integer' => 'Max Expired harus berupa bilangan bulat (tanpa desimal).',
+            'min_masa_kerja.integer' => 'Masa Kerja harus berupa bilangan bulat (tanpa desimal).',
+            'max_backdate.integer' => 'Max BackDate harus berupa bilangan bulat (tanpa desimal).',
+            'kuota_hari.integer' => 'Kuota hari harus berupa bilangan bulat (tanpa desimal).',
         ]);
         $validated['pakai_periode'] = (bool)($request->input('pakai_periode', false));
         $validated['rekap'] = (bool)($request->input('rekap', true));
@@ -52,9 +60,9 @@ class LeaveTypeController extends Controller
     {
         $item = LeaveType::findOrFail($id);
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:leave_types,kode,' . $item->id,
-            'nama' => 'required|string|max:150',
-            'grup' => 'nullable|string|max:50',
+            'kode' => 'required|alpha_num|max:20|unique:leave_types,kode,' . $item->id,
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:150',
+            'grup' => 'nullable|regex:/^[A-Za-z0-9 ]+$/|max:50',
             'pakai_periode' => 'nullable|boolean',
             'satuan_periode' => 'nullable|in:hari,bulan,tahun',
             'max_expired' => 'nullable|integer|min:0',
@@ -63,7 +71,15 @@ class LeaveTypeController extends Controller
             'satuan_masa_kerja' => 'nullable|in:hari,bulan,tahun',
             'max_backdate' => 'nullable|integer|min:0',
             'rekap' => 'nullable|boolean',
-            'kuota_hari' => 'nullable|numeric|min:0|max:365',
+            'kuota_hari' => 'nullable|integer|min:0|max:365',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'grup.regex' => 'Grup hanya boleh berisi huruf, angka, dan spasi.',
+            'max_expired.integer' => 'Max Expired harus berupa bilangan bulat (tanpa desimal).',
+            'min_masa_kerja.integer' => 'Masa Kerja harus berupa bilangan bulat (tanpa desimal).',
+            'max_backdate.integer' => 'Max BackDate harus berupa bilangan bulat (tanpa desimal).',
+            'kuota_hari.integer' => 'Kuota hari harus berupa bilangan bulat (tanpa desimal).',
         ]);
         $validated['pakai_periode'] = (bool)($request->input('pakai_periode', false));
         $validated['rekap'] = (bool)($request->input('rekap', true));

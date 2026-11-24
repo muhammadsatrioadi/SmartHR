@@ -10,27 +10,21 @@
                 <a class="btn btn-primary" href="{{ route('holiday.create') }}">Tambah</a>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <div class="card bg-dark border-secondary mb-3">
                 <div class="card-body">
                     <form method="POST" action="{{ route('holiday.sync') }}" class="row g-3 align-items-end">
                         @csrf
                         <div class="col-md-3">
                             <label class="form-label">Tahun Awal</label>
-                            <input type="number" name="from_year" class="form-control @error('from_year') is-invalid @enderror"
-                                value="{{ old('from_year', $defaultFromYear) }}" min="2026" max="2100" required>
-                            @error('from_year') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <input type="text" class="form-control" value="{{ $defaultFromYear }}" readonly>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Tahun Akhir</label>
-                            <input type="number" name="to_year" class="form-control @error('to_year') is-invalid @enderror"
-                                value="{{ old('to_year', $defaultToYear) }}" min="2026" max="2100" required>
-                            @error('to_year') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <input type="text" class="form-control" value="{{ $defaultToYear }}" readonly>
                         </div>
                         <div class="col-md-6 d-flex justify-content-md-end">
+                            <input type="hidden" name="from_year" value="{{ $defaultFromYear }}">
+                            <input type="hidden" name="to_year" value="{{ $defaultToYear }}">
                             <button class="btn btn-outline-info" type="submit">Sinkronkan Hari Libur Nasional Indonesia</button>
                         </div>
                     </form>

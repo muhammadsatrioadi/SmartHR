@@ -77,8 +77,11 @@ class LeaveBalanceController extends Controller
 
         $validated = $request->validate([
             'leave_type_id' => 'required|exists:leave_types,id',
-            'kuota' => 'required|numeric|min:0',
-            'terpakai' => 'required|numeric|min:0',
+            'kuota' => 'required|integer|min:1',
+        ], [
+            'kuota.required' => 'Kuota wajib diisi.',
+            'kuota.integer' => 'Kuota harus berupa bilangan bulat (tanpa desimal).',
+            'kuota.min' => 'Kuota harus lebih besar dari 0.',
         ]);
 
         $exists = EmployeeLeaveBalance::where('karyawan_id', $karyawan->id)
@@ -90,16 +93,16 @@ class LeaveBalanceController extends Controller
             return back()->withErrors(['leave_type_id' => 'Saldo untuk jenis cuti ini sudah ada.'])->withInput();
         }
 
-        $terpakai = (float) $validated['terpakai'];
-        $kuota = (float) $validated['kuota'];
+        $kuota = (int) $validated['kuota'];
 
+        // Terpakai tidak diinput manual; dihitung otomatis dari cuti yang disetujui.
         EmployeeLeaveBalance::create([
             'karyawan_id' => $karyawan->id,
             'leave_type_id' => $validated['leave_type_id'],
             'tahun' => $tahun,
             'kuota' => $kuota,
-            'terpakai' => $terpakai,
-            'sisa' => max($kuota - $terpakai, 0),
+            'terpakai' => 0,
+            'sisa' => $kuota,
         ]);
 
         return redirect()
@@ -129,8 +132,11 @@ class LeaveBalanceController extends Controller
         $validated = $request->validate([
             'balances' => 'required|array|min:1',
             'balances.*.id' => 'required|exists:employee_leave_balances,id',
-            'balances.*.kuota' => 'required|numeric|min:0',
-            'balances.*.terpakai' => 'required|numeric|min:0',
+            'balances.*.kuota' => 'required|integer|min:1',
+        ], [
+            'balances.*.kuota.required' => 'Kuota wajib diisi.',
+            'balances.*.kuota.integer' => 'Kuota harus berupa bilangan bulat (tanpa desimal).',
+            'balances.*.kuota.min' => 'Kuota harus lebih besar dari 0.',
         ]);
 
         foreach ($validated['balances'] as $row) {
@@ -139,12 +145,19 @@ class LeaveBalanceController extends Controller
                 ->where('tahun', $tahun)
                 ->firstOrFail();
 
-            $kuota = (float) $row['kuota'];
-            $terpakai = (float) $row['terpakai'];
+            $kuota = (int) $row['kuota'];
+            $terpakai = (int) $balance->terpakai;
+
+            if ($kuota < $terpakai) {
+                return back()->withInput()->with(
+                    'error',
+                    'Kuota untuk ' . ($balance->leaveType->nama ?? 'jenis cuti ini') .
+                    ' tidak boleh lebih kecil dari jumlah terpakai (' . $terpakai . ' hari).'
+                );
+            }
 
             $balance->update([
                 'kuota' => $kuota,
-                'terpakai' => $terpakai,
                 'sisa' => max($kuota - $terpakai, 0),
             ]);
         }

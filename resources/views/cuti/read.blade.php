@@ -39,16 +39,21 @@ active
 
 @section('content')
 
+    @php $role = auth()->user()->role ?? 'karyawan'; @endphp
+
     <section id="read" class="m-5 mt-4 ">
         <div class="container bg-secondary rounded p-3" style="margin-bottom: 15rem">
-            <a href="{{ route('cuti.create') }}" class="btn btn-primary mt-2">Buat Cuti Baru</a>
+            @if ($role !== 'admin_hr')
+                <a href="{{ route('cuti.create') }}" class="btn btn-primary mt-2">Buat Cuti Baru</a>
+            @endif
             <div class="row justify-content-center mt-4">
                 <div class="col">
                     @php
-                        $sections = [
-                            'Karyawan' => $dataKaryawan,
-                            'Manajer' => $dataManajer,
-                        ];
+                        // Admin HR hanya menangani approval pengajuan cuti manajer,
+                        // pengajuan cuti karyawan disembunyikan.
+                        $sections = $role === 'admin_hr'
+                            ? ['Manajer' => $dataManajer]
+                            : ['Karyawan' => $dataKaryawan, 'Manajer' => $dataManajer];
                     @endphp
 
                     @foreach ($sections as $label => $items)
@@ -81,12 +86,6 @@ active
                                         <td>{{ $item->saldo_awal }} / {{ $item->hak_diambil }} / {{ $item->saldo_sisa }}</td>
                                         <td>{{ ucfirst(str_replace('_', ' ', $item->status)) }}</td>
                                         <td class="opsi">
-                                            <a href="{{ route('cuti.edit', ['id' => $item->id]) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('cuti.delete', ['id' => $item->id]) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm delete-confirm" data-message="Yakin ingin menghapus pengajuan cuti {{ optional($item->karyawan)->name }}?">Delete</button>
-                                            </form>
                                             @if ($item->status === 'menunggu_atasan')
                                                 <form action="{{ route('cuti.approveSupervisor', $item->id) }}" method="POST" class="d-inline">
                                                     @csrf

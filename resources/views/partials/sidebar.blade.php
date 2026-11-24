@@ -15,12 +15,13 @@
             <li class="nav-item {{ request()->routeIs('karyawans.*') ? 'active' : '' }}">
                 <a href="{{ route('karyawans.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Master Karyawan</span></a>
             </li>
-            {{-- Menu "Cuti" dipindahkan ke dalam submenu "Setup Jadwal & Cuti" (disembunyikan di sini, tidak dihapus) --}}
-            {{--
-            <li class="nav-item {{ request()->routeIs('cuti.*') ? 'active' : '' }}">
-                <a href="{{ route('cuti.read') }}" class="nav-link"><i class="fas fa-keyboard"></i><span>Cuti</span></a>
-            </li>
-            --}}
+            {{-- Menu "Cuti" dikeluarkan dari Setup Jadwal & Cuti (bukan bagian kelola master).
+                 Hanya untuk Admin HR karena halaman ini khusus approval cuti manajer. --}}
+            @if ((auth()->user()->role ?? null) === 'admin_hr')
+                <li class="nav-item {{ request()->routeIs('cuti.*') ? 'active' : '' }}">
+                    <a href="{{ route('cuti.read') }}" class="nav-link"><i class="fas fa-keyboard"></i><span>Cuti</span></a>
+                </li>
+            @endif
 
             @php $role = auth()->user()->role ?? 'karyawan'; @endphp
 
@@ -39,10 +40,9 @@
                         <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
                     </ul>
                 </li>
-                <li class="nav-item sidebar-accordion {{ request()->routeIs('holiday.*','shiftGroup.*','workShift.*','leaveType.*','cuti.*') ? 'active' : '' }}">
+                <li class="nav-item sidebar-accordion {{ request()->routeIs('holiday.*','shiftGroup.*','workShift.*','leaveType.*','leaveBalance.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-calendar"></i><span>Setup Jadwal & Cuti</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('cuti.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('cuti.read') }}">Cuti</a></li>
                         <li class="{{ request()->routeIs('holiday.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('holiday.index') }}">Hari Libur Nasional</a></li>
                         <li class="{{ request()->routeIs('shiftGroup.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shiftGroup.index') }}">Group Shift</a></li>
                         <li class="{{ request()->routeIs('workShift.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workShift.index') }}">Shift Kerja</a></li>

@@ -19,7 +19,7 @@
                     Belum ada jabatan. Buat jabatan terlebih dahulu di menu <strong>Setup Master &gt; Jabatan</strong>.
                 </div>
             @else
-                <form method="POST" action="{{ route('gaji.setup.update') }}" class="js-validate" novalidate>
+                <form id="form-setup-gaji" method="POST" action="{{ route('gaji.setup.update') }}" class="js-validate" novalidate>
                     @csrf
                     @method('PUT')
 
@@ -47,14 +47,14 @@
                                     <tr data-baris-setup>
                                         <td class="align-middle">{{ $jabatan->nama_jabatan }}</td>
                                         <td>
-                                            <input type="number" min="0" name="gaji_pokok[{{ $jabatan->id }}]"
-                                                value="{{ old('gaji_pokok.' . $jabatan->id, $jabatan->gaji_pokok ?? 0) }}"
+                                            <input type="text" inputmode="numeric" name="gaji_pokok[{{ $jabatan->id }}]"
+                                                value="{{ number_format((int) old('gaji_pokok.' . $jabatan->id, $jabatan->gaji_pokok ?? 0), 0, ',', '.') }}"
                                                 class="form-control js-komponen" required>
                                         </td>
                                         @foreach (\App\Http\Controllers\SalarySetupController::KOMPONEN as $komponen)
                                             <td>
-                                                <input type="number" min="0" name="{{ $komponen }}[{{ $jabatan->id }}]"
-                                                    value="{{ old($komponen . '.' . $jabatan->id, $jabatan->{$komponen} ?? 0) }}"
+                                                <input type="text" inputmode="numeric" name="{{ $komponen }}[{{ $jabatan->id }}]"
+                                                    value="{{ number_format((int) old($komponen . '.' . $jabatan->id, $jabatan->{$komponen} ?? 0), 0, ',', '.') }}"
                                                     class="form-control js-komponen">
                                             </td>
                                         @endforeach
@@ -86,10 +86,21 @@
         (function () {
             var formatter = new Intl.NumberFormat('id-ID');
 
+            // Ambil nilai angka murni (tanpa titik pemisah ribuan).
+            function angkaDari(input) {
+                return parseInt((input.value || '').replace(/\D/g, ''), 10) || 0;
+            }
+
+            // Tampilkan nilai dengan pemisah ribuan (titik).
+            function formatInput(input) {
+                var digit = (input.value || '').replace(/\D/g, '');
+                input.value = digit === '' ? '' : formatter.format(parseInt(digit, 10));
+            }
+
             function hitungTotal(baris) {
                 var total = 0;
                 baris.querySelectorAll('.js-komponen').forEach(function (input) {
-                    total += parseFloat(input.value) || 0;
+                    total += angkaDari(input);
                 });
                 var target = baris.querySelector('.js-total');
                 if (target) target.textContent = formatter.format(total);
@@ -99,10 +110,21 @@
                 hitungTotal(baris);
                 baris.querySelectorAll('.js-komponen').forEach(function (input) {
                     input.addEventListener('input', function () {
+                        formatInput(input);
                         hitungTotal(baris);
                     });
                 });
             });
+
+            // Hilangkan pemisah ribuan sebelum dikirim ke server.
+            var form = document.getElementById('form-setup-gaji');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    form.querySelectorAll('.js-komponen').forEach(function (input) {
+                        input.value = input.value.replace(/\./g, '');
+                    });
+                });
+            }
         })();
     </script>
 @endsection

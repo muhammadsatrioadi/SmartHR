@@ -10,7 +10,7 @@ class HolidayController extends Controller
 {
     public function index()
     {
-        $data = Holiday::orderBy('tanggal', 'desc')->paginate(10);
+        $data = Holiday::orderByDesc('created_at')->paginate(10);
         $defaultFromYear = (int) now()->format('Y');
         $defaultToYear = $defaultFromYear + 4;
         return view('master.holiday.index', compact('data', 'defaultFromYear', 'defaultToYear'));
@@ -24,11 +24,14 @@ class HolidayController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'tanggal' => 'required|date',
-            'kode_libur' => 'required|string|max:20|unique:holidays,kode_libur',
+            'tanggal' => 'required|date|unique:holidays,tanggal',
+            'kode_libur' => 'required|alpha_num|max:20|unique:holidays,kode_libur',
             'keterangan' => 'required|string|max:255',
             'is_tetap' => 'nullable|boolean',
             'is_hari_raya' => 'nullable|boolean',
+        ], [
+            'tanggal.unique' => 'Tanggal ini sudah dipakai pada hari libur lain. Silakan gunakan tanggal lain.',
+            'kode_libur.alpha_num' => 'Kode libur hanya boleh berisi huruf dan angka.',
         ]);
         $validated['is_tetap'] = (bool)($request->input('is_tetap', false));
         $validated['is_hari_raya'] = (bool)($request->input('is_hari_raya', false));
@@ -46,13 +49,14 @@ class HolidayController extends Controller
     public function update(Request $request, $id)
     {
         $item = Holiday::findOrFail($id);
+        // Tanggal dan kode libur tidak dapat diubah saat edit (sudah paten).
         $validated = $request->validate([
-            'tanggal' => 'required|date',
-            'kode_libur' => 'required|string|max:20|unique:holidays,kode_libur,' . $item->id,
             'keterangan' => 'required|string|max:255',
             'is_tetap' => 'nullable|boolean',
             'is_hari_raya' => 'nullable|boolean',
         ]);
+        $validated['tanggal'] = $item->tanggal;
+        $validated['kode_libur'] = $item->kode_libur;
         $validated['is_tetap'] = (bool)($request->input('is_tetap', false));
         $validated['is_hari_raya'] = (bool)($request->input('is_hari_raya', false));
 

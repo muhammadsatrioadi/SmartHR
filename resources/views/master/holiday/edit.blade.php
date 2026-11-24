@@ -13,15 +13,17 @@
 
                 <div class="mb-3">
                     <label class="form-label">Tanggal</label>
-                    <input type="date" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}"
-                        class="form-control @error('tanggal') is-invalid @enderror" required>
+                    <input type="date" name="tanggal" value="{{ old('tanggal', optional($item->tanggal)->format('Y-m-d') ?? $item->tanggal) }}"
+                        class="form-control @error('tanggal') is-invalid @enderror" readonly>
+                    <small class="text-muted">Tanggal tidak dapat diubah.</small>
                     @error('tanggal') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Kode Libur</label>
                     <input type="text" name="kode_libur" value="{{ old('kode_libur', $item->kode_libur) }}"
-                        class="form-control @error('kode_libur') is-invalid @enderror" required>
+                        class="form-control @error('kode_libur') is-invalid @enderror" readonly>
+                    <small class="text-muted">Kode libur tidak dapat diubah.</small>
                     @error('kode_libur') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 

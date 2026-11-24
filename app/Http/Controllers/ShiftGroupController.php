@@ -21,10 +21,15 @@ class ShiftGroupController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:shift_groups,kode',
-            'nama' => 'required|string|max:100',
+            'kode' => 'required|alpha_num|max:20|unique:shift_groups,kode',
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:100',
             'tipe_absen' => 'nullable|string|max:50',
-            'istirahat_menit' => 'nullable|integer|min:0',
+            'istirahat_menit' => 'required|integer|min:1',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'istirahat_menit.min' => 'Istirahat wajib diisi dan tidak boleh 0.',
+            'istirahat_menit.required' => 'Istirahat wajib diisi dan tidak boleh 0.',
         ]);
 
         ShiftGroup::create($validated);
@@ -40,12 +45,17 @@ class ShiftGroupController extends Controller
     public function update(Request $request, $id)
     {
         $item = ShiftGroup::findOrFail($id);
+        // Kode tidak dapat diubah saat edit.
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:shift_groups,kode,' . $item->id,
-            'nama' => 'required|string|max:100',
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:100',
             'tipe_absen' => 'nullable|string|max:50',
-            'istirahat_menit' => 'nullable|integer|min:0',
+            'istirahat_menit' => 'required|integer|min:1',
+        ], [
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
+            'istirahat_menit.min' => 'Istirahat wajib diisi dan tidak boleh 0.',
+            'istirahat_menit.required' => 'Istirahat wajib diisi dan tidak boleh 0.',
         ]);
+        $validated['kode'] = $item->kode;
 
         $item->update($validated);
         return redirect()->route('shiftGroup.index')->with('success', 'Group shift berhasil diperbarui.');

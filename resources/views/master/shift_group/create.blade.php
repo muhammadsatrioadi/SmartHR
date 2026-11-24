@@ -13,14 +13,16 @@
                 <div class="mb-3">
                     <label class="form-label">Kode Group</label>
                     <input type="text" name="kode" value="{{ old('kode') }}"
-                        class="form-control @error('kode') is-invalid @enderror" required>
+                        class="form-control @error('kode') is-invalid @enderror"
+                        pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Nama Group</label>
                     <input type="text" name="nama" value="{{ old('nama') }}"
-                        class="form-control @error('nama') is-invalid @enderror" required>
+                        class="form-control @error('nama') is-invalid @enderror"
+                        pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
@@ -30,9 +32,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Istirahat (menit)</label>
-                    <input type="number" name="istirahat_menit" value="{{ old('istirahat_menit', 0) }}"
-                        class="form-control">
+                    <label class="form-label">Istirahat (menit) <span class="text-danger">*</span></label>
+                    <input type="number" name="istirahat_menit" value="{{ old('istirahat_menit') }}"
+                        min="1" step="1" class="form-control @error('istirahat_menit') is-invalid @enderror" required>
+                    <small class="text-muted">Wajib diisi, minimal 1 menit.</small>
+                    @error('istirahat_menit') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="d-flex justify-content-end">

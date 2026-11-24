@@ -39,10 +39,13 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:departments,kode',
-            'nama' => 'required|string|max:150',
+            'kode' => 'required|alpha_num|max:20|unique:departments,kode',
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:150',
             'manager_karyawan_id' => 'required|exists:karyawans,id',
             'is_active' => 'nullable|boolean',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
@@ -68,10 +71,13 @@ class DepartmentController extends Controller
     {
         $item = Department::findOrFail($id);
         $validated = $request->validate([
-            'kode' => 'required|string|max:20|unique:departments,kode,' . $item->id,
-            'nama' => 'required|string|max:150',
+            'kode' => 'required|alpha_num|max:20|unique:departments,kode,' . $item->id,
+            'nama' => 'required|regex:/^[A-Za-z0-9 ]+$/|max:150',
             'manager_karyawan_id' => 'required|exists:karyawans,id',
             'is_active' => 'nullable|boolean',
+        ], [
+            'kode.alpha_num' => 'Kode hanya boleh berisi huruf dan angka.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf, angka, dan spasi.',
         ]);
         $validated['is_active'] = (bool)($request->input('is_active', true));
 
