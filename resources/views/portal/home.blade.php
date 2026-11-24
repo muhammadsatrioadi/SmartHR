@@ -14,9 +14,12 @@
         </div>
         <div class="portal-avatar">{{ strtoupper(substr($karyawan->name, 0, 1)) }}</div>
     </div>
+    <div class="portal-header-language">
+        @include('partials.language_switch')
+    </div>
 </header>
 
-<div class="portal-content">
+<div class="portal-content portal-home-content">
     <div class="portal-card-dark">
         <h6>{{ __('ABSENSI HARI INI') }} — {{ $today->translatedFormat('d M Y') }}</h6>
         @if($masuk)

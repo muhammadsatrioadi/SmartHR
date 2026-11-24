@@ -30,6 +30,23 @@ body.portal-body {
     gap: 12px;
 }
 
+.portal-header-language {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+}
+
+.portal-home-content {
+    margin-top: -0.5rem;
+}
+
+.portal-language-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+    background: var(--portal-dark);
+}
+
 .portal-greeting {
     font-size: 0.85rem;
     opacity: 0.85;
