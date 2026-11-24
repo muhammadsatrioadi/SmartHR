@@ -10,17 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="{{ asset('css/portal.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/language-switch.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body class="portal-body">
     <div class="d-flex justify-content-end px-3 py-2" style="background:#0f172a;">
-        <form method="POST" action="{{ route('language.update') }}">
+        <form method="POST" action="{{ route('language.update') }}" class="language-switch-form">
             @csrf
-            <select name="locale" class="form-select form-select-sm" aria-label="{{ __('Ganti bahasa') }}"
-                onchange="this.form.submit()">
-                <option value="id" {{ app()->getLocale() === 'id' ? 'selected' : '' }}>{{ __('Bahasa Indonesia') }}</option>
-                <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('Inggris') }}</option>
-            </select>
+            <div class="language-switch" role="radiogroup" aria-label="{{ __('Ganti bahasa') }}">
+                <input type="radio" id="portal-locale-id" name="locale" value="id" {{ app()->getLocale() === 'id' ? 'checked' : '' }} onchange="this.form.submit()">
+                <label for="portal-locale-id">ID</label>
+                <input type="radio" id="portal-locale-en" name="locale" value="en" {{ app()->getLocale() === 'en' ? 'checked' : '' }} onchange="this.form.submit()">
+                <label for="portal-locale-en">EN</label>
+                <span class="language-switch__thumb" aria-hidden="true"></span>
+            </div>
         </form>
     </div>
     @yield('content')

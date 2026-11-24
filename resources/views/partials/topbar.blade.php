@@ -7,13 +7,15 @@
     </form>
     <ul class="navbar-nav navbar-right">
         <li class="nav-item d-flex align-items-center me-2">
-            <form method="POST" action="{{ route('language.update') }}">
+            <form method="POST" action="{{ route('language.update') }}" class="language-switch-form">
                 @csrf
-                <select name="locale" class="form-select form-select-sm" aria-label="{{ __('Ganti bahasa') }}"
-                    onchange="this.form.submit()">
-                    <option value="id" {{ app()->getLocale() === 'id' ? 'selected' : '' }}>{{ __('Bahasa Indonesia') }}</option>
-                    <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('Inggris') }}</option>
-                </select>
+                <div class="language-switch" role="radiogroup" aria-label="{{ __('Ganti bahasa') }}">
+                    <input type="radio" id="topbar-locale-id" name="locale" value="id" {{ app()->getLocale() === 'id' ? 'checked' : '' }} onchange="this.form.submit()">
+                    <label for="topbar-locale-id">ID</label>
+                    <input type="radio" id="topbar-locale-en" name="locale" value="en" {{ app()->getLocale() === 'en' ? 'checked' : '' }} onchange="this.form.submit()">
+                    <label for="topbar-locale-en">EN</label>
+                    <span class="language-switch__thumb" aria-hidden="true"></span>
+                </div>
             </form>
         </li>
         <li class="dropdown">

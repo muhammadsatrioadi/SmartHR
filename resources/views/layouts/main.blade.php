@@ -25,6 +25,7 @@
     @endif
     <!-- Override agar konten lama tetap rapi -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/language-switch.css') }}" rel="stylesheet">
 </head>
 
 <body>

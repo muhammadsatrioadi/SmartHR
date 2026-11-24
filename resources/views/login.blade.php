@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/language-switch.css') }}" rel="stylesheet">
     <!--Stylesheet-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style media="screen">
@@ -79,7 +80,7 @@ form h3{
     text-align: center;
 }
 
-form.language-form{
+form.language-switch-form{
     position:fixed;
     top:20px;
     right:20px;
@@ -92,15 +93,6 @@ form.language-form{
     background:transparent;
     box-shadow:none;
     z-index:2;
-}
-form.language-form select{
-    width:auto;
-    height:auto;
-    margin:0;
-    padding:8px 12px;
-    color:#080710;
-    background:#ffffff;
-    border-radius:5px;
 }
 
 label{
@@ -160,12 +152,15 @@ button{
     </style>
 </head>
 <body>
-    <form method="POST" action="{{ route('language.update') }}" class="language-form">
+    <form method="POST" action="{{ route('language.update') }}" class="language-switch-form">
         @csrf
-        <select name="locale" aria-label="{{ __('Ganti bahasa') }}" onchange="this.form.submit()">
-            <option value="id" {{ app()->getLocale() === 'id' ? 'selected' : '' }}>{{ __('Bahasa Indonesia') }}</option>
-            <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('Inggris') }}</option>
-        </select>
+        <div class="language-switch" role="radiogroup" aria-label="{{ __('Ganti bahasa') }}">
+            <input type="radio" id="login-locale-id" name="locale" value="id" {{ app()->getLocale() === 'id' ? 'checked' : '' }} onchange="this.form.submit()">
+            <label for="login-locale-id">ID</label>
+            <input type="radio" id="login-locale-en" name="locale" value="en" {{ app()->getLocale() === 'en' ? 'checked' : '' }} onchange="this.form.submit()">
+            <label for="login-locale-en">EN</label>
+            <span class="language-switch__thumb" aria-hidden="true"></span>
+        </div>
     </form>
   @if(Session::has('error'))
             <div class="alert alert-primary" role="alert">
