@@ -16,8 +16,12 @@ class EmployeeScheduleController extends Controller
     public function index(Request $request)
     {
         $month = $request->input('month', Carbon::now()->format('Y-m'));
-        $search = $request->input('search');
         $departmentId = $request->input('department_id');
+        $selectedEmployeeIds = collect($request->input('karyawan_ids', []))
+            ->filter(fn ($id) => is_numeric($id))
+            ->map(fn ($id) => (int) $id)
+            ->unique()
+            ->values();
         $start = Carbon::parse($month . '-01');
         $end = (clone $start)->endOfMonth();
 
@@ -44,14 +48,13 @@ class EmployeeScheduleController extends Controller
             }
         }
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('nik', 'like', '%' . $search . '%');
-            });
-        }
-
-        $karyawans = $query->orderBy('name')->get();
+        $allKaryawans = $query->orderBy('name')->get();
+        $selectedEmployeeIds = $selectedEmployeeIds
+            ->intersect($allKaryawans->pluck('id'))
+            ->values();
+        $karyawans = $selectedEmployeeIds->isEmpty()
+            ? $allKaryawans
+            : $allKaryawans->whereIn('id', $selectedEmployeeIds)->values();
         $shiftGroups = ShiftGroup::orderBy('kode')->get();
         $workShifts = WorkShift::orderBy('kode')->get();
         $departments = Department::orderBy('nama')->get();
@@ -69,11 +72,12 @@ class EmployeeScheduleController extends Controller
 
         return view('jadwal.employee.index', compact(
             'month',
-            'search',
             'departmentId',
+            'selectedEmployeeIds',
             'start',
             'end',
             'karyawans',
+            'allKaryawans',
             'departments',
             'shiftGroups',
             'workShifts',

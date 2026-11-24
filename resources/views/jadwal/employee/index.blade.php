@@ -28,8 +28,42 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label class="form-label">Cari Pegawai (Nama/NIK)</label>
-                    <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Masukkan nama atau nik...">
+                    <label class="form-label">Pilih Pegawai</label>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle text-start"
+                            type="button" id="employee-filter-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false" style="min-width: 270px;">
+                            Pilih karyawan (opsional)
+                        </button>
+                        <div class="dropdown-menu p-2" aria-labelledby="employee-filter-toggle"
+                            style="width: 320px; max-height: 360px; overflow-y: auto;">
+                            <input type="search" class="form-control form-control-sm mb-2"
+                                id="employee-filter-search" placeholder="Cari nama atau NIK...">
+                            <div class="d-flex gap-2 mb-2">
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="employee-select-visible">
+                                    Pilih yang tampil
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="employee-clear-selection">
+                                    Bersihkan
+                                </button>
+                            </div>
+                            <div id="employee-filter-options">
+                                @foreach ($allKaryawans as $karyawan)
+                                    <label class="dropdown-item d-flex align-items-center gap-2 employee-filter-option"
+                                        data-search="{{ \Illuminate\Support\Str::lower($karyawan->name . ' ' . ($karyawan->nik ?? '')) }}">
+                                        <input class="form-check-input m-0 employee-filter-checkbox" type="checkbox"
+                                            name="karyawan_ids[]" value="{{ $karyawan->id }}"
+                                            {{ $selectedEmployeeIds->contains($karyawan->id) ? 'checked' : '' }}>
+                                        <span>{{ $karyawan->name }}{{ $karyawan->nik ? ' - ' . $karyawan->nik : '' }}</span>
+                                    </label>
+                                @endforeach
+                                @if ($allKaryawans->isEmpty())
+                                    <div class="text-muted small p-2">Tidak ada karyawan pada filter ini.</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted d-block mt-1">Pilih satu atau beberapa karyawan; kosong berarti tampilkan semua.</small>
                 </div>
                 <div class="col-auto align-self-end">
                     <button class="btn btn-primary" type="submit">Tampilkan</button>
@@ -73,8 +107,11 @@
                     <div class="col-md-3">
                         <label class="form-label">Untuk Pegawai</label>
                         <select name="karyawan_ids[]" class="form-select" multiple size="3">
-                            @foreach ($karyawans as $k)
-                                <option value="{{ $k->id }}">{{ $k->nik ?? $k->name }} - {{ $k->name }}</option>
+                            @foreach ($allKaryawans as $k)
+                                <option value="{{ $k->id }}"
+                                    {{ $selectedEmployeeIds->contains($k->id) ? 'selected' : '' }}>
+                                    {{ $k->nik ?? $k->name }} - {{ $k->name }}
+                                </option>
                             @endforeach
                         </select>
                         <small class="text-muted">Daftar pegawai mengikuti filter departemen di atas.</small>
@@ -284,6 +321,51 @@
     @endphp
     <script>
         (function() {
+            const toggle = document.getElementById('employee-filter-toggle');
+            const search = document.getElementById('employee-filter-search');
+            const options = Array.from(document.querySelectorAll('.employee-filter-option'));
+            const checkboxes = Array.from(document.querySelectorAll('.employee-filter-checkbox'));
+            const selectVisible = document.getElementById('employee-select-visible');
+            const clearSelection = document.getElementById('employee-clear-selection');
+
+            function updateEmployeeSelectionLabel() {
+                const selectedCount = checkboxes.filter((checkbox) => checkbox.checked).length;
+                toggle.textContent = selectedCount
+                    ? selectedCount + ' karyawan dipilih'
+                    : 'Pilih karyawan (opsional)';
+            }
+
+            function filterEmployeeOptions() {
+                const term = (search.value || '').trim().toLocaleLowerCase('id-ID');
+                options.forEach((option) => {
+                    option.hidden = !option.dataset.search.includes(term);
+                });
+            }
+
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', updateEmployeeSelectionLabel);
+            });
+
+            search.addEventListener('input', filterEmployeeOptions);
+            selectVisible.addEventListener('click', function() {
+                options.forEach((option) => {
+                    if (!option.hidden) {
+                        option.querySelector('.employee-filter-checkbox').checked = true;
+                    }
+                });
+                updateEmployeeSelectionLabel();
+            });
+            clearSelection.addEventListener('click', function() {
+                checkboxes.forEach((checkbox) => {
+                    checkbox.checked = false;
+                });
+                updateEmployeeSelectionLabel();
+            });
+
+            updateEmployeeSelectionLabel();
+        })();
+
+        (function() {
             const monthValue = @json($month);
             const calendar = document.getElementById('schedule-calendar');
             const startInput = document.getElementById('start-date-input');
@@ -389,4 +471,3 @@
         })();
     </script>
 @endsection
-
