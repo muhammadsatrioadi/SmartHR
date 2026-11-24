@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    @php($pageTitle = trim($__env->yieldContent('title', 'Sistem Karyawan')))
+    @php
+        $pageTitle = trim($__env->yieldContent('title', 'Sistem Karyawan'));
+    @endphp
     <title>{{ __($pageTitle) }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
