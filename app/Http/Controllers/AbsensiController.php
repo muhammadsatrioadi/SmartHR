@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Department;
 use App\Models\Karyawan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,16 +11,54 @@ use Illuminate\Http\Request;
 class AbsensiController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $today = Carbon::today('Asia/Jakarta');
+        $request->mergeIfMissing([
+            'date_from' => $today->copy()->startOfMonth()->toDateString(),
+            'date_to' => $today->toDateString(),
+            'status' => '',
+        ]);
 
-        $karyawanBelumAbsen = Karyawan::whereDoesntHave('absensis', function ($query) use ($today) {
-            $query->whereDate('tanggal_absensi', $today);
-        })->get();
+        $filters = $request->validate([
+            'department_id' => 'nullable|integer|exists:departments,id',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date|after_or_equal:date_from',
+            'status' => 'nullable|in:hadir,alpha',
+        ]);
 
+        $query = Absensi::with('karyawan.department')
+            ->whereIn('status_absen', ['hadir', 'alpha'])
+            ->whereBetween('tanggal_absensi', [$filters['date_from'], $filters['date_to']]);
 
-        return view('absensi.read', compact('karyawanBelumAbsen'));
+        if (!empty($filters['department_id'])) {
+            $query->whereHas('karyawan', function ($karyawanQuery) use ($filters) {
+                $karyawanQuery->where('department_id', $filters['department_id']);
+            });
+        }
+
+        if (!empty($filters['status'])) {
+            $query->where('status_absen', $filters['status']);
+        }
+
+        $absensis = $query->orderByDesc('tanggal_absensi')
+            ->orderByDesc('time')
+            ->paginate(25)
+            ->withQueryString();
+        $departments = Department::orderBy('nama')->get();
+        $departmentId = $filters['department_id'] ?? '';
+        $dateFrom = $filters['date_from'];
+        $dateTo = $filters['date_to'];
+        $status = $filters['status'] ?? '';
+
+        return view('absensi.read', compact(
+            'absensis',
+            'departments',
+            'departmentId',
+            'dateFrom',
+            'dateTo',
+            'status'
+        ));
     }
 
     public function create()
@@ -103,13 +142,11 @@ class AbsensiController extends Controller
 
     public function getHadir()
     {
-        $absensis = Absensi::where('status_absen', 'hadir')->get();
-        return view('absensi.absensiHadir', compact('absensis'));
+        return redirect()->route('presensi.read', ['status' => 'hadir']);
     }
 
     public function getAlpha()
     {
-        $absensis = Absensi::where('status_absen', 'alpha')->get();
-        return view('absensi.absensiAlpha', compact('absensis'));
+        return redirect()->route('presensi.read', ['status' => 'alpha']);
     }
 }

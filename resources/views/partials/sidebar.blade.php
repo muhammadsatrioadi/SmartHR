@@ -53,13 +53,8 @@
                 <li class="nav-item {{ request()->routeIs('employeeSchedule.*') ? 'active' : '' }}">
                     <a href="{{ route('employeeSchedule.index') }}" class="nav-link"><i class="fas fa-table"></i><span>Jadwal Shift Pegawai</span></a>
                 </li>
-                <li class="nav-item sidebar-accordion {{ request()->routeIs('presensi.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-chart-bar"></i><span>Presensi</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
-                    <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('presensi.read') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.read') }}">Presensi</a></li>
-                        <li class="{{ request()->routeIs('presensi.hadir') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.hadir') }}">Daftar Hadir</a></li>
-                        <li class="{{ request()->routeIs('presensi.alpha') ? 'active' : '' }}"><a class="nav-link" href="{{ route('presensi.alpha') }}">Daftar Alpha</a></li>
-                    </ul>
+                <li class="nav-item {{ request()->routeIs('presensi.*') ? 'active' : '' }}">
+                    <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-chart-bar"></i><span>Presensi</span></a>
                 </li>
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('salaryHistory.*','payrollMonthly.*','slipGaji.*') ? 'active' : '' }}">
                     <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
@@ -85,9 +80,11 @@
                     <a href="{{ route('attendanceLocation.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i><span>Titik Lokasi Presensi</span></a>
                 </li>
                 @endif
+                {{-- Menu Presensi Admin disembunyikan sesuai permintaan.
                 <li class="nav-item {{ request()->routeIs('presensi.*') ? 'active' : '' }}">
                     <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-fingerprint"></i><span>Presensi Admin</span></a>
                 </li>
+                --}}
             @endif
         </ul>
     </aside>
