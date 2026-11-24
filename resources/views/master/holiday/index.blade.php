@@ -6,8 +6,8 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Hari Libur Nasional (Red Dates)</h6>
-                <a class="btn btn-primary" href="{{ route('holiday.create') }}">Tambah</a>
+                <h6 class="mb-0">{{ __("Setup Hari Libur Nasional (Red Dates)") }}</h6>
+                <a class="btn btn-primary" href="{{ route('holiday.create') }}">{{ __("Tambah") }}</a>
             </div>
 
             <div class="card bg-dark border-secondary mb-3">
@@ -15,17 +15,17 @@
                     <form method="POST" action="{{ route('holiday.sync') }}" class="row g-3 align-items-end">
                         @csrf
                         <div class="col-md-3">
-                            <label class="form-label">Tahun Awal</label>
+                            <label class="form-label">{{ __("Tahun Awal") }}</label>
                             <input type="text" class="form-control" value="{{ $defaultFromYear }}" readonly>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Tahun Akhir</label>
+                            <label class="form-label">{{ __("Tahun Akhir") }}</label>
                             <input type="text" class="form-control" value="{{ $defaultToYear }}" readonly>
                         </div>
                         <div class="col-md-6 d-flex justify-content-md-end">
                             <input type="hidden" name="from_year" value="{{ $defaultFromYear }}">
                             <input type="hidden" name="to_year" value="{{ $defaultToYear }}">
-                            <button class="btn btn-outline-info" type="submit">Sinkronkan Hari Libur Nasional Indonesia</button>
+                            <button class="btn btn-outline-info" type="submit">{{ __("Sinkronkan Hari Libur Nasional Indonesia") }}</button>
                         </div>
                     </form>
                     <small class="text-muted">
@@ -38,12 +38,12 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Kode</th>
-                            <th>Keterangan</th>
-                            <th>Tetap</th>
-                            <th>Hari Raya</th>
-                            <th style="width: 160px;">Aksi</th>
+                            <th>{{ __("Tanggal") }}</th>
+                            <th>{{ __("Kode") }}</th>
+                            <th>{{ __("Keterangan") }}</th>
+                            <th>{{ __("Tetap") }}</th>
+                            <th>{{ __("Hari Raya") }}</th>
+                            <th style="width: 160px;">{{ __("Aksi") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,18 +55,18 @@
                                 <td>{{ $row->is_tetap ? 'Ya' : 'Tidak' }}</td>
                                 <td>{{ $row->is_hari_raya ? 'Ya' : 'Tidak' }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="{{ route('holiday.edit', $row->id) }}">Edit</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ route('holiday.edit', $row->id) }}">{{ __("Edit") }}</a>
                                     <form class="d-inline" method="POST" action="{{ route('holiday.delete', $row->id) }}"
                                         onsubmit="return confirm('Hapus hari libur ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                                        <button class="btn btn-sm btn-danger" type="submit">{{ __("Hapus") }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Belum ada data.</td>
+                                <td colspan="6" class="text-center">{{ __("Belum ada data.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

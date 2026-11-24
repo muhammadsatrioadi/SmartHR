@@ -81,7 +81,9 @@ class OvertimeController extends Controller
             return back()
                 ->withInput()
                 ->withErrors([
-                    'jam_selesai' => 'Durasi lembur melebihi batas maksimal ' . rtrim(rtrim(number_format($maxHours, 2, '.', ''), '0'), '.') . ' jam untuk jenis hari yang dipilih.',
+                    'jam_selesai' => __('Durasi lembur melebihi batas maksimal :max jam untuk jenis hari yang dipilih.', [
+                        'max' => rtrim(rtrim(number_format($maxHours, 2, '.', ''), '0'), '.'),
+                    ]),
                 ]);
         }
 
@@ -93,11 +95,10 @@ class OvertimeController extends Controller
             return back()
                 ->withInput()
                 ->withErrors([
-                    'tanggal' => 'Total lembur pegawai dalam minggu yang sama (Senin–Minggu) tidak boleh melebihi '
-                        . (int) PayrollCalculator::MAX_OVERTIME_HOURS_PER_WEEK
-                        . ' jam menurut ketentuan umum. Sisa kuota minggu ini sekitar '
-                        . rtrim(rtrim(number_format($sisa, 2, '.', ''), '0'), '.')
-                        . ' jam.',
+                    'tanggal' => __('Total lembur pegawai dalam minggu yang sama (Senin–Minggu) tidak boleh melebihi :limit jam menurut ketentuan umum. Sisa kuota minggu ini sekitar :remaining jam.', [
+                        'limit' => (int) PayrollCalculator::MAX_OVERTIME_HOURS_PER_WEEK,
+                        'remaining' => rtrim(rtrim(number_format($sisa, 2, '.', ''), '0'), '.'),
+                    ]),
                 ]);
         }
 
@@ -113,7 +114,7 @@ class OvertimeController extends Controller
 
         Overtime::create($validated);
 
-        return redirect()->route('overtime.index')->with('success', 'Order lembur berhasil dibuat dan nominal lembur dihitung otomatis.');
+        return redirect()->route('overtime.index')->with('success', __('Order lembur berhasil dibuat dan nominal lembur dihitung otomatis.'));
     }
 
     public function approveSupervisor($id)
@@ -132,17 +133,17 @@ class OvertimeController extends Controller
         if ($isManajer) {
             // Yang diapprove adalah manajer: hanya admin_hr yang boleh approve
             if ($user->role !== 'admin_hr') {
-                return back()->with('error', 'Hanya Admin HR yang dapat menyetujui lembur manajer.');
+                return back()->with('error', __('Hanya Admin HR yang dapat menyetujui lembur manajer.'));
             }
         } else {
             // Yang diapprove adalah karyawan: hanya atasan/manajer yang boleh approve
             if (!in_array($user->role, ['atasan', 'manajer'], true)) {
-                return back()->with('error', 'Hanya Atasan/Manajer yang dapat menyetujui lembur karyawan.');
+                return back()->with('error', __('Hanya Atasan/Manajer yang dapat menyetujui lembur karyawan.'));
             }
         }
         
         if ($ot->status !== 'menunggu_approval') {
-            return back()->with('error', 'Status lembur tidak valid untuk persetujuan.');
+            return back()->with('error', __('Status lembur tidak valid untuk persetujuan.'));
         }
         if (!$this->weeklyOvertimeQuotaAllows($ot)) {
             return back()->with('error', $this->weeklyQuotaErrorMessage($ot));
@@ -152,12 +153,12 @@ class OvertimeController extends Controller
             'approved_by_supervisor_id' => $user->id,
             'approved_at_supervisor' => now(),
         ]);
-        return back()->with('success', 'Lembur disetujui.');
+        return back()->with('success', __('Lembur disetujui.'));
     }
 
     public function approveHr($id)
     {
-        return back()->with('error', 'Admin HR hanya dapat melihat data, persetujuan lembur dilakukan oleh Atasan.');
+        return back()->with('error', __('Admin HR hanya dapat melihat data, persetujuan lembur dilakukan oleh Atasan.'));
     }
 
     public function reject(Request $request, $id)
@@ -176,24 +177,33 @@ class OvertimeController extends Controller
         if ($isManajer) {
             // Yang ditolak adalah manajer: hanya admin_hr yang boleh menolak
             if ($user->role !== 'admin_hr') {
-                return back()->with('error', 'Hanya Admin HR yang dapat menolak lembur manajer.');
+                return back()->with('error', __('Hanya Admin HR yang dapat menolak lembur manajer.'));
             }
         } else {
             // Yang ditolak adalah karyawan: hanya atasan/manajer yang boleh menolak
             if (!in_array($user->role, ['atasan', 'manajer'], true)) {
-                return back()->with('error', 'Hanya Atasan/Manajer yang dapat menolak lembur karyawan.');
+                return back()->with('error', __('Hanya Atasan/Manajer yang dapat menolak lembur karyawan.'));
             }
         }
         
-        $request->validate([
+        if ($ot->status !== 'menunggu_approval') {
+            return back()->with('error', __('Hanya lembur yang menunggu persetujuan yang dapat ditolak.'));
+        }
+
+        $validated = $request->validate([
             'alasan' => 'required|string|max:255',
+        ], [
+            'alasan.required' => __('Alasan penolakan wajib diisi.'),
+            'alasan.max' => __('Alasan penolakan maksimal 255 karakter.'),
         ]);
+
         $ot->update([
             'status' => 'ditolak',
             'rejected_by_id' => $user->id,
-            'rejected_reason' => $request->input('alasan'),
+            'rejected_reason' => trim($validated['alasan']),
         ]);
-        return back()->with('success', 'Lembur ditolak.');
+
+        return back()->with('success', __('Lembur ditolak.'));
     }
 
     private function weeklyOvertimeQuotaAllows(Overtime $ot): bool
@@ -208,10 +218,9 @@ class OvertimeController extends Controller
         $jamLain = PayrollCalculator::overtimeHoursInWeek((int) $ot->karyawan_id, $ot->tanggal, $ot->id);
         $sisa = max(0, PayrollCalculator::MAX_OVERTIME_HOURS_PER_WEEK - $jamLain);
 
-        return 'Total lembur pegawai dalam minggu yang sama (Senin–Minggu) tidak boleh melebihi '
-            . (int) PayrollCalculator::MAX_OVERTIME_HOURS_PER_WEEK
-            . ' jam. Sisa kuota minggu ini sekitar '
-            . rtrim(rtrim(number_format($sisa, 2, '.', ''), '0'), '.')
-            . ' jam.';
+        return __('Total lembur pegawai dalam minggu yang sama (Senin–Minggu) tidak boleh melebihi :limit jam. Sisa kuota minggu ini sekitar :remaining jam.', [
+            'limit' => (int) PayrollCalculator::MAX_OVERTIME_HOURS_PER_WEEK,
+            'remaining' => rtrim(rtrim(number_format($sisa, 2, '.', ''), '0'), '.'),
+        ]);
     }
 }

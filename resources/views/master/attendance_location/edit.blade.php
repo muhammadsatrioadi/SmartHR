@@ -16,16 +16,16 @@
 @section('content')
 <div class="container-fluid pt-4 px-4">
     <div class="bg-secondary rounded h-100 p-4 text-white">
-        <h6 class="mb-4 text-white">Edit Titik Lokasi Absensi</h6>
+        <h6 class="mb-4 text-white">{{ __("Edit Titik Lokasi Absensi") }}</h6>
         <form method="POST" action="{{ route('attendanceLocation.update', $item->id) }}">
             @csrf @method('PUT')
             <div class="mb-3">
-                <label class="form-label text-white">Nama Lokasi</label>
+                <label class="form-label text-white">{{ __("Nama Lokasi") }}</label>
                 <input type="text" name="nama" class="form-control bg-dark text-white" value="{{ old('nama', $item->nama) }}" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label text-white">Pilih Lokasi di Peta (Klik atau Geser Marker)</label>
+                <label class="form-label text-white">{{ __("Pilih Lokasi di Peta (Klik atau Geser Marker)") }}</label>
                 <div id="map" class="mb-3"></div>
             </div>
 
@@ -39,17 +39,17 @@
                     <input type="number" step="any" name="longitude" id="longitude" class="form-control bg-dark text-white" value="{{ old('longitude', $item->longitude) }}" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label class="form-label text-white">Radius (meter)</label>
+                    <label class="form-label text-white">{{ __("Radius (meter)") }}</label>
                     <input type="number" name="radius_meter" id="radius_meter" class="form-control bg-dark text-white" value="{{ old('radius_meter', $item->radius_meter) }}" min="1" max="1000" required>
                     <small class="text-white-50">Radius lingkaran di peta (meter)</small>
                 </div>
             </div>
             <div class="form-check mb-3">
                 <input type="checkbox" name="is_aktif" value="1" class="form-check-input" id="is_aktif" {{ old('is_aktif', $item->is_aktif) ? 'checked' : '' }}>
-                <label class="form-check-label text-white" for="is_aktif">Aktif</label>
+                <label class="form-check-label text-white" for="is_aktif">{{ __("Aktif") }}</label>
             </div>
-            <button class="btn btn-primary">Update</button>
-            <a href="{{ route('attendanceLocation.index') }}" class="btn btn-outline-light">Batal</a>
+            <button class="btn btn-primary">{{ __("Update") }}</button>
+            <a href="{{ route('attendanceLocation.index') }}" class="btn btn-outline-light">{{ __("Batal") }}</a>
         </form>
     </div>
 </div>

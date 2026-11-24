@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Saldo Cuti - ' . $karyawan->name)
+@section('title', __('Saldo Cuti Pegawai') . ' - ' . $karyawan->name)
 
 @section('content')
 <div class="row">
@@ -8,20 +8,20 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div>
-                    <h4 class="mb-1">Saldo Cuti Pegawai</h4>
+                    <h4 class="mb-1">{{ __("Saldo Cuti Pegawai") }}</h4>
                     <p class="mb-0 text-muted">
                         <strong>{{ $karyawan->name }}</strong> &mdash; {{ $karyawan->nik }} &mdash; Tahun {{ $tahun }}
                     </p>
                 </div>
                 <div class="d-flex gap-2 flex-wrap">
                     <a href="{{ route('leaveBalance.edit', ['karyawan' => $karyawan->id, 'tahun' => $tahun]) }}" class="btn btn-warning">
-                        <i class="fas fa-edit"></i> Edit Saldo
+                        <i class="fas fa-edit"></i> {{ __("Edit Saldo") }}
                     </a>
                     <a href="{{ route('leaveBalance.create', ['karyawan' => $karyawan->id, 'tahun' => $tahun]) }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Tambah Saldo
+                        <i class="fas fa-plus"></i> {{ __("Tambah Saldo") }}
                     </a>
                     <a href="{{ route('leaveBalance.index', ['tahun' => $tahun, 'search' => request('search')]) }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Kembali
+                        <i class="fas fa-arrow-left"></i> {{ __("Kembali") }}
                     </a>
                 </div>
             </div>
@@ -30,11 +30,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Jenis Cuti</th>
-                                <th>Kuota</th>
-                                <th>Terpakai</th>
-                                <th>Sisa</th>
-                                <th style="width: 80px;">Aksi</th>
+                                <th>{{ __("Jenis Cuti") }}</th>
+                                <th>{{ __("Kuota") }}</th>
+                                <th>{{ __("Terpakai") }}</th>
+                                <th>{{ __("Sisa") }}</th>
+                                <th style="width: 80px;">{{ __("Aksi") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +62,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center">
-                                        Belum ada saldo cuti. Klik <strong>Tambah Saldo</strong> atau lakukan sinkronisasi dari halaman utama.
+                                        {{ __("Belum ada saldo cuti. Klik") }} <strong>{{ __("Tambah Saldo") }}</strong> {{ __("atau lakukan sinkronisasi dari halaman utama.") }}
                                     </td>
                                 </tr>
                             @endforelse

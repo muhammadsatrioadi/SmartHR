@@ -6,19 +6,19 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Departemen</h6>
-                <a class="btn btn-primary" href="{{ route('department.create') }}">Tambah</a>
+                <h6 class="mb-0">{{ __("Setup Departemen") }}</h6>
+                <a class="btn btn-primary" href="{{ route('department.create') }}">{{ __("Tambah") }}</a>
             </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Manajer</th>
-                            <th>Aktif</th>
-                            <th style="width: 160px;">Aksi</th>
+                            <th>{{ __("Kode") }}</th>
+                            <th>{{ __("Nama") }}</th>
+                            <th>{{ __("Manajer") }}</th>
+                            <th>{{ __("Aktif") }}</th>
+                            <th style="width: 160px;">{{ __("Aksi") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,17 +29,17 @@
                                 <td>{{ $row->manager->name ?? '-' }}</td>
                                 <td>{{ $row->is_active ? 'Ya' : 'Tidak' }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="{{ route('department.edit', $row->id) }}">Edit</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ route('department.edit', $row->id) }}">{{ __("Edit") }}</a>
                                     <form class="d-inline" method="POST" action="{{ route('department.delete', $row->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger delete-confirm" type="submit" data-message="Hapus departemen {{ $row->nama }}?">Hapus</button>
+                                        <button class="btn btn-sm btn-danger delete-confirm" type="submit" data-message="Hapus departemen {{ $row->nama }}?">{{ __("Hapus") }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Belum ada data.</td>
+                                <td colspan="5" class="text-center">{{ __("Belum ada data.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

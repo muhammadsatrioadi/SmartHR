@@ -4,7 +4,7 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Persetujuan</strong>
+    <strong>{{ __("Persetujuan") }}</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @if(session('success'))<div class="alert alert-success small">{{ session('success') }}</div>@endif
@@ -27,7 +27,7 @@
                     <div class="d-flex justify-content-between">
                         <strong>{{ $cuti->karyawan->name ?? '-' }}</strong>
                         <span class="badge bg-{{ in_array($cuti->status, ['disetujui']) ? 'success' : (in_array($cuti->status, ['ditolak']) ? 'danger' : 'warning') }} small">
-                            {{ strtoupper(str_replace('_', ' ', $cuti->status)) }}
+                            {{ \App\Support\UiLabels::status($cuti->status) }}
                         </span>
                     </div>
                     <div class="small mt-1">
@@ -36,27 +36,27 @@
                     </div>
                     
                     <div class="mt-2 p-2 bg-light rounded small border">
-                        <strong>Keterangan:</strong><br>
+                        <strong>{{ __("Keterangan:") }}</strong><br>
                         {{ $cuti->keterangan }}
                     </div>
 
                     @if($cuti->lampiran)
                         <div class="mt-2">
                             <a href="{{ asset('storage/' . $cuti->lampiran) }}" target="_blank" class="btn btn-sm btn-outline-primary w-100 py-1">
-                                <i class="fas fa-file-alt"></i> Lihat Dokumen Pendukung
+                                <i class="fas fa-file-alt"></i> {{ __("Lihat Dokumen Pendukung") }}
                             </a>
                         </div>
                     @endif
                     
                     @if($cuti->status === 'menunggu_atasan' && in_array(auth()->user()->role, ['atasan', 'manajer']))
                         <div class="mt-2 d-flex gap-2">
-                            <form method="POST" action="{{ route('cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
-                            <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">Tolak</button>
+                            <form method="POST" action="{{ route('cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">{{ __("Setuju") }}</button></form>
+                            <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">{{ __("Tolak") }}</button>
                         </div>
                     @elseif($cuti->status === 'menunggu_hr' && auth()->user()->role === 'admin_hr')
                         <div class="mt-2 d-flex gap-2">
-                            <form method="POST" action="{{ route('cuti.approveHr', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
-                            <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">Tolak</button>
+                            <form method="POST" action="{{ route('cuti.approveHr', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">{{ __("Setuju") }}</button></form>
+                            <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">{{ __("Tolak") }}</button>
                         </div>
                     @endif
 
@@ -67,7 +67,7 @@
                     @endif
                 </div>
             @empty
-                <p class="text-muted text-center py-4">Tidak ada data persetujuan cuti.</p>
+                <p class="text-muted text-center py-4">{{ __("Tidak ada data persetujuan cuti.") }}</p>
             @endforelse
         </div>
 
@@ -78,7 +78,7 @@
                     <div class="d-flex justify-content-between">
                         <strong>{{ $ot->karyawan->name ?? '-' }}</strong>
                         <span class="badge bg-{{ in_array($ot->status, ['disetujui']) ? 'success' : (in_array($ot->status, ['ditolak']) ? 'danger' : 'warning') }} small">
-                            {{ strtoupper(str_replace('_', ' ', $ot->status)) }}
+                            {{ \App\Support\UiLabels::status($ot->status) }}
                         </span>
                     </div>
                     <div class="small mt-1">
@@ -88,22 +88,22 @@
                     </div>
 
                     <div class="mt-2 p-2 bg-light rounded small border">
-                        <strong>Pekerjaan:</strong><br>
+                        <strong>{{ __("Pekerjaan:") }}</strong><br>
                         {{ $ot->keterangan_pekerjaan }}
                     </div>
 
                     @if($ot->bukti_screenshot)
                         <div class="mt-2">
                             <a href="{{ asset('storage/' . $ot->bukti_screenshot) }}" target="_blank" class="btn btn-sm btn-outline-primary w-100 py-1">
-                                <i class="fas fa-image"></i> Lihat Bukti Screenshot
+                                <i class="fas fa-image"></i> {{ __("Lihat Bukti Screenshot") }}
                             </a>
                         </div>
                     @endif
                     
                     @if($ot->status === 'menunggu_approval' && in_array(auth()->user()->role, ['atasan', 'manajer', 'admin_hr']))
                         <div class="mt-2 d-flex gap-2">
-                            <form method="POST" action="{{ route('overtime.approveSupervisor', $ot->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
-                            <button class="btn btn-sm btn-outline-danger btn-reject-overtime" data-id="{{ $ot->id }}">Tolak</button>
+                            <form method="POST" action="{{ route('overtime.approveSupervisor', $ot->id) }}">@csrf<button class="btn btn-sm btn-success">{{ __("Setuju") }}</button></form>
+                            <button class="btn btn-sm btn-outline-danger btn-reject-overtime" data-id="{{ $ot->id }}">{{ __("Tolak") }}</button>
                         </div>
                     @endif
 
@@ -114,7 +114,7 @@
                     @endif
                 </div>
             @empty
-                <p class="text-muted text-center py-4">Tidak ada data persetujuan lembur.</p>
+                <p class="text-muted text-center py-4">{{ __("Tidak ada data persetujuan lembur.") }}</p>
             @endforelse
         </div>
     </div>

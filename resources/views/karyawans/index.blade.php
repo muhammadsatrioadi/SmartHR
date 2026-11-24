@@ -10,9 +10,9 @@
 @section('content')
 
     <div class="section-header d-flex justify-content-between align-items-center">
-        <h1 class="h3 mb-0">Master Karyawan</h1>
+        <h1 class="h3 mb-0">{{ __("Master Karyawan") }}</h1>
         <div class="section-header-button">
-            <a href="{{ route('karyawans.create') }}" class="btn btn-primary btn-sm">Tambah Karyawan</a>
+            <a href="{{ route('karyawans.create') }}" class="btn btn-primary btn-sm">{{ __("Tambah Karyawan") }}</a>
         </div>
     </div>
 
@@ -21,9 +21,9 @@
             <div class="card-body">
                 <div class="row g-2 align-items-end">
                     <div class="col-md-4">
-                        <label class="form-label mb-1">Filter Departemen</label>
+                        <label class="form-label mb-1">{{ __("Filter Departemen") }}</label>
                         <select id="filter-departemen" class="form-select form-select-sm">
-                            <option value="">Semua Departemen</option>
+                            <option value="">{{ __("Semua Departemen") }}</option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->nama }}</option>
                             @endforeach
@@ -39,19 +39,19 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">NIK</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Telephone</th>
-                                <th scope="col">Status Pegawai</th>
-                                <th scope="col">Jabatan</th>
-                                <th scope="col">Departemen</th>
-                                <th scope="col">Unit</th>
-                                <th scope="col">KTP</th>
-                                <th scope="col">NPWP</th>
-                                <th scope="col">Total Kontak</th>
-                                <th scope="col" class="text-center">Opsi</th>
+                                <th scope="col">{{ __("NIK") }}</th>
+                                <th scope="col">{{ __("Nama") }}</th>
+                                <th scope="col">{{ __("Email") }}</th>
+                                <th scope="col">{{ __("Jenis Kelamin") }}</th>
+                                <th scope="col">{{ __("Telephone") }}</th>
+                                <th scope="col">{{ __("Status Pegawai") }}</th>
+                                <th scope="col">{{ __("Jabatan") }}</th>
+                                <th scope="col">{{ __("Departemen") }}</th>
+                                <th scope="col">{{ __("Unit") }}</th>
+                                <th scope="col">{{ __("KTP") }}</th>
+                                <th scope="col">{{ __("NPWP") }}</th>
+                                <th scope="col">{{ __("Total Kontak") }}</th>
+                                <th scope="col" class="text-center">{{ __("Opsi") }}</th>
                             </tr>
                         </thead>
                         <tbody>

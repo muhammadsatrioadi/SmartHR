@@ -25,7 +25,7 @@ active
     <section id="read" class="m-5 mt-4 " >
         <div class="container bg-secondary rounded p-3" style="margin-bottom: 10rem">
             <div id="menu-sorting-jabatan" class="" >
-                <a href="{{ route('jabatan.create') }}" class="btn btn-primary mt-4 m-3">Buat Jabatan</a>
+                <a href="{{ route('jabatan.create') }}" class="btn btn-primary mt-4 m-3">{{ __("Buat Jabatan") }}</a>
                 <div id="search-jabatan" class="ms-3 me-3 d-flex">
                     <form action="{{ route('jabatan.search') }}" class="d-flex w-50">
                         <div class="input-group">
@@ -37,11 +37,11 @@ active
                         value="" @endif
                                 placeholder="Cari Jabatan" aria-describedby="basic-addon1">
                         </div>
-                        <button type="submit" class="btn btn-secondary fw-medium ms-2">Cari</button>
+                        <button type="submit" class="btn btn-secondary fw-medium ms-2">{{ __("Cari") }}</button>
                         <select class="form-select w-50 ms-3" name="urutan" aria-label="Default select example">
-                            <option selected value="asc">Urutkan</option>
-                            <option value="asc">Teratas</option>
-                            <option value="desc">Terbawah</option>
+                            <option selected value="asc">{{ __("Urutkan") }}</option>
+                            <option value="asc">{{ __("Teratas") }}</option>
+                            <option value="desc">{{ __("Terbawah") }}</option>
                         </select>
                     </form>
                 </div>
@@ -52,12 +52,12 @@ active
                     <table class="table table-dark table-striped" id="table-jabatan">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">No</th>
-                                <th scope="col">Jabatan</th>
-                                <th scope="col">Jam Mulai Kerja</th>
-                                <th scope="col">Jam Selesai Kerja</th>
-                                <th scope="col">Note Pekerjaan</th>
-                                <th scope="col">Opsi</th>
+                                <th scope="col">{{ __("No") }}</th>
+                                <th scope="col">{{ __("Jabatan") }}</th>
+                                <th scope="col">{{ __("Jam Mulai Kerja") }}</th>
+                                <th scope="col">{{ __("Jam Selesai Kerja") }}</th>
+                                <th scope="col">{{ __("Note Pekerjaan") }}</th>
+                                <th scope="col">{{ __("Opsi") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,12 +69,12 @@ active
                                     <td>{{ substr($items->jam_selesai_kerja,0,5) }}</td>
                                     <td style="width: 20%;">{{ $items->note_pekerjaan }}</td>
                                     <td class="opsi"><a href="{{ route('jabatan.edit', ['id' => $items->id]) }}"
-                                            class="btn btn-warning d-inline"> Edit </a> | <form
+                                            class="btn btn-warning d-inline"> {{ __("Edit") }} </a> | <form
                                             action="{{ route('jabatan.delete', ['id' => $items->id]) }}"
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger delete-confirm" data-message="Yakin ingin menghapus jabatan {{ $items->nama_jabatan }}?">Delete</button>
+                                            <button type="submit" class="btn btn-danger delete-confirm" data-message="Yakin ingin menghapus jabatan {{ $items->nama_jabatan }}?">{{ __("Delete") }}</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -88,9 +88,9 @@ active
 
             <div class="d-flex justify-content-between px-5">
             <div class="d-flex gap-2">
-                <p>Showing</p>
+                <p>{{ __("Showing") }}</p>
                 {{ $data->firstItem() }}
-                <p>to</p>
+                <p>{{ __("to") }}</p>
                 {{ $data->lastItem() }}
             </div>
             <div>

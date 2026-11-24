@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
                 <div>
-                    <h6 class="mb-1">Proses Rekap Gaji Massal</h6>
+                    <h6 class="mb-1">{{ __("Proses Rekap Gaji Massal") }}</h6>
                     <p class="text-muted small mb-0">
                         Membuat &amp; memeriksa rekap seluruh pegawai untuk satu periode, lalu mengekspornya ke CSV.
                     </p>
@@ -16,12 +16,12 @@
                 <div class="d-flex align-items-end gap-2">
                     <form class="d-flex align-items-end gap-2" method="GET" action="{{ route('payrollMonthly.batch') }}">
                         <div>
-                            <label class="form-label mb-1">Periode</label>
+                            <label class="form-label mb-1">{{ __("Periode") }}</label>
                             <input type="month" name="periode" value="{{ $periode }}" class="form-control">
                         </div>
-                        <button class="btn btn-primary" type="submit">Tampilkan</button>
+                        <button class="btn btn-primary" type="submit">{{ __("Tampilkan") }}</button>
                     </form>
-                    <a class="btn btn-outline-success" href="{{ route('payrollMonthly.export', ['periode' => $periode]) }}">Ekspor CSV</a>
+                    <a class="btn btn-outline-success" href="{{ route('payrollMonthly.export', ['periode' => $periode]) }}">{{ __("Ekspor CSV") }}</a>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                     onsubmit="return confirm('Buat rekap draft untuk semua pegawai yang belum punya rekap pada periode ini?')">
                     @csrf
                     <input type="hidden" name="periode" value="{{ $periode }}">
-                    <button class="btn btn-primary" type="submit">Buat Rekap yang Belum Ada</button>
+                    <button class="btn btn-primary" type="submit">{{ __("Buat Rekap yang Belum Ada") }}</button>
                 </form>
             </div>
 
@@ -45,13 +45,13 @@
                 <table class="table table-bordered table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Pegawai</th>
-                            <th>Jabatan</th>
-                            <th class="text-center">Rekap</th>
-                            <th class="text-end">Penghasilan (A)</th>
-                            <th class="text-end">Resmi (B)</th>
-                            <th class="text-end">Lain (D)</th>
-                            <th class="text-end">Terima Bersih</th>
+                            <th>{{ __("Pegawai") }}</th>
+                            <th>{{ __("Jabatan") }}</th>
+                            <th class="text-center">{{ __("Rekap") }}</th>
+                            <th class="text-end">{{ __("Penghasilan (A)") }}</th>
+                            <th class="text-end">{{ __("Resmi (B)") }}</th>
+                            <th class="text-end">{{ __("Lain (D)") }}</th>
+                            <th class="text-end">{{ __("Terima Bersih") }}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -78,17 +78,17 @@
                                 <td class="text-end fw-bold">{{ number_format($row['slip']['terima_bersih'], 0, ',', '.') }}</td>
                                 <td class="text-nowrap">
                                     @if ($row['rekap'])
-                                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('payrollMonthly.edit', $row['rekap']) }}">Ubah</a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('payrollMonthly.edit', $row['rekap']) }}">{{ __("Ubah") }}</a>
                                     @else
                                         <a class="btn btn-sm btn-outline-primary"
-                                            href="{{ route('payrollMonthly.create', ['karyawan_id' => $row['karyawan']->id, 'periode' => $periode]) }}">Isi</a>
+                                            href="{{ route('payrollMonthly.create', ['karyawan_id' => $row['karyawan']->id, 'periode' => $periode]) }}">{{ __("Isi") }}</a>
                                     @endif
                                     <a class="btn btn-sm btn-outline-primary"
-                                        href="{{ route('slipGaji.show', ['karyawan' => $row['karyawan']->id, 'periode' => $periode]) }}">Slip</a>
+                                        href="{{ route('slipGaji.show', ['karyawan' => $row['karyawan']->id, 'periode' => $periode]) }}">{{ __("Slip") }}</a>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="8" class="text-center">Belum ada data pegawai.</td></tr>
+                            <tr><td colspan="8" class="text-center">{{ __("Belum ada data pegawai.") }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>

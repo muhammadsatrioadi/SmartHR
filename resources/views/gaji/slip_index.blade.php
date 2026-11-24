@@ -7,13 +7,13 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-                <h1 class="h5 mb-0">Slip Gaji Pegawai</h1>
+                <h1 class="h5 mb-0">{{ __("Slip Gaji Pegawai") }}</h1>
                 <form class="d-flex align-items-end gap-2" method="GET" action="{{ route('slipGaji.index') }}">
                     <div>
-                        <label class="form-label mb-1">Periode</label>
+                        <label class="form-label mb-1">{{ __("Periode") }}</label>
                         <input type="month" name="periode" value="{{ $periode }}" class="form-control">
                     </div>
-                    <button class="btn btn-primary" type="submit">Tampilkan</button>
+                    <button class="btn btn-primary" type="submit">{{ __("Tampilkan") }}</button>
                 </form>
             </div>
 
@@ -21,13 +21,13 @@
                 <table class="table table-bordered table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Pegawai</th>
-                            <th>Jabatan</th>
-                            <th>Rekap Bulanan</th>
-                            <th class="text-end">Penghasilan (A)</th>
-                            <th class="text-end">Potongan Resmi (B)</th>
-                            <th class="text-end">Potongan Lain (D)</th>
-                            <th class="text-end">Terima Bersih</th>
+                            <th>{{ __("Pegawai") }}</th>
+                            <th>{{ __("Jabatan") }}</th>
+                            <th>{{ __("Rekap Bulanan") }}</th>
+                            <th class="text-end">{{ __("Penghasilan (A)") }}</th>
+                            <th class="text-end">{{ __("Potongan Resmi (B)") }}</th>
+                            <th class="text-end">{{ __("Potongan Lain (D)") }}</th>
+                            <th class="text-end">{{ __("Terima Bersih") }}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,9 +41,9 @@
                                 <td>{{ $item['karyawan']->jabatan->nama_jabatan ?? '-' }}</td>
                                 <td>
                                     @if ($item['rekap'])
-                                        <span class="badge bg-success">Ada</span>
+                                        <span class="badge bg-success">{{ __("Ada") }}</span>
                                     @else
-                                        <span class="badge bg-secondary">Belum diisi</span>
+                                        <span class="badge bg-secondary">{{ __("Belum diisi") }}</span>
                                     @endif
                                 </td>
                                 <td class="text-end">{{ number_format($item['slip']['total_pendapatan'], 0, ',', '.') }}</td>
@@ -53,15 +53,15 @@
                                 <td class="text-nowrap">
                                     <a class="btn btn-sm btn-outline-primary"
                                         href="{{ route('slipGaji.show', ['karyawan' => $item['karyawan']->id, 'periode' => $periode]) }}">
-                                        Lihat Slip
+                                        {{ __("Lihat Slip") }}
                                     </a>
                                     <a class="btn btn-sm btn-outline-success"
                                         href="{{ route('slipGaji.cetak', ['karyawan' => $item['karyawan']->id, 'periode' => $periode]) }}"
-                                        target="_blank">Cetak</a>
+                                        target="_blank">{{ __("Cetak") }}</a>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="8" class="text-center">Belum ada data pegawai.</td></tr>
+                            <tr><td colspan="8" class="text-center">{{ __("Belum ada data pegawai.") }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>

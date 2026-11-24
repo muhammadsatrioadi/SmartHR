@@ -7,10 +7,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="mb-0">Data Gaji Dasar Pegawai</h6>
+                    <h6 class="mb-0">{{ __("Data Gaji Dasar Pegawai") }}</h6>
                     <div>
-                        <a class="btn btn-outline-primary" href="{{ route('payrollMonthly.index') }}">Rekap Gaji Bulanan</a>
-                        <a class="btn btn-primary" href="{{ route('salaryHistory.create') }}">Tambah Data Gaji Dasar</a>
+                        <a class="btn btn-outline-primary" href="{{ route('payrollMonthly.index') }}">{{ __("Rekap Gaji Bulanan") }}</a>
+                        <a class="btn btn-primary" href="{{ route('salaryHistory.create') }}">{{ __("Tambah Data Gaji Dasar") }}</a>
                     </div>
                 </div>
 
@@ -22,20 +22,20 @@
                     <table class="table table-bordered table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>Pegawai</th>
-                                <th>Tanggal Berlaku</th>
-                                <th>Skala</th>
-                                <th>Gaji Pokok</th>
-                                <th>Tunj. Jabatan</th>
-                                <th>Tunj. Fungsional</th>
-                                <th>Tunj. Profesi</th>
-                                <th>Tunj. Makan</th>
-                                <th>TKP</th>
-                                <th>Tunj. Pulsa</th>
-                                <th>Status Keluarga</th>
-                                <th>Dasar Lembur</th>
-                                <th>Upah/Jam</th>
-                                <th>Alasan</th>
+                                <th>{{ __("Pegawai") }}</th>
+                                <th>{{ __("Tanggal Berlaku") }}</th>
+                                <th>{{ __("Skala") }}</th>
+                                <th>{{ __("Gaji Pokok") }}</th>
+                                <th>{{ __("Tunj. Jabatan") }}</th>
+                                <th>{{ __("Tunj. Fungsional") }}</th>
+                                <th>{{ __("Tunj. Profesi") }}</th>
+                                <th>{{ __("Tunj. Makan") }}</th>
+                                <th>{{ __("TKP") }}</th>
+                                <th>{{ __("Tunj. Pulsa") }}</th>
+                                <th>{{ __("Status Keluarga") }}</th>
+                                <th>{{ __("Dasar Lembur") }}</th>
+                                <th>{{ __("Upah/Jam") }}</th>
+                                <th>{{ __("Alasan") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="14" class="text-center">Belum ada data.</td>
+                                    <td colspan="14" class="text-center">{{ __("Belum ada data.") }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-3">Jadwal Shift Pegawai</h6>
+            <h6 class="mb-3">{{ __("Jadwal Shift Pegawai") }}</h6>
 
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -13,13 +13,13 @@
 
             <form method="GET" class="row g-3 mb-4">
                 <div class="col-auto">
-                    <label class="form-label">Bulan</label>
+                    <label class="form-label">{{ __("Bulan") }}</label>
                     <input type="month" name="month" value="{{ $month }}" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <label class="form-label">Departemen</label>
+                    <label class="form-label">{{ __("Departemen") }}</label>
                     <select name="department_id" class="form-select" style="min-width: 220px;" onchange="this.form.submit()">
-                        <option value="">Semua Departemen</option>
+                        <option value="">{{ __("Semua Departemen") }}</option>
                         @foreach ($departments as $departemen)
                             <option value="{{ $departemen->id }}" {{ (string) $departmentId === (string) $departemen->id ? 'selected' : '' }}>
                                 {{ $departemen->kode }} - {{ $departemen->nama }}
@@ -28,12 +28,12 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label class="form-label">Pilih Pegawai</label>
+                    <label class="form-label">{{ __("Pilih Pegawai") }}</label>
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle text-start"
                             type="button" id="employee-filter-toggle" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" aria-expanded="false" style="min-width: 270px;">
-                            Pilih karyawan (opsional)
+                            {{ __("Pilih karyawan (opsional)") }}
                         </button>
                         <div class="dropdown-menu p-2" aria-labelledby="employee-filter-toggle"
                             style="width: 320px; max-height: 360px; overflow-y: auto;">
@@ -41,10 +41,10 @@
                                 id="employee-filter-search" placeholder="Cari nama atau NIK...">
                             <div class="d-flex gap-2 mb-2">
                                 <button type="button" class="btn btn-sm btn-outline-primary" id="employee-select-visible">
-                                    Pilih yang tampil
+                                    {{ __("Pilih yang tampil") }}
                                 </button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary" id="employee-clear-selection">
-                                    Bersihkan
+                                    {{ __("Bersihkan") }}
                                 </button>
                             </div>
                             <div id="employee-filter-options">
@@ -58,15 +58,15 @@
                                     </label>
                                 @endforeach
                                 @if ($allKaryawans->isEmpty())
-                                    <div class="text-muted small p-2">Tidak ada karyawan pada filter ini.</div>
+                                    <div class="text-muted small p-2">{{ __("Tidak ada karyawan pada filter ini.") }}</div>
                                 @endif
                             </div>
                         </div>
                     </div>
-                    <small class="text-muted d-block mt-1">Pilih satu atau beberapa karyawan; kosong berarti tampilkan semua.</small>
+                    <small class="text-muted d-block mt-1">{{ __("Pilih satu atau beberapa karyawan; kosong berarti tampilkan semua.") }}</small>
                 </div>
                 <div class="col-auto align-self-end">
-                    <button class="btn btn-primary" type="submit">Tampilkan</button>
+                    <button class="btn btn-primary" type="submit">{{ __("Tampilkan") }}</button>
                 </div>
             </form>
 
@@ -75,29 +75,29 @@
                 <div class="card bg-dark border-secondary mb-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fw-semibold">Kalender Setup Jadwal</span>
+                            <span class="fw-semibold">{{ __("Kalender Setup Jadwal") }}</span>
                             <small class="text-muted">
-                                Klik tanggal untuk langsung set tanggal dan pilih shift.
+                                {{ __("Klik tanggal untuk langsung set tanggal dan pilih shift.") }}
                             </small>
                         </div>
                         <div class="d-flex gap-3 flex-wrap mb-3">
-                            <small><span class="schedule-legend schedule-legend-selected"></span> Tanggal dipilih</small>
-                            <small><span class="schedule-legend schedule-legend-holiday"></span> Hari libur Indonesia</small>
+                            <small><span class="schedule-legend schedule-legend-selected"></span> {{ __("Tanggal dipilih") }}</small>
+                            <small><span class="schedule-legend schedule-legend-holiday"></span> {{ __("Hari libur Indonesia") }}</small>
                         </div>
                         <div id="schedule-calendar" class="schedule-calendar"></div>
                     </div>
                 </div>
                 <div class="row g-3 align-items-end">
                     <div class="col-md-3">
-                        <label class="form-label">Tanggal Mulai</label>
+                        <label class="form-label">{{ __("Tanggal Mulai") }}</label>
                         <input id="start-date-input" type="date" name="start_date" class="form-control" value="{{ $start->toDateString() }}">
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">Tanggal Akhir</label>
+                        <label class="form-label">{{ __("Tanggal Akhir") }}</label>
                         <input id="end-date-input" type="date" name="end_date" class="form-control" value="{{ $end->toDateString() }}">
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">Shift Kerja</label>
+                        <label class="form-label">{{ __("Shift Kerja") }}</label>
                         <select id="mass-work-shift-select" name="work_shift_id" class="form-select">
                             @foreach ($workShifts as $shift)
                                 <option value="{{ $shift->id }}">{{ $shift->kode }} - {{ $shift->nama }}</option>
@@ -105,7 +105,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">Untuk Pegawai</label>
+                        <label class="form-label">{{ __("Untuk Pegawai") }}</label>
                         <select name="karyawan_ids[]" class="form-select" multiple size="3">
                             @foreach ($allKaryawans as $k)
                                 <option value="{{ $k->id }}"
@@ -114,11 +114,11 @@
                                 </option>
                             @endforeach
                         </select>
-                        <small class="text-muted">Daftar pegawai mengikuti filter departemen di atas.</small>
+                        <small class="text-muted">{{ __("Daftar pegawai mengikuti filter departemen di atas.") }}</small>
                     </div>
                 </div>
                 <div class="mt-2 d-flex justify-content-end">
-                    <button class="btn btn-outline-light" type="submit">Buat Jadwal Massal</button>
+                    <button class="btn btn-outline-light" type="submit">{{ __("Buat Jadwal Massal") }}</button>
                 </div>
             </form>
 
@@ -129,7 +129,7 @@
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>Pegawai</th>
+                            <th>{{ __("Pegawai") }}</th>
                             @foreach ($period as $date)
                                 @php
                                     $holidayList = $holidays[$date->format('Y-m-d')] ?? collect();

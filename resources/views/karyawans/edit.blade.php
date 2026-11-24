@@ -9,23 +9,23 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Master Karyawan - Edit Data</h6>
+            <h6 class="mb-4">{{ __("Master Karyawan - Edit Data") }}</h6>
 
             <ul class="nav nav-tabs mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab-data-umum" data-bs-toggle="tab" data-bs-target="#pane-data-umum" type="button" role="tab">Data Umum</button>
+                    <button class="nav-link active" id="tab-data-umum" data-bs-toggle="tab" data-bs-target="#pane-data-umum" type="button" role="tab">{{ __("Data Umum") }}</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-kepegawaian" data-bs-toggle="tab" data-bs-target="#pane-kepegawaian" type="button" role="tab">Data Kepegawaian</button>
+                    <button class="nav-link" id="tab-kepegawaian" data-bs-toggle="tab" data-bs-target="#pane-kepegawaian" type="button" role="tab">{{ __("Data Kepegawaian") }}</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-payroll" data-bs-toggle="tab" data-bs-target="#pane-payroll" type="button" role="tab">Data PayRoll & TAX</button>
+                    <button class="nav-link" id="tab-payroll" data-bs-toggle="tab" data-bs-target="#pane-payroll" type="button" role="tab">{{ __("Data PayRoll & TAX") }}</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-riwayat-kepegawaian" data-bs-toggle="tab" data-bs-target="#pane-riwayat-kepegawaian" type="button" role="tab">Riwayat Kepegawaian</button>
+                    <button class="nav-link" id="tab-riwayat-kepegawaian" data-bs-toggle="tab" data-bs-target="#pane-riwayat-kepegawaian" type="button" role="tab">{{ __("Riwayat Kepegawaian") }}</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-riwayat-keluar" data-bs-toggle="tab" data-bs-target="#pane-riwayat-keluar" type="button" role="tab">Riwayat Keluar</button>
+                    <button class="nav-link" id="tab-riwayat-keluar" data-bs-toggle="tab" data-bs-target="#pane-riwayat-keluar" type="button" role="tab">{{ __("Riwayat Keluar") }}</button>
                 </li>
             </ul>
 
@@ -39,101 +39,101 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">NBM</label>
+                                    <label class="form-label">{{ __("NBM") }}</label>
                                     <input type="text" name="nbm" value="{{ old('nbm', $karyawan->nbm) }}" class="form-control">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" name="is_aktif_dinas" value="1" class="form-check-input" id="is_aktif_dinas" {{ old('is_aktif_dinas', $karyawan->is_aktif_dinas) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_aktif_dinas">Aktif Dinas</label>
+                                    <label class="form-check-label" for="is_aktif_dinas">{{ __("Aktif Dinas") }}</label>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">NIK</label>
+                                    <label class="form-label">{{ __("NIK") }}</label>
                                     <input type="text" name="nik" value="{{ old('nik', $karyawan->nik) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Hub dengan NIK</label>
+                                    <label class="form-label">{{ __("Hub dengan NIK") }}</label>
                                     <input type="text" name="hub_dengan_nik" value="{{ old('hub_dengan_nik', $karyawan->hub_dengan_nik) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">NIK Utama</label>
+                                    <label class="form-label">{{ __("NIK Utama") }}</label>
                                     <input type="text" name="nik_utama" value="{{ old('nik_utama', $karyawan->nik_utama) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Atasan Langsung (otomatis)</label>
+                                    <label class="form-label">{{ __("Atasan Langsung (otomatis)") }}</label>
                                     <input type="text" id="atasan-otomatis" class="form-control" value="" readonly
                                         placeholder="Terisi otomatis dari manajer departemen">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Pegawai</label>
+                                    <label class="form-label">{{ __("Pegawai") }}</label>
                                     <input type="text" name="pegawai_text" value="{{ old('pegawai_text', $karyawan->pegawai_text) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Anak / Isteri ke-</label>
+                                    <label class="form-label">{{ __("Anak / Isteri ke-") }}</label>
                                     <input type="text" name="anak_isteri_ke" value="{{ old('anak_isteri_ke', $karyawan->anak_isteri_ke) }}" class="form-control">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" name="ditanggung" value="1" class="form-check-input" id="ditanggung" {{ old('ditanggung', $karyawan->ditanggung) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="ditanggung">Ditanggung</label>
+                                    <label class="form-check-label" for="ditanggung">{{ __("Ditanggung") }}</label>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Panggilan <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Nama Panggilan") }} <span class="text-danger">*</span></label>
                                     <input type="text" name="name" value="{{ old('name', $karyawan->name) }}" class="form-control @error('name') is-invalid @enderror" required>
                                     @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Lengkap</label>
+                                    <label class="form-label">{{ __("Nama Lengkap") }}</label>
                                     <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $karyawan->nama_lengkap) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Email") }} <span class="text-danger">*</span></label>
                                     <input type="email" name="email" value="{{ old('email', $karyawan->email) }}" class="form-control @error('email') is-invalid @enderror" required>
                                     @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Role Akun <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Role Akun") }} <span class="text-danger">*</span></label>
                                     <select name="role" class="form-select @error('role') is-invalid @enderror" required>
-                                        <option value="karyawan" {{ old('role', $currentRole) == 'karyawan' ? 'selected' : '' }}>Karyawan (Hanya lihat jadwal sendiri)</option>
-                                        <option value="atasan" {{ old('role', $currentRole) == 'atasan' ? 'selected' : '' }}>Supervisor / Atasan (Bisa atur jadwal bawahan)</option>
-                                        <option value="manajer" {{ old('role', $currentRole) == 'manajer' ? 'selected' : '' }}>Manajer (Approval & Statistik Tim)</option>
-                                        <option value="admin_hr" {{ old('role', $currentRole) == 'admin_hr' ? 'selected' : '' }}>Admin HR (Akses Penuh)</option>
+                                        <option value="karyawan" {{ old('role', $currentRole) == 'karyawan' ? 'selected' : '' }}>{{ __("Karyawan (Hanya lihat jadwal sendiri)") }}</option>
+                                        <option value="atasan" {{ old('role', $currentRole) == 'atasan' ? 'selected' : '' }}>{{ __("Supervisor / Atasan (Bisa atur jadwal bawahan)") }}</option>
+                                        <option value="manajer" {{ old('role', $currentRole) == 'manajer' ? 'selected' : '' }}>{{ __("Manajer (Approval & Statistik Tim)") }}</option>
+                                        <option value="admin_hr" {{ old('role', $currentRole) == 'admin_hr' ? 'selected' : '' }}>{{ __("Admin HR (Akses Penuh)") }}</option>
                                     </select>
                                     @error('role')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Telephone <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Telephone") }} <span class="text-danger">*</span></label>
                                     <input type="text" name="telephone" value="{{ old('telephone', $karyawan->telephone) }}" class="form-control @error('telephone') is-invalid @enderror" required>
                                     @error('telephone')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Handphone</label>
+                                    <label class="form-label">{{ __("Handphone") }}</label>
                                     <input type="text" name="handphone" value="{{ old('handphone', $karyawan->handphone) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Jenis Kelamin") }} <span class="text-danger">*</span></label>
                                     <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" required>
-                                        <option value="Laki-laki" {{ old('jenis_kelamin', $karyawan->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                        <option value="Perempuan" {{ old('jenis_kelamin', $karyawan->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        <option value="Laki-laki" {{ old('jenis_kelamin', $karyawan->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>{{ __("Laki-laki") }}</option>
+                                        <option value="Perempuan" {{ old('jenis_kelamin', $karyawan->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>{{ __("Perempuan") }}</option>
                                     </select>
                                     @error('jenis_kelamin')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tempat Lahir</label>
+                                    <label class="form-label">{{ __("Tempat Lahir") }}</label>
                                     <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir', $karyawan->tempat_lahir) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tanggal Lahir</label>
+                                    <label class="form-label">{{ __("Tanggal Lahir") }}</label>
                                     <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $karyawan->tanggal_lahir ? $karyawan->tanggal_lahir->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Agama</label>
+                                    <label class="form-label">{{ __("Agama") }}</label>
                                     <input type="text" name="agama" value="{{ old('agama', $karyawan->agama) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Status Perkawinan</label>
+                                    <label class="form-label">{{ __("Status Perkawinan") }}</label>
                                     <input type="text" name="status_perkawinan" value="{{ old('status_perkawinan', $karyawan->status_perkawinan) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Grup Shift Kerja</label>
+                                    <label class="form-label">{{ __("Grup Shift Kerja") }}</label>
                                     <select name="shift_group_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach($shiftGroups ?? [] as $sg)
@@ -142,99 +142,99 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No Identitas</label>
+                                    <label class="form-label">{{ __("No Identitas") }}</label>
                                     <input type="text" name="no_identitas" value="{{ old('no_identitas', $karyawan->no_identitas) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl ED ID</label>
+                                    <label class="form-label">{{ __("Tgl ED ID") }}</label>
                                     <input type="date" name="tgl_ed_id" value="{{ old('tgl_ed_id', $karyawan->tgl_ed_id ? $karyawan->tgl_ed_id->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Ayah</label>
+                                    <label class="form-label">{{ __("Nama Ayah") }}</label>
                                     <input type="text" name="nama_ayah" value="{{ old('nama_ayah', $karyawan->nama_ayah) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Ibu</label>
+                                    <label class="form-label">{{ __("Nama Ibu") }}</label>
                                     <input type="text" name="nama_ibu" value="{{ old('nama_ibu', $karyawan->nama_ibu) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Ayah Mertua</label>
+                                    <label class="form-label">{{ __("Ayah Mertua") }}</label>
                                     <input type="text" name="ayah_mertua" value="{{ old('ayah_mertua', $karyawan->ayah_mertua) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Ibu Mertua</label>
+                                    <label class="form-label">{{ __("Ibu Mertua") }}</label>
                                     <input type="text" name="ibu_mertua" value="{{ old('ibu_mertua', $karyawan->ibu_mertua) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Alamat Tempat Tinggal</label>
+                                    <label class="form-label">{{ __("Alamat Tempat Tinggal") }}</label>
                                     <textarea name="alamat_tinggal" class="form-control" rows="2">{{ old('alamat_tinggal', $karyawan->alamat_tinggal) }}</textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Menikah</label>
+                                    <label class="form-label">{{ __("Tgl Menikah") }}</label>
                                     <input type="date" name="tgl_menikah" value="{{ old('tgl_menikah', $karyawan->tgl_menikah ? $karyawan->tgl_menikah->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Cerai</label>
+                                    <label class="form-label">{{ __("Tgl Cerai") }}</label>
                                     <input type="date" name="tgl_cerai" value="{{ old('tgl_cerai', $karyawan->tgl_cerai ? $karyawan->tgl_cerai->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Pekerjaan Suami/Istri</label>
+                                    <label class="form-label">{{ __("Pekerjaan Suami/Istri") }}</label>
                                     <input type="text" name="pekerjaan_suami_istri" value="{{ old('pekerjaan_suami_istri', $karyawan->pekerjaan_suami_istri) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Golongan Darah</label>
+                                    <label class="form-label">{{ __("Golongan Darah") }}</label>
                                     <input type="text" name="golongan_darah" value="{{ old('golongan_darah', $karyawan->golongan_darah) }}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Alamat</label>
+                                    <label class="form-label">{{ __("Alamat") }}</label>
                                     <textarea name="alamat" class="form-control" rows="2">{{ old('alamat', $karyawan->alamat) }}</textarea>
                                 </div>
                                 {{-- Chaining alamat Indonesia --}}
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pilih Provinsi</label>
+                                        <label class="form-label">{{ __("Pilih Provinsi") }}</label>
                                         <select id="select-provinsi" class="form-select">
-                                            <option value="">- Pilih Provinsi -</option>
+                                            <option value="">{{ __("- Pilih Provinsi -") }}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pilih Kabupaten/Kota</label>
+                                        <label class="form-label">{{ __("Pilih Kabupaten/Kota") }}</label>
                                         <select id="select-kabupaten" class="form-select" disabled>
-                                            <option value="">- Pilih Kabupaten/Kota -</option>
+                                            <option value="">{{ __("- Pilih Kabupaten/Kota -") }}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pilih Kecamatan</label>
+                                        <label class="form-label">{{ __("Pilih Kecamatan") }}</label>
                                         <select id="select-kecamatan" class="form-select" disabled>
-                                            <option value="">- Pilih Kecamatan -</option>
+                                            <option value="">{{ __("- Pilih Kecamatan -") }}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pilih Kelurahan</label>
+                                        <label class="form-label">{{ __("Pilih Kelurahan") }}</label>
                                         <select id="select-kelurahan" class="form-select" disabled>
-                                            <option value="">- Pilih Kelurahan -</option>
+                                            <option value="">{{ __("- Pilih Kelurahan -") }}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Kelurahan (otomatis)</label>
+                                        <label class="form-label">{{ __("Kelurahan (otomatis)") }}</label>
                                         <input type="text" name="kelurahan" id="input-kelurahan" value="{{ old('kelurahan', $karyawan->kelurahan) }}" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Kecamatan (otomatis)</label>
+                                        <label class="form-label">{{ __("Kecamatan (otomatis)") }}</label>
                                         <input type="text" name="kecamatan" id="input-kecamatan" value="{{ old('kecamatan', $karyawan->kecamatan) }}" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Kabupaten/Kota (otomatis)</label>
+                                        <label class="form-label">{{ __("Kabupaten/Kota (otomatis)") }}</label>
                                         <input type="text" name="kabupaten" id="input-kabupaten" value="{{ old('kabupaten', $karyawan->kabupaten) }}" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Provinsi (otomatis)</label>
+                                        <label class="form-label">{{ __("Provinsi (otomatis)") }}</label>
                                         <input type="text" name="provinsi" id="input-provinsi" value="{{ old('provinsi', $karyawan->provinsi) }}" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Kode Pos</label>
+                                        <label class="form-label">{{ __("Kode Pos") }}</label>
                                         <input type="text" name="kode_pos" id="input-kode-pos" value="{{ old('kode_pos', $karyawan->kode_pos) }}" class="form-control">
                                     </div>
                                 </div>
@@ -247,15 +247,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">No Kartu Pegawai</label>
+                                    <label class="form-label">{{ __("No Kartu Pegawai") }}</label>
                                     <input type="text" name="no_kartu_pegawai" value="{{ old('no_kartu_pegawai', $karyawan->no_kartu_pegawai) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Mulai Bekerja</label>
+                                    <label class="form-label">{{ __("Tgl Mulai Bekerja") }}</label>
                                     <input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk', $karyawan->tanggal_masuk ? $karyawan->tanggal_masuk->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Status Karyawan</label>
+                                    <label class="form-label">{{ __("Status Karyawan") }}</label>
                                     <select name="employee_status_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach($employeeStatuses as $es)
@@ -264,7 +264,7 @@
                                     </select>
                                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Jabatan <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Jabatan") }} <span class="text-danger">*</span></label>
                                     <select name="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
                                         @foreach($jabatans as $j)
                                             <option value="{{ $j->id }}" {{ (string)old('jabatan_id', $karyawan->jabatan_id) === (string)$j->id ? 'selected' : '' }}>{{ $j->nama_jabatan }}</option>
@@ -273,7 +273,7 @@
                                     @error('jabatan_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Golongan</label>
+                                    <label class="form-label">{{ __("Golongan") }}</label>
                                     <select name="golongan_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach($golongans as $g)
@@ -282,7 +282,7 @@
                                     </select>
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Pangkat</label>
+                                    <label class="form-label">{{ __("Pangkat") }}</label>
                                     <select name="pangkat_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach($pangkats as $p)
@@ -291,14 +291,14 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">No SK Penempatan</label>
+                                    <label class="form-label">{{ __("No SK Penempatan") }}</label>
                                     <input type="text" name="no_sk_penempatan" value="{{ old('no_sk_penempatan', $karyawan->no_sk_penempatan) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Departemen <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Departemen") }} <span class="text-danger">*</span></label>
                                     <select name="department_id" id="select-departemen"
                                         class="form-select @error('department_id') is-invalid @enderror" required>
-                                        <option value="">- Pilih Departemen -</option>
+                                        <option value="">{{ __("- Pilih Departemen -") }}</option>
                                         @foreach ($departments as $d)
                                             <option value="{{ $d->id }}"
                                                 data-manager-name="{{ $d->manager->name ?? '' }}"
@@ -313,15 +313,15 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Divisi</label>
+                                    <label class="form-label">{{ __("Divisi") }}</label>
                                     <input type="text" name="divisi" value="{{ old('divisi', $karyawan->divisi) }}" class="form-control">
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Bagian</label>
+                                    <label class="form-label">{{ __("Bagian") }}</label>
                                     <input type="text" name="bagian" value="{{ old('bagian', $karyawan->bagian) }}" class="form-control">
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Unit Kerja</label>
+                                    <label class="form-label">{{ __("Unit Kerja") }}</label>
                                     <select name="work_unit_id" class="form-select">
                                         <option value="">-</option>
                                         @foreach($workUnits as $wu)
@@ -330,116 +330,116 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Tgl Unit Kerja</label>
+                                    <label class="form-label">{{ __("Tgl Unit Kerja") }}</label>
                                     <input type="date" name="tgl_unit_kerja" value="{{ old('tgl_unit_kerja', $karyawan->tgl_unit_kerja ? $karyawan->tgl_unit_kerja->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Orientasi Mulai</label>
+                                    <label class="form-label">{{ __("Tgl Orientasi Mulai") }}</label>
                                     <input type="date" name="tgl_orientasi_mulai" value="{{ old('tgl_orientasi_mulai', $karyawan->tgl_orientasi_mulai ? $karyawan->tgl_orientasi_mulai->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Orientasi Akhir</label>
+                                    <label class="form-label">{{ __("Tgl Orientasi Akhir") }}</label>
                                     <input type="date" name="tgl_orientasi_akhir" value="{{ old('tgl_orientasi_akhir', $karyawan->tgl_orientasi_akhir ? $karyawan->tgl_orientasi_akhir->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Kontrak 1 Mulai</label>
+                                    <label class="form-label">{{ __("Tgl Kontrak 1 Mulai") }}</label>
                                     <input type="date" name="tgl_kontrak_1_mulai" value="{{ old('tgl_kontrak_1_mulai', $karyawan->tgl_kontrak_1_mulai ? $karyawan->tgl_kontrak_1_mulai->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Kontrak 1 Akhir</label>
+                                    <label class="form-label">{{ __("Tgl Kontrak 1 Akhir") }}</label>
                                     <input type="date" name="tgl_kontrak_1_akhir" value="{{ old('tgl_kontrak_1_akhir', $karyawan->tgl_kontrak_1_akhir ? $karyawan->tgl_kontrak_1_akhir->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Kontrak 2 Mulai</label>
+                                    <label class="form-label">{{ __("Tgl Kontrak 2 Mulai") }}</label>
                                     <input type="date" name="tgl_kontrak_2_mulai" value="{{ old('tgl_kontrak_2_mulai', $karyawan->tgl_kontrak_2_mulai ? $karyawan->tgl_kontrak_2_mulai->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Kontrak 2 Akhir</label>
+                                    <label class="form-label">{{ __("Tgl Kontrak 2 Akhir") }}</label>
                                     <input type="date" name="tgl_kontrak_2_akhir" value="{{ old('tgl_kontrak_2_akhir', $karyawan->tgl_kontrak_2_akhir ? $karyawan->tgl_kontrak_2_akhir->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Pegawai Tetap</label>
+                                    <label class="form-label">{{ __("Tgl Pegawai Tetap") }}</label>
                                     <input type="date" name="tgl_pegawai_tetap" value="{{ old('tgl_pegawai_tetap', $karyawan->tgl_pegawai_tetap ? $karyawan->tgl_pegawai_tetap->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No SK Tetap</label>
+                                    <label class="form-label">{{ __("No SK Tetap") }}</label>
                                     <input type="text" name="no_sk_tetap" value="{{ old('no_sk_tetap', $karyawan->no_sk_tetap) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Arsip</label>
+                                    <label class="form-label">{{ __("Arsip") }}</label>
                                     <input type="text" name="arsip" value="{{ old('arsip', $karyawan->arsip) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Jaminan Polis</label>
+                                    <label class="form-label">{{ __("Jaminan Polis") }}</label>
                                     <input type="text" name="jaminan_polis" value="{{ old('jaminan_polis', $karyawan->jaminan_polis) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Lokasi Tugas</label>
+                                    <label class="form-label">{{ __("Lokasi Tugas") }}</label>
                                     <input type="text" name="lokasi_tugas" value="{{ old('lokasi_tugas', $karyawan->lokasi_tugas) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Gelar</label>
+                                    <label class="form-label">{{ __("Gelar") }}</label>
                                     <input type="text" name="gelar" value="{{ old('gelar', $karyawan->gelar) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Status (Aktif/Kontrak/dll) <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Status (Aktif/Kontrak/dll)") }} <span class="text-danger">*</span></label>
                                     <input type="text" name="status" value="{{ old('status', $karyawan->status) }}" class="form-control @error('status') is-invalid @enderror" required>
                                     @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Jenis</label>
+                                    <label class="form-label">{{ __("Jenis") }}</label>
                                     <input type="text" name="jenis_pegawai" value="{{ old('jenis_pegawai', $karyawan->jenis_pegawai) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Grup Kinerja</label>
+                                    <label class="form-label">{{ __("Grup Kinerja") }}</label>
                                     <input type="text" name="grup_kinerja" value="{{ old('grup_kinerja', $karyawan->grup_kinerja) }}" class="form-control">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" name="is_full_time" value="1" class="form-check-input" id="is_full_time" {{ old('is_full_time', $karyawan->is_full_time) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_full_time">Full Time</label>
+                                    <label class="form-check-label" for="is_full_time">{{ __("Full Time") }}</label>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No Surat Registrasi</label>
+                                    <label class="form-label">{{ __("No Surat Registrasi") }}</label>
                                     <input type="text" name="no_surat_registrasi" value="{{ old('no_surat_registrasi', $karyawan->no_surat_registrasi) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Register Mulai</label>
+                                    <label class="form-label">{{ __("Tgl Register Mulai") }}</label>
                                     <input type="date" name="tgl_register_mulai" value="{{ old('tgl_register_mulai', $karyawan->tgl_register_mulai ? $karyawan->tgl_register_mulai->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Register Akhir</label>
+                                    <label class="form-label">{{ __("Tgl Register Akhir") }}</label>
                                     <input type="date" name="tgl_register_akhir" value="{{ old('tgl_register_akhir', $karyawan->tgl_register_akhir ? $karyawan->tgl_register_akhir->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">SK Ijin Kerja</label>
+                                    <label class="form-label">{{ __("SK Ijin Kerja") }}</label>
                                     <input type="text" name="sk_ijin_kerja" value="{{ old('sk_ijin_kerja', $karyawan->sk_ijin_kerja) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No SK Ijin Praktek</label>
+                                    <label class="form-label">{{ __("No SK Ijin Praktek") }}</label>
                                     <input type="text" name="no_sk_ijin_praktek" value="{{ old('no_sk_ijin_praktek', $karyawan->no_sk_ijin_praktek) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl SK Ijin Praktek</label>
+                                    <label class="form-label">{{ __("Tgl SK Ijin Praktek") }}</label>
                                     <input type="date" name="tgl_sk_ijin_praktek" value="{{ old('tgl_sk_ijin_praktek', $karyawan->tgl_sk_ijin_praktek ? $karyawan->tgl_sk_ijin_praktek->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl SK Ijin Praktek Berlaku SD</label>
+                                    <label class="form-label">{{ __("Tgl SK Ijin Praktek Berlaku SD") }}</label>
                                     <input type="date" name="tgl_sk_ijin_praktek_berlaku_sd" value="{{ old('tgl_sk_ijin_praktek_berlaku_sd', $karyawan->tgl_sk_ijin_praktek_berlaku_sd ? $karyawan->tgl_sk_ijin_praktek_berlaku_sd->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl SK Ijin Kerja</label>
+                                    <label class="form-label">{{ __("Tgl SK Ijin Kerja") }}</label>
                                     <input type="date" name="tgl_sk_ijin_kerja" value="{{ old('tgl_sk_ijin_kerja', $karyawan->tgl_sk_ijin_kerja ? $karyawan->tgl_sk_ijin_kerja->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl SK Ijin Kerja Berlaku SD</label>
+                                    <label class="form-label">{{ __("Tgl SK Ijin Kerja Berlaku SD") }}</label>
                                     <input type="date" name="tgl_sk_ijin_kerja_berlaku_sd" value="{{ old('tgl_sk_ijin_kerja_berlaku_sd', $karyawan->tgl_sk_ijin_kerja_berlaku_sd ? $karyawan->tgl_sk_ijin_kerja_berlaku_sd->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Hak Kelas Ranap</label>
+                                    <label class="form-label">{{ __("Hak Kelas Ranap") }}</label>
                                     <input type="text" name="hak_kelas_ranap" value="{{ old('hak_kelas_ranap', $karyawan->hak_kelas_ranap) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No Amplop</label>
+                                    <label class="form-label">{{ __("No Amplop") }}</label>
                                     <input type="text" name="no_amplop" value="{{ old('no_amplop', $karyawan->no_amplop) }}" class="form-control">
                                 </div>
                             </div>
@@ -451,65 +451,65 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Bank</label>
+                                    <label class="form-label">{{ __("Bank") }}</label>
                                     <input type="text" name="bank" value="{{ old('bank', $karyawan->bank) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No Rekening</label>
+                                    <label class="form-label">{{ __("No Rekening") }}</label>
                                     <input type="text" name="no_rekening" value="{{ old('no_rekening', $karyawan->no_rekening) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">BPJS Kesehatan</label>
+                                    <label class="form-label">{{ __("BPJS Kesehatan") }}</label>
                                     <input type="text" name="bpjs_kesehatan" value="{{ old('bpjs_kesehatan', $karyawan->bpjs_kesehatan) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">BPJS Ketenagakerjaan</label>
+                                    <label class="form-label">{{ __("BPJS Ketenagakerjaan") }}</label>
                                     <input type="text" name="bpjs_ketenagakerjaan" value="{{ old('bpjs_ketenagakerjaan', $karyawan->bpjs_ketenagakerjaan) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">KTP <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("KTP") }} <span class="text-danger">*</span></label>
                                     <input type="text" name="ktp" value="{{ old('ktp', $karyawan->ktp) }}" class="form-control @error('ktp') is-invalid @enderror" required>
                                     @error('ktp')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">NPWP <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("NPWP") }} <span class="text-danger">*</span></label>
                                     <input type="text" name="NPWP" value="{{ old('NPWP', $karyawan->NPWP) }}" class="form-control @error('NPWP') is-invalid @enderror" required>
                                     @error('NPWP')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Hak Plafon</label>
+                                    <label class="form-label">{{ __("Hak Plafon") }}</label>
                                     <input type="text" name="hak_plafon" value="{{ old('hak_plafon', $karyawan->hak_plafon) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Account</label>
+                                    <label class="form-label">{{ __("Nama Account") }}</label>
                                     <input type="text" name="nama_account" value="{{ old('nama_account', $karyawan->nama_account) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Jenis Profesi</label>
+                                    <label class="form-label">{{ __("Jenis Profesi") }}</label>
                                     <input type="text" name="jenis_profesi" value="{{ old('jenis_profesi', $karyawan->jenis_profesi) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Keterangan Jabatan</label>
+                                    <label class="form-label">{{ __("Keterangan Jabatan") }}</label>
                                     <input type="text" name="keterangan_jabatan" value="{{ old('keterangan_jabatan', $karyawan->keterangan_jabatan) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Daftar NPWP</label>
+                                    <label class="form-label">{{ __("Tgl Daftar NPWP") }}</label>
                                     <input type="date" name="tgl_daftar_npwp" value="{{ old('tgl_daftar_npwp', $karyawan->tgl_daftar_npwp ? $karyawan->tgl_daftar_npwp->format('Y-m-d') : '') }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tanggungan Pajak</label>
+                                    <label class="form-label">{{ __("Tanggungan Pajak") }}</label>
                                     <input type="text" name="tanggungan_pajak" value="{{ old('tanggungan_pajak', $karyawan->tanggungan_pajak) }}" class="form-control">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" name="ptkp_tak_penuh" value="1" class="form-check-input" id="ptkp_tak_penuh" {{ old('ptkp_tak_penuh', $karyawan->ptkp_tak_penuh) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="ptkp_tak_penuh">PTKP Tak Penuh</label>
+                                    <label class="form-check-label" for="ptkp_tak_penuh">{{ __("PTKP Tak Penuh") }}</label>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Status Kawin (Tax)</label>
+                                    <label class="form-label">{{ __("Status Kawin (Tax)") }}</label>
                                     <input type="text" name="status_kawin_tax" value="{{ old('status_kawin_tax', $karyawan->status_kawin_tax) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Total Kontak <span class="text-danger">*</span></label>
+                                    <label class="form-label">{{ __("Total Kontak") }} <span class="text-danger">*</span></label>
                                     <input type="number" name="total_kontak" value="{{ old('total_kontak', $karyawan->total_kontak) }}" class="form-control @error('total_kontak') is-invalid @enderror" required min="0">
                                     @error('total_kontak')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
@@ -523,17 +523,17 @@
                             <table class="table table-bordered" id="riwayat-kepegawaian-table">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>Pangkat</th>
-                                        <th>Golongan</th>
-                                        <th>Status</th>
-                                        <th>Keterangan</th>
-                                        <th>SK TMT</th>
-                                        <th>Tgl Kontrak Mulai</th>
-                                        <th>Tgl Kontrak Akhir</th>
-                                        <th>Masa Kerja Tahun</th>
-                                        <th>Masa Kerja Bulan</th>
-                                        <th>Pejabat</th>
-                                        <th>No SK</th>
+                                        <th>{{ __("Pangkat") }}</th>
+                                        <th>{{ __("Golongan") }}</th>
+                                        <th>{{ __("Status") }}</th>
+                                        <th>{{ __("Keterangan") }}</th>
+                                        <th>{{ __("SK TMT") }}</th>
+                                        <th>{{ __("Tgl Kontrak Mulai") }}</th>
+                                        <th>{{ __("Tgl Kontrak Akhir") }}</th>
+                                        <th>{{ __("Masa Kerja Tahun") }}</th>
+                                        <th>{{ __("Masa Kerja Bulan") }}</th>
+                                        <th>{{ __("Pejabat") }}</th>
+                                        <th>{{ __("No SK") }}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -552,7 +552,7 @@
                                         <td><input type="number" name="employment_histories[{{ $ehIndex }}][masa_kerja_bulan]" value="{{ is_object($eh) ? $eh->masa_kerja_bulan : ($eh['masa_kerja_bulan'] ?? '') }}" class="form-control form-control-sm" min="0"></td>
                                         <td><input type="text" name="employment_histories[{{ $ehIndex }}][pejabat]" value="{{ is_object($eh) ? $eh->pejabat : ($eh['pejabat'] ?? '') }}" class="form-control form-control-sm"></td>
                                         <td><input type="text" name="employment_histories[{{ $ehIndex }}][no_sk]" value="{{ is_object($eh) ? $eh->no_sk : ($eh['no_sk'] ?? '') }}" class="form-control form-control-sm"></td>
-                                        <td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">Hapus</button></td>
+                                        <td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">{{ __("Hapus") }}</button></td>
                                     </tr>
                                     @php $ehIndex++; @endphp
                                     @endforeach
@@ -569,12 +569,12 @@
                                         <td><input type="number" name="employment_histories[0][masa_kerja_bulan]" class="form-control form-control-sm" min="0"></td>
                                         <td><input type="text" name="employment_histories[0][pejabat]" class="form-control form-control-sm"></td>
                                         <td><input type="text" name="employment_histories[0][no_sk]" class="form-control form-control-sm"></td>
-                                        <td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">Hapus</button></td>
+                                        <td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">{{ __("Hapus") }}</button></td>
                                     </tr>
                                     @endif
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-sm btn-outline-primary" id="add-riwayat-row">+ Tambah Baris</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="add-riwayat-row">{{ __("+ Tambah Baris") }}</button>
                         </div>
                     </div>
 
@@ -583,15 +583,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Cara Keluar</label>
+                                    <label class="form-label">{{ __("Cara Keluar") }}</label>
                                     <input type="text" name="cara_keluar" value="{{ old('cara_keluar', $karyawan->cara_keluar) }}" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Tgl Keluar</label>
+                                    <label class="form-label">{{ __("Tgl Keluar") }}</label>
                                     <input type="date" name="tanggal_keluar" value="{{ old('tanggal_keluar', $karyawan->tanggal_keluar ? $karyawan->tanggal_keluar->format('Y-m-d') : '') }}" class="form-control">
                 </div>
                 <div class="mb-3">
-                                    <label class="form-label">Alasan Keluar</label>
+                                    <label class="form-label">{{ __("Alasan Keluar") }}</label>
                                     <textarea name="alasan_keluar" class="form-control" rows="3">{{ old('alasan_keluar', $karyawan->alasan_keluar) }}</textarea>
                                 </div>
                             </div>
@@ -601,14 +601,14 @@
 
                 {{-- Navigasi chaining antar tab --}}
                 <div class="d-flex justify-content-between align-items-center mt-3">
-                    <button type="button" class="btn btn-outline-light" id="prev-tab">Sebelumnya</button>
+                    <button type="button" class="btn btn-outline-light" id="prev-tab">{{ __("Sebelumnya") }}</button>
                     <small class="text-light-50" id="tab-step-indicator"></small>
-                    <button type="button" class="btn btn-primary" id="next-tab">Lanjut</button>
+                    <button type="button" class="btn btn-primary" id="next-tab">{{ __("Lanjut") }}</button>
                 </div>
 
                 <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('karyawans.index') }}" class="btn btn-secondary me-2">Batal</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('karyawans.index') }}" class="btn btn-secondary me-2">{{ __("Batal") }}</a>
+                    <button type="submit" class="btn btn-primary">{{ __("Simpan") }}</button>
                 </div>
             </form>
         </div>
@@ -658,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<td><input type="number" name="employment_histories[' + rowIndex + '][masa_kerja_bulan]" class="form-control form-control-sm" min="0"></td>' +
             '<td><input type="text" name="employment_histories[' + rowIndex + '][pejabat]" class="form-control form-control-sm"></td>' +
             '<td><input type="text" name="employment_histories[' + rowIndex + '][no_sk]" class="form-control form-control-sm"></td>' +
-            '<td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">Hapus</button></td>';
+            '<td><button type="button" class="btn btn-sm btn-outline-danger remove-riwayat">{{ __("Hapus") }}</button></td>';
         tbody.appendChild(tr);
         rowIndex++;
     });

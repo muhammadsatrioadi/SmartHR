@@ -13,7 +13,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Presensi Hadir Hari Ini</p>
+                        <p class="mb-2">{{ __("Presensi Hadir Hari Ini") }}</p>
                         <h6 class="mb-0">{{ $totalKehadiranHariIni }}</h6>
                     </div>
                 </div>
@@ -22,7 +22,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Presensi Alpha Hari Ini</p>
+                        <p class="mb-2">{{ __("Presensi Alpha Hari Ini") }}</p>
                         <h6 class="mb-0">{{ $totalAlphaHariIni }}</h6>
                     </div>
                 </div>
@@ -31,7 +31,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Presensi Hadir Bulan Ini</p>
+                        <p class="mb-2">{{ __("Presensi Hadir Bulan Ini") }}</p>
                         <h6 class="mb-0">{{ $totalKehadiranBulanIni }}</h6>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Presensi Alpha Bulan Ini</p>
+                        <p class="mb-2">{{ __("Presensi Alpha Bulan Ini") }}</p>
                         <h6 class="mb-0">{{ $totalAlphaBulanIni }}</h6>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-line fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Total Data Semua Karyawan</p>
+                        <p class="mb-2">{{ __("Total Data Semua Karyawan") }}</p>
                         <h6 class="mb-0">{{ $dataKaryawan }}</h6>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-line fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Rekap Total Cuti Hari Ini</p>
+                        <p class="mb-2">{{ __("Rekap Total Cuti Hari Ini") }}</p>
                         <h6 class="mb-0">{{ $totalCutiHariIni }}</h6>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-line fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Rekap Total Cuti Bulan Ini</p>
+                        <p class="mb-2">{{ __("Rekap Total Cuti Bulan Ini") }}</p>
                         <h6 class="mb-0">{{ $dataCuti }}</h6>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ active
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-pie fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Pengeluaran Gaji Seluruh Karyawan</p>
+                        <p class="mb-2">{{ __("Pengeluaran Gaji Seluruh Karyawan") }}</p>
                         <h6 class="mb-0">{{ $totalGaji }}</h6>
                     </div>
                 </div>
@@ -93,8 +93,8 @@ active
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Grafik Karyawan Kehadiran</h6>
-                        <a href="">Show All</a>
+                        <h6 class="mb-0">{{ __("Grafik Karyawan Kehadiran") }}</h6>
+                        <a href="">{{ __("Show All") }}</a>
                     </div>
                     <canvas id="absensi-trafik"></canvas>
                 </div>
@@ -102,8 +102,8 @@ active
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Grafik Karyawan Alpha</h6>
-                        <a href="">Show All</a>
+                        <h6 class="mb-0">{{ __("Grafik Karyawan Alpha") }}</h6>
+                        <a href="">{{ __("Show All") }}</a>
                     </div>
                     <canvas id="absensi-trafik-alpha"></canvas>
                 </div>
@@ -117,19 +117,19 @@ active
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Presensi Terbaru</h6>
-                <a href="{{ route('presensi.read') }}">Show All</a>
+                <h6 class="mb-0">{{ __("Presensi Terbaru") }}</h6>
+                <a href="{{ route('presensi.read') }}">{{ __("Show All") }}</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Jam</th>
-                                <th scope="col">bulan dan tahun</th>
+                                <th scope="col">{{ __("No") }}</th>
+                                <th scope="col">{{ __("Nama") }}</th>
+                                <th scope="col">{{ __("Status") }}</th>
+                                <th scope="col">{{ __("Tanggal") }}</th>
+                                <th scope="col">{{ __("Jam") }}</th>
+                                <th scope="col">{{ __("bulan dan tahun") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,19 +154,19 @@ active
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Data Cuti Terbaru</h6>
-                <a href="{{ route('cuti.read') }}">Show All</a>
+                <h6 class="mb-0">{{ __("Data Cuti Terbaru") }}</h6>
+                <a href="{{ route('cuti.read') }}">{{ __("Show All") }}</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                             <tr class="text-center">
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Kariyawan</th>
-                                <th scope="col">Tanggal Mulai</th>
-                                <th scope="col">Tanggal Berakhir</th>
-                                <th scope="col">Keterangan</th>
-                                <th scope="col">Jenis Cuti</th>
+                                <th scope="col">{{ __("No") }}</th>
+                                <th scope="col">{{ __("Nama Kariyawan") }}</th>
+                                <th scope="col">{{ __("Tanggal Mulai") }}</th>
+                                <th scope="col">{{ __("Tanggal Berakhir") }}</th>
+                                <th scope="col">{{ __("Keterangan") }}</th>
+                                <th scope="col">{{ __("Jenis Cuti") }}</th>
                             </tr>
                         </thead>
                         <tbody>

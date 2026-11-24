@@ -2,24 +2,24 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('index') }}">Sistem Karyawan</a>
+            <a href="{{ route('index') }}">{{ __('Sistem Karyawan') }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('index') }}">SK</a>
+            <a href="{{ route('index') }}">{{ __("SK") }}</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Menu</li>
+            <li class="menu-header">{{ __('Menu') }}</li>
             <li class="nav-item {{ request()->routeIs('index') ? 'active' : '' }}">
-                <a href="{{ route('index') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                <a href="{{ route('index') }}" class="nav-link"><i class="fas fa-fire"></i><span>{{ __('Dashboard') }}</span></a>
             </li>
             <li class="nav-item {{ request()->routeIs('karyawans.*') ? 'active' : '' }}">
-                <a href="{{ route('karyawans.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Master Karyawan</span></a>
+                <a href="{{ route('karyawans.index') }}" class="nav-link"><i class="fas fa-users"></i><span>{{ __('Master Karyawan') }}</span></a>
             </li>
             {{-- Menu "Cuti" dikeluarkan dari Setup Jadwal & Cuti (bukan bagian kelola master).
                  Hanya untuk Admin HR karena halaman ini khusus approval cuti manajer. --}}
             @if ((auth()->user()->role ?? null) === 'admin_hr')
                 <li class="nav-item {{ request()->routeIs('cuti.*') ? 'active' : '' }}">
-                    <a href="{{ route('cuti.read') }}" class="nav-link"><i class="fas fa-keyboard"></i><span>Cuti</span></a>
+                    <a href="{{ route('cuti.read') }}" class="nav-link"><i class="fas fa-keyboard"></i><span>{{ __('Cuti') }}</span></a>
                 </li>
             @endif
 
@@ -28,61 +28,61 @@
             {{-- Menu khusus Admin HR --}}
             @if ($role === 'admin_hr')
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('jabatan.*','golongan.*','pangkat.*','employeeStatus.*','department.*','workUnit.*','gaji.setup','salaryStep.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-cog"></i><span>Setup Master</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-cog"></i><span>{{ __('Setup Master') }}</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('jabatan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('jabatan.read') }}">Jabatan</a></li>
-                        <li class="{{ request()->routeIs('golongan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a></li>
-                        <li class="{{ request()->routeIs('pangkat.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('pangkat.index') }}">Pangkat</a></li>
-                        <li class="{{ request()->routeIs('employeeStatus.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('employeeStatus.index') }}">Status Karyawan</a></li>
-                        <li class="{{ request()->routeIs('department.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('department.index') }}">Departemen</a></li>
-                        <li class="{{ request()->routeIs('workUnit.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workUnit.index') }}">Unit Kerja</a></li>
-                        <li class="{{ request()->routeIs('gaji.setup') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.setup') }}">Setup Gaji (Komponen Jabatan)</a></li>
-                        <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">Skala Gaji Berkala</a></li>
+                        <li class="{{ request()->routeIs('jabatan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('jabatan.read') }}">{{ __('Jabatan') }}</a></li>
+                        <li class="{{ request()->routeIs('golongan.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('golongan.index') }}">{{ __('Golongan') }}</a></li>
+                        <li class="{{ request()->routeIs('pangkat.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('pangkat.index') }}">{{ __('Pangkat') }}</a></li>
+                        <li class="{{ request()->routeIs('employeeStatus.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('employeeStatus.index') }}">{{ __('Status Karyawan') }}</a></li>
+                        <li class="{{ request()->routeIs('department.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('department.index') }}">{{ __('Departemen') }}</a></li>
+                        <li class="{{ request()->routeIs('workUnit.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workUnit.index') }}">{{ __('Unit Kerja') }}</a></li>
+                        <li class="{{ request()->routeIs('gaji.setup') ? 'active' : '' }}"><a class="nav-link" href="{{ route('gaji.setup') }}">{{ __('Setup Gaji (Komponen Jabatan)') }}</a></li>
+                        <li class="{{ request()->routeIs('salaryStep.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryStep.index') }}">{{ __('Skala Gaji Berkala') }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('holiday.*','shiftGroup.*','workShift.*','leaveType.*','leaveBalance.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-calendar"></i><span>Setup Jadwal & Cuti</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-calendar"></i><span>{{ __('Setup Jadwal & Cuti') }}</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('holiday.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('holiday.index') }}">Hari Libur Nasional</a></li>
-                        <li class="{{ request()->routeIs('shiftGroup.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shiftGroup.index') }}">Group Shift</a></li>
-                        <li class="{{ request()->routeIs('workShift.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workShift.index') }}">Shift Kerja</a></li>
-                        <li class="{{ request()->routeIs('leaveType.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveType.index') }}">Jenis Cuti</a></li>
-                        <li class="{{ request()->routeIs('leaveBalance.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveBalance.index') }}">Saldo Cuti Pegawai</a></li>
+                        <li class="{{ request()->routeIs('holiday.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('holiday.index') }}">{{ __('Hari Libur Nasional') }}</a></li>
+                        <li class="{{ request()->routeIs('shiftGroup.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('shiftGroup.index') }}">{{ __('Group Shift') }}</a></li>
+                        <li class="{{ request()->routeIs('workShift.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('workShift.index') }}">{{ __('Shift Kerja') }}</a></li>
+                        <li class="{{ request()->routeIs('leaveType.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveType.index') }}">{{ __('Jenis Cuti') }}</a></li>
+                        <li class="{{ request()->routeIs('leaveBalance.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('leaveBalance.index') }}">{{ __('Saldo Cuti Pegawai') }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item {{ request()->routeIs('employeeSchedule.*') ? 'active' : '' }}">
-                    <a href="{{ route('employeeSchedule.index') }}" class="nav-link"><i class="fas fa-table"></i><span>Jadwal Shift Pegawai</span></a>
+                    <a href="{{ route('employeeSchedule.index') }}" class="nav-link"><i class="fas fa-table"></i><span>{{ __('Jadwal Shift Pegawai') }}</span></a>
                 </li>
                 <li class="nav-item {{ request()->routeIs('presensi.*') ? 'active' : '' }}">
-                    <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-chart-bar"></i><span>Presensi</span></a>
+                    <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-chart-bar"></i><span>{{ __('Presensi') }}</span></a>
                 </li>
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('salaryHistory.*','payrollMonthly.*','slipGaji.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>Gaji</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-money-bill"></i><span>{{ __('Gaji') }}</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">Data Gaji Dasar Pegawai</a></li>
-                        <li class="{{ request()->routeIs('payrollMonthly.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.index') }}">Rekap Gaji Bulanan</a></li>
-                        <li class="{{ request()->routeIs('payrollMonthly.batch','payrollMonthly.export') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.batch') }}">Proses Rekap Massal</a></li>
-                        <li class="{{ request()->routeIs('slipGaji.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('slipGaji.index') }}">Slip Gaji</a></li>
+                        <li class="{{ request()->routeIs('salaryHistory.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('salaryHistory.index') }}">{{ __('Data Gaji Dasar Pegawai') }}</a></li>
+                        <li class="{{ request()->routeIs('payrollMonthly.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.index') }}">{{ __('Rekap Gaji Bulanan') }}</a></li>
+                        <li class="{{ request()->routeIs('payrollMonthly.batch','payrollMonthly.export') ? 'active' : '' }}"><a class="nav-link" href="{{ route('payrollMonthly.batch') }}">{{ __('Proses Rekap Massal') }}</a></li>
+                        <li class="{{ request()->routeIs('slipGaji.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('slipGaji.index') }}">{{ __('Slip Gaji') }}</a></li>
                     </ul>
                 </li>
             @endif
 
             @if (in_array($role, ['admin_hr', 'atasan', 'manajer', 'karyawan']))
                 <li class="nav-item sidebar-accordion {{ request()->routeIs('reimbursement.*','overtime.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i><span>Klaim & Lembur</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
+                    <a href="#" class="nav-link sidebar-accordion-trigger" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i><span>{{ __('Klaim & Lembur') }}</span><i class="fas fa-chevron-down sidebar-arrow"></i></a>
                     <ul class="sidebar-submenu">
-                        <li class="{{ request()->routeIs('reimbursement.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('reimbursement.index') }}">Reimbursement Nota</a></li>
-                        <li class="{{ request()->routeIs('overtime.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('overtime.index') }}">Lembur Pegawai</a></li>
+                        <li class="{{ request()->routeIs('reimbursement.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('reimbursement.index') }}">{{ __('Reimbursement Nota') }}</a></li>
+                        <li class="{{ request()->routeIs('overtime.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('overtime.index') }}">{{ __('Lembur Pegawai') }}</a></li>
                     </ul>
                 </li>
                 @if ($role === 'admin_hr')
                 <li class="nav-item {{ request()->routeIs('attendanceLocation.*') ? 'active' : '' }}">
-                    <a href="{{ route('attendanceLocation.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i><span>Titik Lokasi Presensi</span></a>
+                    <a href="{{ route('attendanceLocation.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i><span>{{ __('Titik Lokasi Presensi') }}</span></a>
                 </li>
                 @endif
                 {{-- Menu Presensi Admin disembunyikan sesuai permintaan.
                 <li class="nav-item {{ request()->routeIs('presensi.*') ? 'active' : '' }}">
-                    <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-fingerprint"></i><span>Presensi Admin</span></a>
+                    <a href="{{ route('presensi.read') }}" class="nav-link"><i class="fas fa-fingerprint"></i><span>{{ __("Presensi Admin") }}</span></a>
                 </li>
                 --}}
             @endif

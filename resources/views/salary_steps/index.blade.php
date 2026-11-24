@@ -6,23 +6,23 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Skala Gaji Berkala</h6>
-                <a class="btn btn-primary" href="{{ route('salaryStep.create') }}">Tambah Skala</a>
+                <h6 class="mb-0">{{ __("Skala Gaji Berkala") }}</h6>
+                <a class="btn btn-primary" href="{{ route('salaryStep.create') }}">{{ __("Tambah Skala") }}</a>
             </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Kode</th>
-                            <th>Deskripsi</th>
-                            <th>Gaji Pokok</th>
-                            <th>Tunjangan Tetap</th>
-                            <th>Hari Kerja/Minggu</th>
-                            <th>Dasar Lembur</th>
-                            <th>Upah/Jam</th>
-                            <th>Masa Kerja (th)</th>
-                            <th style="width: 140px;">Aksi</th>
+                            <th>{{ __("Kode") }}</th>
+                            <th>{{ __("Deskripsi") }}</th>
+                            <th>{{ __("Gaji Pokok") }}</th>
+                            <th>{{ __("Tunjangan Tetap") }}</th>
+                            <th>{{ __("Hari Kerja/Minggu") }}</th>
+                            <th>{{ __("Dasar Lembur") }}</th>
+                            <th>{{ __("Upah/Jam") }}</th>
+                            <th>{{ __("Masa Kerja (th)") }}</th>
+                            <th style="width: 140px;">{{ __("Aksi") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,17 +37,17 @@
                                 <td>{{ number_format($s->upah_per_jam, 0, ',', '.') }}</td>
                                 <td>{{ $s->masa_kerja_min }} - {{ $s->masa_kerja_maks ?? '>' }}</td>
                                 <td>
-                                    <a href="{{ route('salaryStep.edit', $s->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('salaryStep.edit', $s->id) }}" class="btn btn-warning btn-sm">{{ __("Edit") }}</a>
                                     <form action="{{ route('salaryStep.delete', $s->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm delete-confirm" type="submit" data-message="Hapus skala gaji {{ $s->kode }}?">Hapus</button>
+                                        <button class="btn btn-danger btn-sm delete-confirm" type="submit" data-message="Hapus skala gaji {{ $s->kode }}?">{{ __("Hapus") }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center">Belum ada data.</td>
+                                <td colspan="9" class="text-center">{{ __("Belum ada data.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

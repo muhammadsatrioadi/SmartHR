@@ -5,13 +5,13 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Tambah Jenis Cuti</h6>
+            <h6 class="mb-4">{{ __("Tambah Jenis Cuti") }}</h6>
 
             <form method="POST" action="{{ route('leaveType.store') }}">
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Kode</label>
+                    <label class="form-label">{{ __("Kode") }}</label>
                     <input type="text" name="kode" value="{{ old('kode') }}"
                         class="form-control @error('kode') is-invalid @enderror"
                         pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Jenis Cuti</label>
+                    <label class="form-label">{{ __("Jenis Cuti") }}</label>
                     <input type="text" name="nama" value="{{ old('nama') }}"
                         class="form-control @error('nama') is-invalid @enderror"
                         pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')" required>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Grup</label>
+                    <label class="form-label">{{ __("Grup") }}</label>
                     <input type="text" name="grup" value="{{ old('grup') }}" class="form-control"
                         pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')">
                 </div>
@@ -38,29 +38,29 @@
                             <input class="form-check-input" type="checkbox" value="1" id="pakai_periode"
                                 name="pakai_periode" {{ old('pakai_periode') ? 'checked' : '' }}>
                             <label class="form-check-label" for="pakai_periode">
-                                Sistem Periode
+                                {{ __("Sistem Periode") }}
                             </label>
                         </div>
                         <select name="satuan_periode" class="form-select mt-2">
                             <option value="">-</option>
-                            <option value="hari" {{ old('satuan_periode') == 'hari' ? 'selected' : '' }}>Hari</option>
-                            <option value="bulan" {{ old('satuan_periode') == 'bulan' ? 'selected' : '' }}>Bulan</option>
-                            <option value="tahun" {{ old('satuan_periode') == 'tahun' ? 'selected' : '' }}>Tahun
+                            <option value="hari" {{ old('satuan_periode') == 'hari' ? 'selected' : '' }}>{{ __("Hari") }}</option>
+                            <option value="bulan" {{ old('satuan_periode') == 'bulan' ? 'selected' : '' }}>{{ __("Bulan") }}</option>
+                            <option value="tahun" {{ old('satuan_periode') == 'tahun' ? 'selected' : '' }}>{{ __("Tahun") }}
                             </option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Max Expired</label>
+                        <label class="form-label">{{ __("Max Expired") }}</label>
                         <div class="d-flex gap-2">
                             <input type="number" name="max_expired" value="{{ old('max_expired') }}"
                                 min="0" step="1" class="form-control">
                             <select name="satuan_expired" class="form-select">
                                 <option value="">-</option>
-                                <option value="hari" {{ old('satuan_expired') == 'hari' ? 'selected' : '' }}>Hari
+                                <option value="hari" {{ old('satuan_expired') == 'hari' ? 'selected' : '' }}>{{ __("Hari") }}
                                 </option>
-                                <option value="bulan" {{ old('satuan_expired') == 'bulan' ? 'selected' : '' }}>Bulan
+                                <option value="bulan" {{ old('satuan_expired') == 'bulan' ? 'selected' : '' }}>{{ __("Bulan") }}
                                 </option>
-                                <option value="tahun" {{ old('satuan_expired') == 'tahun' ? 'selected' : '' }}>Tahun
+                                <option value="tahun" {{ old('satuan_expired') == 'tahun' ? 'selected' : '' }}>{{ __("Tahun") }}
                                 </option>
                             </select>
                         </div>
@@ -75,24 +75,24 @@
                                 min="0" step="1" class="form-control">
                             <select name="satuan_masa_kerja" class="form-select">
                                 <option value="">-</option>
-                                <option value="hari" {{ old('satuan_masa_kerja') == 'hari' ? 'selected' : '' }}>Hari
+                                <option value="hari" {{ old('satuan_masa_kerja') == 'hari' ? 'selected' : '' }}>{{ __("Hari") }}
                                 </option>
-                                <option value="bulan" {{ old('satuan_masa_kerja') == 'bulan' ? 'selected' : '' }}>Bulan
+                                <option value="bulan" {{ old('satuan_masa_kerja') == 'bulan' ? 'selected' : '' }}>{{ __("Bulan") }}
                                 </option>
-                                <option value="tahun" {{ old('satuan_masa_kerja') == 'tahun' ? 'selected' : '' }}>Tahun
+                                <option value="tahun" {{ old('satuan_masa_kerja') == 'tahun' ? 'selected' : '' }}>{{ __("Tahun") }}
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Max BackDate (Hari)</label>
+                        <label class="form-label">{{ __("Max BackDate (Hari)") }}</label>
                         <input type="number" name="max_backdate" value="{{ old('max_backdate') }}"
                             min="0" step="1" class="form-control">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Kuota Hari (per tahun)</label>
+                    <label class="form-label">{{ __("Kuota Hari (per tahun)") }}</label>
                     <input type="number" step="1" name="kuota_hari" value="{{ old('kuota_hari', 0) }}"
                         class="form-control" min="0" max="365">
                 </div>
@@ -101,13 +101,13 @@
                     <input class="form-check-input" type="checkbox" value="1" id="rekap" name="rekap"
                         {{ old('rekap', true) ? 'checked' : '' }}>
                     <label class="form-check-label" for="rekap">
-                        Rekap (Ya/Tidak)
+                        {{ __("Rekap (Ya/Tidak)") }}
                     </label>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-outline-light me-2" href="{{ route('leaveType.index') }}">Batal</a>
-                    <button class="btn btn-primary" type="submit">Simpan</button>
+                    <a class="btn btn-outline-light me-2" href="{{ route('leaveType.index') }}">{{ __("Batal") }}</a>
+                    <button class="btn btn-primary" type="submit">{{ __("Simpan") }}</button>
                 </div>
             </form>
         </div>

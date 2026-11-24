@@ -7,20 +7,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Daftar Pengajuan Reimburse</h4>
+                <h4>{{ __("Daftar Pengajuan Reimburse") }}</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Pegawai</th>
-                                <th>Tanggal</th>
-                                <th>Nominal</th>
-                                <th>Keterangan</th>
-                                <th>Lampiran</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
+                                <th>{{ __("Pegawai") }}</th>
+                                <th>{{ __("Tanggal") }}</th>
+                                <th>{{ __("Nominal") }}</th>
+                                <th>{{ __("Keterangan") }}</th>
+                                <th>{{ __("Lampiran") }}</th>
+                                <th>{{ __("Status") }}</th>
+                                <th>{{ __("Aksi") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,37 +35,37 @@
                                     <td>{{ $row->keterangan }}</td>
                                     <td>
                                         @if($row->lampiran)
-                                            <a href="{{ asset('storage/' . $row->lampiran) }}" target="_blank" class="btn btn-sm btn-info">Lihat Nota</a>
+                                            <a href="{{ asset('storage/' . $row->lampiran) }}" target="_blank" class="btn btn-sm btn-info">{{ __("Lihat Nota") }}</a>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
                                     </td>
                                     <td>
                                         <span class="badge badge-{{ $row->status === 'disetujui' ? 'success' : ($row->status === 'ditolak' ? 'danger' : 'warning') }}">
-                                            {{ strtoupper(str_replace('_', ' ', $row->status)) }}
+                                            {{ \App\Support\UiLabels::status($row->status) }}
                                         </span>
                                     </td>
                                     <td>
                                         @if($row->status === 'pending' && auth()->user()->role === 'atasan')
                                             <form action="{{ route('reimbursement.approveSupervisor', $row->id) }}" method="POST" class="d-inline">
                                                 @csrf
-                                                <button class="btn btn-sm btn-success">Setuju (Atasan)</button>
+                                                <button class="btn btn-sm btn-success">{{ __("Setuju (Atasan)") }}</button>
                                             </form>
                                         @elseif($row->status === 'disetujui_atasan' && auth()->user()->role === 'admin_hr')
                                             <form action="{{ route('reimbursement.approveHr', $row->id) }}" method="POST" class="d-inline">
                                                 @csrf
-                                                <button class="btn btn-sm btn-success">Setuju (HR)</button>
+                                                <button class="btn btn-sm btn-success">{{ __("Setuju (HR)") }}</button>
                                             </form>
                                         @endif
 
                                         @if(in_array($row->status, ['pending', 'disetujui_atasan']))
-                                            <button class="btn btn-sm btn-danger btn-reject" data-id="{{ $row->id }}">Tolak</button>
+                                            <button class="btn btn-sm btn-danger btn-reject" data-id="{{ $row->id }}">{{ __("Tolak") }}</button>
                                         @endif
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Belum ada pengajuan reimburse.</td>
+                                    <td colspan="7" class="text-center">{{ __("Belum ada pengajuan reimburse.") }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -86,18 +86,18 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tolak Reimbursement</h5>
+                    <h5 class="modal-title">{{ __("Tolak Reimbursement") }}</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Alasan Penolakan</label>
+                        <label>{{ __("Alasan Penolakan") }}</label>
                         <textarea name="alasan" class="form-control" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">Tolak Pengajuan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __("Batal") }}</button>
+                    <button type="submit" class="btn btn-danger">{{ __("Tolak Pengajuan") }}</button>
                 </div>
             </div>
         </form>

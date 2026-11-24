@@ -6,19 +6,19 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Group Shift</h6>
-                <a class="btn btn-primary" href="{{ route('shiftGroup.create') }}">Tambah</a>
+                <h6 class="mb-0">{{ __("Setup Group Shift") }}</h6>
+                <a class="btn btn-primary" href="{{ route('shiftGroup.create') }}">{{ __("Tambah") }}</a>
             </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Tipe Absen</th>
-                            <th>Istirahat (menit)</th>
-                            <th style="width: 160px;">Aksi</th>
+                            <th>{{ __("Kode") }}</th>
+                            <th>{{ __("Nama") }}</th>
+                            <th>{{ __("Tipe Absen") }}</th>
+                            <th>{{ __("Istirahat (menit)") }}</th>
+                            <th style="width: 160px;">{{ __("Aksi") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,19 +29,19 @@
                                 <td>{{ $row->tipe_absen }}</td>
                                 <td>{{ $row->istirahat_menit }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="{{ route('shiftGroup.edit', $row->id) }}">Edit</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ route('shiftGroup.edit', $row->id) }}">{{ __("Edit") }}</a>
                                     <form class="d-inline" method="POST"
                                         action="{{ route('shiftGroup.delete', $row->id) }}"
                                         onsubmit="return confirm('Hapus group shift ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                                        <button class="btn btn-sm btn-danger" type="submit">{{ __("Hapus") }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Belum ada data.</td>
+                                <td colspan="5" class="text-center">{{ __("Belum ada data.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

@@ -5,13 +5,13 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Tambah Shift Kerja</h6>
+            <h6 class="mb-4">{{ __("Tambah Shift Kerja") }}</h6>
 
             <form method="POST" action="{{ route('workShift.store') }}">
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Group Shift</label>
+                    <label class="form-label">{{ __("Group Shift") }}</label>
                     <select name="shift_group_id" class="form-select">
                         <option value="">-</option>
                         @foreach ($shiftGroups as $group)
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Kode Shift</label>
+                    <label class="form-label">{{ __("Kode Shift") }}</label>
                     <input type="text" name="kode" value="{{ old('kode') }}"
                         class="form-control @error('kode') is-invalid @enderror"
                         pattern="[A-Za-z0-9]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" required>
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nama Shift</label>
+                    <label class="form-label">{{ __("Nama Shift") }}</label>
                     <input type="text" name="nama" value="{{ old('nama') }}"
                         class="form-control @error('nama') is-invalid @enderror"
                         pattern="[A-Za-z0-9 ]+" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'')" required>
@@ -40,31 +40,31 @@
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Jam Masuk</label>
+                        <label class="form-label">{{ __("Jam Masuk") }}</label>
                         <input type="time" name="jam_masuk" value="{{ old('jam_masuk') }}"
                             class="form-control @error('jam_masuk') is-invalid @enderror" required>
                         @error('jam_masuk') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Jam Pulang</label>
+                        <label class="form-label">{{ __("Jam Pulang") }}</label>
                         <input type="time" name="jam_pulang" value="{{ old('jam_pulang') }}"
                             class="form-control @error('jam_pulang') is-invalid @enderror" required>
                         @error('jam_pulang') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Mulai Telat</label>
+                        <label class="form-label">{{ __("Mulai Telat") }}</label>
                         <input type="time" name="jam_mulai_telat" value="{{ old('jam_mulai_telat') }}"
                             class="form-control">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Masuk Cepat</label>
+                        <label class="form-label">{{ __("Masuk Cepat") }}</label>
                         <input type="time" name="jam_masuk_cepat" value="{{ old('jam_masuk_cepat') }}"
                             class="form-control">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Toleransi Telat (menit)</label>
+                    <label class="form-label">{{ __("Toleransi Telat (menit)") }}</label>
                     <input type="number" name="toleransi_telat_menit"
                         value="{{ old('toleransi_telat_menit', 0) }}" class="form-control">
                 </div>
@@ -72,13 +72,13 @@
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="is_aktif" name="is_aktif" checked>
                     <label class="form-check-label" for="is_aktif">
-                        Aktif
+                        {{ __("Aktif") }}
                     </label>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-outline-light me-2" href="{{ route('workShift.index') }}">Batal</a>
-                    <button class="btn btn-primary" type="submit">Simpan</button>
+                    <a class="btn btn-outline-light me-2" href="{{ route('workShift.index') }}">{{ __("Batal") }}</a>
+                    <button class="btn btn-primary" type="submit">{{ __("Simpan") }}</button>
                 </div>
             </form>
         </div>

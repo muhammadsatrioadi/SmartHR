@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Portal Karyawan')</title>
+    @php($pageTitle = trim($__env->yieldContent('title', 'Portal Karyawan')))
+    <title>{{ __($pageTitle) }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -12,6 +13,16 @@
     @stack('styles')
 </head>
 <body class="portal-body">
+    <div class="d-flex justify-content-end px-3 py-2" style="background:#0f172a;">
+        <form method="POST" action="{{ route('language.update') }}">
+            @csrf
+            <select name="locale" class="form-select form-select-sm" aria-label="{{ __('Ganti bahasa') }}"
+                onchange="this.form.submit()">
+                <option value="id" {{ app()->getLocale() === 'id' ? 'selected' : '' }}>{{ __('Bahasa Indonesia') }}</option>
+                <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('Inggris') }}</option>
+            </select>
+        </form>
+    </div>
     @yield('content')
 
     @php
@@ -19,10 +30,10 @@
     @endphp
     <nav class="portal-bottom-nav">
         <a href="{{ route('portal.home') }}" class="{{ $navActive === 'home' ? 'active' : '' }}">
-            <i class="fas fa-home"></i> Beranda
+            <i class="fas fa-home"></i> {{ __('Beranda') }}
         </a>
         <a href="{{ route('portal.presensi.riwayat') }}" class="{{ $navActive === 'absensi' ? 'active' : '' }}">
-            <i class="fas fa-calendar-alt"></i> Presensi
+            <i class="fas fa-calendar-alt"></i> {{ __('Presensi') }}
         </a>
         <div class="nav-fab">
             <a href="{{ route('portal.presensi') }}" aria-label="Presensi">
@@ -30,10 +41,10 @@
             </a>
         </div>
         <a href="{{ route('portal.cuti') }}" class="{{ $navActive === 'cuti' ? 'active' : '' }}">
-            <i class="fas fa-calendar-check"></i> Cuti
+            <i class="fas fa-calendar-check"></i> {{ __('Cuti') }}
         </a>
         <a href="{{ route('portal.profil') }}" class="{{ $navActive === 'profil' ? 'active' : '' }}">
-            <i class="fas fa-user"></i> Profil
+            <i class="fas fa-user"></i> {{ __('Profil') }}
         </a>
     </nav>
 
@@ -52,10 +63,10 @@
     <script>
         // Global SweetAlert for session messages
         @if(session('success'))
-            Swal.fire({ icon: 'success', title: 'Berhasil', text: "{{ session('success') }}", timer: 3000, showConfirmButton: false });
+            Swal.fire({ icon: 'success', title: @json(__('Berhasil')), text: @json(session('success')), timer: 3000, showConfirmButton: false });
         @endif
         @if(session('error'))
-            Swal.fire({ icon: 'error', title: 'Gagal', text: "{{ session('error') }}" });
+            Swal.fire({ icon: 'error', title: @json(__('Gagal')), text: @json(session('error')) });
         @endif
     </script>
 </body>

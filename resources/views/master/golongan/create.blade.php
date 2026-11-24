@@ -5,24 +5,24 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Buat Golongan</h6>
+            <h6 class="mb-4">{{ __("Buat Golongan") }}</h6>
 
-            <p class="text-muted fst-italic mb-4">Isi seluruh data di bawah ini. Kolom bertanda <span class="text-danger">*</span> wajib diisi.</p>
+            <p class="text-muted fst-italic mb-4">{{ __("Isi seluruh data di bawah ini. Kolom bertanda") }} <span class="text-danger">*</span> {{ __("wajib diisi.") }}</p>
 
             <form class="js-validate" method="POST" action="{{ route('golongan.store') }}" novalidate>
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Kode <span class="text-danger">*</span></label>
+                    <label class="form-label">{{ __("Kode") }} <span class="text-danger">*</span></label>
                     <input type="text" name="kode" value="{{ old('kode') }}"
                         class="form-control @error('kode') is-invalid @enderror"
                         pattern="[A-Za-z0-9]+" title="Kode hanya boleh berisi huruf dan angka" required>
-                    <div class="form-text">Hanya huruf dan angka, tanpa spasi atau karakter khusus. Contoh: GOL01</div>
+                    <div class="form-text">{{ __("Hanya huruf dan angka, tanpa spasi atau karakter khusus. Contoh: GOL01") }}</div>
                     @error('kode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                    <label class="form-label">{{ __("Nama") }} <span class="text-danger">*</span></label>
                     <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" required>
                     @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
@@ -30,13 +30,13 @@
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" checked>
                     <label class="form-check-label" for="is_active">
-                        Aktif
+                        {{ __("Aktif") }}
                     </label>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-outline-light me-2" href="{{ route('golongan.index') }}">Batal</a>
-                    <button class="btn btn-primary" type="submit">Simpan</button>
+                    <a class="btn btn-outline-light me-2" href="{{ route('golongan.index') }}">{{ __("Batal") }}</a>
+                    <button class="btn btn-primary" type="submit">{{ __("Simpan") }}</button>
                 </div>
             </form>
         </div>

@@ -6,22 +6,22 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Setup Shift Kerja</h6>
-                <a class="btn btn-primary" href="{{ route('workShift.create') }}">Tambah</a>
+                <h6 class="mb-0">{{ __("Setup Shift Kerja") }}</h6>
+                <a class="btn btn-primary" href="{{ route('workShift.create') }}">{{ __("Tambah") }}</a>
             </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Group Shift</th>
-                            <th>Jam Masuk</th>
-                            <th>Jam Pulang</th>
-                            <th>Toleransi Telat (menit)</th>
-                            <th>Aktif</th>
-                            <th style="width: 180px;">Aksi</th>
+                            <th>{{ __("Kode") }}</th>
+                            <th>{{ __("Nama") }}</th>
+                            <th>{{ __("Group Shift") }}</th>
+                            <th>{{ __("Jam Masuk") }}</th>
+                            <th>{{ __("Jam Pulang") }}</th>
+                            <th>{{ __("Toleransi Telat (menit)") }}</th>
+                            <th>{{ __("Aktif") }}</th>
+                            <th style="width: 180px;">{{ __("Aksi") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,19 +35,19 @@
                                 <td>{{ $row->toleransi_telat_menit }}</td>
                                 <td>{{ $row->is_aktif ? 'Ya' : 'Tidak' }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="{{ route('workShift.edit', $row->id) }}">Edit</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ route('workShift.edit', $row->id) }}">{{ __("Edit") }}</a>
                                     <form class="d-inline" method="POST"
                                         action="{{ route('workShift.delete', $row->id) }}"
                                         onsubmit="return confirm('Hapus shift ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                                        <button class="btn btn-sm btn-danger" type="submit">{{ __("Hapus") }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">Belum ada data.</td>
+                                <td colspan="8" class="text-center">{{ __("Belum ada data.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

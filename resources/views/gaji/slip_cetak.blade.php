@@ -16,8 +16,8 @@
 <body onload="window.print()">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3 no-print">
-            <a class="btn btn-outline-secondary btn-sm" href="{{ url()->previous() }}">Kembali</a>
-            <button class="btn btn-primary btn-sm" onclick="window.print()">Cetak / Simpan PDF</button>
+            <a class="btn btn-outline-secondary btn-sm" href="{{ url()->previous() }}">{{ __("Kembali") }}</a>
+            <button class="btn btn-primary btn-sm" onclick="window.print()">{{ __("Cetak / Simpan PDF") }}</button>
         </div>
 
         @include('partials.slip_gaji', ['slip' => $slip, 'karyawan' => $karyawan])

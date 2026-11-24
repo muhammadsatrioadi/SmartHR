@@ -4,7 +4,7 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Riwayat Presensi</strong>
+    <strong>{{ __("Riwayat Presensi") }}</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @forelse($items as $row)
@@ -21,7 +21,7 @@
             </small>
         </div>
     @empty
-        <p class="text-center text-muted">Belum ada riwayat presensi.</p>
+        <p class="text-center text-muted">{{ __("Belum ada riwayat presensi.") }}</p>
     @endforelse
     <div class="mt-3">{{ $items->links() }}</div>
 </div>

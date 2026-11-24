@@ -4,7 +4,7 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Presensi Bawahan</strong>
+    <strong>{{ __("Presensi Bawahan") }}</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @forelse($items as $row)
@@ -18,7 +18,7 @@
             </div>
             <div class="small mt-1 text-muted">
                 {{ $row->tipe_absen ? ucfirst($row->tipe_absen) : 'Presensi' }}
-                @if($row->lokasi_dinas) · <span class="text-info">Dinas Luar</span> @endif
+                @if($row->lokasi_dinas) · <span class="text-info">{{ __("Dinas Luar") }}</span> @endif
                 @if($row->latitude)
                     <br><i class="fas fa-map-marker-alt"></i> {{ number_format($row->latitude, 5) }}, {{ number_format($row->longitude, 5) }}
                     @if($row->jarak_meter) ({{ $row->jarak_meter }}m) @endif
@@ -29,7 +29,7 @@
             @endif
         </div>
     @empty
-        <p class="text-center text-muted">Belum ada data presensi bawahan.</p>
+        <p class="text-center text-muted">{{ __("Belum ada data presensi bawahan.") }}</p>
     @endforelse
     <div class="mt-3">{{ $items->links() }}</div>
 </div>

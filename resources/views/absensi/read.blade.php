@@ -5,13 +5,13 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded h-100 p-4">
-            <h1 class="h4 mb-4">Daftar Presensi</h1>
+            <h1 class="h4 mb-4">{{ __("Daftar Presensi") }}</h1>
 
             <form method="GET" action="{{ route('presensi.read') }}" class="row g-3 align-items-end mb-4">
                 <div class="col-md-3">
-                    <label for="department_id" class="form-label">Departemen</label>
+                    <label for="department_id" class="form-label">{{ __("Departemen") }}</label>
                     <select id="department_id" name="department_id" class="form-select">
-                        <option value="">Semua Departemen</option>
+                        <option value="">{{ __("Semua Departemen") }}</option>
                         @foreach ($departments as $department)
                             <option value="{{ $department->id }}" {{ (string) $departmentId === (string) $department->id ? 'selected' : '' }}>
                                 {{ $department->kode }} - {{ $department->nama }}
@@ -20,24 +20,24 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="date_from" class="form-label">Tanggal Mulai</label>
+                    <label for="date_from" class="form-label">{{ __("Tanggal Mulai") }}</label>
                     <input id="date_from" type="date" name="date_from" value="{{ $dateFrom }}" class="form-control" required>
                 </div>
                 <div class="col-md-2">
-                    <label for="date_to" class="form-label">Tanggal Akhir</label>
+                    <label for="date_to" class="form-label">{{ __("Tanggal Akhir") }}</label>
                     <input id="date_to" type="date" name="date_to" value="{{ $dateTo }}" class="form-control" required>
                 </div>
                 <div class="col-md-2">
-                    <label for="status" class="form-label">Status Kehadiran</label>
+                    <label for="status" class="form-label">{{ __("Status Kehadiran") }}</label>
                     <select id="status" name="status" class="form-select">
-                        <option value="">Semua (Hadir &amp; Alpha)</option>
-                        <option value="hadir" {{ $status === 'hadir' ? 'selected' : '' }}>Hadir</option>
-                        <option value="alpha" {{ $status === 'alpha' ? 'selected' : '' }}>Alpha</option>
+                        <option value="">{{ __("Semua (Hadir &amp; Alpha)") }}</option>
+                        <option value="hadir" {{ $status === 'hadir' ? 'selected' : '' }}>{{ __("Hadir") }}</option>
+                        <option value="alpha" {{ $status === 'alpha' ? 'selected' : '' }}>{{ __("Alpha") }}</option>
                     </select>
                 </div>
                 <div class="col-md-auto">
-                    <button type="submit" class="btn btn-primary">Tampilkan</button>
-                    <a href="{{ route('presensi.read') }}" class="btn btn-outline-light">Reset</a>
+                    <button type="submit" class="btn btn-primary">{{ __("Tampilkan") }}</button>
+                    <a href="{{ route('presensi.read') }}" class="btn btn-outline-light">{{ __("Reset") }}</a>
                 </div>
             </form>
 
@@ -45,14 +45,14 @@
                 <table class="table table-bordered table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama Karyawan</th>
-                            <th>Departemen</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Tipe Absen</th>
-                            <th>Keterangan</th>
+                            <th>{{ __("No") }}</th>
+                            <th>{{ __("Nama Karyawan") }}</th>
+                            <th>{{ __("Departemen") }}</th>
+                            <th>{{ __("Status") }}</th>
+                            <th>{{ __("Tanggal") }}</th>
+                            <th>{{ __("Jam") }}</th>
+                            <th>{{ __("Tipe Absen") }}</th>
+                            <th>{{ __("Keterangan") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">Tidak ada data presensi untuk filter yang dipilih.</td>
+                                <td colspan="8" class="text-center">{{ __("Tidak ada data presensi untuk filter yang dipilih.") }}</td>
                             </tr>
                         @endforelse
                     </tbody>

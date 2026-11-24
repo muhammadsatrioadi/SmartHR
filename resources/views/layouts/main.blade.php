@@ -1,10 +1,11 @@
 <!-- Layout Stisla - tema getstisla.com, isi halaman tidak diubah -->
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', 'Sistem Karyawan')</title>
+    @php($pageTitle = trim($__env->yieldContent('title', 'Sistem Karyawan')))
+    <title>{{ __($pageTitle) }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -129,8 +130,8 @@
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
+                title: @json(__('Berhasil!')),
+                text: @json(session('success')),
                 timer: 3000,
                 showConfirmButton: false
             });
@@ -140,8 +141,8 @@
         @if(session('error'))
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal!',
-                text: "{{ session('error') }}"
+                title: @json(__('Gagal!')),
+                text: @json(session('error'))
             });
         @endif
 
@@ -149,7 +150,7 @@
         @if($errors->any())
             Swal.fire({
                 icon: 'error',
-                title: 'Data Belum Lengkap',
+                title: @json(__('Data Belum Lengkap')),
                 html: {!! json_encode(implode('<br>', $errors->all())) !!}
             });
         @endif
@@ -177,12 +178,12 @@
                     if (trigger) trigger.click();
                 }
 
-                let label = $empty.closest('.mb-3, .mb-4').find('label').first().text().replace('*', '').trim() || 'wajib diisi';
+                let label = $empty.closest('.mb-3, .mb-4').find('label').first().text().replace('*', '').trim() || @json(__('wajib diisi'));
 
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Data Belum Lengkap',
-                    text: 'Bagian "' + label + '" belum diisi. Lengkapi data mandatory terlebih dahulu.'
+                    title: @json(__('Data Belum Lengkap')),
+                    text: @json(__('Bagian')) + ' "' + label + '" ' + @json(__('belum diisi. Lengkapi data wajib terlebih dahulu.'))
                 });
                 $empty.focus();
                 return false;
@@ -193,17 +194,17 @@
         $(document).on('click', '.delete-confirm', function(e) {
             e.preventDefault();
             let form = $(this).closest('form');
-            let message = $(this).data('message') || 'Yakin ingin menghapus data ini?';
+            let message = $(this).data('message') || @json(__('Yakin ingin menghapus data ini?'));
             
             Swal.fire({
-                title: 'Apakah Anda yakin?',
+                title: @json(__('Apakah Anda yakin?')),
                 text: message,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
+                confirmButtonText: @json(__('Ya, Hapus!')),
+                cancelButtonText: @json(__('Batal'))
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();
@@ -215,17 +216,17 @@
         $(document).on('click', '.confirm-action', function(e) {
             e.preventDefault();
             let form = $(this).closest('form');
-            let message = $(this).data('message') || 'Apakah Anda yakin ingin melanjutkan?';
+            let message = $(this).data('message') || @json(__('Apakah Anda yakin ingin melanjutkan?'));
             
             Swal.fire({
-                title: 'Konfirmasi',
+                title: @json(__('Konfirmasi')),
                 text: message,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Batal'
+                confirmButtonText: @json(__('Ya')),
+                cancelButtonText: @json(__('Batal'))
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();

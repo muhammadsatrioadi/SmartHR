@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="text-end">
-                <div class="fw-bold">SLIP GAJI</div>
+                <div class="fw-bold">{{ __("SLIP GAJI") }}</div>
                 <div class="small">Periode: {{ $slip['label_periode'] }}</div>
                 <div class="small text-muted">Dasar perhitungan: {{ $rp($slip['dasar_perhitungan']) }}</div>
             </div>
@@ -34,7 +34,7 @@
         <div class="col-md-6">
             <table class="table table-sm table-bordered mb-0">
                 <thead class="table-primary">
-                    <tr><th colspan="2">PENDAPATAN</th></tr>
+                    <tr><th colspan="2">{{ __("PENDAPATAN") }}</th></tr>
                 </thead>
                 <tbody>
                     @foreach ($slip['pendapatan'] as $baris)
@@ -59,7 +59,7 @@
         <div class="col-md-6">
             <table class="table table-sm table-bordered mb-3">
                 <thead class="table-warning">
-                    <tr><th colspan="2">POTONGAN RESMI (B)</th></tr>
+                    <tr><th colspan="2">{{ __("POTONGAN RESMI (B)") }}</th></tr>
                 </thead>
                 <tbody>
                     @forelse ($slip['potongan_resmi'] as $baris)
@@ -73,10 +73,10 @@
                             <td class="text-end">{{ $rp($baris['nilai']) }}</td>
                         </tr>
                     @empty
-                        <tr><td colspan="2" class="text-muted">Tidak ada potongan resmi.</td></tr>
+                        <tr><td colspan="2" class="text-muted">{{ __("Tidak ada potongan resmi.") }}</td></tr>
                     @endforelse
                     <tr class="fw-bold">
-                        <td>Jumlah potongan resmi (B)</td>
+                        <td>{{ __("Jumlah potongan resmi (B)") }}</td>
                         <td class="text-end">{{ $rp($slip['total_potongan_resmi']) }}</td>
                     </tr>
                 </tbody>
@@ -84,7 +84,7 @@
 
             <table class="table table-sm table-bordered mb-0">
                 <thead class="table-warning">
-                    <tr><th colspan="2">POTONGAN LAIN (D)</th></tr>
+                    <tr><th colspan="2">{{ __("POTONGAN LAIN (D)") }}</th></tr>
                 </thead>
                 <tbody>
                     @forelse ($slip['potongan_lain'] as $baris)
@@ -98,10 +98,10 @@
                             <td class="text-end">{{ $rp($baris['nilai']) }}</td>
                         </tr>
                     @empty
-                        <tr><td colspan="2" class="text-muted">Tidak ada potongan lain.</td></tr>
+                        <tr><td colspan="2" class="text-muted">{{ __("Tidak ada potongan lain.") }}</td></tr>
                     @endforelse
                     <tr class="fw-bold">
-                        <td>Jumlah potongan lain (D)</td>
+                        <td>{{ __("Jumlah potongan lain (D)") }}</td>
                         <td class="text-end">{{ $rp($slip['total_potongan_lain']) }}</td>
                     </tr>
                 </tbody>
@@ -112,25 +112,25 @@
     <div class="row g-3 mt-1">
         <div class="col-md-6">
             <div class="d-flex justify-content-between border rounded p-2">
-                <span>Penghasilan bruto (A)</span>
+                <span>{{ __("Penghasilan bruto (A)") }}</span>
                 <strong>{{ $rp($slip['total_pendapatan']) }}</strong>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-between border rounded p-2 bg-light">
-                <span>Gaji bersih (A &minus; B)</span>
+                <span>{{ __("Gaji bersih (A &minus; B)") }}</span>
                 <strong>{{ $rp($slip['gaji_bersih']) }}</strong>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-between border rounded p-2">
-                <span>Potongan resmi (B)</span>
+                <span>{{ __("Potongan resmi (B)") }}</span>
                 <strong>{{ $rp($slip['total_potongan_resmi']) }}</strong>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-between border rounded p-2">
-                <span>Potongan lain (D)</span>
+                <span>{{ __("Potongan lain (D)") }}</span>
                 <strong>{{ $rp($slip['total_potongan_lain']) }}</strong>
             </div>
         </div>

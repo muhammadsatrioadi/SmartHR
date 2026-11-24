@@ -50,7 +50,7 @@ active
               @csrf
                 @method('PUT')
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label fw-medium">Nama Karyawan</label>
+                <label for="exampleInputEmail1" class="form-label fw-medium">{{ __("Nama Karyawan") }}</label>
                 <select class="form-select" aria-label="Default select example" name="karyawan_id">
                   <option selected value="{{ $data->karyawan_id }}">{{ optional($data->karyawan)->name }}</option>
                   @foreach ($karyawan as $items)
@@ -60,9 +60,9 @@ active
                 </select>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-medium">Jenis Cuti</label>
+                <label class="form-label fw-medium">{{ __("Jenis Cuti") }}</label>
                 <select class="form-select" name="leave_type_id">
-                  <option value="">Pilih Jenis Cuti</option>
+                  <option value="">{{ __("Pilih Jenis Cuti") }}</option>
                   @foreach ($leaveTypes as $type)
                     <option value="{{ $type->id }}" {{ $data->leave_type_id == $type->id ? 'selected' : '' }}>
                       {{ $type->kode }} - {{ $type->nama }}
@@ -71,18 +71,18 @@ active
                 </select>
               </div>
               <div class="mb-3">
-                <label for="date" class="form-label">Tanggal Mulai</label>
+                <label for="date" class="form-label">{{ __("Tanggal Mulai") }}</label>
                 <input type="date" class="form-control" name="tanggal_mulai" value="{{ $data->tanggal_mulai }}" id="date" >
             </div>
             <div class="mb-3">
-                <label for="date" class="form-label">Tanggal Berakhir</label>
+                <label for="date" class="form-label">{{ __("Tanggal Berakhir") }}</label>
                 <input type="date" class="form-control" id="date" name="tanggal_berakhir" value="{{ $data->tanggal_berakhir }}">
             </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label fw-medium">Keterangan</label>
+                <label for="exampleInputEmail1" class="form-label fw-medium">{{ __("Keterangan") }}</label>
                 <input type="text" name="keterangan" value="{{ $data->keterangan }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">{{ __("Submit") }}</button>
             </form>
           </div>
         </div>

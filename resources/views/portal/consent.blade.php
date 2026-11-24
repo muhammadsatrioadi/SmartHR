@@ -4,7 +4,7 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Dokumen Wajib</strong>
+    <strong>{{ __("Dokumen Wajib") }}</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @if(session('success'))
@@ -12,7 +12,7 @@
     @endif
 
     <div class="portal-saldo-card mb-3">
-        <h6><i class="fas fa-file-contract"></i> Surat Perjanjian Presensi</h6>
+        <h6><i class="fas fa-file-contract"></i> {{ __("Surat Perjanjian Presensi") }}</h6>
         <p class="small text-muted mb-2">
             Saya menyetujui kebijakan presensi berbasis lokasi GPS, verifikasi biometrik perangkat,
             serta pembatasan satu akun email untuk satu perangkat seluler.
@@ -26,16 +26,16 @@
                 <input type="hidden" name="jenis" value="perjanjian_absensi">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" name="disetujui" value="1" id="perjanjian" required>
-                    <label class="form-check-label small" for="perjanjian">Saya setuju</label>
+                    <label class="form-check-label small" for="perjanjian">{{ __("Saya setuju") }}</label>
                 </div>
-                <button class="btn btn-primary btn-sm">Simpan Persetujuan</button>
+                <button class="btn btn-primary btn-sm">{{ __("Simpan Persetujuan") }}</button>
             </form>
         @endif
     </div>
 
     <div class="portal-saldo-card mb-3">
-        <h6><i class="fas fa-project-diagram"></i> Task List — Flowchart Presensi</h6>
-        <p class="small text-muted">Alur proses presensi yang wajib dipahami:</p>
+        <h6><i class="fas fa-project-diagram"></i> {{ __("Task List — Flowchart Presensi") }}</h6>
+        <p class="small text-muted">{{ __("Alur proses presensi yang wajib dipahami:") }}</p>
         <pre class="small bg-light p-2 rounded" style="white-space:pre-wrap;font-size:0.7rem;">[START]
   |
   v
@@ -73,9 +73,9 @@
                 <input type="hidden" name="jenis" value="task_list_flowchart">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" name="disetujui" value="1" id="tasklist" required>
-                    <label class="form-check-label small" for="tasklist">Saya memahami alur di atas</label>
+                    <label class="form-check-label small" for="tasklist">{{ __("Saya memahami alur di atas") }}</label>
                 </div>
-                <button class="btn btn-primary btn-sm">Simpan Persetujuan</button>
+                <button class="btn btn-primary btn-sm">{{ __("Simpan Persetujuan") }}</button>
             </form>
         @endif
     </div>

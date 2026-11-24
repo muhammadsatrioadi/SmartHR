@@ -31,6 +31,7 @@ use App\Http\Controllers\PortalController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\AttendanceLocationController;
 use App\Http\Controllers\ReimbursementController;
+use App\Http\Controllers\LanguageController;
 
 
 
@@ -40,6 +41,8 @@ Route::get('/', [LoginController::class,'login'] )->name('login');
 Route::post('/', [LoginController::class,'actionlogin'] )->name('actionlogin');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 Route::post('actionAdminUpdate', [LoginController::class, 'actionAdminUpdate'])->name('actionAdminUpdate');
+
+Route::post('/language', [LanguageController::class, 'update'])->name('language.update');
 
 // Group routes under 'auth' middleware
 Route::middleware(['auth'])->group(function () {

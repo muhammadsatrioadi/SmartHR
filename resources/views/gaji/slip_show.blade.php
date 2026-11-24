@@ -16,20 +16,20 @@
                 <form class="d-flex align-items-end gap-2" method="GET"
                     action="{{ route('slipGaji.show', ['karyawan' => $karyawan->id]) }}">
                     <div>
-                        <label class="form-label mb-1">Periode</label>
+                        <label class="form-label mb-1">{{ __("Periode") }}</label>
                         <input type="month" name="periode" value="{{ $periode }}" class="form-control">
                     </div>
-                    <button class="btn btn-primary" type="submit">Tampilkan</button>
+                    <button class="btn btn-primary" type="submit">{{ __("Tampilkan") }}</button>
                     <a class="btn btn-outline-success"
-                        href="{{ route('slipGaji.cetak', ['karyawan' => $karyawan->id, 'periode' => $periode]) }}" target="_blank">Cetak</a>
-                    <a class="btn btn-outline-secondary" href="{{ route('slipGaji.index', ['periode' => $periode]) }}">Kembali</a>
+                        href="{{ route('slipGaji.cetak', ['karyawan' => $karyawan->id, 'periode' => $periode]) }}" target="_blank">{{ __("Cetak") }}</a>
+                    <a class="btn btn-outline-secondary" href="{{ route('slipGaji.index', ['periode' => $periode]) }}">{{ __("Kembali") }}</a>
                 </form>
             </div>
 
             @if (!$rekap)
                 <div class="alert alert-info py-2">
                     Rekap gaji bulanan periode ini belum diisi. Komponen bulanan (kehadiran, on call, potongan) belum ikut dihitung.
-                    <a href="{{ route('payrollMonthly.create', ['karyawan_id' => $karyawan->id, 'periode' => $periode]) }}">Isi rekap bulanan</a>.
+                    <a href="{{ route('payrollMonthly.create', ['karyawan_id' => $karyawan->id, 'periode' => $periode]) }}">{{ __("Isi rekap bulanan") }}</a>.
                 </div>
             @endif
 

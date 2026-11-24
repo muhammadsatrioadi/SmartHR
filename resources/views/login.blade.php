@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <!-- Design by foolishdeveloper.com -->
-    <title>LOGIN SISTEM KARYAWAN</title>
+    <title>{{ __('Login') }} {{ __('Sistem Karyawan') }}</title>
  
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -79,6 +79,30 @@ form h3{
     text-align: center;
 }
 
+form.language-form{
+    position:fixed;
+    top:20px;
+    right:20px;
+    left:auto;
+    transform:none;
+    width:auto;
+    height:auto;
+    padding:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    z-index:2;
+}
+form.language-form select{
+    width:auto;
+    height:auto;
+    margin:0;
+    padding:8px 12px;
+    color:#080710;
+    background:#ffffff;
+    border-radius:5px;
+}
+
 label{
     display: block;
     margin-top: 30px;
@@ -136,6 +160,13 @@ button{
     </style>
 </head>
 <body>
+    <form method="POST" action="{{ route('language.update') }}" class="language-form">
+        @csrf
+        <select name="locale" aria-label="{{ __('Ganti bahasa') }}" onchange="this.form.submit()">
+            <option value="id" {{ app()->getLocale() === 'id' ? 'selected' : '' }}>{{ __('Bahasa Indonesia') }}</option>
+            <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('Inggris') }}</option>
+        </select>
+    </form>
   @if(Session::has('error'))
             <div class="alert alert-primary" role="alert">
                 {{ Session::get('error') }}
@@ -147,15 +178,15 @@ button{
     </div>
     <form action="{{ route('actionlogin') }}" method="POST">
                 @csrf
-        <h3>Login <br> Sistem Karyawan</h3>
+        <h3>{{ __("Login") }} <br> {{ __("Sistem Karyawan") }}</h3>
 
-        <label for="username">Email</label>
-        <input type="text" placeholder="Email" id="username" name="email">
+        <label for="username">{{ __("Email") }}</label>
+        <input type="text" placeholder="{{ __('Email') }}" id="username" name="email">
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" name="password">
+        <label for="password">{{ __("Password") }}</label>
+        <input type="password" placeholder="{{ __('Password') }}" id="password" name="password">
 
-        <button type="submit">Log In</button>
+        <button type="submit">{{ __("Log In") }}</button>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

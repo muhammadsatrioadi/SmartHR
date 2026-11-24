@@ -13,7 +13,7 @@
                                 <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                                     <div class="d-flex align-items-center justify-content-between mb-3">
                                        <!--  <a href="index.html" class="">-->
-                                            <h3 class="text-primary"><i class="fa fa-user-edit me-1 "></i>PROFILE</h3>
+                                            <h3 class="text-primary"><i class="fa fa-user-edit me-1 "></i>{{ __("PROFILE") }}</h3>
                                         <!-- </a> -->
                                     </div>
             
@@ -22,7 +22,7 @@
                                             <div class="">
                                                 <div class="testimonial-item text-center">
                                                     <img class="img-fluid rounded-circle mx-auto mb-4 w-25" src="img/{{ $data->imgProfile }}" >
-                                                    <h5 class="mb-1">Admin Name</h5>
+                                                    <h5 class="mb-1">{{ __("Admin Name") }}</h5>
                                                 </div> 
                                             </div>
                                         </div>
@@ -31,26 +31,26 @@
                                         @csrf
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" name="name" value="{{ $data->name }}" placeholder="name@example.com">
-                                            <label for="floatingInput">NAMA ANDA</label>
+                                            <label for="floatingInput">{{ __("NAMA ANDA") }}</label>
                                         </div>
                                         <div class="form-floating mb-4">
                                             <input type="email" class="form-control" id="floatingPassword" name="email" value="{{ $data->email }}" placeholder="Password">
-                                            <label for="floatingPassword">Email</label>
+                                            <label for="floatingPassword">{{ __("Email") }}</label>
                                         </div>
                                         <div class="form-floating mb-4">
                                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="oldPassword" value="">
-                                            <label for="floatingPassword">Old Password</label>
+                                            <label for="floatingPassword">{{ __("Old Password") }}</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" name="password">
-                                            <label for="floatingInput">New Password</label>
+                                            <label for="floatingInput">{{ __("New Password") }}</label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="imgProfile" class="form-label">Profile Image</label>
+                                            <label for="imgProfile" class="form-label">{{ __("Profile Image") }}</label>
                                             <input class="form-control" type="file" id="imgProfile" name="imgProfile">
                                         </div>
-                                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">SIMPAN</button>
-                                        <p class="text-center mb-0">batalkan ? <a href="">BACK</a></p>
+                                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">{{ __("SIMPAN") }}</button>
+                                        <p class="text-center mb-0">batalkan ? <a href="">{{ __("BACK") }}</a></p>
                                     </form>
 
                                 </div>

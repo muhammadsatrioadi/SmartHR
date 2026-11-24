@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
 
-        <h1>Daftar Presensi Hadir</h1>
+        <h1>{{ __("Daftar Presensi Hadir") }}</h1>
 
         <div class="card bg-secondary rounded mt-4">
             <div class="card-body">
@@ -13,12 +13,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Jam</th>
-                                <th scope="col">bulan dan tahun</th>
+                                <th scope="col">{{ __("No") }}</th>
+                                <th scope="col">{{ __("Nama") }}</th>
+                                <th scope="col">{{ __("Status") }}</th>
+                                <th scope="col">{{ __("Tanggal") }}</th>
+                                <th scope="col">{{ __("Jam") }}</th>
+                                <th scope="col">{{ __("bulan dan tahun") }}</th>
                             </tr>
                         </thead>
                         <tbody>

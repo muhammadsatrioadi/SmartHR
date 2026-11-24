@@ -10,7 +10,7 @@
         <div>
             <div class="portal-greeting">{{ $greeting }}</div>
             <div class="portal-name">{{ strtoupper($karyawan->nama_lengkap ?? $karyawan->name) }}{{ $karyawan->gelar ? ', ' . $karyawan->gelar : '' }}</div>
-            <div class="portal-unit">{{ $karyawan->workUnit->nama ?? $karyawan->department->nama ?? 'Unit Kerja' }}</div>
+            <div class="portal-unit">{{ $karyawan->workUnit->nama ?? $karyawan->department->nama ?? __('Unit Kerja') }}</div>
         </div>
         <div class="portal-avatar">{{ strtoupper(substr($karyawan->name, 0, 1)) }}</div>
     </div>
@@ -18,95 +18,95 @@
 
 <div class="portal-content">
     <div class="portal-card-dark">
-        <h6>ABSENSI HARI INI — {{ $today->translatedFormat('d M Y') }}</h6>
+        <h6>{{ __('ABSENSI HARI INI') }} — {{ $today->translatedFormat('d M Y') }}</h6>
         @if($masuk)
             <div class="portal-time-big">{{ \Carbon\Carbon::parse($masuk->time)->format('H:i') }}</div>
             <p class="mb-0 mt-2 small opacity-75">
                 Masuk tercatat
-                @if($pulang) · Pulang {{ \Carbon\Carbon::parse($pulang->time)->format('H:i') }} @endif
+                @if($pulang) · {{ __('Pulang') }} {{ \Carbon\Carbon::parse($pulang->time)->format('H:i') }} @endif
             </p>
         @else
             <div class="portal-time-big">--:--</div>
-            <p class="mb-0 mt-2 small opacity-75">Belum ada data absensi</p>
+            <p class="mb-0 mt-2 small opacity-75">{{ __("Belum ada data absensi") }}</p>
         @endif
         <a href="{{ route('portal.presensi') }}" class="portal-btn-checkin text-decoration-none">
             <i class="fas fa-fingerprint"></i>
-            {{ $masuk && !$pulang ? 'Clock Out' : 'Clock In' }}
+            {{ $masuk && !$pulang ? __('Clock Out') : __('Clock In') }}
         </a>
     </div>
 
-    <p class="portal-section-title">MENU CEPAT</p>
+    <p class="portal-section-title">{{ __("MENU CEPAT") }}</p>
     <div class="portal-quick-grid">
-        <a href="{{ route('portal.presensi.riwayat') }}" class="portal-quick-item"><i class="fas fa-calendar-alt text-primary"></i>Presensi</a>
+        <a href="{{ route('portal.presensi.riwayat') }}" class="portal-quick-item"><i class="fas fa-calendar-alt text-primary"></i>{{ __("Presensi") }}</a>
         @if($isApprover)
-            <a href="{{ route('portal.presensi.subordinate') }}" class="portal-quick-item"><i class="fas fa-users text-primary"></i>Presensi Tim</a>
-            <a href="{{ route('portal.cuti.approvals') }}" class="portal-quick-item"><i class="fas fa-check-double text-success"></i>Approval</a>
+            <a href="{{ route('portal.presensi.subordinate') }}" class="portal-quick-item"><i class="fas fa-users text-primary"></i>{{ __("Presensi Tim") }}</a>
+            <a href="{{ route('portal.cuti.approvals') }}" class="portal-quick-item"><i class="fas fa-check-double text-success"></i>{{ __("Approval") }}</a>
         @endif
-        <a href="{{ route('portal.cuti') }}" class="portal-quick-item"><i class="fas fa-calendar-check text-success"></i>Cuti</a>
-        <a href="{{ route('portal.gaji') }}" class="portal-quick-item"><i class="fas fa-wallet text-warning"></i>Slip Gaji</a>
-        <a href="{{ route('portal.cuti.ajukan') }}" class="portal-quick-item"><i class="fas fa-plus-circle text-info"></i>Ajukan Cuti</a>
-        <a href="{{ route('portal.reimburse.index') }}" class="portal-quick-item"><i class="fas fa-receipt" style="color:#8b5cf6"></i>Reimburse</a>
-        <a href="{{ route('portal.profil') }}" class="portal-quick-item"><i class="fas fa-id-card text-primary"></i>Profil</a>
-        <a href="{{ route('portal.profil.password') }}" class="portal-quick-item"><i class="fas fa-key text-danger"></i>Password</a>
-        <a href="{{ route('actionlogout') }}" class="portal-quick-item" id="btn-logout"><i class="fas fa-sign-out-alt text-secondary"></i>Logout</a>
+        <a href="{{ route('portal.cuti') }}" class="portal-quick-item"><i class="fas fa-calendar-check text-success"></i>{{ __("Cuti") }}</a>
+        <a href="{{ route('portal.gaji') }}" class="portal-quick-item"><i class="fas fa-wallet text-warning"></i>{{ __("Slip Gaji") }}</a>
+        <a href="{{ route('portal.cuti.ajukan') }}" class="portal-quick-item"><i class="fas fa-plus-circle text-info"></i>{{ __("Ajukan Cuti") }}</a>
+        <a href="{{ route('portal.reimburse.index') }}" class="portal-quick-item"><i class="fas fa-receipt" style="color:#8b5cf6"></i>{{ __("Reimburse") }}</a>
+        <a href="{{ route('portal.profil') }}" class="portal-quick-item"><i class="fas fa-id-card text-primary"></i>{{ __("Profil") }}</a>
+        <a href="{{ route('portal.profil.password') }}" class="portal-quick-item"><i class="fas fa-key text-danger"></i>{{ __("Password") }}</a>
+        <a href="{{ route('actionlogout') }}" class="portal-quick-item" id="btn-logout"><i class="fas fa-sign-out-alt text-secondary"></i>{{ __("Logout") }}</a>
     </div>
 
     @if($managerStats)
-        <p class="portal-section-title">STATISTIK TIM</p>
+        <p class="portal-section-title">{{ __("STATISTIK TIM") }}</p>
         <div class="portal-stat-grid mb-3">
             <div class="portal-stat-card" style="background: #e0f2fe; border: 1px solid #bae6fd;">
                 <i class="fas fa-users text-primary fa-lg"></i>
-                <div><div class="value">{{ $managerStats['total_tim'] }}</div><div class="label">Total Tim</div></div>
+                <div><div class="value">{{ $managerStats['total_tim'] }}</div><div class="label">{{ __("Total Tim") }}</div></div>
             </div>
             <div class="portal-stat-card" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
                 <i class="fas fa-user-check text-success fa-lg"></i>
-                <div><div class="value">{{ $managerStats['hadir_hari_ini'] }}</div><div class="label">Hadir Hari Ini</div></div>
+                <div><div class="value">{{ $managerStats['hadir_hari_ini'] }}</div><div class="label">{{ __("Hadir Hari Ini") }}</div></div>
             </div>
             <div class="portal-stat-card" style="background: #fffbeb; border: 1px solid #fef3c7;">
                 <i class="fas fa-plane-departure text-warning fa-lg"></i>
-                <div><div class="value">{{ $managerStats['cuti_pending'] }}</div><div class="label">Cuti Pending</div></div>
+                <div><div class="value">{{ $managerStats['cuti_pending'] }}</div><div class="label">{{ __("Cuti Pending") }}</div></div>
             </div>
             <div class="portal-stat-card" style="background: #f5f3ff; border: 1px solid #ddd6fe;">
                 <i class="fas fa-stopwatch text-indigo fa-lg" style="color:#8b5cf6"></i>
-                <div><div class="value">{{ $managerStats['lembur_pending'] }}</div><div class="label">Lembur Pending</div></div>
+                <div><div class="value">{{ $managerStats['lembur_pending'] }}</div><div class="label">{{ __("Lembur Pending") }}</div></div>
             </div>
         </div>
     @endif
 
     @if($pendingApprovals->isNotEmpty())
         <div class="d-flex justify-content-between align-items-center">
-            <p class="portal-section-title">{{ auth()->user()->role === 'admin_hr' ? 'PERSETUJUAN HR' : 'PERSETUJUAN ATASAN' }}</p>
-            <a href="{{ route('portal.cuti.approvals') }}" class="small text-decoration-none">Lihat Semua</a>
+            <p class="portal-section-title">{{ auth()->user()->role === 'admin_hr' ? __('PERSETUJUAN HR') : __('PERSETUJUAN ATASAN') }}</p>
+            <a href="{{ route('portal.cuti.approvals') }}" class="small text-decoration-none">{{ __("Lihat Semua") }}</a>
         </div>
         @foreach($pendingApprovals as $cuti)
             <div class="portal-approval-card">
                 <strong>{{ $cuti->karyawan->name ?? '-' }}</strong> — {{ $cuti->leaveType->nama ?? $cuti->jenis_cuti }}
                 <br><small>{{ $cuti->tanggal_mulai?->format('d/m/Y') }} s/d {{ $cuti->tanggal_berakhir?->format('d/m/Y') }}</small>
                 <div class="mt-2 d-flex gap-2">
-                    <form method="POST" action="{{ route($cuti->status === 'menunggu_hr' ? 'cuti.approveHr' : 'cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">Setuju</button></form>
-                    <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">Tolak</button>
+                    <form method="POST" action="{{ route($cuti->status === 'menunggu_hr' ? 'cuti.approveHr' : 'cuti.approveSupervisor', $cuti->id) }}">@csrf<button class="btn btn-sm btn-success">{{ __("Setuju") }}</button></form>
+                    <button class="btn btn-sm btn-outline-danger btn-reject-cuti" data-id="{{ $cuti->id }}">{{ __("Tolak") }}</button>
                 </div>
             </div>
         @endforeach
     @endif
 
-    <p class="portal-section-title">RINGKASAN BULAN INI</p>
+    <p class="portal-section-title">{{ __("RINGKASAN BULAN INI") }}</p>
     <div class="portal-stat-grid">
         <div class="portal-stat-card">
             <i class="fas fa-check-circle text-primary fa-lg"></i>
-            <div><div class="value">{{ $ringkasan['hadir'] }}</div><div class="label">Hari Hadir</div></div>
+            <div><div class="value">{{ $ringkasan['hadir'] }}</div><div class="label">{{ __("Hari Hadir") }}</div></div>
         </div>
         <div class="portal-stat-card">
             <i class="fas fa-clock text-warning fa-lg"></i>
-            <div><div class="value">{{ $ringkasan['terlambat'] }}</div><div class="label">Terlambat</div></div>
+            <div><div class="value">{{ $ringkasan['terlambat'] }}</div><div class="label">{{ __("Terlambat") }}</div></div>
         </div>
         <div class="portal-stat-card">
             <i class="fas fa-paper-plane text-success fa-lg"></i>
-            <div><div class="value">{{ $ringkasan['cuti_pending'] }}</div><div class="label">Cuti Pending</div></div>
+            <div><div class="value">{{ $ringkasan['cuti_pending'] }}</div><div class="label">{{ __("Cuti Pending") }}</div></div>
         </div>
         <div class="portal-stat-card">
             <i class="fas fa-book fa-lg" style="color:#8b5cf6"></i>
-            <div><div class="value">{{ $ringkasan['reimburse'] }}</div><div class="label">Reimburse</div></div>
+            <div><div class="value">{{ $ringkasan['reimburse'] }}</div><div class="label">{{ __("Reimburse") }}</div></div>
         </div>
     </div>
 
@@ -118,11 +118,11 @@
                 <div class="balance">{{ number_format($saldo->sisa, 1) }} dari {{ number_format($saldo->kuota, 0) }} hari</div>
             </div>
         @empty
-            <div class="portal-saldo-card"><div class="type">Belum ada kuota</div><div class="balance">Hubungi HR</div></div>
+            <div class="portal-saldo-card"><div class="type">{{ __("Belum ada kuota") }}</div><div class="balance">{{ __("Hubungi HR") }}</div></div>
         @endforelse
     </div>
 
-    <p class="portal-section-title mt-3">DOKUMEN WAJIB</p>
+    <p class="portal-section-title mt-3">{{ __("Dokumen Wajib") }}</p>
     <a href="{{ route('portal.consent') }}" class="btn btn-outline-primary btn-sm w-100 mb-3">
         <i class="fas fa-file-signature"></i> Surat Perjanjian & Task List
     </a>

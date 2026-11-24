@@ -7,21 +7,21 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4>Tambah Saldo Cuti</h4>
+                <h4>{{ __("Tambah Saldo Cuti") }}</h4>
             </div>
             <div class="card-body">
                 <div class="alert alert-info">
-                    <strong>Pegawai:</strong> {{ $karyawan->name }} ({{ $karyawan->nik }})<br>
-                    <strong>Tahun:</strong> {{ $tahun }}
+                    <strong>{{ __("Pegawai:") }}</strong> {{ $karyawan->name }} ({{ $karyawan->nik }})<br>
+                    <strong>{{ __("Tahun:") }}</strong> {{ $tahun }}
                 </div>
 
                 <form action="{{ route('leaveBalance.store', ['karyawan' => $karyawan->id, 'tahun' => $tahun]) }}" method="POST">
                     @csrf
 
                     <div class="form-group">
-                        <label>Jenis Cuti</label>
+                        <label>{{ __("Jenis Cuti") }}</label>
                         <select name="leave_type_id" class="form-control @error('leave_type_id') is-invalid @enderror" required>
-                            <option value="">-- Pilih Jenis Cuti --</option>
+                            <option value="">{{ __("-- Pilih Jenis Cuti --") }}</option>
                             @foreach($leaveTypes as $type)
                                 <option value="{{ $type->id }}" data-kuota="{{ $type->kuota_hari }}"
                                     {{ old('leave_type_id') == $type->id ? 'selected' : '' }}>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Kuota Hari</label>
+                        <label>{{ __("Kuota Hari") }}</label>
                         <input type="number" step="1" min="1" name="kuota" id="kuota" class="form-control @error('kuota') is-invalid @enderror"
                             value="{{ old('kuota') }}" required>
                         <small class="text-muted">Wajib diisi, minimal 1 hari (tanpa desimal).</small>
@@ -45,12 +45,12 @@
                     </div>
 
                     <div class="alert alert-info small">
-                        <i class="fas fa-info-circle"></i> Jumlah <strong>terpakai</strong> dihitung otomatis dari cuti yang sudah disetujui, sehingga tidak perlu diisi manual.
+                        <i class="fas fa-info-circle"></i> {{ __("Jumlah") }} <strong>{{ __("terpakai") }}</strong> {{ __("dihitung otomatis dari cuti yang sudah disetujui, sehingga tidak perlu diisi manual.") }}
                     </div>
 
                     <div class="form-group mt-4">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ route('leaveBalance.show', ['karyawan' => $karyawan->id, 'tahun' => $tahun]) }}" class="btn btn-secondary">Batal</a>
+                        <button type="submit" class="btn btn-primary">{{ __("Simpan") }}</button>
+                        <a href="{{ route('leaveBalance.show', ['karyawan' => $karyawan->id, 'tahun' => $tahun]) }}" class="btn btn-secondary">{{ __("Batal") }}</a>
                     </div>
                 </form>
             </div>

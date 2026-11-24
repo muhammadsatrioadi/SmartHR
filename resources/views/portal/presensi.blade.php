@@ -7,13 +7,13 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.home') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Presensi</strong>
+    <strong>{{ __("Presensi") }}</strong>
 </div>
 
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @unless($consentsOk)
         <div class="alert alert-warning small">
-            Setujui <a href="{{ route('portal.consent') }}">Surat Perjanjian</a> dan Task List sebelum presensi.
+            {{ __("Setujui") }} <a href="{{ route('portal.consent') }}">{{ __("Surat Perjanjian") }}</a> {{ __("dan Task List sebelum presensi.") }}
         </div>
     @endunless
 
@@ -23,7 +23,7 @@
         <div class="small opacity-75">{{ now('Asia/Jakarta')->translatedFormat('l, d F Y') }}</div>
 
         <div class="portal-shift-box">
-            <strong>SHIFT HARI INI</strong><br>
+            <strong>{{ __("SHIFT HARI INI") }}</strong><br>
             @if($shift)
                 {{ strtoupper($shift->nama) }} ({{ \Carbon\Carbon::parse($shift->jam_masuk)->format('H:i') }} - {{ \Carbon\Carbon::parse($shift->jam_pulang)->format('H:i') }})
             @else
@@ -33,7 +33,7 @@
 
         <div class="form-check mb-2">
             <input class="form-check-input" type="checkbox" id="lokasi_dinas" name="lokasi_dinas">
-            <label class="form-check-label small" for="lokasi_dinas">Lokasi Tugas / Dinas Luar</label>
+            <label class="form-check-label small" for="lokasi_dinas">{{ __("Lokasi Tugas / Dinas Luar") }}</label>
         </div>
         <input type="text" id="catatan" class="form-control form-control-sm mb-2" placeholder="Catatan lain (opsional)">
 
@@ -44,27 +44,27 @@
             </button>
         @else
             <button type="button" class="portal-btn-checkin" disabled>
-                <i class="fas fa-check"></i> Presensi hari ini selesai
+                <i class="fas fa-check"></i> {{ __("Presensi hari ini selesai") }}
             </button>
         @endif
     </div>
 
     <div class="portal-verify-card">
-        <h6 class="mb-3"><i class="fas fa-shield-alt text-primary"></i> Verifikasi</h6>
+        <h6 class="mb-3"><i class="fas fa-shield-alt text-primary"></i> {{ __("Verifikasi") }}</h6>
         <div class="portal-verify-item ok" id="gps-status">
             <i class="fas fa-map-marker-alt"></i>
-            <span>Menunggu GPS...</span>
+            <span>{{ __("Menunggu GPS...") }}</span>
         </div>
         <button type="button" id="gps-refresh-btn" class="btn btn-sm btn-outline-primary mb-2">
-            <i class="fas fa-sync-alt"></i> Refresh Lokasi GPS
+            <i class="fas fa-sync-alt"></i> {{ __("Refresh Lokasi GPS") }}
         </button>
         <div class="portal-verify-item ok" id="device-verify-status">
             <i class="fas fa-check-circle"></i>
-            <span>Perangkat terverifikasi</span>
+            <span>{{ __("Perangkat terverifikasi") }}</span>
         </div>
         <div class="portal-verify-item ok" id="device-status">
             <i class="fas fa-mobile-alt"></i>
-            <span>Memuat info perangkat...</span>
+            <span>{{ __("Memuat info perangkat...") }}</span>
         </div>
         @if($location)
             <div class="portal-verify-item small text-muted mt-2">

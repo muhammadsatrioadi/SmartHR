@@ -13,7 +13,7 @@
                         @csrf
                         <input type="hidden" name="tahun" value="{{ $tahun }}">
                         <button type="submit" class="btn btn-info">
-                            <i class="fas fa-sync"></i> Sinkronisasi Saldo
+                            <i class="fas fa-sync"></i> {{ __("Sinkronisasi Saldo") }}
                         </button>
                     </form>
                 </div>
@@ -34,16 +34,16 @@
                     </div>
                 </div>
 
-                <p class="text-muted mb-3"><i class="fas fa-info-circle"></i> Ketuk baris pegawai untuk melihat dan mengelola semua saldo cuti.</p>
+                <p class="text-muted mb-3"><i class="fas fa-info-circle"></i> {{ __("Ketuk baris pegawai untuk melihat dan mengelola semua saldo cuti.") }}</p>
 
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Pegawai</th>
-                                <th>NIK</th>
-                                <th>Jumlah Jenis Cuti</th>
-                                <th>Ringkasan Sisa</th>
+                                <th>{{ __("Pegawai") }}</th>
+                                <th>{{ __("NIK") }}</th>
+                                <th>{{ __("Jumlah Jenis Cuti") }}</th>
+                                <th>{{ __("Ringkasan Sisa") }}</th>
                                 <th style="width: 60px;"></th>
                             </tr>
                         </thead>
@@ -68,7 +68,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">Data tidak ditemukan. Silakan lakukan sinkronisasi saldo jika data kosong.</td>
+                                    <td colspan="5" class="text-center">{{ __("Data tidak ditemukan. Silakan lakukan sinkronisasi saldo jika data kosong.") }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

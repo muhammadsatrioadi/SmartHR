@@ -4,13 +4,13 @@
 @section('content')
 <div class="portal-page-header">
     <a href="{{ route('portal.cuti') }}"><i class="fas fa-arrow-left"></i></a>
-    <strong>Ajukan Cuti</strong>
+    <strong>{{ __("Ajukan Cuti") }}</strong>
 </div>
 <div class="portal-content" style="margin-top:0;padding-top:1rem;">
     @if(session('error'))<div class="alert alert-danger small">{{ session('error') }}</div>@endif
     
     <div class="portal-card-dark mb-3">
-        <h6 class="mb-2 small opacity-75">SALDO CUTI TERSEDIA</h6>
+        <h6 class="mb-2 small opacity-75">{{ __("SALDO CUTI TERSEDIA") }}</h6>
         <div class="row g-2">
             @foreach($saldoCuti as $saldo)
                 <div class="col-6">
@@ -26,9 +26,9 @@
     <form action="{{ route('portal.cuti.simpan') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="form-label small">Jenis Cuti</label>
+            <label class="form-label small">{{ __("Jenis Cuti") }}</label>
             <select name="leave_type_id" class="form-select form-select-sm" required>
-                <option value="">Pilih Jenis Cuti</option>
+                <option value="">{{ __("Pilih Jenis Cuti") }}</option>
                 @foreach($leaveTypes as $type)
                     <option value="{{ $type->id }}" {{ old('leave_type_id') == $type->id ? 'selected' : '' }}>{{ $type->nama }}</option>
                 @endforeach
@@ -36,25 +36,25 @@
         </div>
         <div class="row">
             <div class="col-6 mb-3">
-                <label class="form-label small">Tanggal Mulai</label>
+                <label class="form-label small">{{ __("Tanggal Mulai") }}</label>
                 <input type="date" name="tanggal_mulai" class="form-control form-control-sm" value="{{ old('tanggal_mulai') }}" required>
             </div>
             <div class="col-6 mb-3">
-                <label class="form-label small">Tanggal Selesai</label>
+                <label class="form-label small">{{ __("Tanggal Selesai") }}</label>
                 <input type="date" name="tanggal_berakhir" class="form-control form-control-sm" value="{{ old('tanggal_berakhir') }}" required>
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label small">Keterangan / Alasan</label>
+            <label class="form-label small">{{ __("Keterangan / Alasan") }}</label>
             <textarea name="keterangan" class="form-control form-control-sm" rows="3" required>{{ old('keterangan') }}</textarea>
         </div>
         <div class="mb-3">
-            <label class="form-label small">Dokumen Pendukung (Opsional)</label>
+            <label class="form-label small">{{ __("Dokumen Pendukung (Opsional)") }}</label>
             <input type="file" name="lampiran" class="form-control form-control-sm" accept="image/*,application/pdf">
-            <div class="form-text small">Unggah surat dokter atau bukti pendukung lainnya.</div>
+            <div class="form-text small">{{ __("Unggah surat dokter atau bukti pendukung lainnya.") }}</div>
         </div>
         <button type="submit" class="portal-btn-checkin w-100">
-            <i class="fas fa-paper-plane"></i> KIRIM PENGAJUAN
+            <i class="fas fa-paper-plane"></i> {{ __("Kirim Pengajuan") }}
         </button>
     </form>
 </div>
