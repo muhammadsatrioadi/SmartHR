@@ -105,6 +105,7 @@
 </div>
 <div class="alert alert-info py-2 small">
     Uang lembur tidak diisi di sini. Nilainya diambil otomatis dari lembur yang sudah disetujui pada periode ini.
+    Reimbursement juga otomatis: reimburse nota bulan sebelumnya yang sudah disetujui masuk sebagai pendapatan periode ini.
 </div>
 
 <h6 class="mt-2">Potongan Lain (D)</h6>

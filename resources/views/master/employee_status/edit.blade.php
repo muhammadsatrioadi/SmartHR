@@ -32,6 +32,10 @@
                             <label class="form-check-label" for="is_payroll">
                                 Termasuk Payroll
                             </label>
+                            <div class="form-text fst-italic">
+                                Centang bila pegawai dengan status ini diikutkan pada penggajian/rekap gaji bulanan.
+                                Kosongkan untuk status yang tidak digaji (mis. magang/peserta didik).
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -40,6 +44,10 @@
                             <label class="form-check-label" for="is_active">
                                 Aktif
                             </label>
+                            <div class="form-text fst-italic">
+                                Centang bila status ini masih dipakai dan muncul pada pilihan data karyawan.
+                                Kosongkan untuk menonaktifkan tanpa menghapus datanya.
+                            </div>
                         </div>
                     </div>
                 </div>

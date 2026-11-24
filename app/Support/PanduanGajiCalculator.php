@@ -5,6 +5,8 @@ namespace App\Support;
 use App\Models\EmployeeMonthlyPayroll;
 use App\Models\Karyawan;
 use App\Models\Overtime;
+use App\Models\Reimbursement;
+use Illuminate\Support\Carbon;
 
 /**
  * Perhitungan slip gaji mengikuti "Panduan Membaca Komponen Gaji".
@@ -155,6 +157,7 @@ class PanduanGajiCalculator
         // Kelompok 3: kondisi bulan berjalan.
         $tunjanganKehadiran = self::hitungTunjanganKehadiran($rekap, $cfg);
         $uangLembur = self::hitungUangLembur($karyawan, $periode);
+        $reimbursementBulanLalu = self::hitungReimbursement($karyawan, $periode);
 
         $pendapatan = array_values(array_filter([
             self::baris('Gaji pokok', $gajiPokok, 'Sesuai data dasar aktif'),
@@ -178,6 +181,7 @@ class PanduanGajiCalculator
             self::baris('Rapel', (float) ($rekap->nominal_rapel ?? 0), 'Selisih gaji masa lalu'),
             self::baris('Insentif hari raya', (float) ($rekap->nominal_insentif_hari_raya ?? 0), 'Sesuai kebijakan perusahaan'),
             self::baris('Pendapatan lain', (float) ($rekap->nominal_pendapatan_lain ?? 0), 'Sesuai kebijakan atau kesepakatan'),
+            self::baris('Reimbursement bulan lalu', $reimbursementBulanLalu, 'Reimburse nota bulan sebelumnya yang sudah disetujui'),
         ], fn ($baris) => $baris !== null));
 
         $iuranPensiunPegawai = $berhakKeluarga
@@ -241,6 +245,7 @@ class PanduanGajiCalculator
             'biaya_jabatan' => self::bulatkanAtas($totalPendapatan * (float) $cfg['persen_biaya_jabatan']),
             'usulan_pph21' => $usulanPph21,
             'uang_lembur' => $uangLembur,
+            'reimbursement_bulan_lalu' => $reimbursementBulanLalu,
             'tunjangan_kehadiran' => $tunjanganKehadiran,
             'infaq' => $infaq,
             'rekap' => $rekap,
@@ -373,6 +378,20 @@ class PanduanGajiCalculator
             ->whereYear('tanggal', (int) $tahun)
             ->whereMonth('tanggal', (int) $bulan)
             ->sum('nominal_lembur');
+    }
+
+    /**
+     * Reimbursement nota bulan sebelumnya yang sudah disetujui dibayarkan pada gaji bulan ini.
+     */
+    public static function hitungReimbursement(Karyawan $karyawan, string $periode): float
+    {
+        $bulanLalu = Carbon::createFromFormat('Y-m', $periode)->startOfMonth()->subMonthNoOverflow();
+
+        return (float) Reimbursement::where('karyawan_id', $karyawan->id)
+            ->where('status', 'disetujui')
+            ->whereYear('tanggal', $bulanLalu->year)
+            ->whereMonth('tanggal', $bulanLalu->month)
+            ->sum('nominal');
     }
 
     public static function labelPeriode(string $periode): string
