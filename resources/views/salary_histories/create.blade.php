@@ -30,15 +30,19 @@
                             @error('karyawan_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">{{ __("Skala Gaji (opsional)") }}</label>
-                            <select name="salary_step_id" class="form-select">
-                                <option value="">-</option>
+                            <label class="form-label">{{ __("Skala Gaji") }}</label>
+                            <select name="salary_step_id_display" id="salary_step_id_display" class="form-select" disabled>
+                                <option value="">{{ __("- (otomatis sesuai masa kerja)") }}</option>
                                 @foreach ($steps as $s)
-                                    <option value="{{ $s->id }}" {{ old('salary_step_id') == $s->id ? 'selected' : '' }}>
+                                    <option value="{{ $s->id }}">
                                         {{ $s->kode }} - {{ $s->deskripsi }}
                                     </option>
                                 @endforeach
                             </select>
+                            <input type="hidden" name="salary_step_id" id="salary_step_id" value="{{ old('salary_step_id') }}">
+                            <div class="form-text text-muted small">
+                                Skala gaji ditentukan otomatis berdasarkan masa kerja karyawan dan tidak dapat diubah.
+                            </div>
                         </div>
                     </div>
 
@@ -129,4 +133,123 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+(function () {
+    // Data pegawai & skala gaji yang dikirim controller untuk auto-fill sisi klien.
+    var karyawanData = @json($karyawanData);
+    var stepData = @json($stepData);
+
+    var $karyawan = $('select[name="karyawan_id"]');
+    var $stepDisplay = $('#salary_step_id_display');
+    var $stepHidden = $('#salary_step_id');
+
+    // Field komponen tetap yang diisi otomatis (tetap bisa diedit oleh user).
+    var fieldMap = {
+        gaji_pokok: 'gaji_pokok',
+        tunjangan_jabatan: 'tunjangan_jabatan',
+        tunjangan_fungsional: 'tunjangan_fungsional',
+        tunjangan_profesi: 'tunjangan_profesi',
+        tunjangan_makan: 'tunjangan_makan',
+        tunjangan_pulsa: 'tunjangan_pulsa',
+        tkp: 'tkp'
+    };
+
+    // Hitung masa kerja (tahun) dari tanggal masuk, meniru Carbon diffInYears.
+    function hitungMasaKerja(tanggalMasuk) {
+        if (!tanggalMasuk) return 0;
+        var masuk = new Date(tanggalMasuk);
+        var sekarang = new Date();
+        if (isNaN(masuk.getTime())) return 0;
+        var tahun = sekarang.getFullYear() - masuk.getFullYear();
+        var bulan = sekarang.getMonth() - masuk.getMonth();
+        if (bulan < 0 || (bulan === 0 && sekarang.getDate() < masuk.getDate())) {
+            tahun--;
+        }
+        return tahun < 0 ? 0 : tahun;
+    }
+
+    // Tentukan skala gaji yang berlaku: masa_kerja_min terbesar yang masih
+    // <= masa kerja, dan masih < masa_kerja_maks (bila diisi).
+    function tentukanSkalaGaji(tanggalMasuk) {
+        if (!tanggalMasuk) return null;
+        var masaKerja = hitungMasaKerja(tanggalMasuk);
+        var sorted = stepData.slice().sort(function (a, b) {
+            return b.masa_kerja_min - a.masa_kerja_min;
+        });
+        for (var i = 0; i < sorted.length; i++) {
+            var step = sorted[i];
+            if (step.masa_kerja_min <= masaKerja &&
+                (step.masa_kerja_maks === null || masaKerja < step.masa_kerja_maks)) {
+                return step.id;
+            }
+        }
+        return null;
+    }
+
+    // Isi seluruh field dari data jabatan + status keluarga karyawan.
+    function isiOtomatis(karyawanId) {
+        var data = null;
+        for (var i = 0; i < karyawanData.length; i++) {
+            if (karyawanData[i].id == karyawanId) {
+                data = karyawanData[i];
+                break;
+            }
+        }
+        if (!data) return;
+
+        $.each(fieldMap, function (key, name) {
+            var $field = $('input[name="' + name + '"]');
+            if ($field.length) {
+                $field.val(data[key] != null ? data[key] : 0);
+            }
+        });
+
+        // Tunjangan lain tidak berasal dari jabatan, default 0 (bisa diedit).
+        $('input[name="tunjangan_lain"]').val(0);
+
+        // Status keluarga
+        $('input[name="pasangan_ditanggung"]').prop('checked', !!data.pasangan_ditanggung);
+        $('input[name="jumlah_anak_ditanggung"]').val(data.jumlah_anak_ditanggung || 0);
+
+        // Pola kerja per minggu
+        $('select[name="hari_kerja_per_minggu"]').val(data.hari_kerja_per_minggu || 5);
+
+        // Skala gaji otomatis (tidak bisa diubah)
+        var skalaId = tentukanSkalaGaji(data.tanggal_masuk);
+        $stepDisplay.val(skalaId != null ? skalaId : '');
+        $stepHidden.val(skalaId != null ? skalaId : '');
+    }
+
+    // Saat pegawai diganti, isi otomatis semua field.
+    $karyawan.on('change', function () {
+        if (this.value) {
+            isiOtomatis(this.value);
+        } else {
+            $stepDisplay.val('');
+            $stepHidden.val('');
+        }
+    });
+
+    // Saat halaman dimuat ulang (mis. error validasi) dan karyawan sudah terpilih,
+    // set ulang tampilan skala gaji saja agar sesuai masa kerja (field lain
+    // tetap memakai nilai lama dari input user).
+    @if (old('karyawan_id'))
+        (function () {
+            var id = {{ old('karyawan_id') }};
+            var data = null;
+            for (var i = 0; i < karyawanData.length; i++) {
+                if (karyawanData[i].id == id) { data = karyawanData[i]; break; }
+            }
+            if (data) {
+                var skalaId = tentukanSkalaGaji(data.tanggal_masuk);
+                $stepDisplay.val(skalaId != null ? skalaId : '');
+                $stepHidden.val(skalaId != null ? skalaId : '');
+            }
+        })();
+    @endif
+})();
+</script>
 @endsection

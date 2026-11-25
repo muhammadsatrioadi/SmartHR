@@ -51,17 +51,16 @@ active
                 @method('PUT')
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label fw-medium">{{ __("Nama Karyawan") }}</label>
-                <select class="form-select" aria-label="Default select example" name="karyawan_id">
-                  <option selected value="{{ $data->karyawan_id }}">{{ optional($data->karyawan)->name }}</option>
+                <select class="form-select" aria-label="Default select example" name="karyawan_id" id="karyawan_id">
                   @foreach ($karyawan as $items)
-                  <option value="{{ $items->id }}">{{ $items->name }}</option>
+                  <option value="{{ $items->id }}" {{ $data->karyawan_id == $items->id ? 'selected' : '' }}>{{ $items->name }}</option>
                   @endforeach
 
                 </select>
               </div>
               <div class="mb-3">
                 <label class="form-label fw-medium">{{ __("Jenis Cuti") }}</label>
-                <select class="form-select" name="leave_type_id">
+                <select class="form-select" name="leave_type_id" id="leave_type_id">
                   <option value="">{{ __("Pilih Jenis Cuti") }}</option>
                   @foreach ($leaveTypes as $type)
                     <option value="{{ $type->id }}" {{ $data->leave_type_id == $type->id ? 'selected' : '' }}>
@@ -69,6 +68,7 @@ active
                     </option>
                   @endforeach
                 </select>
+                <div class="form-text text-info small" id="info-saldo-cuti">{{ __("Pilih karyawan dan jenis cuti untuk melihat sisa saldo.") }}</div>
               </div>
               <div class="mb-3">
                 <label for="date" class="form-label">{{ __("Tanggal Mulai") }}</label>
@@ -98,6 +98,31 @@ active
 <script>
 $(document).ready(function() {
     $('.form-select').select2();
+
+    var saldoCuti = @json($saldoCuti);
+
+    function tampilkanSaldo() {
+        var kid = $('#karyawan_id').val();
+        var lid = $('#leave_type_id').val();
+        var $info = $('#info-saldo-cuti');
+
+        if (!kid || !lid) {
+            $info.text('Pilih karyawan dan jenis cuti untuk melihat sisa saldo.');
+            $info.removeClass('text-danger').addClass('text-info');
+            return;
+        }
+
+        var sisa = saldoCuti[kid] && saldoCuti[kid][lid] != null ? saldoCuti[kid][lid] : 0;
+        $info.text('Sisa saldo cuti: ' + sisa + ' hari.');
+        if (sisa <= 0) {
+            $info.removeClass('text-info').addClass('text-danger');
+        } else {
+            $info.removeClass('text-danger').addClass('text-info');
+        }
+    }
+
+    $('#karyawan_id, #leave_type_id').on('change', tampilkanSaldo);
+    tampilkanSaldo();
 });
 </script>
 

@@ -265,12 +265,21 @@
                                 </div>
                 <div class="mb-3">
                                     <label class="form-label">{{ __("Jabatan") }} <span class="text-danger">*</span></label>
-                                    <select name="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
+                                    <select name="jabatan_id" id="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
                                         @foreach($jabatans as $j)
-                                            <option value="{{ $j->id }}" {{ (string)old('jabatan_id', $karyawan->jabatan_id) === (string)$j->id ? 'selected' : '' }}>{{ $j->nama_jabatan }}</option>
+                                            <option value="{{ $j->id }}"
+                                                data-gaji-pokok="{{ (int) ($j->gaji_pokok ?? 0) }}"
+                                                data-total-tunjangan="{{ (int) (($j->tunjangan_jabatan ?? 0) + ($j->tunjangan_fungsional ?? 0) + ($j->tunjangan_profesi ?? 0) + ($j->tunjangan_makan ?? 0) + ($j->tunjangan_pulsa ?? 0) + ($j->tkp ?? 0)) }}"
+                                                data-hari-kerja="{{ (int) ($j->hari_kerja_per_minggu ?: 5) }}"
+                                                {{ (string)old('jabatan_id', $karyawan->jabatan_id) === (string)$j->id ? 'selected' : '' }}>{{ $j->nama_jabatan }}</option>
                                         @endforeach
                                     </select>
                                     @error('jabatan_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <div class="form-text">
+                                        Data gaji dasar (gaji pokok &amp; komponen tunjangan) dibuat otomatis
+                                        dari Setup Gaji jabatan ini.
+                                    </div>
+                                    <div class="form-text text-primary small" id="preview-gaji-jabatan"></div>
                 </div>
                 <div class="mb-3">
                                     <label class="form-label">{{ __("Golongan") }}</label>
@@ -639,6 +648,34 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectDepartemen) {
         selectDepartemen.addEventListener('change', syncAtasanOtomatis);
         syncAtasanOtomatis();
+    }
+
+    // Preview gaji dari Setup Gaji jabatan terpilih
+    var selectJabatan = document.getElementById('jabatan_id');
+    var previewGaji = document.getElementById('preview-gaji-jabatan');
+
+    function fmtRupiah(n) {
+        return 'Rp' + parseInt(n || 0).toLocaleString('id-ID');
+    }
+
+    function syncPreviewGaji() {
+        if (!selectJabatan || !previewGaji) return;
+        var opt = selectJabatan.options[selectJabatan.selectedIndex];
+        if (!opt || !opt.value) {
+            previewGaji.textContent = '';
+            return;
+        }
+        var pokok = opt.getAttribute('data-gaji-pokok') || 0;
+        var tunjangan = opt.getAttribute('data-total-tunjangan') || 0;
+        var hariKerja = opt.getAttribute('data-hari-kerja') || 5;
+        previewGaji.textContent = 'Gaji pokok ' + fmtRupiah(pokok) +
+            ' + tunjangan ' + fmtRupiah(tunjangan) +
+            ' (' + hariKerja + ' hari/minggu). Data ini akan jadi data gaji dasar otomatis.';
+    }
+
+    if (selectJabatan) {
+        selectJabatan.addEventListener('change', syncPreviewGaji);
+        syncPreviewGaji();
     }
 
     // Dinamis riwayat kepegawaian

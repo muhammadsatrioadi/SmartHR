@@ -55,7 +55,12 @@ class CutiController extends Controller
     {
         $karyawan = Karyawan::orderBy('name')->get();
         $leaveTypes = LeaveType::orderBy('kode')->get();
-        return view('cuti/create',compact('karyawan','leaveTypes'));
+
+        // Peta saldo cuti per karyawan & jenis cuti (tahun berjalan) untuk
+        // ditampilkan otomatis saat form dipilih.
+        $saldoCuti = $this->petaSaldoCuti($karyawan->pluck('id')->all());
+
+        return view('cuti/create',compact('karyawan','leaveTypes','saldoCuti'));
     }
 
     /**
@@ -164,7 +169,40 @@ class CutiController extends Controller
         $data = Cuti::with(['karyawan', 'leaveType'])->findOrFail($id);
         $karyawan = Karyawan::orderBy('name')->get();
         $leaveTypes = LeaveType::orderBy('kode')->get();
-        return view('cuti/edit',compact('data','karyawan','leaveTypes'));
+
+        $saldoCuti = $this->petaSaldoCuti($karyawan->pluck('id')->all());
+
+        return view('cuti/edit',compact('data','karyawan','leaveTypes','saldoCuti'));
+    }
+
+    /**
+     * Bangun peta saldo cuti: [karyawan_id][leave_type_id] => sisa hari.
+     * Bila saldo belum ada, diisi dari kuota default jenis cuti.
+     */
+    protected function petaSaldoCuti(array $karyawanIds): array
+    {
+        $tahun = (int) date('Y');
+        $peta = [];
+
+        $balances = \App\Models\EmployeeLeaveBalance::whereIn('karyawan_id', $karyawanIds)
+            ->where('tahun', $tahun)
+            ->get();
+
+        foreach ($balances as $b) {
+            $peta[$b->karyawan_id][$b->leave_type_id] = (float) $b->sisa;
+        }
+
+        // Fallback: jenis cuti yang belum punya saldo tampilkan kuota default.
+        $types = LeaveType::all();
+        foreach ($karyawanIds as $kid) {
+            foreach ($types as $t) {
+                if (!isset($peta[$kid][$t->id])) {
+                    $peta[$kid][$t->id] = (float) $t->kuota_hari;
+                }
+            }
+        }
+
+        return $peta;
     }
 
     /**

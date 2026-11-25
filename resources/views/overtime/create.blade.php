@@ -43,11 +43,12 @@
 
                 <div class="mb-3">
                     <label class="form-label">{{ __("Jenis Hari") }}</label>
-                    <select name="jenis_hari" class="form-select @error('jenis_hari') is-invalid @enderror" required>
+                    <select name="jenis_hari" id="jenis_hari" class="form-select @error('jenis_hari') is-invalid @enderror" required>
                         <option value="hari_kerja" {{ old('jenis_hari')=='hari_kerja' ? 'selected' : '' }}>{{ __("Hari Kerja") }}</option>
                         <option value="hari_libur" {{ old('jenis_hari')=='hari_libur' ? 'selected' : '' }}>{{ __("Hari Libur") }}</option>
                         <option value="hari_raya" {{ old('jenis_hari')=='hari_raya' ? 'selected' : '' }}>{{ __("Hari Raya") }}</option>
                     </select>
+                    <div class="form-text text-muted small" id="info-jenis-hari">{{ __("Jenis hari akan terdeteksi otomatis dari tanggal (akhir pekan = hari libur, hari libur nasional = hari raya).") }}</div>
                     @error('jenis_hari') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
@@ -95,4 +96,47 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+(function () {
+    var hariLibur = @json($hariLibur);
+    var $tanggal = $('input[name="tanggal"]');
+    var $jenisHari = $('#jenis_hari');
+    var $info = $('#info-jenis-hari');
+
+    function deteksiJenisHari() {
+        var val = $tanggal.val();
+        if (!val) return;
+
+        var tgl = new Date(val + 'T00:00:00');
+        if (isNaN(tgl.getTime())) return;
+
+        var hari = tgl.getDay(); // 0 = Minggu, 6 = Sabtu
+        var isWeekend = (hari === 0 || hari === 6);
+        var isHariRaya = hariLibur.indexOf(val) !== -1;
+
+        var jenis, label;
+        if (isHariRaya) {
+            jenis = 'hari_raya';
+            label = 'Hari libur nasional (hari raya)';
+        } else if (isWeekend) {
+            jenis = 'hari_libur';
+            label = 'Akhir pekan (hari libur)';
+        } else {
+            jenis = 'hari_kerja';
+            label = 'Hari kerja';
+        }
+
+        $jenisHari.val(jenis);
+        $info.text('Terdeteksi: ' + label + '.');
+    }
+
+    $tanggal.on('change', deteksiJenisHari);
+    @if (old('tanggal'))
+        $(deteksiJenisHari);
+    @endif
+})();
+</script>
 @endsection

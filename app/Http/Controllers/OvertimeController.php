@@ -41,7 +41,11 @@ class OvertimeController extends Controller
         $karyawans = Karyawan::with(['jabatan', 'salaryHistories' => function ($query) {
             $query->orderByDesc('tanggal_berlaku')->orderByDesc('id');
         }])->orderBy('name')->get();
-        return view('overtime.create', compact('karyawans'));
+
+        // Daftar tanggal hari libur nasional untuk auto-deteksi jenis hari.
+        $hariLibur = \App\Models\Holiday::pluck('tanggal')->map(fn ($t) => $t->format('Y-m-d'))->values();
+
+        return view('overtime.create', compact('karyawans', 'hariLibur'));
     }
 
     public function store(Request $request)
